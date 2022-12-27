@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,38 +27,44 @@ module Amazonka.IoTSiteWise
     -- * Errors
     -- $errors
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
     -- ** ConflictingOperationException
     _ConflictingOperationException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalFailureException
     _InternalFailureException,
 
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
-
-    -- ** UnauthorizedException
-    _UnauthorizedException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnauthorizedException
+    _UnauthorizedException,
+
     -- * Waiters
     -- $waiters
+
+    -- ** AssetActive
+    newAssetActive,
+
+    -- ** AssetModelActive
+    newAssetModelActive,
 
     -- ** AssetModelNotExists
     newAssetModelNotExists,
@@ -66,26 +72,146 @@ module Amazonka.IoTSiteWise
     -- ** AssetNotExists
     newAssetNotExists,
 
-    -- ** AssetModelActive
-    newAssetModelActive,
+    -- ** PortalActive
+    newPortalActive,
 
     -- ** PortalNotExists
     newPortalNotExists,
 
-    -- ** AssetActive
-    newAssetActive,
-
-    -- ** PortalActive
-    newPortalActive,
-
     -- * Operations
     -- $operations
 
-    -- ** ListProjects (Paginated)
-    ListProjects (ListProjects'),
-    newListProjects,
-    ListProjectsResponse (ListProjectsResponse'),
-    newListProjectsResponse,
+    -- ** AssociateAssets
+    AssociateAssets (AssociateAssets'),
+    newAssociateAssets,
+    AssociateAssetsResponse (AssociateAssetsResponse'),
+    newAssociateAssetsResponse,
+
+    -- ** AssociateTimeSeriesToAssetProperty
+    AssociateTimeSeriesToAssetProperty (AssociateTimeSeriesToAssetProperty'),
+    newAssociateTimeSeriesToAssetProperty,
+    AssociateTimeSeriesToAssetPropertyResponse (AssociateTimeSeriesToAssetPropertyResponse'),
+    newAssociateTimeSeriesToAssetPropertyResponse,
+
+    -- ** BatchAssociateProjectAssets
+    BatchAssociateProjectAssets (BatchAssociateProjectAssets'),
+    newBatchAssociateProjectAssets,
+    BatchAssociateProjectAssetsResponse (BatchAssociateProjectAssetsResponse'),
+    newBatchAssociateProjectAssetsResponse,
+
+    -- ** BatchDisassociateProjectAssets
+    BatchDisassociateProjectAssets (BatchDisassociateProjectAssets'),
+    newBatchDisassociateProjectAssets,
+    BatchDisassociateProjectAssetsResponse (BatchDisassociateProjectAssetsResponse'),
+    newBatchDisassociateProjectAssetsResponse,
+
+    -- ** BatchGetAssetPropertyAggregates
+    BatchGetAssetPropertyAggregates (BatchGetAssetPropertyAggregates'),
+    newBatchGetAssetPropertyAggregates,
+    BatchGetAssetPropertyAggregatesResponse (BatchGetAssetPropertyAggregatesResponse'),
+    newBatchGetAssetPropertyAggregatesResponse,
+
+    -- ** BatchGetAssetPropertyValue
+    BatchGetAssetPropertyValue (BatchGetAssetPropertyValue'),
+    newBatchGetAssetPropertyValue,
+    BatchGetAssetPropertyValueResponse (BatchGetAssetPropertyValueResponse'),
+    newBatchGetAssetPropertyValueResponse,
+
+    -- ** BatchGetAssetPropertyValueHistory
+    BatchGetAssetPropertyValueHistory (BatchGetAssetPropertyValueHistory'),
+    newBatchGetAssetPropertyValueHistory,
+    BatchGetAssetPropertyValueHistoryResponse (BatchGetAssetPropertyValueHistoryResponse'),
+    newBatchGetAssetPropertyValueHistoryResponse,
+
+    -- ** BatchPutAssetPropertyValue
+    BatchPutAssetPropertyValue (BatchPutAssetPropertyValue'),
+    newBatchPutAssetPropertyValue,
+    BatchPutAssetPropertyValueResponse (BatchPutAssetPropertyValueResponse'),
+    newBatchPutAssetPropertyValueResponse,
+
+    -- ** CreateAccessPolicy
+    CreateAccessPolicy (CreateAccessPolicy'),
+    newCreateAccessPolicy,
+    CreateAccessPolicyResponse (CreateAccessPolicyResponse'),
+    newCreateAccessPolicyResponse,
+
+    -- ** CreateAsset
+    CreateAsset (CreateAsset'),
+    newCreateAsset,
+    CreateAssetResponse (CreateAssetResponse'),
+    newCreateAssetResponse,
+
+    -- ** CreateAssetModel
+    CreateAssetModel (CreateAssetModel'),
+    newCreateAssetModel,
+    CreateAssetModelResponse (CreateAssetModelResponse'),
+    newCreateAssetModelResponse,
+
+    -- ** CreateBulkImportJob
+    CreateBulkImportJob (CreateBulkImportJob'),
+    newCreateBulkImportJob,
+    CreateBulkImportJobResponse (CreateBulkImportJobResponse'),
+    newCreateBulkImportJobResponse,
+
+    -- ** CreateDashboard
+    CreateDashboard (CreateDashboard'),
+    newCreateDashboard,
+    CreateDashboardResponse (CreateDashboardResponse'),
+    newCreateDashboardResponse,
+
+    -- ** CreateGateway
+    CreateGateway (CreateGateway'),
+    newCreateGateway,
+    CreateGatewayResponse (CreateGatewayResponse'),
+    newCreateGatewayResponse,
+
+    -- ** CreatePortal
+    CreatePortal (CreatePortal'),
+    newCreatePortal,
+    CreatePortalResponse (CreatePortalResponse'),
+    newCreatePortalResponse,
+
+    -- ** CreateProject
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
+
+    -- ** DeleteAccessPolicy
+    DeleteAccessPolicy (DeleteAccessPolicy'),
+    newDeleteAccessPolicy,
+    DeleteAccessPolicyResponse (DeleteAccessPolicyResponse'),
+    newDeleteAccessPolicyResponse,
+
+    -- ** DeleteAsset
+    DeleteAsset (DeleteAsset'),
+    newDeleteAsset,
+    DeleteAssetResponse (DeleteAssetResponse'),
+    newDeleteAssetResponse,
+
+    -- ** DeleteAssetModel
+    DeleteAssetModel (DeleteAssetModel'),
+    newDeleteAssetModel,
+    DeleteAssetModelResponse (DeleteAssetModelResponse'),
+    newDeleteAssetModelResponse,
+
+    -- ** DeleteDashboard
+    DeleteDashboard (DeleteDashboard'),
+    newDeleteDashboard,
+    DeleteDashboardResponse (DeleteDashboardResponse'),
+    newDeleteDashboardResponse,
+
+    -- ** DeleteGateway
+    DeleteGateway (DeleteGateway'),
+    newDeleteGateway,
+    DeleteGatewayResponse (DeleteGatewayResponse'),
+    newDeleteGatewayResponse,
+
+    -- ** DeletePortal
+    DeletePortal (DeletePortal'),
+    newDeletePortal,
+    DeletePortalResponse (DeletePortalResponse'),
+    newDeletePortalResponse,
 
     -- ** DeleteProject
     DeleteProject (DeleteProject'),
@@ -93,17 +219,23 @@ module Amazonka.IoTSiteWise
     DeleteProjectResponse (DeleteProjectResponse'),
     newDeleteProjectResponse,
 
-    -- ** UpdateProject
-    UpdateProject (UpdateProject'),
-    newUpdateProject,
-    UpdateProjectResponse (UpdateProjectResponse'),
-    newUpdateProjectResponse,
+    -- ** DeleteTimeSeries
+    DeleteTimeSeries (DeleteTimeSeries'),
+    newDeleteTimeSeries,
+    DeleteTimeSeriesResponse (DeleteTimeSeriesResponse'),
+    newDeleteTimeSeriesResponse,
 
-    -- ** PutLoggingOptions
-    PutLoggingOptions (PutLoggingOptions'),
-    newPutLoggingOptions,
-    PutLoggingOptionsResponse (PutLoggingOptionsResponse'),
-    newPutLoggingOptionsResponse,
+    -- ** DescribeAccessPolicy
+    DescribeAccessPolicy (DescribeAccessPolicy'),
+    newDescribeAccessPolicy,
+    DescribeAccessPolicyResponse (DescribeAccessPolicyResponse'),
+    newDescribeAccessPolicyResponse,
+
+    -- ** DescribeAsset
+    DescribeAsset (DescribeAsset'),
+    newDescribeAsset,
+    DescribeAssetResponse (DescribeAssetResponse'),
+    newDescribeAssetResponse,
 
     -- ** DescribeAssetModel
     DescribeAssetModel (DescribeAssetModel'),
@@ -117,29 +249,23 @@ module Amazonka.IoTSiteWise
     DescribeAssetPropertyResponse (DescribeAssetPropertyResponse'),
     newDescribeAssetPropertyResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** DescribeBulkImportJob
+    DescribeBulkImportJob (DescribeBulkImportJob'),
+    newDescribeBulkImportJob,
+    DescribeBulkImportJobResponse (DescribeBulkImportJobResponse'),
+    newDescribeBulkImportJobResponse,
 
-    -- ** GetAssetPropertyValue
-    GetAssetPropertyValue (GetAssetPropertyValue'),
-    newGetAssetPropertyValue,
-    GetAssetPropertyValueResponse (GetAssetPropertyValueResponse'),
-    newGetAssetPropertyValueResponse,
+    -- ** DescribeDashboard
+    DescribeDashboard (DescribeDashboard'),
+    newDescribeDashboard,
+    DescribeDashboardResponse (DescribeDashboardResponse'),
+    newDescribeDashboardResponse,
 
-    -- ** DeleteAccessPolicy
-    DeleteAccessPolicy (DeleteAccessPolicy'),
-    newDeleteAccessPolicy,
-    DeleteAccessPolicyResponse (DeleteAccessPolicyResponse'),
-    newDeleteAccessPolicyResponse,
-
-    -- ** UpdateAccessPolicy
-    UpdateAccessPolicy (UpdateAccessPolicy'),
-    newUpdateAccessPolicy,
-    UpdateAccessPolicyResponse (UpdateAccessPolicyResponse'),
-    newUpdateAccessPolicyResponse,
+    -- ** DescribeDefaultEncryptionConfiguration
+    DescribeDefaultEncryptionConfiguration (DescribeDefaultEncryptionConfiguration'),
+    newDescribeDefaultEncryptionConfiguration,
+    DescribeDefaultEncryptionConfigurationResponse (DescribeDefaultEncryptionConfigurationResponse'),
+    newDescribeDefaultEncryptionConfigurationResponse,
 
     -- ** DescribeGateway
     DescribeGateway (DescribeGateway'),
@@ -147,23 +273,23 @@ module Amazonka.IoTSiteWise
     DescribeGatewayResponse (DescribeGatewayResponse'),
     newDescribeGatewayResponse,
 
-    -- ** DescribeAsset
-    DescribeAsset (DescribeAsset'),
-    newDescribeAsset,
-    DescribeAssetResponse (DescribeAssetResponse'),
-    newDescribeAssetResponse,
+    -- ** DescribeGatewayCapabilityConfiguration
+    DescribeGatewayCapabilityConfiguration (DescribeGatewayCapabilityConfiguration'),
+    newDescribeGatewayCapabilityConfiguration,
+    DescribeGatewayCapabilityConfigurationResponse (DescribeGatewayCapabilityConfigurationResponse'),
+    newDescribeGatewayCapabilityConfigurationResponse,
 
-    -- ** ListDashboards (Paginated)
-    ListDashboards (ListDashboards'),
-    newListDashboards,
-    ListDashboardsResponse (ListDashboardsResponse'),
-    newListDashboardsResponse,
+    -- ** DescribeLoggingOptions
+    DescribeLoggingOptions (DescribeLoggingOptions'),
+    newDescribeLoggingOptions,
+    DescribeLoggingOptionsResponse (DescribeLoggingOptionsResponse'),
+    newDescribeLoggingOptionsResponse,
 
-    -- ** ListAccessPolicies (Paginated)
-    ListAccessPolicies (ListAccessPolicies'),
-    newListAccessPolicies,
-    ListAccessPoliciesResponse (ListAccessPoliciesResponse'),
-    newListAccessPoliciesResponse,
+    -- ** DescribePortal
+    DescribePortal (DescribePortal'),
+    newDescribePortal,
+    DescribePortalResponse (DescribePortalResponse'),
+    newDescribePortalResponse,
 
     -- ** DescribeProject
     DescribeProject (DescribeProject'),
@@ -171,191 +297,29 @@ module Amazonka.IoTSiteWise
     DescribeProjectResponse (DescribeProjectResponse'),
     newDescribeProjectResponse,
 
-    -- ** GetAssetPropertyValueHistory (Paginated)
-    GetAssetPropertyValueHistory (GetAssetPropertyValueHistory'),
-    newGetAssetPropertyValueHistory,
-    GetAssetPropertyValueHistoryResponse (GetAssetPropertyValueHistoryResponse'),
-    newGetAssetPropertyValueHistoryResponse,
-
-    -- ** CreateDashboard
-    CreateDashboard (CreateDashboard'),
-    newCreateDashboard,
-    CreateDashboardResponse (CreateDashboardResponse'),
-    newCreateDashboardResponse,
-
-    -- ** CreateAccessPolicy
-    CreateAccessPolicy (CreateAccessPolicy'),
-    newCreateAccessPolicy,
-    CreateAccessPolicyResponse (CreateAccessPolicyResponse'),
-    newCreateAccessPolicyResponse,
-
-    -- ** CreateAssetModel
-    CreateAssetModel (CreateAssetModel'),
-    newCreateAssetModel,
-    CreateAssetModelResponse (CreateAssetModelResponse'),
-    newCreateAssetModelResponse,
-
-    -- ** BatchAssociateProjectAssets
-    BatchAssociateProjectAssets (BatchAssociateProjectAssets'),
-    newBatchAssociateProjectAssets,
-    BatchAssociateProjectAssetsResponse (BatchAssociateProjectAssetsResponse'),
-    newBatchAssociateProjectAssetsResponse,
-
-    -- ** ListAssetModels (Paginated)
-    ListAssetModels (ListAssetModels'),
-    newListAssetModels,
-    ListAssetModelsResponse (ListAssetModelsResponse'),
-    newListAssetModelsResponse,
-
-    -- ** ListAssociatedAssets (Paginated)
-    ListAssociatedAssets (ListAssociatedAssets'),
-    newListAssociatedAssets,
-    ListAssociatedAssetsResponse (ListAssociatedAssetsResponse'),
-    newListAssociatedAssetsResponse,
-
-    -- ** BatchPutAssetPropertyValue
-    BatchPutAssetPropertyValue (BatchPutAssetPropertyValue'),
-    newBatchPutAssetPropertyValue,
-    BatchPutAssetPropertyValueResponse (BatchPutAssetPropertyValueResponse'),
-    newBatchPutAssetPropertyValueResponse,
-
-    -- ** DeleteAsset
-    DeleteAsset (DeleteAsset'),
-    newDeleteAsset,
-    DeleteAssetResponse (DeleteAssetResponse'),
-    newDeleteAssetResponse,
-
-    -- ** UpdateAsset
-    UpdateAsset (UpdateAsset'),
-    newUpdateAsset,
-    UpdateAssetResponse (UpdateAssetResponse'),
-    newUpdateAssetResponse,
-
-    -- ** DeleteGateway
-    DeleteGateway (DeleteGateway'),
-    newDeleteGateway,
-    DeleteGatewayResponse (DeleteGatewayResponse'),
-    newDeleteGatewayResponse,
-
-    -- ** DescribeAccessPolicy
-    DescribeAccessPolicy (DescribeAccessPolicy'),
-    newDescribeAccessPolicy,
-    DescribeAccessPolicyResponse (DescribeAccessPolicyResponse'),
-    newDescribeAccessPolicyResponse,
-
-    -- ** UpdateGateway
-    UpdateGateway (UpdateGateway'),
-    newUpdateGateway,
-    UpdateGatewayResponse (UpdateGatewayResponse'),
-    newUpdateGatewayResponse,
-
-    -- ** ListProjectAssets (Paginated)
-    ListProjectAssets (ListProjectAssets'),
-    newListProjectAssets,
-    ListProjectAssetsResponse (ListProjectAssetsResponse'),
-    newListProjectAssetsResponse,
-
-    -- ** CreateGateway
-    CreateGateway (CreateGateway'),
-    newCreateGateway,
-    CreateGatewayResponse (CreateGatewayResponse'),
-    newCreateGatewayResponse,
-
     -- ** DescribeStorageConfiguration
     DescribeStorageConfiguration (DescribeStorageConfiguration'),
     newDescribeStorageConfiguration,
     DescribeStorageConfigurationResponse (DescribeStorageConfigurationResponse'),
     newDescribeStorageConfigurationResponse,
 
-    -- ** CreateAsset
-    CreateAsset (CreateAsset'),
-    newCreateAsset,
-    CreateAssetResponse (CreateAssetResponse'),
-    newCreateAssetResponse,
+    -- ** DescribeTimeSeries
+    DescribeTimeSeries (DescribeTimeSeries'),
+    newDescribeTimeSeries,
+    DescribeTimeSeriesResponse (DescribeTimeSeriesResponse'),
+    newDescribeTimeSeriesResponse,
 
-    -- ** AssociateAssets
-    AssociateAssets (AssociateAssets'),
-    newAssociateAssets,
-    AssociateAssetsResponse (AssociateAssetsResponse'),
-    newAssociateAssetsResponse,
+    -- ** DisassociateAssets
+    DisassociateAssets (DisassociateAssets'),
+    newDisassociateAssets,
+    DisassociateAssetsResponse (DisassociateAssetsResponse'),
+    newDisassociateAssetsResponse,
 
-    -- ** GetInterpolatedAssetPropertyValues (Paginated)
-    GetInterpolatedAssetPropertyValues (GetInterpolatedAssetPropertyValues'),
-    newGetInterpolatedAssetPropertyValues,
-    GetInterpolatedAssetPropertyValuesResponse (GetInterpolatedAssetPropertyValuesResponse'),
-    newGetInterpolatedAssetPropertyValuesResponse,
-
-    -- ** DescribeGatewayCapabilityConfiguration
-    DescribeGatewayCapabilityConfiguration (DescribeGatewayCapabilityConfiguration'),
-    newDescribeGatewayCapabilityConfiguration,
-    DescribeGatewayCapabilityConfigurationResponse (DescribeGatewayCapabilityConfigurationResponse'),
-    newDescribeGatewayCapabilityConfigurationResponse,
-
-    -- ** PutDefaultEncryptionConfiguration
-    PutDefaultEncryptionConfiguration (PutDefaultEncryptionConfiguration'),
-    newPutDefaultEncryptionConfiguration,
-    PutDefaultEncryptionConfigurationResponse (PutDefaultEncryptionConfigurationResponse'),
-    newPutDefaultEncryptionConfigurationResponse,
-
-    -- ** DeletePortal
-    DeletePortal (DeletePortal'),
-    newDeletePortal,
-    DeletePortalResponse (DeletePortalResponse'),
-    newDeletePortalResponse,
-
-    -- ** ListAssetRelationships (Paginated)
-    ListAssetRelationships (ListAssetRelationships'),
-    newListAssetRelationships,
-    ListAssetRelationshipsResponse (ListAssetRelationshipsResponse'),
-    newListAssetRelationshipsResponse,
-
-    -- ** UpdatePortal
-    UpdatePortal (UpdatePortal'),
-    newUpdatePortal,
-    UpdatePortalResponse (UpdatePortalResponse'),
-    newUpdatePortalResponse,
-
-    -- ** ListPortals (Paginated)
-    ListPortals (ListPortals'),
-    newListPortals,
-    ListPortalsResponse (ListPortalsResponse'),
-    newListPortalsResponse,
-
-    -- ** DeleteDashboard
-    DeleteDashboard (DeleteDashboard'),
-    newDeleteDashboard,
-    DeleteDashboardResponse (DeleteDashboardResponse'),
-    newDeleteDashboardResponse,
-
-    -- ** UpdateDashboard
-    UpdateDashboard (UpdateDashboard'),
-    newUpdateDashboard,
-    UpdateDashboardResponse (UpdateDashboardResponse'),
-    newUpdateDashboardResponse,
-
-    -- ** PutStorageConfiguration
-    PutStorageConfiguration (PutStorageConfiguration'),
-    newPutStorageConfiguration,
-    PutStorageConfigurationResponse (PutStorageConfigurationResponse'),
-    newPutStorageConfigurationResponse,
-
-    -- ** CreatePortal
-    CreatePortal (CreatePortal'),
-    newCreatePortal,
-    CreatePortalResponse (CreatePortalResponse'),
-    newCreatePortalResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** BatchDisassociateProjectAssets
-    BatchDisassociateProjectAssets (BatchDisassociateProjectAssets'),
-    newBatchDisassociateProjectAssets,
-    BatchDisassociateProjectAssetsResponse (BatchDisassociateProjectAssetsResponse'),
-    newBatchDisassociateProjectAssetsResponse,
+    -- ** DisassociateTimeSeriesFromAssetProperty
+    DisassociateTimeSeriesFromAssetProperty (DisassociateTimeSeriesFromAssetProperty'),
+    newDisassociateTimeSeriesFromAssetProperty,
+    DisassociateTimeSeriesFromAssetPropertyResponse (DisassociateTimeSeriesFromAssetPropertyResponse'),
+    newDisassociateTimeSeriesFromAssetPropertyResponse,
 
     -- ** GetAssetPropertyAggregates (Paginated)
     GetAssetPropertyAggregates (GetAssetPropertyAggregates'),
@@ -363,17 +327,155 @@ module Amazonka.IoTSiteWise
     GetAssetPropertyAggregatesResponse (GetAssetPropertyAggregatesResponse'),
     newGetAssetPropertyAggregatesResponse,
 
+    -- ** GetAssetPropertyValue
+    GetAssetPropertyValue (GetAssetPropertyValue'),
+    newGetAssetPropertyValue,
+    GetAssetPropertyValueResponse (GetAssetPropertyValueResponse'),
+    newGetAssetPropertyValueResponse,
+
+    -- ** GetAssetPropertyValueHistory (Paginated)
+    GetAssetPropertyValueHistory (GetAssetPropertyValueHistory'),
+    newGetAssetPropertyValueHistory,
+    GetAssetPropertyValueHistoryResponse (GetAssetPropertyValueHistoryResponse'),
+    newGetAssetPropertyValueHistoryResponse,
+
+    -- ** GetInterpolatedAssetPropertyValues (Paginated)
+    GetInterpolatedAssetPropertyValues (GetInterpolatedAssetPropertyValues'),
+    newGetInterpolatedAssetPropertyValues,
+    GetInterpolatedAssetPropertyValuesResponse (GetInterpolatedAssetPropertyValuesResponse'),
+    newGetInterpolatedAssetPropertyValuesResponse,
+
+    -- ** ListAccessPolicies (Paginated)
+    ListAccessPolicies (ListAccessPolicies'),
+    newListAccessPolicies,
+    ListAccessPoliciesResponse (ListAccessPoliciesResponse'),
+    newListAccessPoliciesResponse,
+
+    -- ** ListAssetModelProperties (Paginated)
+    ListAssetModelProperties (ListAssetModelProperties'),
+    newListAssetModelProperties,
+    ListAssetModelPropertiesResponse (ListAssetModelPropertiesResponse'),
+    newListAssetModelPropertiesResponse,
+
+    -- ** ListAssetModels (Paginated)
+    ListAssetModels (ListAssetModels'),
+    newListAssetModels,
+    ListAssetModelsResponse (ListAssetModelsResponse'),
+    newListAssetModelsResponse,
+
+    -- ** ListAssetProperties (Paginated)
+    ListAssetProperties (ListAssetProperties'),
+    newListAssetProperties,
+    ListAssetPropertiesResponse (ListAssetPropertiesResponse'),
+    newListAssetPropertiesResponse,
+
+    -- ** ListAssetRelationships (Paginated)
+    ListAssetRelationships (ListAssetRelationships'),
+    newListAssetRelationships,
+    ListAssetRelationshipsResponse (ListAssetRelationshipsResponse'),
+    newListAssetRelationshipsResponse,
+
+    -- ** ListAssets (Paginated)
+    ListAssets (ListAssets'),
+    newListAssets,
+    ListAssetsResponse (ListAssetsResponse'),
+    newListAssetsResponse,
+
+    -- ** ListAssociatedAssets (Paginated)
+    ListAssociatedAssets (ListAssociatedAssets'),
+    newListAssociatedAssets,
+    ListAssociatedAssetsResponse (ListAssociatedAssetsResponse'),
+    newListAssociatedAssetsResponse,
+
+    -- ** ListBulkImportJobs (Paginated)
+    ListBulkImportJobs (ListBulkImportJobs'),
+    newListBulkImportJobs,
+    ListBulkImportJobsResponse (ListBulkImportJobsResponse'),
+    newListBulkImportJobsResponse,
+
+    -- ** ListDashboards (Paginated)
+    ListDashboards (ListDashboards'),
+    newListDashboards,
+    ListDashboardsResponse (ListDashboardsResponse'),
+    newListDashboardsResponse,
+
+    -- ** ListGateways (Paginated)
+    ListGateways (ListGateways'),
+    newListGateways,
+    ListGatewaysResponse (ListGatewaysResponse'),
+    newListGatewaysResponse,
+
+    -- ** ListPortals (Paginated)
+    ListPortals (ListPortals'),
+    newListPortals,
+    ListPortalsResponse (ListPortalsResponse'),
+    newListPortalsResponse,
+
+    -- ** ListProjectAssets (Paginated)
+    ListProjectAssets (ListProjectAssets'),
+    newListProjectAssets,
+    ListProjectAssetsResponse (ListProjectAssetsResponse'),
+    newListProjectAssetsResponse,
+
+    -- ** ListProjects (Paginated)
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListTimeSeries (Paginated)
+    ListTimeSeries (ListTimeSeries'),
+    newListTimeSeries,
+    ListTimeSeriesResponse (ListTimeSeriesResponse'),
+    newListTimeSeriesResponse,
+
+    -- ** PutDefaultEncryptionConfiguration
+    PutDefaultEncryptionConfiguration (PutDefaultEncryptionConfiguration'),
+    newPutDefaultEncryptionConfiguration,
+    PutDefaultEncryptionConfigurationResponse (PutDefaultEncryptionConfigurationResponse'),
+    newPutDefaultEncryptionConfigurationResponse,
+
+    -- ** PutLoggingOptions
+    PutLoggingOptions (PutLoggingOptions'),
+    newPutLoggingOptions,
+    PutLoggingOptionsResponse (PutLoggingOptionsResponse'),
+    newPutLoggingOptionsResponse,
+
+    -- ** PutStorageConfiguration
+    PutStorageConfiguration (PutStorageConfiguration'),
+    newPutStorageConfiguration,
+    PutStorageConfigurationResponse (PutStorageConfigurationResponse'),
+    newPutStorageConfigurationResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
     -- ** UntagResource
     UntagResource (UntagResource'),
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DeleteAssetModel
-    DeleteAssetModel (DeleteAssetModel'),
-    newDeleteAssetModel,
-    DeleteAssetModelResponse (DeleteAssetModelResponse'),
-    newDeleteAssetModelResponse,
+    -- ** UpdateAccessPolicy
+    UpdateAccessPolicy (UpdateAccessPolicy'),
+    newUpdateAccessPolicy,
+    UpdateAccessPolicyResponse (UpdateAccessPolicyResponse'),
+    newUpdateAccessPolicyResponse,
+
+    -- ** UpdateAsset
+    UpdateAsset (UpdateAsset'),
+    newUpdateAsset,
+    UpdateAssetResponse (UpdateAssetResponse'),
+    newUpdateAssetResponse,
 
     -- ** UpdateAssetModel
     UpdateAssetModel (UpdateAssetModel'),
@@ -387,17 +489,17 @@ module Amazonka.IoTSiteWise
     UpdateAssetPropertyResponse (UpdateAssetPropertyResponse'),
     newUpdateAssetPropertyResponse,
 
-    -- ** DescribeLoggingOptions
-    DescribeLoggingOptions (DescribeLoggingOptions'),
-    newDescribeLoggingOptions,
-    DescribeLoggingOptionsResponse (DescribeLoggingOptionsResponse'),
-    newDescribeLoggingOptionsResponse,
+    -- ** UpdateDashboard
+    UpdateDashboard (UpdateDashboard'),
+    newUpdateDashboard,
+    UpdateDashboardResponse (UpdateDashboardResponse'),
+    newUpdateDashboardResponse,
 
-    -- ** ListGateways (Paginated)
-    ListGateways (ListGateways'),
-    newListGateways,
-    ListGatewaysResponse (ListGatewaysResponse'),
-    newListGatewaysResponse,
+    -- ** UpdateGateway
+    UpdateGateway (UpdateGateway'),
+    newUpdateGateway,
+    UpdateGatewayResponse (UpdateGatewayResponse'),
+    newUpdateGatewayResponse,
 
     -- ** UpdateGatewayCapabilityConfiguration
     UpdateGatewayCapabilityConfiguration (UpdateGatewayCapabilityConfiguration'),
@@ -405,41 +507,17 @@ module Amazonka.IoTSiteWise
     UpdateGatewayCapabilityConfigurationResponse (UpdateGatewayCapabilityConfigurationResponse'),
     newUpdateGatewayCapabilityConfigurationResponse,
 
-    -- ** DescribeDashboard
-    DescribeDashboard (DescribeDashboard'),
-    newDescribeDashboard,
-    DescribeDashboardResponse (DescribeDashboardResponse'),
-    newDescribeDashboardResponse,
+    -- ** UpdatePortal
+    UpdatePortal (UpdatePortal'),
+    newUpdatePortal,
+    UpdatePortalResponse (UpdatePortalResponse'),
+    newUpdatePortalResponse,
 
-    -- ** DescribePortal
-    DescribePortal (DescribePortal'),
-    newDescribePortal,
-    DescribePortalResponse (DescribePortalResponse'),
-    newDescribePortalResponse,
-
-    -- ** CreateProject
-    CreateProject (CreateProject'),
-    newCreateProject,
-    CreateProjectResponse (CreateProjectResponse'),
-    newCreateProjectResponse,
-
-    -- ** DescribeDefaultEncryptionConfiguration
-    DescribeDefaultEncryptionConfiguration (DescribeDefaultEncryptionConfiguration'),
-    newDescribeDefaultEncryptionConfiguration,
-    DescribeDefaultEncryptionConfigurationResponse (DescribeDefaultEncryptionConfigurationResponse'),
-    newDescribeDefaultEncryptionConfigurationResponse,
-
-    -- ** ListAssets (Paginated)
-    ListAssets (ListAssets'),
-    newListAssets,
-    ListAssetsResponse (ListAssetsResponse'),
-    newListAssetsResponse,
-
-    -- ** DisassociateAssets
-    DisassociateAssets (DisassociateAssets'),
-    newDisassociateAssets,
-    DisassociateAssetsResponse (DisassociateAssetsResponse'),
-    newDisassociateAssetsResponse,
+    -- ** UpdateProject
+    UpdateProject (UpdateProject'),
+    newUpdateProject,
+    UpdateProjectResponse (UpdateProjectResponse'),
+    newUpdateProjectResponse,
 
     -- * Types
 
@@ -461,11 +539,26 @@ module Amazonka.IoTSiteWise
     -- ** AuthMode
     AuthMode (..),
 
+    -- ** BatchEntryCompletionStatus
+    BatchEntryCompletionStatus (..),
+
+    -- ** BatchGetAssetPropertyAggregatesErrorCode
+    BatchGetAssetPropertyAggregatesErrorCode (..),
+
+    -- ** BatchGetAssetPropertyValueErrorCode
+    BatchGetAssetPropertyValueErrorCode (..),
+
+    -- ** BatchGetAssetPropertyValueHistoryErrorCode
+    BatchGetAssetPropertyValueHistoryErrorCode (..),
+
     -- ** BatchPutAssetPropertyValueErrorCode
     BatchPutAssetPropertyValueErrorCode (..),
 
     -- ** CapabilitySyncStatus
     CapabilitySyncStatus (..),
+
+    -- ** ColumnName
+    ColumnName (..),
 
     -- ** ComputeLocation
     ComputeLocation (..),
@@ -475,6 +568,9 @@ module Amazonka.IoTSiteWise
 
     -- ** DetailedErrorCode
     DetailedErrorCode (..),
+
+    -- ** DisassociatedDataStorageState
+    DisassociatedDataStorageState (..),
 
     -- ** EncryptionType
     EncryptionType (..),
@@ -491,8 +587,23 @@ module Amazonka.IoTSiteWise
     -- ** ImageFileType
     ImageFileType (..),
 
+    -- ** JobStatus
+    JobStatus (..),
+
+    -- ** ListAssetModelPropertiesFilter
+    ListAssetModelPropertiesFilter (..),
+
+    -- ** ListAssetPropertiesFilter
+    ListAssetPropertiesFilter (..),
+
     -- ** ListAssetsFilter
     ListAssetsFilter (..),
+
+    -- ** ListBulkImportJobsFilter
+    ListBulkImportJobsFilter (..),
+
+    -- ** ListTimeSeriesType
+    ListTimeSeriesType (..),
 
     -- ** LoggingLevel
     LoggingLevel (..),
@@ -586,6 +697,10 @@ module Amazonka.IoTSiteWise
     AssetModelPropertyDefinition (AssetModelPropertyDefinition'),
     newAssetModelPropertyDefinition,
 
+    -- ** AssetModelPropertySummary
+    AssetModelPropertySummary (AssetModelPropertySummary'),
+    newAssetModelPropertySummary,
+
     -- ** AssetModelStatus
     AssetModelStatus (AssetModelStatus'),
     newAssetModelStatus,
@@ -597,6 +712,10 @@ module Amazonka.IoTSiteWise
     -- ** AssetProperty
     AssetProperty (AssetProperty'),
     newAssetProperty,
+
+    -- ** AssetPropertySummary
+    AssetPropertySummary (AssetPropertySummary'),
+    newAssetPropertySummary,
 
     -- ** AssetPropertyValue
     AssetPropertyValue (AssetPropertyValue'),
@@ -622,6 +741,66 @@ module Amazonka.IoTSiteWise
     Attribute (Attribute'),
     newAttribute,
 
+    -- ** BatchGetAssetPropertyAggregatesEntry
+    BatchGetAssetPropertyAggregatesEntry (BatchGetAssetPropertyAggregatesEntry'),
+    newBatchGetAssetPropertyAggregatesEntry,
+
+    -- ** BatchGetAssetPropertyAggregatesErrorEntry
+    BatchGetAssetPropertyAggregatesErrorEntry (BatchGetAssetPropertyAggregatesErrorEntry'),
+    newBatchGetAssetPropertyAggregatesErrorEntry,
+
+    -- ** BatchGetAssetPropertyAggregatesErrorInfo
+    BatchGetAssetPropertyAggregatesErrorInfo (BatchGetAssetPropertyAggregatesErrorInfo'),
+    newBatchGetAssetPropertyAggregatesErrorInfo,
+
+    -- ** BatchGetAssetPropertyAggregatesSkippedEntry
+    BatchGetAssetPropertyAggregatesSkippedEntry (BatchGetAssetPropertyAggregatesSkippedEntry'),
+    newBatchGetAssetPropertyAggregatesSkippedEntry,
+
+    -- ** BatchGetAssetPropertyAggregatesSuccessEntry
+    BatchGetAssetPropertyAggregatesSuccessEntry (BatchGetAssetPropertyAggregatesSuccessEntry'),
+    newBatchGetAssetPropertyAggregatesSuccessEntry,
+
+    -- ** BatchGetAssetPropertyValueEntry
+    BatchGetAssetPropertyValueEntry (BatchGetAssetPropertyValueEntry'),
+    newBatchGetAssetPropertyValueEntry,
+
+    -- ** BatchGetAssetPropertyValueErrorEntry
+    BatchGetAssetPropertyValueErrorEntry (BatchGetAssetPropertyValueErrorEntry'),
+    newBatchGetAssetPropertyValueErrorEntry,
+
+    -- ** BatchGetAssetPropertyValueErrorInfo
+    BatchGetAssetPropertyValueErrorInfo (BatchGetAssetPropertyValueErrorInfo'),
+    newBatchGetAssetPropertyValueErrorInfo,
+
+    -- ** BatchGetAssetPropertyValueHistoryEntry
+    BatchGetAssetPropertyValueHistoryEntry (BatchGetAssetPropertyValueHistoryEntry'),
+    newBatchGetAssetPropertyValueHistoryEntry,
+
+    -- ** BatchGetAssetPropertyValueHistoryErrorEntry
+    BatchGetAssetPropertyValueHistoryErrorEntry (BatchGetAssetPropertyValueHistoryErrorEntry'),
+    newBatchGetAssetPropertyValueHistoryErrorEntry,
+
+    -- ** BatchGetAssetPropertyValueHistoryErrorInfo
+    BatchGetAssetPropertyValueHistoryErrorInfo (BatchGetAssetPropertyValueHistoryErrorInfo'),
+    newBatchGetAssetPropertyValueHistoryErrorInfo,
+
+    -- ** BatchGetAssetPropertyValueHistorySkippedEntry
+    BatchGetAssetPropertyValueHistorySkippedEntry (BatchGetAssetPropertyValueHistorySkippedEntry'),
+    newBatchGetAssetPropertyValueHistorySkippedEntry,
+
+    -- ** BatchGetAssetPropertyValueHistorySuccessEntry
+    BatchGetAssetPropertyValueHistorySuccessEntry (BatchGetAssetPropertyValueHistorySuccessEntry'),
+    newBatchGetAssetPropertyValueHistorySuccessEntry,
+
+    -- ** BatchGetAssetPropertyValueSkippedEntry
+    BatchGetAssetPropertyValueSkippedEntry (BatchGetAssetPropertyValueSkippedEntry'),
+    newBatchGetAssetPropertyValueSkippedEntry,
+
+    -- ** BatchGetAssetPropertyValueSuccessEntry
+    BatchGetAssetPropertyValueSuccessEntry (BatchGetAssetPropertyValueSuccessEntry'),
+    newBatchGetAssetPropertyValueSuccessEntry,
+
     -- ** BatchPutAssetPropertyError
     BatchPutAssetPropertyError (BatchPutAssetPropertyError'),
     newBatchPutAssetPropertyError,
@@ -642,6 +821,10 @@ module Amazonka.IoTSiteWise
     ConfigurationStatus (ConfigurationStatus'),
     newConfigurationStatus,
 
+    -- ** Csv
+    Csv (Csv'),
+    newCsv,
+
     -- ** CustomerManagedS3Storage
     CustomerManagedS3Storage (CustomerManagedS3Storage'),
     newCustomerManagedS3Storage,
@@ -658,9 +841,21 @@ module Amazonka.IoTSiteWise
     ErrorDetails (ErrorDetails'),
     newErrorDetails,
 
+    -- ** ErrorReportLocation
+    ErrorReportLocation (ErrorReportLocation'),
+    newErrorReportLocation,
+
     -- ** ExpressionVariable
     ExpressionVariable (ExpressionVariable'),
     newExpressionVariable,
+
+    -- ** File
+    File (File'),
+    newFile,
+
+    -- ** FileFormat
+    FileFormat (FileFormat'),
+    newFileFormat,
 
     -- ** ForwardingConfig
     ForwardingConfig (ForwardingConfig'),
@@ -717,6 +912,14 @@ module Amazonka.IoTSiteWise
     -- ** InterpolatedAssetPropertyValue
     InterpolatedAssetPropertyValue (InterpolatedAssetPropertyValue'),
     newInterpolatedAssetPropertyValue,
+
+    -- ** JobConfiguration
+    JobConfiguration (JobConfiguration'),
+    newJobConfiguration,
+
+    -- ** JobSummary
+    JobSummary (JobSummary'),
+    newJobSummary,
 
     -- ** LoggingOptions
     LoggingOptions (LoggingOptions'),
@@ -790,9 +993,17 @@ module Amazonka.IoTSiteWise
     Resource (Resource'),
     newResource,
 
+    -- ** RetentionPeriod
+    RetentionPeriod (RetentionPeriod'),
+    newRetentionPeriod,
+
     -- ** TimeInNanos
     TimeInNanos (TimeInNanos'),
     newTimeInNanos,
+
+    -- ** TimeSeriesSummary
+    TimeSeriesSummary (TimeSeriesSummary'),
+    newTimeSeriesSummary,
 
     -- ** Transform
     Transform (Transform'),
@@ -821,12 +1032,17 @@ module Amazonka.IoTSiteWise
 where
 
 import Amazonka.IoTSiteWise.AssociateAssets
+import Amazonka.IoTSiteWise.AssociateTimeSeriesToAssetProperty
 import Amazonka.IoTSiteWise.BatchAssociateProjectAssets
 import Amazonka.IoTSiteWise.BatchDisassociateProjectAssets
+import Amazonka.IoTSiteWise.BatchGetAssetPropertyAggregates
+import Amazonka.IoTSiteWise.BatchGetAssetPropertyValue
+import Amazonka.IoTSiteWise.BatchGetAssetPropertyValueHistory
 import Amazonka.IoTSiteWise.BatchPutAssetPropertyValue
 import Amazonka.IoTSiteWise.CreateAccessPolicy
 import Amazonka.IoTSiteWise.CreateAsset
 import Amazonka.IoTSiteWise.CreateAssetModel
+import Amazonka.IoTSiteWise.CreateBulkImportJob
 import Amazonka.IoTSiteWise.CreateDashboard
 import Amazonka.IoTSiteWise.CreateGateway
 import Amazonka.IoTSiteWise.CreatePortal
@@ -838,10 +1054,12 @@ import Amazonka.IoTSiteWise.DeleteDashboard
 import Amazonka.IoTSiteWise.DeleteGateway
 import Amazonka.IoTSiteWise.DeletePortal
 import Amazonka.IoTSiteWise.DeleteProject
+import Amazonka.IoTSiteWise.DeleteTimeSeries
 import Amazonka.IoTSiteWise.DescribeAccessPolicy
 import Amazonka.IoTSiteWise.DescribeAsset
 import Amazonka.IoTSiteWise.DescribeAssetModel
 import Amazonka.IoTSiteWise.DescribeAssetProperty
+import Amazonka.IoTSiteWise.DescribeBulkImportJob
 import Amazonka.IoTSiteWise.DescribeDashboard
 import Amazonka.IoTSiteWise.DescribeDefaultEncryptionConfiguration
 import Amazonka.IoTSiteWise.DescribeGateway
@@ -850,23 +1068,29 @@ import Amazonka.IoTSiteWise.DescribeLoggingOptions
 import Amazonka.IoTSiteWise.DescribePortal
 import Amazonka.IoTSiteWise.DescribeProject
 import Amazonka.IoTSiteWise.DescribeStorageConfiguration
+import Amazonka.IoTSiteWise.DescribeTimeSeries
 import Amazonka.IoTSiteWise.DisassociateAssets
+import Amazonka.IoTSiteWise.DisassociateTimeSeriesFromAssetProperty
 import Amazonka.IoTSiteWise.GetAssetPropertyAggregates
 import Amazonka.IoTSiteWise.GetAssetPropertyValue
 import Amazonka.IoTSiteWise.GetAssetPropertyValueHistory
 import Amazonka.IoTSiteWise.GetInterpolatedAssetPropertyValues
 import Amazonka.IoTSiteWise.Lens
 import Amazonka.IoTSiteWise.ListAccessPolicies
+import Amazonka.IoTSiteWise.ListAssetModelProperties
 import Amazonka.IoTSiteWise.ListAssetModels
+import Amazonka.IoTSiteWise.ListAssetProperties
 import Amazonka.IoTSiteWise.ListAssetRelationships
 import Amazonka.IoTSiteWise.ListAssets
 import Amazonka.IoTSiteWise.ListAssociatedAssets
+import Amazonka.IoTSiteWise.ListBulkImportJobs
 import Amazonka.IoTSiteWise.ListDashboards
 import Amazonka.IoTSiteWise.ListGateways
 import Amazonka.IoTSiteWise.ListPortals
 import Amazonka.IoTSiteWise.ListProjectAssets
 import Amazonka.IoTSiteWise.ListProjects
 import Amazonka.IoTSiteWise.ListTagsForResource
+import Amazonka.IoTSiteWise.ListTimeSeries
 import Amazonka.IoTSiteWise.PutDefaultEncryptionConfiguration
 import Amazonka.IoTSiteWise.PutLoggingOptions
 import Amazonka.IoTSiteWise.PutStorageConfiguration

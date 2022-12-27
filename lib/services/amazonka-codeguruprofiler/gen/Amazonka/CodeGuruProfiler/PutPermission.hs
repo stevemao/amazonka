@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.PutPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -148,14 +149,15 @@ instance Core.AWSRequest PutPermission where
   type
     AWSResponse PutPermission =
       PutPermissionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutPermissionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "policy")
-            Prelude.<*> (x Core..:> "revisionId")
+            Prelude.<*> (x Data..:> "policy")
+            Prelude.<*> (x Data..:> "revisionId")
       )
 
 instance Prelude.Hashable PutPermission where
@@ -172,36 +174,36 @@ instance Prelude.NFData PutPermission where
       `Prelude.seq` Prelude.rnf principals
       `Prelude.seq` Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders PutPermission where
+instance Data.ToHeaders PutPermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutPermission where
+instance Data.ToJSON PutPermission where
   toJSON PutPermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("revisionId" Core..=) Prelude.<$> revisionId,
-            Prelude.Just ("principals" Core..= principals)
+          [ ("revisionId" Data..=) Prelude.<$> revisionId,
+            Prelude.Just ("principals" Data..= principals)
           ]
       )
 
-instance Core.ToPath PutPermission where
+instance Data.ToPath PutPermission where
   toPath PutPermission' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/policy/",
-        Core.toBS actionGroup
+        Data.toBS actionGroup
       ]
 
-instance Core.ToQuery PutPermission where
+instance Data.ToQuery PutPermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the @putPermissionResponse@.

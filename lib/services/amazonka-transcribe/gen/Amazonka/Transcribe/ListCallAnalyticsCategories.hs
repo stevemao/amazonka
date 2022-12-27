@@ -14,24 +14,25 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.ListCallAnalyticsCategories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides more information about the call analytics categories that
--- you\'ve created. You can use the information in this list to find a
--- specific category. You can then use the operation to get more
--- information about it.
+-- Provides a list of Call Analytics categories, including all rules that
+-- make up each category.
+--
+-- To get detailed information about a specific Call Analytics category,
+-- use the operation.
 module Amazonka.Transcribe.ListCallAnalyticsCategories
   ( -- * Creating a Request
     ListCallAnalyticsCategories (..),
     newListCallAnalyticsCategories,
 
     -- * Request Lenses
-    listCallAnalyticsCategories_nextToken,
     listCallAnalyticsCategories_maxResults,
+    listCallAnalyticsCategories_nextToken,
 
     -- * Destructuring the Response
     ListCallAnalyticsCategoriesResponse (..),
@@ -45,7 +46,8 @@ module Amazonka.Transcribe.ListCallAnalyticsCategories
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +55,17 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newListCallAnalyticsCategories' smart constructor.
 data ListCallAnalyticsCategories = ListCallAnalyticsCategories'
-  { -- | When included, @NextToken@fetches the next set of categories if the
-    -- result of the previous request was truncated.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of categories to return in each page of results. If
-    -- there are fewer results than the value you specify, only the actual
-    -- results are returned. If you do not specify a value, the default of 5 is
-    -- used.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of Call Analytics categories to return in each page
+    -- of results. If there are fewer results than the value that you specify,
+    -- only the actual results are returned. If you don\'t specify a value, a
+    -- default of 5 is used.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If your @ListCallAnalyticsCategories@ request returns more results than
+    -- can be displayed, @NextToken@ is displayed in the response with an
+    -- associated string. To get the next page of results, copy this string and
+    -- repeat your request, including @NextToken@ with the value of the copied
+    -- string. Repeat as needed to view all your results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,97 +77,105 @@ data ListCallAnalyticsCategories = ListCallAnalyticsCategories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listCallAnalyticsCategories_nextToken' - When included, @NextToken@fetches the next set of categories if the
--- result of the previous request was truncated.
+-- 'maxResults', 'listCallAnalyticsCategories_maxResults' - The maximum number of Call Analytics categories to return in each page
+-- of results. If there are fewer results than the value that you specify,
+-- only the actual results are returned. If you don\'t specify a value, a
+-- default of 5 is used.
 --
--- 'maxResults', 'listCallAnalyticsCategories_maxResults' - The maximum number of categories to return in each page of results. If
--- there are fewer results than the value you specify, only the actual
--- results are returned. If you do not specify a value, the default of 5 is
--- used.
+-- 'nextToken', 'listCallAnalyticsCategories_nextToken' - If your @ListCallAnalyticsCategories@ request returns more results than
+-- can be displayed, @NextToken@ is displayed in the response with an
+-- associated string. To get the next page of results, copy this string and
+-- repeat your request, including @NextToken@ with the value of the copied
+-- string. Repeat as needed to view all your results.
 newListCallAnalyticsCategories ::
   ListCallAnalyticsCategories
 newListCallAnalyticsCategories =
   ListCallAnalyticsCategories'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
 
--- | When included, @NextToken@fetches the next set of categories if the
--- result of the previous request was truncated.
-listCallAnalyticsCategories_nextToken :: Lens.Lens' ListCallAnalyticsCategories (Prelude.Maybe Prelude.Text)
-listCallAnalyticsCategories_nextToken = Lens.lens (\ListCallAnalyticsCategories' {nextToken} -> nextToken) (\s@ListCallAnalyticsCategories' {} a -> s {nextToken = a} :: ListCallAnalyticsCategories)
-
--- | The maximum number of categories to return in each page of results. If
--- there are fewer results than the value you specify, only the actual
--- results are returned. If you do not specify a value, the default of 5 is
--- used.
+-- | The maximum number of Call Analytics categories to return in each page
+-- of results. If there are fewer results than the value that you specify,
+-- only the actual results are returned. If you don\'t specify a value, a
+-- default of 5 is used.
 listCallAnalyticsCategories_maxResults :: Lens.Lens' ListCallAnalyticsCategories (Prelude.Maybe Prelude.Natural)
 listCallAnalyticsCategories_maxResults = Lens.lens (\ListCallAnalyticsCategories' {maxResults} -> maxResults) (\s@ListCallAnalyticsCategories' {} a -> s {maxResults = a} :: ListCallAnalyticsCategories)
+
+-- | If your @ListCallAnalyticsCategories@ request returns more results than
+-- can be displayed, @NextToken@ is displayed in the response with an
+-- associated string. To get the next page of results, copy this string and
+-- repeat your request, including @NextToken@ with the value of the copied
+-- string. Repeat as needed to view all your results.
+listCallAnalyticsCategories_nextToken :: Lens.Lens' ListCallAnalyticsCategories (Prelude.Maybe Prelude.Text)
+listCallAnalyticsCategories_nextToken = Lens.lens (\ListCallAnalyticsCategories' {nextToken} -> nextToken) (\s@ListCallAnalyticsCategories' {} a -> s {nextToken = a} :: ListCallAnalyticsCategories)
 
 instance Core.AWSRequest ListCallAnalyticsCategories where
   type
     AWSResponse ListCallAnalyticsCategories =
       ListCallAnalyticsCategoriesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCallAnalyticsCategoriesResponse'
-            Prelude.<$> (x Core..?> "Categories" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Categories" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCallAnalyticsCategories where
   hashWithSalt _salt ListCallAnalyticsCategories' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCallAnalyticsCategories where
   rnf ListCallAnalyticsCategories' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCallAnalyticsCategories where
+instance Data.ToHeaders ListCallAnalyticsCategories where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.ListCallAnalyticsCategories" ::
+              Data.=# ( "Transcribe.ListCallAnalyticsCategories" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCallAnalyticsCategories where
+instance Data.ToJSON ListCallAnalyticsCategories where
   toJSON ListCallAnalyticsCategories' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListCallAnalyticsCategories where
+instance Data.ToPath ListCallAnalyticsCategories where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCallAnalyticsCategories where
+instance Data.ToQuery ListCallAnalyticsCategories where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCallAnalyticsCategoriesResponse' smart constructor.
 data ListCallAnalyticsCategoriesResponse = ListCallAnalyticsCategoriesResponse'
-  { -- | A list of objects containing information about analytics categories.
+  { -- | Provides detailed information about your Call Analytics categories,
+    -- including all the rules associated with each category.
     categories :: Prelude.Maybe [CategoryProperties],
-    -- | The operation returns a page of jobs at a time. The maximum size of the
-    -- list is set by the @MaxResults@ parameter. If there are more categories
-    -- in the list than the page size, Amazon Transcribe returns the @NextPage@
-    -- token. Include the token in the next request to the operation to return
-    -- the next page of analytics categories.
+    -- | If @NextToken@ is present in your response, it indicates that not all
+    -- results are displayed. To view the next set of results, copy the string
+    -- associated with the @NextToken@ parameter in your results output, then
+    -- run your request again including @NextToken@ with the value of the
+    -- copied string. Repeat as needed to view all your results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -177,13 +190,14 @@ data ListCallAnalyticsCategoriesResponse = ListCallAnalyticsCategoriesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categories', 'listCallAnalyticsCategoriesResponse_categories' - A list of objects containing information about analytics categories.
+-- 'categories', 'listCallAnalyticsCategoriesResponse_categories' - Provides detailed information about your Call Analytics categories,
+-- including all the rules associated with each category.
 --
--- 'nextToken', 'listCallAnalyticsCategoriesResponse_nextToken' - The operation returns a page of jobs at a time. The maximum size of the
--- list is set by the @MaxResults@ parameter. If there are more categories
--- in the list than the page size, Amazon Transcribe returns the @NextPage@
--- token. Include the token in the next request to the operation to return
--- the next page of analytics categories.
+-- 'nextToken', 'listCallAnalyticsCategoriesResponse_nextToken' - If @NextToken@ is present in your response, it indicates that not all
+-- results are displayed. To view the next set of results, copy the string
+-- associated with the @NextToken@ parameter in your results output, then
+-- run your request again including @NextToken@ with the value of the
+-- copied string. Repeat as needed to view all your results.
 --
 -- 'httpStatus', 'listCallAnalyticsCategoriesResponse_httpStatus' - The response's http status code.
 newListCallAnalyticsCategoriesResponse ::
@@ -198,15 +212,16 @@ newListCallAnalyticsCategoriesResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A list of objects containing information about analytics categories.
+-- | Provides detailed information about your Call Analytics categories,
+-- including all the rules associated with each category.
 listCallAnalyticsCategoriesResponse_categories :: Lens.Lens' ListCallAnalyticsCategoriesResponse (Prelude.Maybe [CategoryProperties])
 listCallAnalyticsCategoriesResponse_categories = Lens.lens (\ListCallAnalyticsCategoriesResponse' {categories} -> categories) (\s@ListCallAnalyticsCategoriesResponse' {} a -> s {categories = a} :: ListCallAnalyticsCategoriesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The operation returns a page of jobs at a time. The maximum size of the
--- list is set by the @MaxResults@ parameter. If there are more categories
--- in the list than the page size, Amazon Transcribe returns the @NextPage@
--- token. Include the token in the next request to the operation to return
--- the next page of analytics categories.
+-- | If @NextToken@ is present in your response, it indicates that not all
+-- results are displayed. To view the next set of results, copy the string
+-- associated with the @NextToken@ parameter in your results output, then
+-- run your request again including @NextToken@ with the value of the
+-- copied string. Repeat as needed to view all your results.
 listCallAnalyticsCategoriesResponse_nextToken :: Lens.Lens' ListCallAnalyticsCategoriesResponse (Prelude.Maybe Prelude.Text)
 listCallAnalyticsCategoriesResponse_nextToken = Lens.lens (\ListCallAnalyticsCategoriesResponse' {nextToken} -> nextToken) (\s@ListCallAnalyticsCategoriesResponse' {} a -> s {nextToken = a} :: ListCallAnalyticsCategoriesResponse)
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.ListTaskExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.DataSync.ListTaskExecutions
     newListTaskExecutions,
 
     -- * Request Lenses
-    listTaskExecutions_taskArn,
-    listTaskExecutions_nextToken,
     listTaskExecutions_maxResults,
+    listTaskExecutions_nextToken,
+    listTaskExecutions_taskArn,
 
     -- * Destructuring the Response
     ListTaskExecutionsResponse (..),
@@ -45,8 +45,9 @@ module Amazonka.DataSync.ListTaskExecutions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListTaskExecutions' smart constructor.
 data ListTaskExecutions = ListTaskExecutions'
-  { -- | The Amazon Resource Name (ARN) of the task whose tasks you want to list.
-    taskArn :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of executed tasks to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An opaque string that indicates the position at which to begin the next
     -- list of the executed tasks.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of executed tasks to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The Amazon Resource Name (ARN) of the task whose tasks you want to list.
+    taskArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,33 +74,33 @@ data ListTaskExecutions = ListTaskExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskArn', 'listTaskExecutions_taskArn' - The Amazon Resource Name (ARN) of the task whose tasks you want to list.
+-- 'maxResults', 'listTaskExecutions_maxResults' - The maximum number of executed tasks to list.
 --
 -- 'nextToken', 'listTaskExecutions_nextToken' - An opaque string that indicates the position at which to begin the next
 -- list of the executed tasks.
 --
--- 'maxResults', 'listTaskExecutions_maxResults' - The maximum number of executed tasks to list.
+-- 'taskArn', 'listTaskExecutions_taskArn' - The Amazon Resource Name (ARN) of the task whose tasks you want to list.
 newListTaskExecutions ::
   ListTaskExecutions
 newListTaskExecutions =
   ListTaskExecutions'
-    { taskArn = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      taskArn = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the task whose tasks you want to list.
-listTaskExecutions_taskArn :: Lens.Lens' ListTaskExecutions (Prelude.Maybe Prelude.Text)
-listTaskExecutions_taskArn = Lens.lens (\ListTaskExecutions' {taskArn} -> taskArn) (\s@ListTaskExecutions' {} a -> s {taskArn = a} :: ListTaskExecutions)
+-- | The maximum number of executed tasks to list.
+listTaskExecutions_maxResults :: Lens.Lens' ListTaskExecutions (Prelude.Maybe Prelude.Natural)
+listTaskExecutions_maxResults = Lens.lens (\ListTaskExecutions' {maxResults} -> maxResults) (\s@ListTaskExecutions' {} a -> s {maxResults = a} :: ListTaskExecutions)
 
 -- | An opaque string that indicates the position at which to begin the next
 -- list of the executed tasks.
 listTaskExecutions_nextToken :: Lens.Lens' ListTaskExecutions (Prelude.Maybe Prelude.Text)
 listTaskExecutions_nextToken = Lens.lens (\ListTaskExecutions' {nextToken} -> nextToken) (\s@ListTaskExecutions' {} a -> s {nextToken = a} :: ListTaskExecutions)
 
--- | The maximum number of executed tasks to list.
-listTaskExecutions_maxResults :: Lens.Lens' ListTaskExecutions (Prelude.Maybe Prelude.Natural)
-listTaskExecutions_maxResults = Lens.lens (\ListTaskExecutions' {maxResults} -> maxResults) (\s@ListTaskExecutions' {} a -> s {maxResults = a} :: ListTaskExecutions)
+-- | The Amazon Resource Name (ARN) of the task whose tasks you want to list.
+listTaskExecutions_taskArn :: Lens.Lens' ListTaskExecutions (Prelude.Maybe Prelude.Text)
+listTaskExecutions_taskArn = Lens.lens (\ListTaskExecutions' {taskArn} -> taskArn) (\s@ListTaskExecutions' {} a -> s {taskArn = a} :: ListTaskExecutions)
 
 instance Core.AWSPager ListTaskExecutions where
   page rq rs
@@ -127,57 +128,58 @@ instance Core.AWSRequest ListTaskExecutions where
   type
     AWSResponse ListTaskExecutions =
       ListTaskExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTaskExecutionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "TaskExecutions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "TaskExecutions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTaskExecutions where
   hashWithSalt _salt ListTaskExecutions' {..} =
-    _salt `Prelude.hashWithSalt` taskArn
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` taskArn
 
 instance Prelude.NFData ListTaskExecutions where
   rnf ListTaskExecutions' {..} =
-    Prelude.rnf taskArn
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf taskArn
 
-instance Core.ToHeaders ListTaskExecutions where
+instance Data.ToHeaders ListTaskExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.ListTaskExecutions" ::
+              Data.=# ( "FmrsService.ListTaskExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTaskExecutions where
+instance Data.ToJSON ListTaskExecutions where
   toJSON ListTaskExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TaskArn" Core..=) Prelude.<$> taskArn,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TaskArn" Data..=) Prelude.<$> taskArn
           ]
       )
 
-instance Core.ToPath ListTaskExecutions where
+instance Data.ToPath ListTaskExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTaskExecutions where
+instance Data.ToQuery ListTaskExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | ListTaskExecutionsResponse

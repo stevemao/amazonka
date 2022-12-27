@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.AlarmIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.AlarmIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.CloudWatchRegion
@@ -117,10 +118,10 @@ alarmIdentifier_region = Lens.lens (\AlarmIdentifier' {region} -> region) (\s@Al
 alarmIdentifier_name :: Lens.Lens' AlarmIdentifier Prelude.Text
 alarmIdentifier_name = Lens.lens (\AlarmIdentifier' {name} -> name) (\s@AlarmIdentifier' {} a -> s {name = a} :: AlarmIdentifier)
 
-instance Core.FromXML AlarmIdentifier where
+instance Data.FromXML AlarmIdentifier where
   parseXML x =
     AlarmIdentifier'
-      Prelude.<$> (x Core..@ "Region") Prelude.<*> (x Core..@ "Name")
+      Prelude.<$> (x Data..@ "Region") Prelude.<*> (x Data..@ "Name")
 
 instance Prelude.Hashable AlarmIdentifier where
   hashWithSalt _salt AlarmIdentifier' {..} =
@@ -131,7 +132,7 @@ instance Prelude.NFData AlarmIdentifier where
   rnf AlarmIdentifier' {..} =
     Prelude.rnf region `Prelude.seq` Prelude.rnf name
 
-instance Core.ToXML AlarmIdentifier where
+instance Data.ToXML AlarmIdentifier where
   toXML AlarmIdentifier' {..} =
     Prelude.mconcat
-      ["Region" Core.@= region, "Name" Core.@= name]
+      ["Region" Data.@= region, "Name" Data.@= name]

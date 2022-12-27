@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.GetSkillGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +76,13 @@ instance Core.AWSRequest GetSkillGroup where
   type
     AWSResponse GetSkillGroup =
       GetSkillGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSkillGroupResponse'
-            Prelude.<$> (x Core..?> "SkillGroup")
+            Prelude.<$> (x Data..?> "SkillGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,34 +93,34 @@ instance Prelude.Hashable GetSkillGroup where
 instance Prelude.NFData GetSkillGroup where
   rnf GetSkillGroup' {..} = Prelude.rnf skillGroupArn
 
-instance Core.ToHeaders GetSkillGroup where
+instance Data.ToHeaders GetSkillGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.GetSkillGroup" ::
+              Data.=# ( "AlexaForBusiness.GetSkillGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSkillGroup where
+instance Data.ToJSON GetSkillGroup where
   toJSON GetSkillGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SkillGroupArn" Core..=)
+          [ ("SkillGroupArn" Data..=)
               Prelude.<$> skillGroupArn
           ]
       )
 
-instance Core.ToPath GetSkillGroup where
+instance Data.ToPath GetSkillGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSkillGroup where
+instance Data.ToQuery GetSkillGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSkillGroupResponse' smart constructor.

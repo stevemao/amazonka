@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.CreateClassificationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,15 @@ module Amazonka.MacieV2.CreateClassificationJob
     newCreateClassificationJob,
 
     -- * Request Lenses
-    createClassificationJob_initialRun,
-    createClassificationJob_samplingPercentage,
-    createClassificationJob_managedDataIdentifierSelector,
+    createClassificationJob_allowListIds,
     createClassificationJob_customDataIdentifierIds,
-    createClassificationJob_managedDataIdentifierIds,
     createClassificationJob_description,
-    createClassificationJob_tags,
+    createClassificationJob_initialRun,
+    createClassificationJob_managedDataIdentifierIds,
+    createClassificationJob_managedDataIdentifierSelector,
+    createClassificationJob_samplingPercentage,
     createClassificationJob_scheduleFrequency,
+    createClassificationJob_tags,
     createClassificationJob_s3JobDefinition,
     createClassificationJob_jobType,
     createClassificationJob_clientToken,
@@ -45,14 +46,15 @@ module Amazonka.MacieV2.CreateClassificationJob
     newCreateClassificationJobResponse,
 
     -- * Response Lenses
-    createClassificationJobResponse_jobId,
     createClassificationJobResponse_jobArn,
+    createClassificationJobResponse_jobId,
     createClassificationJobResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,7 +62,18 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateClassificationJob' smart constructor.
 data CreateClassificationJob = CreateClassificationJob'
-  { -- | For a recurring job, specifies whether to analyze all existing, eligible
+  { -- | An array of unique identifiers, one for each allow list for the job to
+    -- use when it analyzes data.
+    allowListIds :: Prelude.Maybe [Prelude.Text],
+    -- | An array of unique identifiers, one for each custom data identifier for
+    -- the job to use when it analyzes data. To use only managed data
+    -- identifiers, don\'t specify a value for this property and specify a
+    -- value other than NONE for the managedDataIdentifierSelector property.
+    customDataIdentifierIds :: Prelude.Maybe [Prelude.Text],
+    -- | A custom description of the job. The description can contain as many as
+    -- 200 characters.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | For a recurring job, specifies whether to analyze all existing, eligible
     -- objects immediately after the job is created (true). To analyze only
     -- those objects that are created or changed after you create the job and
     -- before the job\'s first scheduled run, set this value to false.
@@ -68,12 +81,14 @@ data CreateClassificationJob = CreateClassificationJob'
     -- If you configure the job to run only once, don\'t specify a value for
     -- this property.
     initialRun :: Prelude.Maybe Prelude.Bool,
-    -- | The sampling depth, as a percentage, for the job to apply when
-    -- processing objects. This value determines the percentage of eligible
-    -- objects that the job analyzes. If this value is less than 100, Amazon
-    -- Macie selects the objects to analyze at random, up to the specified
-    -- percentage, and analyzes all the data in those objects.
-    samplingPercentage :: Prelude.Maybe Prelude.Int,
+    -- | An array of unique identifiers, one for each managed data identifier for
+    -- the job to include (use) or exclude (not use) when it analyzes data.
+    -- Inclusion or exclusion depends on the managed data identifier selection
+    -- type that you specify for the job (managedDataIdentifierSelector).
+    --
+    -- To retrieve a list of valid values for this property, use the
+    -- ListManagedDataIdentifiers operation.
+    managedDataIdentifierIds :: Prelude.Maybe [Prelude.Text],
     -- | The selection type to apply when determining which managed data
     -- identifiers the job uses to analyze data. Valid values are:
     --
@@ -98,22 +113,16 @@ data CreateClassificationJob = CreateClassificationJob'
     -- property or you specify ALL or EXCLUDE for a recurring job, the job also
     -- uses new managed data identifiers as they are released.
     managedDataIdentifierSelector :: Prelude.Maybe ManagedDataIdentifierSelector,
-    -- | An array of unique identifiers, one for each custom data identifier for
-    -- the job to use when it analyzes data. To use only managed data
-    -- identifiers, don\'t specify a value for this property and specify a
-    -- value other than NONE for the managedDataIdentifierSelector property.
-    customDataIdentifierIds :: Prelude.Maybe [Prelude.Text],
-    -- | An array of unique identifiers, one for each managed data identifier for
-    -- the job to include (use) or exclude (not use) when it analyzes data.
-    -- Inclusion or exclusion depends on the managed data identifier selection
-    -- type that you specify for the job (managedDataIdentifierSelector).
-    --
-    -- To retrieve a list of valid values for this property, use the
-    -- ListManagedDataIdentifiers operation.
-    managedDataIdentifierIds :: Prelude.Maybe [Prelude.Text],
-    -- | A custom description of the job. The description can contain as many as
-    -- 200 characters.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The sampling depth, as a percentage, for the job to apply when
+    -- processing objects. This value determines the percentage of eligible
+    -- objects that the job analyzes. If this value is less than 100, Amazon
+    -- Macie selects the objects to analyze at random, up to the specified
+    -- percentage, and analyzes all the data in those objects.
+    samplingPercentage :: Prelude.Maybe Prelude.Int,
+    -- | The recurrence pattern for running the job. To run the job only once,
+    -- don\'t specify a value for this property and set the value for the
+    -- jobType property to ONE_TIME.
+    scheduleFrequency :: Prelude.Maybe JobScheduleFrequency,
     -- | A map of key-value pairs that specifies the tags to associate with the
     -- job.
     --
@@ -121,10 +130,6 @@ data CreateClassificationJob = CreateClassificationJob'
     -- an associated tag value. The maximum length of a tag key is 128
     -- characters. The maximum length of a tag value is 256 characters.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The recurrence pattern for running the job. To run the job only once,
-    -- don\'t specify a value for this property and set the value for the
-    -- jobType property to ONE_TIME.
-    scheduleFrequency :: Prelude.Maybe JobScheduleFrequency,
     -- | The S3 buckets that contain the objects to analyze, and the scope of
     -- that analysis.
     s3JobDefinition :: S3JobDefinition,
@@ -154,6 +159,17 @@ data CreateClassificationJob = CreateClassificationJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'allowListIds', 'createClassificationJob_allowListIds' - An array of unique identifiers, one for each allow list for the job to
+-- use when it analyzes data.
+--
+-- 'customDataIdentifierIds', 'createClassificationJob_customDataIdentifierIds' - An array of unique identifiers, one for each custom data identifier for
+-- the job to use when it analyzes data. To use only managed data
+-- identifiers, don\'t specify a value for this property and specify a
+-- value other than NONE for the managedDataIdentifierSelector property.
+--
+-- 'description', 'createClassificationJob_description' - A custom description of the job. The description can contain as many as
+-- 200 characters.
+--
 -- 'initialRun', 'createClassificationJob_initialRun' - For a recurring job, specifies whether to analyze all existing, eligible
 -- objects immediately after the job is created (true). To analyze only
 -- those objects that are created or changed after you create the job and
@@ -162,11 +178,13 @@ data CreateClassificationJob = CreateClassificationJob'
 -- If you configure the job to run only once, don\'t specify a value for
 -- this property.
 --
--- 'samplingPercentage', 'createClassificationJob_samplingPercentage' - The sampling depth, as a percentage, for the job to apply when
--- processing objects. This value determines the percentage of eligible
--- objects that the job analyzes. If this value is less than 100, Amazon
--- Macie selects the objects to analyze at random, up to the specified
--- percentage, and analyzes all the data in those objects.
+-- 'managedDataIdentifierIds', 'createClassificationJob_managedDataIdentifierIds' - An array of unique identifiers, one for each managed data identifier for
+-- the job to include (use) or exclude (not use) when it analyzes data.
+-- Inclusion or exclusion depends on the managed data identifier selection
+-- type that you specify for the job (managedDataIdentifierSelector).
+--
+-- To retrieve a list of valid values for this property, use the
+-- ListManagedDataIdentifiers operation.
 --
 -- 'managedDataIdentifierSelector', 'createClassificationJob_managedDataIdentifierSelector' - The selection type to apply when determining which managed data
 -- identifiers the job uses to analyze data. Valid values are:
@@ -192,21 +210,15 @@ data CreateClassificationJob = CreateClassificationJob'
 -- property or you specify ALL or EXCLUDE for a recurring job, the job also
 -- uses new managed data identifiers as they are released.
 --
--- 'customDataIdentifierIds', 'createClassificationJob_customDataIdentifierIds' - An array of unique identifiers, one for each custom data identifier for
--- the job to use when it analyzes data. To use only managed data
--- identifiers, don\'t specify a value for this property and specify a
--- value other than NONE for the managedDataIdentifierSelector property.
+-- 'samplingPercentage', 'createClassificationJob_samplingPercentage' - The sampling depth, as a percentage, for the job to apply when
+-- processing objects. This value determines the percentage of eligible
+-- objects that the job analyzes. If this value is less than 100, Amazon
+-- Macie selects the objects to analyze at random, up to the specified
+-- percentage, and analyzes all the data in those objects.
 --
--- 'managedDataIdentifierIds', 'createClassificationJob_managedDataIdentifierIds' - An array of unique identifiers, one for each managed data identifier for
--- the job to include (use) or exclude (not use) when it analyzes data.
--- Inclusion or exclusion depends on the managed data identifier selection
--- type that you specify for the job (managedDataIdentifierSelector).
---
--- To retrieve a list of valid values for this property, use the
--- ListManagedDataIdentifiers operation.
---
--- 'description', 'createClassificationJob_description' - A custom description of the job. The description can contain as many as
--- 200 characters.
+-- 'scheduleFrequency', 'createClassificationJob_scheduleFrequency' - The recurrence pattern for running the job. To run the job only once,
+-- don\'t specify a value for this property and set the value for the
+-- jobType property to ONE_TIME.
 --
 -- 'tags', 'createClassificationJob_tags' - A map of key-value pairs that specifies the tags to associate with the
 -- job.
@@ -214,10 +226,6 @@ data CreateClassificationJob = CreateClassificationJob'
 -- A job can have a maximum of 50 tags. Each tag consists of a tag key and
 -- an associated tag value. The maximum length of a tag key is 128
 -- characters. The maximum length of a tag value is 256 characters.
---
--- 'scheduleFrequency', 'createClassificationJob_scheduleFrequency' - The recurrence pattern for running the job. To run the job only once,
--- don\'t specify a value for this property and set the value for the
--- jobType property to ONE_TIME.
 --
 -- 's3JobDefinition', 'createClassificationJob_s3JobDefinition' - The S3 buckets that contain the objects to analyze, and the scope of
 -- that analysis.
@@ -252,20 +260,38 @@ newCreateClassificationJob
   pClientToken_
   pName_ =
     CreateClassificationJob'
-      { initialRun =
+      { allowListIds =
           Prelude.Nothing,
-        samplingPercentage = Prelude.Nothing,
-        managedDataIdentifierSelector = Prelude.Nothing,
         customDataIdentifierIds = Prelude.Nothing,
-        managedDataIdentifierIds = Prelude.Nothing,
         description = Prelude.Nothing,
-        tags = Prelude.Nothing,
+        initialRun = Prelude.Nothing,
+        managedDataIdentifierIds = Prelude.Nothing,
+        managedDataIdentifierSelector = Prelude.Nothing,
+        samplingPercentage = Prelude.Nothing,
         scheduleFrequency = Prelude.Nothing,
+        tags = Prelude.Nothing,
         s3JobDefinition = pS3JobDefinition_,
         jobType = pJobType_,
         clientToken = pClientToken_,
         name = pName_
       }
+
+-- | An array of unique identifiers, one for each allow list for the job to
+-- use when it analyzes data.
+createClassificationJob_allowListIds :: Lens.Lens' CreateClassificationJob (Prelude.Maybe [Prelude.Text])
+createClassificationJob_allowListIds = Lens.lens (\CreateClassificationJob' {allowListIds} -> allowListIds) (\s@CreateClassificationJob' {} a -> s {allowListIds = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
+
+-- | An array of unique identifiers, one for each custom data identifier for
+-- the job to use when it analyzes data. To use only managed data
+-- identifiers, don\'t specify a value for this property and specify a
+-- value other than NONE for the managedDataIdentifierSelector property.
+createClassificationJob_customDataIdentifierIds :: Lens.Lens' CreateClassificationJob (Prelude.Maybe [Prelude.Text])
+createClassificationJob_customDataIdentifierIds = Lens.lens (\CreateClassificationJob' {customDataIdentifierIds} -> customDataIdentifierIds) (\s@CreateClassificationJob' {} a -> s {customDataIdentifierIds = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
+
+-- | A custom description of the job. The description can contain as many as
+-- 200 characters.
+createClassificationJob_description :: Lens.Lens' CreateClassificationJob (Prelude.Maybe Prelude.Text)
+createClassificationJob_description = Lens.lens (\CreateClassificationJob' {description} -> description) (\s@CreateClassificationJob' {} a -> s {description = a} :: CreateClassificationJob)
 
 -- | For a recurring job, specifies whether to analyze all existing, eligible
 -- objects immediately after the job is created (true). To analyze only
@@ -277,13 +303,15 @@ newCreateClassificationJob
 createClassificationJob_initialRun :: Lens.Lens' CreateClassificationJob (Prelude.Maybe Prelude.Bool)
 createClassificationJob_initialRun = Lens.lens (\CreateClassificationJob' {initialRun} -> initialRun) (\s@CreateClassificationJob' {} a -> s {initialRun = a} :: CreateClassificationJob)
 
--- | The sampling depth, as a percentage, for the job to apply when
--- processing objects. This value determines the percentage of eligible
--- objects that the job analyzes. If this value is less than 100, Amazon
--- Macie selects the objects to analyze at random, up to the specified
--- percentage, and analyzes all the data in those objects.
-createClassificationJob_samplingPercentage :: Lens.Lens' CreateClassificationJob (Prelude.Maybe Prelude.Int)
-createClassificationJob_samplingPercentage = Lens.lens (\CreateClassificationJob' {samplingPercentage} -> samplingPercentage) (\s@CreateClassificationJob' {} a -> s {samplingPercentage = a} :: CreateClassificationJob)
+-- | An array of unique identifiers, one for each managed data identifier for
+-- the job to include (use) or exclude (not use) when it analyzes data.
+-- Inclusion or exclusion depends on the managed data identifier selection
+-- type that you specify for the job (managedDataIdentifierSelector).
+--
+-- To retrieve a list of valid values for this property, use the
+-- ListManagedDataIdentifiers operation.
+createClassificationJob_managedDataIdentifierIds :: Lens.Lens' CreateClassificationJob (Prelude.Maybe [Prelude.Text])
+createClassificationJob_managedDataIdentifierIds = Lens.lens (\CreateClassificationJob' {managedDataIdentifierIds} -> managedDataIdentifierIds) (\s@CreateClassificationJob' {} a -> s {managedDataIdentifierIds = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | The selection type to apply when determining which managed data
 -- identifiers the job uses to analyze data. Valid values are:
@@ -311,27 +339,19 @@ createClassificationJob_samplingPercentage = Lens.lens (\CreateClassificationJob
 createClassificationJob_managedDataIdentifierSelector :: Lens.Lens' CreateClassificationJob (Prelude.Maybe ManagedDataIdentifierSelector)
 createClassificationJob_managedDataIdentifierSelector = Lens.lens (\CreateClassificationJob' {managedDataIdentifierSelector} -> managedDataIdentifierSelector) (\s@CreateClassificationJob' {} a -> s {managedDataIdentifierSelector = a} :: CreateClassificationJob)
 
--- | An array of unique identifiers, one for each custom data identifier for
--- the job to use when it analyzes data. To use only managed data
--- identifiers, don\'t specify a value for this property and specify a
--- value other than NONE for the managedDataIdentifierSelector property.
-createClassificationJob_customDataIdentifierIds :: Lens.Lens' CreateClassificationJob (Prelude.Maybe [Prelude.Text])
-createClassificationJob_customDataIdentifierIds = Lens.lens (\CreateClassificationJob' {customDataIdentifierIds} -> customDataIdentifierIds) (\s@CreateClassificationJob' {} a -> s {customDataIdentifierIds = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
+-- | The sampling depth, as a percentage, for the job to apply when
+-- processing objects. This value determines the percentage of eligible
+-- objects that the job analyzes. If this value is less than 100, Amazon
+-- Macie selects the objects to analyze at random, up to the specified
+-- percentage, and analyzes all the data in those objects.
+createClassificationJob_samplingPercentage :: Lens.Lens' CreateClassificationJob (Prelude.Maybe Prelude.Int)
+createClassificationJob_samplingPercentage = Lens.lens (\CreateClassificationJob' {samplingPercentage} -> samplingPercentage) (\s@CreateClassificationJob' {} a -> s {samplingPercentage = a} :: CreateClassificationJob)
 
--- | An array of unique identifiers, one for each managed data identifier for
--- the job to include (use) or exclude (not use) when it analyzes data.
--- Inclusion or exclusion depends on the managed data identifier selection
--- type that you specify for the job (managedDataIdentifierSelector).
---
--- To retrieve a list of valid values for this property, use the
--- ListManagedDataIdentifiers operation.
-createClassificationJob_managedDataIdentifierIds :: Lens.Lens' CreateClassificationJob (Prelude.Maybe [Prelude.Text])
-createClassificationJob_managedDataIdentifierIds = Lens.lens (\CreateClassificationJob' {managedDataIdentifierIds} -> managedDataIdentifierIds) (\s@CreateClassificationJob' {} a -> s {managedDataIdentifierIds = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
-
--- | A custom description of the job. The description can contain as many as
--- 200 characters.
-createClassificationJob_description :: Lens.Lens' CreateClassificationJob (Prelude.Maybe Prelude.Text)
-createClassificationJob_description = Lens.lens (\CreateClassificationJob' {description} -> description) (\s@CreateClassificationJob' {} a -> s {description = a} :: CreateClassificationJob)
+-- | The recurrence pattern for running the job. To run the job only once,
+-- don\'t specify a value for this property and set the value for the
+-- jobType property to ONE_TIME.
+createClassificationJob_scheduleFrequency :: Lens.Lens' CreateClassificationJob (Prelude.Maybe JobScheduleFrequency)
+createClassificationJob_scheduleFrequency = Lens.lens (\CreateClassificationJob' {scheduleFrequency} -> scheduleFrequency) (\s@CreateClassificationJob' {} a -> s {scheduleFrequency = a} :: CreateClassificationJob)
 
 -- | A map of key-value pairs that specifies the tags to associate with the
 -- job.
@@ -341,12 +361,6 @@ createClassificationJob_description = Lens.lens (\CreateClassificationJob' {desc
 -- characters. The maximum length of a tag value is 256 characters.
 createClassificationJob_tags :: Lens.Lens' CreateClassificationJob (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createClassificationJob_tags = Lens.lens (\CreateClassificationJob' {tags} -> tags) (\s@CreateClassificationJob' {} a -> s {tags = a} :: CreateClassificationJob) Prelude.. Lens.mapping Lens.coerced
-
--- | The recurrence pattern for running the job. To run the job only once,
--- don\'t specify a value for this property and set the value for the
--- jobType property to ONE_TIME.
-createClassificationJob_scheduleFrequency :: Lens.Lens' CreateClassificationJob (Prelude.Maybe JobScheduleFrequency)
-createClassificationJob_scheduleFrequency = Lens.lens (\CreateClassificationJob' {scheduleFrequency} -> scheduleFrequency) (\s@CreateClassificationJob' {} a -> s {scheduleFrequency = a} :: CreateClassificationJob)
 
 -- | The S3 buckets that contain the objects to analyze, and the scope of
 -- that analysis.
@@ -378,26 +392,28 @@ instance Core.AWSRequest CreateClassificationJob where
   type
     AWSResponse CreateClassificationJob =
       CreateClassificationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateClassificationJobResponse'
-            Prelude.<$> (x Core..?> "jobId")
-            Prelude.<*> (x Core..?> "jobArn")
+            Prelude.<$> (x Data..?> "jobArn")
+            Prelude.<*> (x Data..?> "jobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateClassificationJob where
   hashWithSalt _salt CreateClassificationJob' {..} =
-    _salt `Prelude.hashWithSalt` initialRun
-      `Prelude.hashWithSalt` samplingPercentage
-      `Prelude.hashWithSalt` managedDataIdentifierSelector
+    _salt `Prelude.hashWithSalt` allowListIds
       `Prelude.hashWithSalt` customDataIdentifierIds
-      `Prelude.hashWithSalt` managedDataIdentifierIds
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` initialRun
+      `Prelude.hashWithSalt` managedDataIdentifierIds
+      `Prelude.hashWithSalt` managedDataIdentifierSelector
+      `Prelude.hashWithSalt` samplingPercentage
       `Prelude.hashWithSalt` scheduleFrequency
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` s3JobDefinition
       `Prelude.hashWithSalt` jobType
       `Prelude.hashWithSalt` clientToken
@@ -405,67 +421,69 @@ instance Prelude.Hashable CreateClassificationJob where
 
 instance Prelude.NFData CreateClassificationJob where
   rnf CreateClassificationJob' {..} =
-    Prelude.rnf initialRun
-      `Prelude.seq` Prelude.rnf samplingPercentage
-      `Prelude.seq` Prelude.rnf managedDataIdentifierSelector
+    Prelude.rnf allowListIds
       `Prelude.seq` Prelude.rnf customDataIdentifierIds
-      `Prelude.seq` Prelude.rnf managedDataIdentifierIds
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf initialRun
+      `Prelude.seq` Prelude.rnf managedDataIdentifierIds
+      `Prelude.seq` Prelude.rnf managedDataIdentifierSelector
+      `Prelude.seq` Prelude.rnf samplingPercentage
       `Prelude.seq` Prelude.rnf scheduleFrequency
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf s3JobDefinition
       `Prelude.seq` Prelude.rnf jobType
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateClassificationJob where
+instance Data.ToHeaders CreateClassificationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateClassificationJob where
+instance Data.ToJSON CreateClassificationJob where
   toJSON CreateClassificationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("initialRun" Core..=) Prelude.<$> initialRun,
-            ("samplingPercentage" Core..=)
-              Prelude.<$> samplingPercentage,
-            ("managedDataIdentifierSelector" Core..=)
-              Prelude.<$> managedDataIdentifierSelector,
-            ("customDataIdentifierIds" Core..=)
+          [ ("allowListIds" Data..=) Prelude.<$> allowListIds,
+            ("customDataIdentifierIds" Data..=)
               Prelude.<$> customDataIdentifierIds,
-            ("managedDataIdentifierIds" Core..=)
+            ("description" Data..=) Prelude.<$> description,
+            ("initialRun" Data..=) Prelude.<$> initialRun,
+            ("managedDataIdentifierIds" Data..=)
               Prelude.<$> managedDataIdentifierIds,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            ("scheduleFrequency" Core..=)
+            ("managedDataIdentifierSelector" Data..=)
+              Prelude.<$> managedDataIdentifierSelector,
+            ("samplingPercentage" Data..=)
+              Prelude.<$> samplingPercentage,
+            ("scheduleFrequency" Data..=)
               Prelude.<$> scheduleFrequency,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("s3JobDefinition" Core..= s3JobDefinition),
-            Prelude.Just ("jobType" Core..= jobType),
-            Prelude.Just ("clientToken" Core..= clientToken),
-            Prelude.Just ("name" Core..= name)
+              ("s3JobDefinition" Data..= s3JobDefinition),
+            Prelude.Just ("jobType" Data..= jobType),
+            Prelude.Just ("clientToken" Data..= clientToken),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateClassificationJob where
+instance Data.ToPath CreateClassificationJob where
   toPath = Prelude.const "/jobs"
 
-instance Core.ToQuery CreateClassificationJob where
+instance Data.ToQuery CreateClassificationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateClassificationJobResponse' smart constructor.
 data CreateClassificationJobResponse = CreateClassificationJobResponse'
-  { -- | The unique identifier for the job.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the job.
+  { -- | The Amazon Resource Name (ARN) of the job.
     jobArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the job.
+    jobId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -479,9 +497,9 @@ data CreateClassificationJobResponse = CreateClassificationJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'createClassificationJobResponse_jobId' - The unique identifier for the job.
---
 -- 'jobArn', 'createClassificationJobResponse_jobArn' - The Amazon Resource Name (ARN) of the job.
+--
+-- 'jobId', 'createClassificationJobResponse_jobId' - The unique identifier for the job.
 --
 -- 'httpStatus', 'createClassificationJobResponse_httpStatus' - The response's http status code.
 newCreateClassificationJobResponse ::
@@ -490,19 +508,19 @@ newCreateClassificationJobResponse ::
   CreateClassificationJobResponse
 newCreateClassificationJobResponse pHttpStatus_ =
   CreateClassificationJobResponse'
-    { jobId =
+    { jobArn =
         Prelude.Nothing,
-      jobArn = Prelude.Nothing,
+      jobId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The unique identifier for the job.
-createClassificationJobResponse_jobId :: Lens.Lens' CreateClassificationJobResponse (Prelude.Maybe Prelude.Text)
-createClassificationJobResponse_jobId = Lens.lens (\CreateClassificationJobResponse' {jobId} -> jobId) (\s@CreateClassificationJobResponse' {} a -> s {jobId = a} :: CreateClassificationJobResponse)
 
 -- | The Amazon Resource Name (ARN) of the job.
 createClassificationJobResponse_jobArn :: Lens.Lens' CreateClassificationJobResponse (Prelude.Maybe Prelude.Text)
 createClassificationJobResponse_jobArn = Lens.lens (\CreateClassificationJobResponse' {jobArn} -> jobArn) (\s@CreateClassificationJobResponse' {} a -> s {jobArn = a} :: CreateClassificationJobResponse)
+
+-- | The unique identifier for the job.
+createClassificationJobResponse_jobId :: Lens.Lens' CreateClassificationJobResponse (Prelude.Maybe Prelude.Text)
+createClassificationJobResponse_jobId = Lens.lens (\CreateClassificationJobResponse' {jobId} -> jobId) (\s@CreateClassificationJobResponse' {} a -> s {jobId = a} :: CreateClassificationJobResponse)
 
 -- | The response's http status code.
 createClassificationJobResponse_httpStatus :: Lens.Lens' CreateClassificationJobResponse Prelude.Int
@@ -513,6 +531,6 @@ instance
     CreateClassificationJobResponse
   where
   rnf CreateClassificationJobResponse' {..} =
-    Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf jobArn
+    Prelude.rnf jobArn
+      `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf httpStatus

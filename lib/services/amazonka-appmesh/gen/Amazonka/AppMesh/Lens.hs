@@ -6,263 +6,13 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.AppMesh.Lens
   ( -- * Operations
-
-    -- ** DescribeVirtualNode
-    describeVirtualNode_meshOwner,
-    describeVirtualNode_meshName,
-    describeVirtualNode_virtualNodeName,
-    describeVirtualNodeResponse_httpStatus,
-    describeVirtualNodeResponse_virtualNode,
-
-    -- ** DescribeVirtualGateway
-    describeVirtualGateway_meshOwner,
-    describeVirtualGateway_meshName,
-    describeVirtualGateway_virtualGatewayName,
-    describeVirtualGatewayResponse_httpStatus,
-    describeVirtualGatewayResponse_virtualGateway,
-
-    -- ** DescribeRoute
-    describeRoute_meshOwner,
-    describeRoute_meshName,
-    describeRoute_routeName,
-    describeRoute_virtualRouterName,
-    describeRouteResponse_httpStatus,
-    describeRouteResponse_route,
-
-    -- ** DescribeVirtualRouter
-    describeVirtualRouter_meshOwner,
-    describeVirtualRouter_meshName,
-    describeVirtualRouter_virtualRouterName,
-    describeVirtualRouterResponse_httpStatus,
-    describeVirtualRouterResponse_virtualRouter,
-
-    -- ** ListMeshes
-    listMeshes_nextToken,
-    listMeshes_limit,
-    listMeshesResponse_nextToken,
-    listMeshesResponse_httpStatus,
-    listMeshesResponse_meshes,
-
-    -- ** CreateMesh
-    createMesh_clientToken,
-    createMesh_spec,
-    createMesh_tags,
-    createMesh_meshName,
-    createMeshResponse_httpStatus,
-    createMeshResponse_mesh,
-
-    -- ** UpdateMesh
-    updateMesh_clientToken,
-    updateMesh_spec,
-    updateMesh_meshName,
-    updateMeshResponse_httpStatus,
-    updateMeshResponse_mesh,
-
-    -- ** DeleteMesh
-    deleteMesh_meshName,
-    deleteMeshResponse_httpStatus,
-    deleteMeshResponse_mesh,
-
-    -- ** ListTagsForResource
-    listTagsForResource_nextToken,
-    listTagsForResource_limit,
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_nextToken,
-    listTagsForResourceResponse_httpStatus,
-    listTagsForResourceResponse_tags,
-
-    -- ** CreateVirtualGateway
-    createVirtualGateway_clientToken,
-    createVirtualGateway_meshOwner,
-    createVirtualGateway_tags,
-    createVirtualGateway_meshName,
-    createVirtualGateway_spec,
-    createVirtualGateway_virtualGatewayName,
-    createVirtualGatewayResponse_httpStatus,
-    createVirtualGatewayResponse_virtualGateway,
-
-    -- ** ListVirtualServices
-    listVirtualServices_meshOwner,
-    listVirtualServices_nextToken,
-    listVirtualServices_limit,
-    listVirtualServices_meshName,
-    listVirtualServicesResponse_nextToken,
-    listVirtualServicesResponse_httpStatus,
-    listVirtualServicesResponse_virtualServices,
-
-    -- ** DeleteVirtualService
-    deleteVirtualService_meshOwner,
-    deleteVirtualService_meshName,
-    deleteVirtualService_virtualServiceName,
-    deleteVirtualServiceResponse_httpStatus,
-    deleteVirtualServiceResponse_virtualService,
-
-    -- ** UpdateVirtualService
-    updateVirtualService_clientToken,
-    updateVirtualService_meshOwner,
-    updateVirtualService_meshName,
-    updateVirtualService_spec,
-    updateVirtualService_virtualServiceName,
-    updateVirtualServiceResponse_httpStatus,
-    updateVirtualServiceResponse_virtualService,
-
-    -- ** UpdateVirtualGateway
-    updateVirtualGateway_clientToken,
-    updateVirtualGateway_meshOwner,
-    updateVirtualGateway_meshName,
-    updateVirtualGateway_spec,
-    updateVirtualGateway_virtualGatewayName,
-    updateVirtualGatewayResponse_httpStatus,
-    updateVirtualGatewayResponse_virtualGateway,
-
-    -- ** DeleteVirtualGateway
-    deleteVirtualGateway_meshOwner,
-    deleteVirtualGateway_meshName,
-    deleteVirtualGateway_virtualGatewayName,
-    deleteVirtualGatewayResponse_httpStatus,
-    deleteVirtualGatewayResponse_virtualGateway,
-
-    -- ** DeleteRoute
-    deleteRoute_meshOwner,
-    deleteRoute_meshName,
-    deleteRoute_routeName,
-    deleteRoute_virtualRouterName,
-    deleteRouteResponse_httpStatus,
-    deleteRouteResponse_route,
-
-    -- ** UpdateRoute
-    updateRoute_clientToken,
-    updateRoute_meshOwner,
-    updateRoute_meshName,
-    updateRoute_routeName,
-    updateRoute_spec,
-    updateRoute_virtualRouterName,
-    updateRouteResponse_httpStatus,
-    updateRouteResponse_route,
-
-    -- ** CreateVirtualService
-    createVirtualService_clientToken,
-    createVirtualService_meshOwner,
-    createVirtualService_tags,
-    createVirtualService_meshName,
-    createVirtualService_spec,
-    createVirtualService_virtualServiceName,
-    createVirtualServiceResponse_httpStatus,
-    createVirtualServiceResponse_virtualService,
-
-    -- ** DeleteVirtualNode
-    deleteVirtualNode_meshOwner,
-    deleteVirtualNode_meshName,
-    deleteVirtualNode_virtualNodeName,
-    deleteVirtualNodeResponse_httpStatus,
-    deleteVirtualNodeResponse_virtualNode,
-
-    -- ** UpdateVirtualNode
-    updateVirtualNode_clientToken,
-    updateVirtualNode_meshOwner,
-    updateVirtualNode_meshName,
-    updateVirtualNode_spec,
-    updateVirtualNode_virtualNodeName,
-    updateVirtualNodeResponse_httpStatus,
-    updateVirtualNodeResponse_virtualNode,
-
-    -- ** ListGatewayRoutes
-    listGatewayRoutes_meshOwner,
-    listGatewayRoutes_nextToken,
-    listGatewayRoutes_limit,
-    listGatewayRoutes_meshName,
-    listGatewayRoutes_virtualGatewayName,
-    listGatewayRoutesResponse_nextToken,
-    listGatewayRoutesResponse_httpStatus,
-    listGatewayRoutesResponse_gatewayRoutes,
-
-    -- ** ListRoutes
-    listRoutes_meshOwner,
-    listRoutes_nextToken,
-    listRoutes_limit,
-    listRoutes_meshName,
-    listRoutes_virtualRouterName,
-    listRoutesResponse_nextToken,
-    listRoutesResponse_httpStatus,
-    listRoutesResponse_routes,
-
-    -- ** ListVirtualNodes
-    listVirtualNodes_meshOwner,
-    listVirtualNodes_nextToken,
-    listVirtualNodes_limit,
-    listVirtualNodes_meshName,
-    listVirtualNodesResponse_nextToken,
-    listVirtualNodesResponse_httpStatus,
-    listVirtualNodesResponse_virtualNodes,
-
-    -- ** DeleteVirtualRouter
-    deleteVirtualRouter_meshOwner,
-    deleteVirtualRouter_meshName,
-    deleteVirtualRouter_virtualRouterName,
-    deleteVirtualRouterResponse_httpStatus,
-    deleteVirtualRouterResponse_virtualRouter,
-
-    -- ** UpdateVirtualRouter
-    updateVirtualRouter_clientToken,
-    updateVirtualRouter_meshOwner,
-    updateVirtualRouter_meshName,
-    updateVirtualRouter_spec,
-    updateVirtualRouter_virtualRouterName,
-    updateVirtualRouterResponse_httpStatus,
-    updateVirtualRouterResponse_virtualRouter,
-
-    -- ** CreateVirtualRouter
-    createVirtualRouter_clientToken,
-    createVirtualRouter_meshOwner,
-    createVirtualRouter_tags,
-    createVirtualRouter_meshName,
-    createVirtualRouter_spec,
-    createVirtualRouter_virtualRouterName,
-    createVirtualRouterResponse_httpStatus,
-    createVirtualRouterResponse_virtualRouter,
-
-    -- ** DescribeVirtualService
-    describeVirtualService_meshOwner,
-    describeVirtualService_meshName,
-    describeVirtualService_virtualServiceName,
-    describeVirtualServiceResponse_httpStatus,
-    describeVirtualServiceResponse_virtualService,
-
-    -- ** DescribeGatewayRoute
-    describeGatewayRoute_meshOwner,
-    describeGatewayRoute_gatewayRouteName,
-    describeGatewayRoute_meshName,
-    describeGatewayRoute_virtualGatewayName,
-    describeGatewayRouteResponse_httpStatus,
-    describeGatewayRouteResponse_gatewayRoute,
-
-    -- ** CreateRoute
-    createRoute_clientToken,
-    createRoute_meshOwner,
-    createRoute_tags,
-    createRoute_meshName,
-    createRoute_routeName,
-    createRoute_spec,
-    createRoute_virtualRouterName,
-    createRouteResponse_httpStatus,
-    createRouteResponse_route,
-
-    -- ** CreateVirtualNode
-    createVirtualNode_clientToken,
-    createVirtualNode_meshOwner,
-    createVirtualNode_tags,
-    createVirtualNode_meshName,
-    createVirtualNode_spec,
-    createVirtualNode_virtualNodeName,
-    createVirtualNodeResponse_httpStatus,
-    createVirtualNodeResponse_virtualNode,
 
     -- ** CreateGatewayRoute
     createGatewayRoute_clientToken,
@@ -275,6 +25,245 @@ module Amazonka.AppMesh.Lens
     createGatewayRouteResponse_httpStatus,
     createGatewayRouteResponse_gatewayRoute,
 
+    -- ** CreateMesh
+    createMesh_clientToken,
+    createMesh_spec,
+    createMesh_tags,
+    createMesh_meshName,
+    createMeshResponse_httpStatus,
+    createMeshResponse_mesh,
+
+    -- ** CreateRoute
+    createRoute_clientToken,
+    createRoute_meshOwner,
+    createRoute_tags,
+    createRoute_meshName,
+    createRoute_routeName,
+    createRoute_spec,
+    createRoute_virtualRouterName,
+    createRouteResponse_httpStatus,
+    createRouteResponse_route,
+
+    -- ** CreateVirtualGateway
+    createVirtualGateway_clientToken,
+    createVirtualGateway_meshOwner,
+    createVirtualGateway_tags,
+    createVirtualGateway_meshName,
+    createVirtualGateway_spec,
+    createVirtualGateway_virtualGatewayName,
+    createVirtualGatewayResponse_httpStatus,
+    createVirtualGatewayResponse_virtualGateway,
+
+    -- ** CreateVirtualNode
+    createVirtualNode_clientToken,
+    createVirtualNode_meshOwner,
+    createVirtualNode_tags,
+    createVirtualNode_meshName,
+    createVirtualNode_spec,
+    createVirtualNode_virtualNodeName,
+    createVirtualNodeResponse_httpStatus,
+    createVirtualNodeResponse_virtualNode,
+
+    -- ** CreateVirtualRouter
+    createVirtualRouter_clientToken,
+    createVirtualRouter_meshOwner,
+    createVirtualRouter_tags,
+    createVirtualRouter_meshName,
+    createVirtualRouter_spec,
+    createVirtualRouter_virtualRouterName,
+    createVirtualRouterResponse_httpStatus,
+    createVirtualRouterResponse_virtualRouter,
+
+    -- ** CreateVirtualService
+    createVirtualService_clientToken,
+    createVirtualService_meshOwner,
+    createVirtualService_tags,
+    createVirtualService_meshName,
+    createVirtualService_spec,
+    createVirtualService_virtualServiceName,
+    createVirtualServiceResponse_httpStatus,
+    createVirtualServiceResponse_virtualService,
+
+    -- ** DeleteGatewayRoute
+    deleteGatewayRoute_meshOwner,
+    deleteGatewayRoute_gatewayRouteName,
+    deleteGatewayRoute_meshName,
+    deleteGatewayRoute_virtualGatewayName,
+    deleteGatewayRouteResponse_httpStatus,
+    deleteGatewayRouteResponse_gatewayRoute,
+
+    -- ** DeleteMesh
+    deleteMesh_meshName,
+    deleteMeshResponse_httpStatus,
+    deleteMeshResponse_mesh,
+
+    -- ** DeleteRoute
+    deleteRoute_meshOwner,
+    deleteRoute_meshName,
+    deleteRoute_routeName,
+    deleteRoute_virtualRouterName,
+    deleteRouteResponse_httpStatus,
+    deleteRouteResponse_route,
+
+    -- ** DeleteVirtualGateway
+    deleteVirtualGateway_meshOwner,
+    deleteVirtualGateway_meshName,
+    deleteVirtualGateway_virtualGatewayName,
+    deleteVirtualGatewayResponse_httpStatus,
+    deleteVirtualGatewayResponse_virtualGateway,
+
+    -- ** DeleteVirtualNode
+    deleteVirtualNode_meshOwner,
+    deleteVirtualNode_meshName,
+    deleteVirtualNode_virtualNodeName,
+    deleteVirtualNodeResponse_httpStatus,
+    deleteVirtualNodeResponse_virtualNode,
+
+    -- ** DeleteVirtualRouter
+    deleteVirtualRouter_meshOwner,
+    deleteVirtualRouter_meshName,
+    deleteVirtualRouter_virtualRouterName,
+    deleteVirtualRouterResponse_httpStatus,
+    deleteVirtualRouterResponse_virtualRouter,
+
+    -- ** DeleteVirtualService
+    deleteVirtualService_meshOwner,
+    deleteVirtualService_meshName,
+    deleteVirtualService_virtualServiceName,
+    deleteVirtualServiceResponse_httpStatus,
+    deleteVirtualServiceResponse_virtualService,
+
+    -- ** DescribeGatewayRoute
+    describeGatewayRoute_meshOwner,
+    describeGatewayRoute_gatewayRouteName,
+    describeGatewayRoute_meshName,
+    describeGatewayRoute_virtualGatewayName,
+    describeGatewayRouteResponse_httpStatus,
+    describeGatewayRouteResponse_gatewayRoute,
+
+    -- ** DescribeMesh
+    describeMesh_meshOwner,
+    describeMesh_meshName,
+    describeMeshResponse_httpStatus,
+    describeMeshResponse_mesh,
+
+    -- ** DescribeRoute
+    describeRoute_meshOwner,
+    describeRoute_meshName,
+    describeRoute_routeName,
+    describeRoute_virtualRouterName,
+    describeRouteResponse_httpStatus,
+    describeRouteResponse_route,
+
+    -- ** DescribeVirtualGateway
+    describeVirtualGateway_meshOwner,
+    describeVirtualGateway_meshName,
+    describeVirtualGateway_virtualGatewayName,
+    describeVirtualGatewayResponse_httpStatus,
+    describeVirtualGatewayResponse_virtualGateway,
+
+    -- ** DescribeVirtualNode
+    describeVirtualNode_meshOwner,
+    describeVirtualNode_meshName,
+    describeVirtualNode_virtualNodeName,
+    describeVirtualNodeResponse_httpStatus,
+    describeVirtualNodeResponse_virtualNode,
+
+    -- ** DescribeVirtualRouter
+    describeVirtualRouter_meshOwner,
+    describeVirtualRouter_meshName,
+    describeVirtualRouter_virtualRouterName,
+    describeVirtualRouterResponse_httpStatus,
+    describeVirtualRouterResponse_virtualRouter,
+
+    -- ** DescribeVirtualService
+    describeVirtualService_meshOwner,
+    describeVirtualService_meshName,
+    describeVirtualService_virtualServiceName,
+    describeVirtualServiceResponse_httpStatus,
+    describeVirtualServiceResponse_virtualService,
+
+    -- ** ListGatewayRoutes
+    listGatewayRoutes_limit,
+    listGatewayRoutes_meshOwner,
+    listGatewayRoutes_nextToken,
+    listGatewayRoutes_meshName,
+    listGatewayRoutes_virtualGatewayName,
+    listGatewayRoutesResponse_nextToken,
+    listGatewayRoutesResponse_httpStatus,
+    listGatewayRoutesResponse_gatewayRoutes,
+
+    -- ** ListMeshes
+    listMeshes_limit,
+    listMeshes_nextToken,
+    listMeshesResponse_nextToken,
+    listMeshesResponse_httpStatus,
+    listMeshesResponse_meshes,
+
+    -- ** ListRoutes
+    listRoutes_limit,
+    listRoutes_meshOwner,
+    listRoutes_nextToken,
+    listRoutes_meshName,
+    listRoutes_virtualRouterName,
+    listRoutesResponse_nextToken,
+    listRoutesResponse_httpStatus,
+    listRoutesResponse_routes,
+
+    -- ** ListTagsForResource
+    listTagsForResource_limit,
+    listTagsForResource_nextToken,
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_nextToken,
+    listTagsForResourceResponse_httpStatus,
+    listTagsForResourceResponse_tags,
+
+    -- ** ListVirtualGateways
+    listVirtualGateways_limit,
+    listVirtualGateways_meshOwner,
+    listVirtualGateways_nextToken,
+    listVirtualGateways_meshName,
+    listVirtualGatewaysResponse_nextToken,
+    listVirtualGatewaysResponse_httpStatus,
+    listVirtualGatewaysResponse_virtualGateways,
+
+    -- ** ListVirtualNodes
+    listVirtualNodes_limit,
+    listVirtualNodes_meshOwner,
+    listVirtualNodes_nextToken,
+    listVirtualNodes_meshName,
+    listVirtualNodesResponse_nextToken,
+    listVirtualNodesResponse_httpStatus,
+    listVirtualNodesResponse_virtualNodes,
+
+    -- ** ListVirtualRouters
+    listVirtualRouters_limit,
+    listVirtualRouters_meshOwner,
+    listVirtualRouters_nextToken,
+    listVirtualRouters_meshName,
+    listVirtualRoutersResponse_nextToken,
+    listVirtualRoutersResponse_httpStatus,
+    listVirtualRoutersResponse_virtualRouters,
+
+    -- ** ListVirtualServices
+    listVirtualServices_limit,
+    listVirtualServices_meshOwner,
+    listVirtualServices_nextToken,
+    listVirtualServices_meshName,
+    listVirtualServicesResponse_nextToken,
+    listVirtualServicesResponse_httpStatus,
+    listVirtualServicesResponse_virtualServices,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
     -- ** UpdateGatewayRoute
     updateGatewayRoute_clientToken,
     updateGatewayRoute_meshOwner,
@@ -285,47 +274,58 @@ module Amazonka.AppMesh.Lens
     updateGatewayRouteResponse_httpStatus,
     updateGatewayRouteResponse_gatewayRoute,
 
-    -- ** DeleteGatewayRoute
-    deleteGatewayRoute_meshOwner,
-    deleteGatewayRoute_gatewayRouteName,
-    deleteGatewayRoute_meshName,
-    deleteGatewayRoute_virtualGatewayName,
-    deleteGatewayRouteResponse_httpStatus,
-    deleteGatewayRouteResponse_gatewayRoute,
+    -- ** UpdateMesh
+    updateMesh_clientToken,
+    updateMesh_spec,
+    updateMesh_meshName,
+    updateMeshResponse_httpStatus,
+    updateMeshResponse_mesh,
 
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
+    -- ** UpdateRoute
+    updateRoute_clientToken,
+    updateRoute_meshOwner,
+    updateRoute_meshName,
+    updateRoute_routeName,
+    updateRoute_spec,
+    updateRoute_virtualRouterName,
+    updateRouteResponse_httpStatus,
+    updateRouteResponse_route,
 
-    -- ** ListVirtualGateways
-    listVirtualGateways_meshOwner,
-    listVirtualGateways_nextToken,
-    listVirtualGateways_limit,
-    listVirtualGateways_meshName,
-    listVirtualGatewaysResponse_nextToken,
-    listVirtualGatewaysResponse_httpStatus,
-    listVirtualGatewaysResponse_virtualGateways,
+    -- ** UpdateVirtualGateway
+    updateVirtualGateway_clientToken,
+    updateVirtualGateway_meshOwner,
+    updateVirtualGateway_meshName,
+    updateVirtualGateway_spec,
+    updateVirtualGateway_virtualGatewayName,
+    updateVirtualGatewayResponse_httpStatus,
+    updateVirtualGatewayResponse_virtualGateway,
 
-    -- ** ListVirtualRouters
-    listVirtualRouters_meshOwner,
-    listVirtualRouters_nextToken,
-    listVirtualRouters_limit,
-    listVirtualRouters_meshName,
-    listVirtualRoutersResponse_nextToken,
-    listVirtualRoutersResponse_httpStatus,
-    listVirtualRoutersResponse_virtualRouters,
+    -- ** UpdateVirtualNode
+    updateVirtualNode_clientToken,
+    updateVirtualNode_meshOwner,
+    updateVirtualNode_meshName,
+    updateVirtualNode_spec,
+    updateVirtualNode_virtualNodeName,
+    updateVirtualNodeResponse_httpStatus,
+    updateVirtualNodeResponse_virtualNode,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** UpdateVirtualRouter
+    updateVirtualRouter_clientToken,
+    updateVirtualRouter_meshOwner,
+    updateVirtualRouter_meshName,
+    updateVirtualRouter_spec,
+    updateVirtualRouter_virtualRouterName,
+    updateVirtualRouterResponse_httpStatus,
+    updateVirtualRouterResponse_virtualRouter,
 
-    -- ** DescribeMesh
-    describeMesh_meshOwner,
-    describeMesh_meshName,
-    describeMeshResponse_httpStatus,
-    describeMeshResponse_mesh,
+    -- ** UpdateVirtualService
+    updateVirtualService_clientToken,
+    updateVirtualService_meshOwner,
+    updateVirtualService_meshName,
+    updateVirtualService_spec,
+    updateVirtualService_virtualServiceName,
+    updateVirtualServiceResponse_httpStatus,
+    updateVirtualServiceResponse_virtualService,
 
     -- * Types
 
@@ -338,6 +338,7 @@ module Amazonka.AppMesh.Lens
 
     -- ** AwsCloudMapServiceDiscovery
     awsCloudMapServiceDiscovery_attributes,
+    awsCloudMapServiceDiscovery_ipPreference,
     awsCloudMapServiceDiscovery_namespaceName,
     awsCloudMapServiceDiscovery_serviceName,
 
@@ -351,27 +352,29 @@ module Amazonka.AppMesh.Lens
     clientPolicy_tls,
 
     -- ** ClientPolicyTls
-    clientPolicyTls_ports,
     clientPolicyTls_certificate,
     clientPolicyTls_enforce,
+    clientPolicyTls_ports,
     clientPolicyTls_validation,
 
     -- ** ClientTlsCertificate
-    clientTlsCertificate_sds,
     clientTlsCertificate_file,
+    clientTlsCertificate_sds,
 
     -- ** DnsServiceDiscovery
+    dnsServiceDiscovery_ipPreference,
     dnsServiceDiscovery_responseType,
     dnsServiceDiscovery_hostname,
 
     -- ** Duration
-    duration_value,
     duration_unit,
+    duration_value,
 
     -- ** EgressFilter
     egressFilter_type,
 
     -- ** FileAccessLog
+    fileAccessLog_format,
     fileAccessLog_path,
 
     -- ** GatewayRouteData
@@ -383,8 +386,8 @@ module Amazonka.AppMesh.Lens
     gatewayRouteData_virtualGatewayName,
 
     -- ** GatewayRouteHostnameMatch
-    gatewayRouteHostnameMatch_suffix,
     gatewayRouteHostnameMatch_exact,
+    gatewayRouteHostnameMatch_suffix,
 
     -- ** GatewayRouteHostnameRewrite
     gatewayRouteHostnameRewrite_defaultTargetHostname,
@@ -401,15 +404,16 @@ module Amazonka.AppMesh.Lens
     gatewayRouteRef_virtualGatewayName,
 
     -- ** GatewayRouteSpec
-    gatewayRouteSpec_priority,
-    gatewayRouteSpec_http2Route,
     gatewayRouteSpec_grpcRoute,
+    gatewayRouteSpec_http2Route,
     gatewayRouteSpec_httpRoute,
+    gatewayRouteSpec_priority,
 
     -- ** GatewayRouteStatus
     gatewayRouteStatus_status,
 
     -- ** GatewayRouteTarget
+    gatewayRouteTarget_port,
     gatewayRouteTarget_virtualService,
 
     -- ** GatewayRouteVirtualService
@@ -425,8 +429,9 @@ module Amazonka.AppMesh.Lens
 
     -- ** GrpcGatewayRouteMatch
     grpcGatewayRouteMatch_hostname,
-    grpcGatewayRouteMatch_serviceName,
     grpcGatewayRouteMatch_metadata,
+    grpcGatewayRouteMatch_port,
+    grpcGatewayRouteMatch_serviceName,
 
     -- ** GrpcGatewayRouteMetadata
     grpcGatewayRouteMetadata_invert,
@@ -437,15 +442,15 @@ module Amazonka.AppMesh.Lens
     grpcGatewayRouteRewrite_hostname,
 
     -- ** GrpcMetadataMatchMethod
-    grpcMetadataMatchMethod_suffix,
-    grpcMetadataMatchMethod_regex,
+    grpcMetadataMatchMethod_exact,
     grpcMetadataMatchMethod_prefix,
     grpcMetadataMatchMethod_range,
-    grpcMetadataMatchMethod_exact,
+    grpcMetadataMatchMethod_regex,
+    grpcMetadataMatchMethod_suffix,
 
     -- ** GrpcRetryPolicy
-    grpcRetryPolicy_httpRetryEvents,
     grpcRetryPolicy_grpcRetryEvents,
+    grpcRetryPolicy_httpRetryEvents,
     grpcRetryPolicy_tcpRetryEvents,
     grpcRetryPolicy_maxRetries,
     grpcRetryPolicy_perRetryTimeout,
@@ -460,9 +465,10 @@ module Amazonka.AppMesh.Lens
     grpcRouteAction_weightedTargets,
 
     -- ** GrpcRouteMatch
-    grpcRouteMatch_methodName,
-    grpcRouteMatch_serviceName,
     grpcRouteMatch_metadata,
+    grpcRouteMatch_methodName,
+    grpcRouteMatch_port,
+    grpcRouteMatch_serviceName,
 
     -- ** GrpcRouteMetadata
     grpcRouteMetadata_invert,
@@ -470,22 +476,22 @@ module Amazonka.AppMesh.Lens
     grpcRouteMetadata_name,
 
     -- ** GrpcRouteMetadataMatchMethod
-    grpcRouteMetadataMatchMethod_suffix,
-    grpcRouteMetadataMatchMethod_regex,
+    grpcRouteMetadataMatchMethod_exact,
     grpcRouteMetadataMatchMethod_prefix,
     grpcRouteMetadataMatchMethod_range,
-    grpcRouteMetadataMatchMethod_exact,
+    grpcRouteMetadataMatchMethod_regex,
+    grpcRouteMetadataMatchMethod_suffix,
 
     -- ** GrpcTimeout
     grpcTimeout_idle,
     grpcTimeout_perRequest,
 
     -- ** HeaderMatchMethod
-    headerMatchMethod_suffix,
-    headerMatchMethod_regex,
+    headerMatchMethod_exact,
     headerMatchMethod_prefix,
     headerMatchMethod_range,
-    headerMatchMethod_exact,
+    headerMatchMethod_regex,
+    headerMatchMethod_suffix,
 
     -- ** HealthCheckPolicy
     healthCheckPolicy_path,
@@ -510,19 +516,20 @@ module Amazonka.AppMesh.Lens
     httpGatewayRouteHeader_name,
 
     -- ** HttpGatewayRouteMatch
+    httpGatewayRouteMatch_headers,
     httpGatewayRouteMatch_hostname,
+    httpGatewayRouteMatch_method,
     httpGatewayRouteMatch_path,
+    httpGatewayRouteMatch_port,
     httpGatewayRouteMatch_prefix,
     httpGatewayRouteMatch_queryParameters,
-    httpGatewayRouteMatch_headers,
-    httpGatewayRouteMatch_method,
 
     -- ** HttpGatewayRoutePathRewrite
     httpGatewayRoutePathRewrite_exact,
 
     -- ** HttpGatewayRoutePrefixRewrite
-    httpGatewayRoutePrefixRewrite_value,
     httpGatewayRoutePrefixRewrite_defaultPrefix,
+    httpGatewayRoutePrefixRewrite_value,
 
     -- ** HttpGatewayRouteRewrite
     httpGatewayRouteRewrite_hostname,
@@ -530,8 +537,8 @@ module Amazonka.AppMesh.Lens
     httpGatewayRouteRewrite_prefix,
 
     -- ** HttpPathMatch
-    httpPathMatch_regex,
     httpPathMatch_exact,
+    httpPathMatch_regex,
 
     -- ** HttpQueryParameter
     httpQueryParameter_match,
@@ -558,30 +565,35 @@ module Amazonka.AppMesh.Lens
     httpRouteHeader_name,
 
     -- ** HttpRouteMatch
-    httpRouteMatch_path,
-    httpRouteMatch_prefix,
-    httpRouteMatch_queryParameters,
     httpRouteMatch_headers,
     httpRouteMatch_method,
+    httpRouteMatch_path,
+    httpRouteMatch_port,
+    httpRouteMatch_prefix,
+    httpRouteMatch_queryParameters,
     httpRouteMatch_scheme,
 
     -- ** HttpTimeout
     httpTimeout_idle,
     httpTimeout_perRequest,
 
+    -- ** JsonFormatRef
+    jsonFormatRef_key,
+    jsonFormatRef_value,
+
     -- ** Listener
-    listener_healthCheck,
     listener_connectionPool,
-    listener_tls,
+    listener_healthCheck,
     listener_outlierDetection,
     listener_timeout,
+    listener_tls,
     listener_portMapping,
 
     -- ** ListenerTimeout
-    listenerTimeout_http2,
     listenerTimeout_grpc,
-    listenerTimeout_tcp,
     listenerTimeout_http,
+    listenerTimeout_http2,
+    listenerTimeout_tcp,
 
     -- ** ListenerTls
     listenerTls_validation,
@@ -593,8 +605,8 @@ module Amazonka.AppMesh.Lens
 
     -- ** ListenerTlsCertificate
     listenerTlsCertificate_acm,
-    listenerTlsCertificate_sds,
     listenerTlsCertificate_file,
+    listenerTlsCertificate_sds,
 
     -- ** ListenerTlsFileCertificate
     listenerTlsFileCertificate_certificateChain,
@@ -608,11 +620,15 @@ module Amazonka.AppMesh.Lens
     listenerTlsValidationContext_trust,
 
     -- ** ListenerTlsValidationContextTrust
-    listenerTlsValidationContextTrust_sds,
     listenerTlsValidationContextTrust_file,
+    listenerTlsValidationContextTrust_sds,
 
     -- ** Logging
     logging_accessLog,
+
+    -- ** LoggingFormat
+    loggingFormat_json,
+    loggingFormat_text,
 
     -- ** MatchRange
     matchRange_end,
@@ -633,8 +649,12 @@ module Amazonka.AppMesh.Lens
     meshRef_resourceOwner,
     meshRef_version,
 
+    -- ** MeshServiceDiscovery
+    meshServiceDiscovery_ipPreference,
+
     -- ** MeshSpec
     meshSpec_egressFilter,
+    meshSpec_serviceDiscovery,
 
     -- ** MeshStatus
     meshStatus_status,
@@ -681,11 +701,11 @@ module Amazonka.AppMesh.Lens
     routeRef_virtualRouterName,
 
     -- ** RouteSpec
-    routeSpec_priority,
-    routeSpec_http2Route,
     routeSpec_grpcRoute,
-    routeSpec_tcpRoute,
+    routeSpec_http2Route,
     routeSpec_httpRoute,
+    routeSpec_priority,
+    routeSpec_tcpRoute,
 
     -- ** RouteStatus
     routeStatus_status,
@@ -705,11 +725,15 @@ module Amazonka.AppMesh.Lens
     tagRef_value,
 
     -- ** TcpRoute
+    tcpRoute_match,
     tcpRoute_timeout,
     tcpRoute_action,
 
     -- ** TcpRouteAction
     tcpRouteAction_weightedTargets,
+
+    -- ** TcpRouteMatch
+    tcpRouteMatch_port,
 
     -- ** TcpTimeout
     tcpTimeout_idle,
@@ -729,8 +753,8 @@ module Amazonka.AppMesh.Lens
 
     -- ** TlsValidationContextTrust
     tlsValidationContextTrust_acm,
-    tlsValidationContextTrust_sds,
     tlsValidationContextTrust_file,
+    tlsValidationContextTrust_sds,
 
     -- ** VirtualGatewayAccessLog
     virtualGatewayAccessLog_file,
@@ -742,19 +766,19 @@ module Amazonka.AppMesh.Lens
     virtualGatewayClientPolicy_tls,
 
     -- ** VirtualGatewayClientPolicyTls
-    virtualGatewayClientPolicyTls_ports,
     virtualGatewayClientPolicyTls_certificate,
     virtualGatewayClientPolicyTls_enforce,
+    virtualGatewayClientPolicyTls_ports,
     virtualGatewayClientPolicyTls_validation,
 
     -- ** VirtualGatewayClientTlsCertificate
-    virtualGatewayClientTlsCertificate_sds,
     virtualGatewayClientTlsCertificate_file,
+    virtualGatewayClientTlsCertificate_sds,
 
     -- ** VirtualGatewayConnectionPool
-    virtualGatewayConnectionPool_http2,
     virtualGatewayConnectionPool_grpc,
     virtualGatewayConnectionPool_http,
+    virtualGatewayConnectionPool_http2,
 
     -- ** VirtualGatewayData
     virtualGatewayData_meshName,
@@ -764,6 +788,7 @@ module Amazonka.AppMesh.Lens
     virtualGatewayData_virtualGatewayName,
 
     -- ** VirtualGatewayFileAccessLog
+    virtualGatewayFileAccessLog_format,
     virtualGatewayFileAccessLog_path,
 
     -- ** VirtualGatewayGrpcConnectionPool
@@ -786,8 +811,8 @@ module Amazonka.AppMesh.Lens
     virtualGatewayHttpConnectionPool_maxConnections,
 
     -- ** VirtualGatewayListener
-    virtualGatewayListener_healthCheck,
     virtualGatewayListener_connectionPool,
+    virtualGatewayListener_healthCheck,
     virtualGatewayListener_tls,
     virtualGatewayListener_portMapping,
 
@@ -801,8 +826,8 @@ module Amazonka.AppMesh.Lens
 
     -- ** VirtualGatewayListenerTlsCertificate
     virtualGatewayListenerTlsCertificate_acm,
-    virtualGatewayListenerTlsCertificate_sds,
     virtualGatewayListenerTlsCertificate_file,
+    virtualGatewayListenerTlsCertificate_sds,
 
     -- ** VirtualGatewayListenerTlsFileCertificate
     virtualGatewayListenerTlsFileCertificate_certificateChain,
@@ -816,8 +841,8 @@ module Amazonka.AppMesh.Lens
     virtualGatewayListenerTlsValidationContext_trust,
 
     -- ** VirtualGatewayListenerTlsValidationContextTrust
-    virtualGatewayListenerTlsValidationContextTrust_sds,
     virtualGatewayListenerTlsValidationContextTrust_file,
+    virtualGatewayListenerTlsValidationContextTrust_sds,
 
     -- ** VirtualGatewayLogging
     virtualGatewayLogging_accessLog,
@@ -859,14 +884,14 @@ module Amazonka.AppMesh.Lens
 
     -- ** VirtualGatewayTlsValidationContextTrust
     virtualGatewayTlsValidationContextTrust_acm,
-    virtualGatewayTlsValidationContextTrust_sds,
     virtualGatewayTlsValidationContextTrust_file,
+    virtualGatewayTlsValidationContextTrust_sds,
 
     -- ** VirtualNodeConnectionPool
-    virtualNodeConnectionPool_http2,
     virtualNodeConnectionPool_grpc,
-    virtualNodeConnectionPool_tcp,
     virtualNodeConnectionPool_http,
+    virtualNodeConnectionPool_http2,
+    virtualNodeConnectionPool_tcp,
 
     -- ** VirtualNodeData
     virtualNodeData_meshName,
@@ -899,11 +924,11 @@ module Amazonka.AppMesh.Lens
     virtualNodeServiceProvider_virtualNodeName,
 
     -- ** VirtualNodeSpec
-    virtualNodeSpec_backends,
     virtualNodeSpec_backendDefaults,
-    virtualNodeSpec_serviceDiscovery,
+    virtualNodeSpec_backends,
     virtualNodeSpec_listeners,
     virtualNodeSpec_logging,
+    virtualNodeSpec_serviceDiscovery,
 
     -- ** VirtualNodeStatus
     virtualNodeStatus_status,
@@ -952,8 +977,8 @@ module Amazonka.AppMesh.Lens
     virtualServiceData_virtualServiceName,
 
     -- ** VirtualServiceProvider
-    virtualServiceProvider_virtualRouter,
     virtualServiceProvider_virtualNode,
+    virtualServiceProvider_virtualRouter,
 
     -- ** VirtualServiceRef
     virtualServiceRef_arn,
@@ -972,6 +997,7 @@ module Amazonka.AppMesh.Lens
     virtualServiceStatus_status,
 
     -- ** WeightedTarget
+    weightedTarget_port,
     weightedTarget_virtualNode,
     weightedTarget_weight,
   )
@@ -1057,6 +1083,7 @@ import Amazonka.AppMesh.Types.HttpRouteAction
 import Amazonka.AppMesh.Types.HttpRouteHeader
 import Amazonka.AppMesh.Types.HttpRouteMatch
 import Amazonka.AppMesh.Types.HttpTimeout
+import Amazonka.AppMesh.Types.JsonFormatRef
 import Amazonka.AppMesh.Types.Listener
 import Amazonka.AppMesh.Types.ListenerTimeout
 import Amazonka.AppMesh.Types.ListenerTls
@@ -1067,9 +1094,11 @@ import Amazonka.AppMesh.Types.ListenerTlsSdsCertificate
 import Amazonka.AppMesh.Types.ListenerTlsValidationContext
 import Amazonka.AppMesh.Types.ListenerTlsValidationContextTrust
 import Amazonka.AppMesh.Types.Logging
+import Amazonka.AppMesh.Types.LoggingFormat
 import Amazonka.AppMesh.Types.MatchRange
 import Amazonka.AppMesh.Types.MeshData
 import Amazonka.AppMesh.Types.MeshRef
+import Amazonka.AppMesh.Types.MeshServiceDiscovery
 import Amazonka.AppMesh.Types.MeshSpec
 import Amazonka.AppMesh.Types.MeshStatus
 import Amazonka.AppMesh.Types.OutlierDetection
@@ -1086,6 +1115,7 @@ import Amazonka.AppMesh.Types.SubjectAlternativeNames
 import Amazonka.AppMesh.Types.TagRef
 import Amazonka.AppMesh.Types.TcpRoute
 import Amazonka.AppMesh.Types.TcpRouteAction
+import Amazonka.AppMesh.Types.TcpRouteMatch
 import Amazonka.AppMesh.Types.TcpTimeout
 import Amazonka.AppMesh.Types.TlsValidationContext
 import Amazonka.AppMesh.Types.TlsValidationContextAcmTrust

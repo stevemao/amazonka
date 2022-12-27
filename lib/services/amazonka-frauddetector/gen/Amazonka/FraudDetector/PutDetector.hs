@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.PutDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.FraudDetector.PutDetector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,7 +109,8 @@ putDetector_eventTypeName = Lens.lens (\PutDetector' {eventTypeName} -> eventTyp
 
 instance Core.AWSRequest PutDetector where
   type AWSResponse PutDetector = PutDetectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -130,37 +132,37 @@ instance Prelude.NFData PutDetector where
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf eventTypeName
 
-instance Core.ToHeaders PutDetector where
+instance Data.ToHeaders PutDetector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.PutDetector" ::
+              Data.=# ( "AWSHawksNestServiceFacade.PutDetector" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutDetector where
+instance Data.ToJSON PutDetector where
   toJSON PutDetector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("detectorId" Core..= detectorId),
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("detectorId" Data..= detectorId),
             Prelude.Just
-              ("eventTypeName" Core..= eventTypeName)
+              ("eventTypeName" Data..= eventTypeName)
           ]
       )
 
-instance Core.ToPath PutDetector where
+instance Data.ToPath PutDetector where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutDetector where
+instance Data.ToQuery PutDetector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutDetectorResponse' smart constructor.

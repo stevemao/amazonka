@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoArchivedMedia.Types.HLSFragmentSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisVideoArchivedMedia.Types.HLSFragmentSelector where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideoArchivedMedia.Types.HLSFragmentSelectorType
 import Amazonka.KinesisVideoArchivedMedia.Types.HLSTimestampRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the range of timestamps for the requested media, and the source
@@ -165,13 +166,13 @@ instance Prelude.NFData HLSFragmentSelector where
     Prelude.rnf fragmentSelectorType
       `Prelude.seq` Prelude.rnf timestampRange
 
-instance Core.ToJSON HLSFragmentSelector where
+instance Data.ToJSON HLSFragmentSelector where
   toJSON HLSFragmentSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FragmentSelectorType" Core..=)
+          [ ("FragmentSelectorType" Data..=)
               Prelude.<$> fragmentSelectorType,
-            ("TimestampRange" Core..=)
+            ("TimestampRange" Data..=)
               Prelude.<$> timestampRange
           ]
       )

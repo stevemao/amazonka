@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.PendingLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.PendingLogs where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The list of information about logs to be enabled for the specified
@@ -65,14 +66,14 @@ pendingLogs_audit = Lens.lens (\PendingLogs' {audit} -> audit) (\s@PendingLogs' 
 pendingLogs_general :: Lens.Lens' PendingLogs (Prelude.Maybe Prelude.Bool)
 pendingLogs_general = Lens.lens (\PendingLogs' {general} -> general) (\s@PendingLogs' {} a -> s {general = a} :: PendingLogs)
 
-instance Core.FromJSON PendingLogs where
+instance Data.FromJSON PendingLogs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PendingLogs"
       ( \x ->
           PendingLogs'
-            Prelude.<$> (x Core..:? "audit")
-            Prelude.<*> (x Core..:? "general")
+            Prelude.<$> (x Data..:? "audit")
+            Prelude.<*> (x Data..:? "general")
       )
 
 instance Prelude.Hashable PendingLogs where

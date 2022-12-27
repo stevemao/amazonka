@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.DeleteFraudster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified fraudster from the Amazon Connect Voice ID system.
+-- Deletes the specified fraudster from Voice ID.
 module Amazonka.VoiceId.DeleteFraudster
   ( -- * Creating a Request
     DeleteFraudster (..),
@@ -37,7 +37,8 @@ module Amazonka.VoiceId.DeleteFraudster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,7 +49,7 @@ data DeleteFraudster = DeleteFraudster'
   { -- | The identifier of the domain containing the fraudster.
     domainId :: Prelude.Text,
     -- | The identifier of the fraudster you want to delete.
-    fraudsterId :: Core.Sensitive Prelude.Text
+    fraudsterId :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -72,7 +73,7 @@ newDeleteFraudster ::
 newDeleteFraudster pDomainId_ pFraudsterId_ =
   DeleteFraudster'
     { domainId = pDomainId_,
-      fraudsterId = Core._Sensitive Lens.# pFraudsterId_
+      fraudsterId = Data._Sensitive Lens.# pFraudsterId_
     }
 
 -- | The identifier of the domain containing the fraudster.
@@ -81,13 +82,14 @@ deleteFraudster_domainId = Lens.lens (\DeleteFraudster' {domainId} -> domainId) 
 
 -- | The identifier of the fraudster you want to delete.
 deleteFraudster_fraudsterId :: Lens.Lens' DeleteFraudster Prelude.Text
-deleteFraudster_fraudsterId = Lens.lens (\DeleteFraudster' {fraudsterId} -> fraudsterId) (\s@DeleteFraudster' {} a -> s {fraudsterId = a} :: DeleteFraudster) Prelude.. Core._Sensitive
+deleteFraudster_fraudsterId = Lens.lens (\DeleteFraudster' {fraudsterId} -> fraudsterId) (\s@DeleteFraudster' {} a -> s {fraudsterId = a} :: DeleteFraudster) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest DeleteFraudster where
   type
     AWSResponse DeleteFraudster =
       DeleteFraudsterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteFraudsterResponse'
 
@@ -101,32 +103,32 @@ instance Prelude.NFData DeleteFraudster where
     Prelude.rnf domainId
       `Prelude.seq` Prelude.rnf fraudsterId
 
-instance Core.ToHeaders DeleteFraudster where
+instance Data.ToHeaders DeleteFraudster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("VoiceID.DeleteFraudster" :: Prelude.ByteString),
+              Data.=# ("VoiceID.DeleteFraudster" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFraudster where
+instance Data.ToJSON DeleteFraudster where
   toJSON DeleteFraudster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DomainId" Core..= domainId),
-            Prelude.Just ("FraudsterId" Core..= fraudsterId)
+          [ Prelude.Just ("DomainId" Data..= domainId),
+            Prelude.Just ("FraudsterId" Data..= fraudsterId)
           ]
       )
 
-instance Core.ToPath DeleteFraudster where
+instance Data.ToPath DeleteFraudster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFraudster where
+instance Data.ToQuery DeleteFraudster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFraudsterResponse' smart constructor.

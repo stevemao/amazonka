@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.GetCallAnalyticsCategory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about a call analytics category.
+-- Provides information about the specified Call Analytics category.
+--
+-- To get a list of your Call Analytics categories, use the operation.
 module Amazonka.Transcribe.GetCallAnalyticsCategory
   ( -- * Creating a Request
     GetCallAnalyticsCategory (..),
@@ -40,7 +42,8 @@ module Amazonka.Transcribe.GetCallAnalyticsCategory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,8 +51,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newGetCallAnalyticsCategory' smart constructor.
 data GetCallAnalyticsCategory = GetCallAnalyticsCategory'
-  { -- | The name of the category you want information about. This value is case
-    -- sensitive.
+  { -- | The name of the Call Analytics category you want information about.
+    -- Category names are case sensitive.
     categoryName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +65,8 @@ data GetCallAnalyticsCategory = GetCallAnalyticsCategory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryName', 'getCallAnalyticsCategory_categoryName' - The name of the category you want information about. This value is case
--- sensitive.
+-- 'categoryName', 'getCallAnalyticsCategory_categoryName' - The name of the Call Analytics category you want information about.
+-- Category names are case sensitive.
 newGetCallAnalyticsCategory ::
   -- | 'categoryName'
   Prelude.Text ->
@@ -74,8 +77,8 @@ newGetCallAnalyticsCategory pCategoryName_ =
         pCategoryName_
     }
 
--- | The name of the category you want information about. This value is case
--- sensitive.
+-- | The name of the Call Analytics category you want information about.
+-- Category names are case sensitive.
 getCallAnalyticsCategory_categoryName :: Lens.Lens' GetCallAnalyticsCategory Prelude.Text
 getCallAnalyticsCategory_categoryName = Lens.lens (\GetCallAnalyticsCategory' {categoryName} -> categoryName) (\s@GetCallAnalyticsCategory' {} a -> s {categoryName = a} :: GetCallAnalyticsCategory)
 
@@ -83,12 +86,13 @@ instance Core.AWSRequest GetCallAnalyticsCategory where
   type
     AWSResponse GetCallAnalyticsCategory =
       GetCallAnalyticsCategoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCallAnalyticsCategoryResponse'
-            Prelude.<$> (x Core..?> "CategoryProperties")
+            Prelude.<$> (x Data..?> "CategoryProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,37 +104,38 @@ instance Prelude.NFData GetCallAnalyticsCategory where
   rnf GetCallAnalyticsCategory' {..} =
     Prelude.rnf categoryName
 
-instance Core.ToHeaders GetCallAnalyticsCategory where
+instance Data.ToHeaders GetCallAnalyticsCategory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.GetCallAnalyticsCategory" ::
+              Data.=# ( "Transcribe.GetCallAnalyticsCategory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCallAnalyticsCategory where
+instance Data.ToJSON GetCallAnalyticsCategory where
   toJSON GetCallAnalyticsCategory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("CategoryName" Core..= categoryName)]
+          [Prelude.Just ("CategoryName" Data..= categoryName)]
       )
 
-instance Core.ToPath GetCallAnalyticsCategory where
+instance Data.ToPath GetCallAnalyticsCategory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCallAnalyticsCategory where
+instance Data.ToQuery GetCallAnalyticsCategory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCallAnalyticsCategoryResponse' smart constructor.
 data GetCallAnalyticsCategoryResponse = GetCallAnalyticsCategoryResponse'
-  { -- | The rules you\'ve defined for a category.
+  { -- | Provides you with the properties of the Call Analytics category you
+    -- specified in your @GetCallAnalyticsCategory@ request.
     categoryProperties :: Prelude.Maybe CategoryProperties,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -145,7 +150,8 @@ data GetCallAnalyticsCategoryResponse = GetCallAnalyticsCategoryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryProperties', 'getCallAnalyticsCategoryResponse_categoryProperties' - The rules you\'ve defined for a category.
+-- 'categoryProperties', 'getCallAnalyticsCategoryResponse_categoryProperties' - Provides you with the properties of the Call Analytics category you
+-- specified in your @GetCallAnalyticsCategory@ request.
 --
 -- 'httpStatus', 'getCallAnalyticsCategoryResponse_httpStatus' - The response's http status code.
 newGetCallAnalyticsCategoryResponse ::
@@ -159,7 +165,8 @@ newGetCallAnalyticsCategoryResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The rules you\'ve defined for a category.
+-- | Provides you with the properties of the Call Analytics category you
+-- specified in your @GetCallAnalyticsCategory@ request.
 getCallAnalyticsCategoryResponse_categoryProperties :: Lens.Lens' GetCallAnalyticsCategoryResponse (Prelude.Maybe CategoryProperties)
 getCallAnalyticsCategoryResponse_categoryProperties = Lens.lens (\GetCallAnalyticsCategoryResponse' {categoryProperties} -> categoryProperties) (\s@GetCallAnalyticsCategoryResponse' {} a -> s {categoryProperties = a} :: GetCallAnalyticsCategoryResponse)
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.AudioTrack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.AudioTrack where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Audio Track
@@ -51,11 +52,11 @@ newAudioTrack pTrack_ = AudioTrack' {track = pTrack_}
 audioTrack_track :: Lens.Lens' AudioTrack Prelude.Natural
 audioTrack_track = Lens.lens (\AudioTrack' {track} -> track) (\s@AudioTrack' {} a -> s {track = a} :: AudioTrack)
 
-instance Core.FromJSON AudioTrack where
+instance Data.FromJSON AudioTrack where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioTrack"
-      (\x -> AudioTrack' Prelude.<$> (x Core..: "track"))
+      (\x -> AudioTrack' Prelude.<$> (x Data..: "track"))
 
 instance Prelude.Hashable AudioTrack where
   hashWithSalt _salt AudioTrack' {..} =
@@ -64,9 +65,9 @@ instance Prelude.Hashable AudioTrack where
 instance Prelude.NFData AudioTrack where
   rnf AudioTrack' {..} = Prelude.rnf track
 
-instance Core.ToJSON AudioTrack where
+instance Data.ToJSON AudioTrack where
   toJSON AudioTrack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("track" Core..= track)]
+          [Prelude.Just ("track" Data..= track)]
       )

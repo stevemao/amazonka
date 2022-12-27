@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.AuthorizationData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,26 +20,27 @@
 module Amazonka.ECR.Types.AuthorizationData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing authorization data for an Amazon ECR registry.
 --
 -- /See:/ 'newAuthorizationData' smart constructor.
 data AuthorizationData = AuthorizationData'
-  { -- | The Unix time in seconds and milliseconds when the authorization token
+  { -- | A base64-encoded string that contains authorization data for the
+    -- specified Amazon ECR registry. When the string is decoded, it is
+    -- presented in the format @user:password@ for private registry
+    -- authentication using @docker login@.
+    authorizationToken :: Prelude.Maybe Prelude.Text,
+    -- | The Unix time in seconds and milliseconds when the authorization token
     -- expires. Authorization tokens are valid for 12 hours.
-    expiresAt :: Prelude.Maybe Core.POSIX,
+    expiresAt :: Prelude.Maybe Data.POSIX,
     -- | The registry URL to use for this authorization token in a @docker login@
     -- command. The Amazon ECR registry URL format is
     -- @https:\/\/aws_account_id.dkr.ecr.region.amazonaws.com@. For example,
     -- @https:\/\/012345678910.dkr.ecr.us-east-1.amazonaws.com@..
-    proxyEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | A base64-encoded string that contains authorization data for the
-    -- specified Amazon ECR registry. When the string is decoded, it is
-    -- presented in the format @user:password@ for private registry
-    -- authentication using @docker login@.
-    authorizationToken :: Prelude.Maybe Prelude.Text
+    proxyEndpoint :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,6 +52,11 @@ data AuthorizationData = AuthorizationData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'authorizationToken', 'authorizationData_authorizationToken' - A base64-encoded string that contains authorization data for the
+-- specified Amazon ECR registry. When the string is decoded, it is
+-- presented in the format @user:password@ for private registry
+-- authentication using @docker login@.
+--
 -- 'expiresAt', 'authorizationData_expiresAt' - The Unix time in seconds and milliseconds when the authorization token
 -- expires. Authorization tokens are valid for 12 hours.
 --
@@ -58,31 +64,15 @@ data AuthorizationData = AuthorizationData'
 -- command. The Amazon ECR registry URL format is
 -- @https:\/\/aws_account_id.dkr.ecr.region.amazonaws.com@. For example,
 -- @https:\/\/012345678910.dkr.ecr.us-east-1.amazonaws.com@..
---
--- 'authorizationToken', 'authorizationData_authorizationToken' - A base64-encoded string that contains authorization data for the
--- specified Amazon ECR registry. When the string is decoded, it is
--- presented in the format @user:password@ for private registry
--- authentication using @docker login@.
 newAuthorizationData ::
   AuthorizationData
 newAuthorizationData =
   AuthorizationData'
-    { expiresAt = Prelude.Nothing,
-      proxyEndpoint = Prelude.Nothing,
-      authorizationToken = Prelude.Nothing
+    { authorizationToken =
+        Prelude.Nothing,
+      expiresAt = Prelude.Nothing,
+      proxyEndpoint = Prelude.Nothing
     }
-
--- | The Unix time in seconds and milliseconds when the authorization token
--- expires. Authorization tokens are valid for 12 hours.
-authorizationData_expiresAt :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.UTCTime)
-authorizationData_expiresAt = Lens.lens (\AuthorizationData' {expiresAt} -> expiresAt) (\s@AuthorizationData' {} a -> s {expiresAt = a} :: AuthorizationData) Prelude.. Lens.mapping Core._Time
-
--- | The registry URL to use for this authorization token in a @docker login@
--- command. The Amazon ECR registry URL format is
--- @https:\/\/aws_account_id.dkr.ecr.region.amazonaws.com@. For example,
--- @https:\/\/012345678910.dkr.ecr.us-east-1.amazonaws.com@..
-authorizationData_proxyEndpoint :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.Text)
-authorizationData_proxyEndpoint = Lens.lens (\AuthorizationData' {proxyEndpoint} -> proxyEndpoint) (\s@AuthorizationData' {} a -> s {proxyEndpoint = a} :: AuthorizationData)
 
 -- | A base64-encoded string that contains authorization data for the
 -- specified Amazon ECR registry. When the string is decoded, it is
@@ -91,25 +81,37 @@ authorizationData_proxyEndpoint = Lens.lens (\AuthorizationData' {proxyEndpoint}
 authorizationData_authorizationToken :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.Text)
 authorizationData_authorizationToken = Lens.lens (\AuthorizationData' {authorizationToken} -> authorizationToken) (\s@AuthorizationData' {} a -> s {authorizationToken = a} :: AuthorizationData)
 
-instance Core.FromJSON AuthorizationData where
+-- | The Unix time in seconds and milliseconds when the authorization token
+-- expires. Authorization tokens are valid for 12 hours.
+authorizationData_expiresAt :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.UTCTime)
+authorizationData_expiresAt = Lens.lens (\AuthorizationData' {expiresAt} -> expiresAt) (\s@AuthorizationData' {} a -> s {expiresAt = a} :: AuthorizationData) Prelude.. Lens.mapping Data._Time
+
+-- | The registry URL to use for this authorization token in a @docker login@
+-- command. The Amazon ECR registry URL format is
+-- @https:\/\/aws_account_id.dkr.ecr.region.amazonaws.com@. For example,
+-- @https:\/\/012345678910.dkr.ecr.us-east-1.amazonaws.com@..
+authorizationData_proxyEndpoint :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.Text)
+authorizationData_proxyEndpoint = Lens.lens (\AuthorizationData' {proxyEndpoint} -> proxyEndpoint) (\s@AuthorizationData' {} a -> s {proxyEndpoint = a} :: AuthorizationData)
+
+instance Data.FromJSON AuthorizationData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthorizationData"
       ( \x ->
           AuthorizationData'
-            Prelude.<$> (x Core..:? "expiresAt")
-            Prelude.<*> (x Core..:? "proxyEndpoint")
-            Prelude.<*> (x Core..:? "authorizationToken")
+            Prelude.<$> (x Data..:? "authorizationToken")
+            Prelude.<*> (x Data..:? "expiresAt")
+            Prelude.<*> (x Data..:? "proxyEndpoint")
       )
 
 instance Prelude.Hashable AuthorizationData where
   hashWithSalt _salt AuthorizationData' {..} =
-    _salt `Prelude.hashWithSalt` expiresAt
+    _salt `Prelude.hashWithSalt` authorizationToken
+      `Prelude.hashWithSalt` expiresAt
       `Prelude.hashWithSalt` proxyEndpoint
-      `Prelude.hashWithSalt` authorizationToken
 
 instance Prelude.NFData AuthorizationData where
   rnf AuthorizationData' {..} =
-    Prelude.rnf expiresAt
+    Prelude.rnf authorizationToken
+      `Prelude.seq` Prelude.rnf expiresAt
       `Prelude.seq` Prelude.rnf proxyEndpoint
-      `Prelude.seq` Prelude.rnf authorizationToken

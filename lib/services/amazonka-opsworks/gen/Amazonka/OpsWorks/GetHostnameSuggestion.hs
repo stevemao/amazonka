@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.GetHostnameSuggestion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.OpsWorks.GetHostnameSuggestion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,13 +86,14 @@ instance Core.AWSRequest GetHostnameSuggestion where
   type
     AWSResponse GetHostnameSuggestion =
       GetHostnameSuggestionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetHostnameSuggestionResponse'
-            Prelude.<$> (x Core..?> "Hostname")
-            Prelude.<*> (x Core..?> "LayerId")
+            Prelude.<$> (x Data..?> "Hostname")
+            Prelude.<*> (x Data..?> "LayerId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,32 +104,32 @@ instance Prelude.Hashable GetHostnameSuggestion where
 instance Prelude.NFData GetHostnameSuggestion where
   rnf GetHostnameSuggestion' {..} = Prelude.rnf layerId
 
-instance Core.ToHeaders GetHostnameSuggestion where
+instance Data.ToHeaders GetHostnameSuggestion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.GetHostnameSuggestion" ::
+              Data.=# ( "OpsWorks_20130218.GetHostnameSuggestion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetHostnameSuggestion where
+instance Data.ToJSON GetHostnameSuggestion where
   toJSON GetHostnameSuggestion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LayerId" Core..= layerId)]
+          [Prelude.Just ("LayerId" Data..= layerId)]
       )
 
-instance Core.ToPath GetHostnameSuggestion where
+instance Data.ToPath GetHostnameSuggestion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetHostnameSuggestion where
+instance Data.ToQuery GetHostnameSuggestion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @GetHostnameSuggestion@ request.

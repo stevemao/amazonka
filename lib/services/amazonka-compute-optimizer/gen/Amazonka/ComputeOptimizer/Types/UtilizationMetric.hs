@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.UtilizationMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.ComputeOptimizer.Types.UtilizationMetric where
 import Amazonka.ComputeOptimizer.Types.MetricName
 import Amazonka.ComputeOptimizer.Types.MetricStatistic
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a utilization metric of a resource, such as an Amazon EC2
@@ -34,9 +35,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUtilizationMetric' smart constructor.
 data UtilizationMetric = UtilizationMetric'
-  { -- | The value of the utilization metric.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The name of the utilization metric.
+  { -- | The name of the utilization metric.
     --
     -- The following utilization metrics are available:
     --
@@ -145,7 +144,9 @@ data UtilizationMetric = UtilizationMetric'
     -- utilization metric data for your resources using Amazon CloudWatch. For
     -- more information, see the
     -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html Amazon CloudWatch User Guide>.
-    statistic :: Prelude.Maybe MetricStatistic
+    statistic :: Prelude.Maybe MetricStatistic,
+    -- | The value of the utilization metric.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -156,8 +157,6 @@ data UtilizationMetric = UtilizationMetric'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'utilizationMetric_value' - The value of the utilization metric.
 --
 -- 'name', 'utilizationMetric_name' - The name of the utilization metric.
 --
@@ -268,18 +267,16 @@ data UtilizationMetric = UtilizationMetric'
 -- utilization metric data for your resources using Amazon CloudWatch. For
 -- more information, see the
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html Amazon CloudWatch User Guide>.
+--
+-- 'value', 'utilizationMetric_value' - The value of the utilization metric.
 newUtilizationMetric ::
   UtilizationMetric
 newUtilizationMetric =
   UtilizationMetric'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing,
-      statistic = Prelude.Nothing
+    { name = Prelude.Nothing,
+      statistic = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the utilization metric.
-utilizationMetric_value :: Lens.Lens' UtilizationMetric (Prelude.Maybe Prelude.Double)
-utilizationMetric_value = Lens.lens (\UtilizationMetric' {value} -> value) (\s@UtilizationMetric' {} a -> s {value = a} :: UtilizationMetric)
 
 -- | The name of the utilization metric.
 --
@@ -395,25 +392,29 @@ utilizationMetric_name = Lens.lens (\UtilizationMetric' {name} -> name) (\s@Util
 utilizationMetric_statistic :: Lens.Lens' UtilizationMetric (Prelude.Maybe MetricStatistic)
 utilizationMetric_statistic = Lens.lens (\UtilizationMetric' {statistic} -> statistic) (\s@UtilizationMetric' {} a -> s {statistic = a} :: UtilizationMetric)
 
-instance Core.FromJSON UtilizationMetric where
+-- | The value of the utilization metric.
+utilizationMetric_value :: Lens.Lens' UtilizationMetric (Prelude.Maybe Prelude.Double)
+utilizationMetric_value = Lens.lens (\UtilizationMetric' {value} -> value) (\s@UtilizationMetric' {} a -> s {value = a} :: UtilizationMetric)
+
+instance Data.FromJSON UtilizationMetric where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UtilizationMetric"
       ( \x ->
           UtilizationMetric'
-            Prelude.<$> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "statistic")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "statistic")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable UtilizationMetric where
   hashWithSalt _salt UtilizationMetric' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` statistic
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData UtilizationMetric where
   rnf UtilizationMetric' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf statistic
+      `Prelude.seq` Prelude.rnf value

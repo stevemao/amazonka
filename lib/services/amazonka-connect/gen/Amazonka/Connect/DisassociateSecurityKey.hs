@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DisassociateSecurityKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest DisassociateSecurityKey where
   type
     AWSResponse DisassociateSecurityKey =
       DisassociateSecurityKeyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateSecurityKeyResponse'
@@ -113,27 +115,27 @@ instance Prelude.NFData DisassociateSecurityKey where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf associationId
 
-instance Core.ToHeaders DisassociateSecurityKey where
+instance Data.ToHeaders DisassociateSecurityKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateSecurityKey where
+instance Data.ToPath DisassociateSecurityKey where
   toPath DisassociateSecurityKey' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/security-key/",
-        Core.toBS associationId
+        Data.toBS associationId
       ]
 
-instance Core.ToQuery DisassociateSecurityKey where
+instance Data.ToQuery DisassociateSecurityKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateSecurityKeyResponse' smart constructor.

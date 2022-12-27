@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +19,23 @@ module Amazonka.MediaPackageVOD
     -- * Errors
     -- $errors
 
-    -- ** UnprocessableEntityException
-    _UnprocessableEntityException,
-
     -- ** ForbiddenException
     _ForbiddenException,
-
-    -- ** NotFoundException
-    _NotFoundException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
 
     -- ** InternalServerErrorException
     _InternalServerErrorException,
 
+    -- ** NotFoundException
+    _NotFoundException,
+
     -- ** ServiceUnavailableException
     _ServiceUnavailableException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
+    -- ** UnprocessableEntityException
+    _UnprocessableEntityException,
 
     -- * Waiters
     -- $waiters
@@ -43,65 +43,11 @@ module Amazonka.MediaPackageVOD
     -- * Operations
     -- $operations
 
-    -- ** CreatePackagingGroup
-    CreatePackagingGroup (CreatePackagingGroup'),
-    newCreatePackagingGroup,
-    CreatePackagingGroupResponse (CreatePackagingGroupResponse'),
-    newCreatePackagingGroupResponse,
-
     -- ** ConfigureLogs
     ConfigureLogs (ConfigureLogs'),
     newConfigureLogs,
     ConfigureLogsResponse (ConfigureLogsResponse'),
     newConfigureLogsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DescribePackagingGroup
-    DescribePackagingGroup (DescribePackagingGroup'),
-    newDescribePackagingGroup,
-    DescribePackagingGroupResponse (DescribePackagingGroupResponse'),
-    newDescribePackagingGroupResponse,
-
-    -- ** DescribeAsset
-    DescribeAsset (DescribeAsset'),
-    newDescribeAsset,
-    DescribeAssetResponse (DescribeAssetResponse'),
-    newDescribeAssetResponse,
-
-    -- ** DeletePackagingConfiguration
-    DeletePackagingConfiguration (DeletePackagingConfiguration'),
-    newDeletePackagingConfiguration,
-    DeletePackagingConfigurationResponse (DeletePackagingConfigurationResponse'),
-    newDeletePackagingConfigurationResponse,
-
-    -- ** ListPackagingGroups (Paginated)
-    ListPackagingGroups (ListPackagingGroups'),
-    newListPackagingGroups,
-    ListPackagingGroupsResponse (ListPackagingGroupsResponse'),
-    newListPackagingGroupsResponse,
-
-    -- ** DeleteAsset
-    DeleteAsset (DeleteAsset'),
-    newDeleteAsset,
-    DeleteAssetResponse (DeleteAssetResponse'),
-    newDeleteAssetResponse,
-
-    -- ** UpdatePackagingGroup
-    UpdatePackagingGroup (UpdatePackagingGroup'),
-    newUpdatePackagingGroup,
-    UpdatePackagingGroupResponse (UpdatePackagingGroupResponse'),
-    newUpdatePackagingGroupResponse,
-
-    -- ** DeletePackagingGroup
-    DeletePackagingGroup (DeletePackagingGroup'),
-    newDeletePackagingGroup,
-    DeletePackagingGroupResponse (DeletePackagingGroupResponse'),
-    newDeletePackagingGroupResponse,
 
     -- ** CreateAsset
     CreateAsset (CreateAsset'),
@@ -109,11 +55,77 @@ module Amazonka.MediaPackageVOD
     CreateAssetResponse (CreateAssetResponse'),
     newCreateAssetResponse,
 
+    -- ** CreatePackagingConfiguration
+    CreatePackagingConfiguration (CreatePackagingConfiguration'),
+    newCreatePackagingConfiguration,
+    CreatePackagingConfigurationResponse (CreatePackagingConfigurationResponse'),
+    newCreatePackagingConfigurationResponse,
+
+    -- ** CreatePackagingGroup
+    CreatePackagingGroup (CreatePackagingGroup'),
+    newCreatePackagingGroup,
+    CreatePackagingGroupResponse (CreatePackagingGroupResponse'),
+    newCreatePackagingGroupResponse,
+
+    -- ** DeleteAsset
+    DeleteAsset (DeleteAsset'),
+    newDeleteAsset,
+    DeleteAssetResponse (DeleteAssetResponse'),
+    newDeleteAssetResponse,
+
+    -- ** DeletePackagingConfiguration
+    DeletePackagingConfiguration (DeletePackagingConfiguration'),
+    newDeletePackagingConfiguration,
+    DeletePackagingConfigurationResponse (DeletePackagingConfigurationResponse'),
+    newDeletePackagingConfigurationResponse,
+
+    -- ** DeletePackagingGroup
+    DeletePackagingGroup (DeletePackagingGroup'),
+    newDeletePackagingGroup,
+    DeletePackagingGroupResponse (DeletePackagingGroupResponse'),
+    newDeletePackagingGroupResponse,
+
+    -- ** DescribeAsset
+    DescribeAsset (DescribeAsset'),
+    newDescribeAsset,
+    DescribeAssetResponse (DescribeAssetResponse'),
+    newDescribeAssetResponse,
+
     -- ** DescribePackagingConfiguration
     DescribePackagingConfiguration (DescribePackagingConfiguration'),
     newDescribePackagingConfiguration,
     DescribePackagingConfigurationResponse (DescribePackagingConfigurationResponse'),
     newDescribePackagingConfigurationResponse,
+
+    -- ** DescribePackagingGroup
+    DescribePackagingGroup (DescribePackagingGroup'),
+    newDescribePackagingGroup,
+    DescribePackagingGroupResponse (DescribePackagingGroupResponse'),
+    newDescribePackagingGroupResponse,
+
+    -- ** ListAssets (Paginated)
+    ListAssets (ListAssets'),
+    newListAssets,
+    ListAssetsResponse (ListAssetsResponse'),
+    newListAssetsResponse,
+
+    -- ** ListPackagingConfigurations (Paginated)
+    ListPackagingConfigurations (ListPackagingConfigurations'),
+    newListPackagingConfigurations,
+    ListPackagingConfigurationsResponse (ListPackagingConfigurationsResponse'),
+    newListPackagingConfigurationsResponse,
+
+    -- ** ListPackagingGroups (Paginated)
+    ListPackagingGroups (ListPackagingGroups'),
+    newListPackagingGroups,
+    ListPackagingGroupsResponse (ListPackagingGroupsResponse'),
+    newListPackagingGroupsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -127,23 +139,11 @@ module Amazonka.MediaPackageVOD
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** CreatePackagingConfiguration
-    CreatePackagingConfiguration (CreatePackagingConfiguration'),
-    newCreatePackagingConfiguration,
-    CreatePackagingConfigurationResponse (CreatePackagingConfigurationResponse'),
-    newCreatePackagingConfigurationResponse,
-
-    -- ** ListPackagingConfigurations (Paginated)
-    ListPackagingConfigurations (ListPackagingConfigurations'),
-    newListPackagingConfigurations,
-    ListPackagingConfigurationsResponse (ListPackagingConfigurationsResponse'),
-    newListPackagingConfigurationsResponse,
-
-    -- ** ListAssets (Paginated)
-    ListAssets (ListAssets'),
-    newListAssets,
-    ListAssetsResponse (ListAssetsResponse'),
-    newListAssetsResponse,
+    -- ** UpdatePackagingGroup
+    UpdatePackagingGroup (UpdatePackagingGroup'),
+    newUpdatePackagingGroup,
+    UpdatePackagingGroupResponse (UpdatePackagingGroupResponse'),
+    newUpdatePackagingGroupResponse,
 
     -- * Types
 
@@ -159,8 +159,17 @@ module Amazonka.MediaPackageVOD
     -- ** PeriodTriggersElement
     PeriodTriggersElement (..),
 
+    -- ** PresetSpeke20Audio
+    PresetSpeke20Audio (..),
+
+    -- ** PresetSpeke20Video
+    PresetSpeke20Video (..),
+
     -- ** Profile
     Profile (..),
+
+    -- ** ScteMarkersSource
+    ScteMarkersSource (..),
 
     -- ** SegmentTemplateFormat
     SegmentTemplateFormat (..),
@@ -203,6 +212,10 @@ module Amazonka.MediaPackageVOD
     -- ** EgressEndpoint
     EgressEndpoint (EgressEndpoint'),
     newEgressEndpoint,
+
+    -- ** EncryptionContractConfiguration
+    EncryptionContractConfiguration (EncryptionContractConfiguration'),
+    newEncryptionContractConfiguration,
 
     -- ** HlsEncryption
     HlsEncryption (HlsEncryption'),

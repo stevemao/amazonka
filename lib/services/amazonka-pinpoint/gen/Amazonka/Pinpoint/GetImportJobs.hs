@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetImportJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.GetImportJobs
     newGetImportJobs,
 
     -- * Request Lenses
-    getImportJobs_token,
     getImportJobs_pageSize,
+    getImportJobs_token,
     getImportJobs_applicationId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.GetImportJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,13 +52,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetImportJobs' smart constructor.
 data GetImportJobs = GetImportJobs'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
     -- as the __Project ID__ on the Amazon Pinpoint console.
     applicationId :: Prelude.Text
@@ -72,12 +73,12 @@ data GetImportJobs = GetImportJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getImportJobs_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getImportJobs_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getImportJobs_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'applicationId', 'getImportJobs_applicationId' - The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -87,21 +88,21 @@ newGetImportJobs ::
   GetImportJobs
 newGetImportJobs pApplicationId_ =
   GetImportJobs'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getImportJobs_token :: Lens.Lens' GetImportJobs (Prelude.Maybe Prelude.Text)
-getImportJobs_token = Lens.lens (\GetImportJobs' {token} -> token) (\s@GetImportJobs' {} a -> s {token = a} :: GetImportJobs)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getImportJobs_pageSize :: Lens.Lens' GetImportJobs (Prelude.Maybe Prelude.Text)
 getImportJobs_pageSize = Lens.lens (\GetImportJobs' {pageSize} -> pageSize) (\s@GetImportJobs' {} a -> s {pageSize = a} :: GetImportJobs)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getImportJobs_token :: Lens.Lens' GetImportJobs (Prelude.Maybe Prelude.Text)
+getImportJobs_token = Lens.lens (\GetImportJobs' {token} -> token) (\s@GetImportJobs' {} a -> s {token = a} :: GetImportJobs)
 
 -- | The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -112,50 +113,51 @@ instance Core.AWSRequest GetImportJobs where
   type
     AWSResponse GetImportJobs =
       GetImportJobsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetImportJobsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetImportJobs where
   hashWithSalt _salt GetImportJobs' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData GetImportJobs where
   rnf GetImportJobs' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetImportJobs where
+instance Data.ToHeaders GetImportJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetImportJobs where
+instance Data.ToPath GetImportJobs where
   toPath GetImportJobs' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/jobs/import"
       ]
 
-instance Core.ToQuery GetImportJobs where
+instance Data.ToQuery GetImportJobs where
   toQuery GetImportJobs' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetImportJobsResponse' smart constructor.
 data GetImportJobsResponse = GetImportJobsResponse'

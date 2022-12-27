@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DescribeRegions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,16 @@
 --
 -- Provides information about the Regions that are configured for
 -- multi-Region replication.
+--
+-- This operation returns paginated results.
 module Amazonka.DirectoryService.DescribeRegions
   ( -- * Creating a Request
     DescribeRegions (..),
     newDescribeRegions,
 
     -- * Request Lenses
-    describeRegions_regionName,
     describeRegions_nextToken,
+    describeRegions_regionName,
     describeRegions_directoryId,
 
     -- * Destructuring the Response
@@ -44,19 +46,20 @@ module Amazonka.DirectoryService.DescribeRegions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeRegions' smart constructor.
 data DescribeRegions = DescribeRegions'
-  { -- | The name of the Region. For example, @us-east-1@.
-    regionName :: Prelude.Maybe Prelude.Text,
-    -- | The @DescribeRegionsResult.NextToken@ value from a previous call to
+  { -- | The @DescribeRegionsResult.NextToken@ value from a previous call to
     -- DescribeRegions. Pass null if this is the first call.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Region. For example, @us-east-1@.
+    regionName :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the directory.
     directoryId :: Prelude.Text
   }
@@ -70,10 +73,10 @@ data DescribeRegions = DescribeRegions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regionName', 'describeRegions_regionName' - The name of the Region. For example, @us-east-1@.
---
 -- 'nextToken', 'describeRegions_nextToken' - The @DescribeRegionsResult.NextToken@ value from a previous call to
 -- DescribeRegions. Pass null if this is the first call.
+--
+-- 'regionName', 'describeRegions_regionName' - The name of the Region. For example, @us-east-1@.
 --
 -- 'directoryId', 'describeRegions_directoryId' - The identifier of the directory.
 newDescribeRegions ::
@@ -82,35 +85,58 @@ newDescribeRegions ::
   DescribeRegions
 newDescribeRegions pDirectoryId_ =
   DescribeRegions'
-    { regionName = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      regionName = Prelude.Nothing,
       directoryId = pDirectoryId_
     }
-
--- | The name of the Region. For example, @us-east-1@.
-describeRegions_regionName :: Lens.Lens' DescribeRegions (Prelude.Maybe Prelude.Text)
-describeRegions_regionName = Lens.lens (\DescribeRegions' {regionName} -> regionName) (\s@DescribeRegions' {} a -> s {regionName = a} :: DescribeRegions)
 
 -- | The @DescribeRegionsResult.NextToken@ value from a previous call to
 -- DescribeRegions. Pass null if this is the first call.
 describeRegions_nextToken :: Lens.Lens' DescribeRegions (Prelude.Maybe Prelude.Text)
 describeRegions_nextToken = Lens.lens (\DescribeRegions' {nextToken} -> nextToken) (\s@DescribeRegions' {} a -> s {nextToken = a} :: DescribeRegions)
 
+-- | The name of the Region. For example, @us-east-1@.
+describeRegions_regionName :: Lens.Lens' DescribeRegions (Prelude.Maybe Prelude.Text)
+describeRegions_regionName = Lens.lens (\DescribeRegions' {regionName} -> regionName) (\s@DescribeRegions' {} a -> s {regionName = a} :: DescribeRegions)
+
 -- | The identifier of the directory.
 describeRegions_directoryId :: Lens.Lens' DescribeRegions Prelude.Text
 describeRegions_directoryId = Lens.lens (\DescribeRegions' {directoryId} -> directoryId) (\s@DescribeRegions' {} a -> s {directoryId = a} :: DescribeRegions)
+
+instance Core.AWSPager DescribeRegions where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? describeRegionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? describeRegionsResponse_regionsDescription
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& describeRegions_nextToken
+          Lens..~ rs
+          Lens.^? describeRegionsResponse_nextToken
+            Prelude.. Lens._Just
 
 instance Core.AWSRequest DescribeRegions where
   type
     AWSResponse DescribeRegions =
       DescribeRegionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRegionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RegionsDescription"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RegionsDescription"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -118,45 +144,45 @@ instance Core.AWSRequest DescribeRegions where
 
 instance Prelude.Hashable DescribeRegions where
   hashWithSalt _salt DescribeRegions' {..} =
-    _salt `Prelude.hashWithSalt` regionName
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` regionName
       `Prelude.hashWithSalt` directoryId
 
 instance Prelude.NFData DescribeRegions where
   rnf DescribeRegions' {..} =
-    Prelude.rnf regionName
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf regionName
       `Prelude.seq` Prelude.rnf directoryId
 
-instance Core.ToHeaders DescribeRegions where
+instance Data.ToHeaders DescribeRegions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DescribeRegions" ::
+              Data.=# ( "DirectoryService_20150416.DescribeRegions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRegions where
+instance Data.ToJSON DescribeRegions where
   toJSON DescribeRegions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RegionName" Core..=) Prelude.<$> regionName,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("DirectoryId" Core..= directoryId)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("RegionName" Data..=) Prelude.<$> regionName,
+            Prelude.Just ("DirectoryId" Data..= directoryId)
           ]
       )
 
-instance Core.ToPath DescribeRegions where
+instance Data.ToPath DescribeRegions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRegions where
+instance Data.ToQuery DescribeRegions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRegionsResponse' smart constructor.

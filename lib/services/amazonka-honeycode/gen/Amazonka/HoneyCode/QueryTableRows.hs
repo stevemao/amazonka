@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.QueryTableRows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.HoneyCode.QueryTableRows
     newQueryTableRows,
 
     -- * Request Lenses
-    queryTableRows_nextToken,
     queryTableRows_maxResults,
+    queryTableRows_nextToken,
     queryTableRows_workbookId,
     queryTableRows_tableId,
     queryTableRows_filterFormula,
@@ -50,22 +50,23 @@ module Amazonka.HoneyCode.QueryTableRows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newQueryTableRows' smart constructor.
 data QueryTableRows = QueryTableRows'
-  { -- | This parameter is optional. If a nextToken is not specified, the API
+  { -- | The maximum number of rows to return in each page of the results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | This parameter is optional. If a nextToken is not specified, the API
     -- returns the first page of data.
     --
     -- Pagination tokens expire after 1 hour. If you use a token that was
     -- returned more than an hour back, the API will throw ValidationException.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of rows to return in each page of the results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the workbook whose table rows are being queried.
     --
     -- If a workbook with the specified id could not be found, this API throws
@@ -90,13 +91,13 @@ data QueryTableRows = QueryTableRows'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'queryTableRows_maxResults' - The maximum number of rows to return in each page of the results.
+--
 -- 'nextToken', 'queryTableRows_nextToken' - This parameter is optional. If a nextToken is not specified, the API
 -- returns the first page of data.
 --
 -- Pagination tokens expire after 1 hour. If you use a token that was
 -- returned more than an hour back, the API will throw ValidationException.
---
--- 'maxResults', 'queryTableRows_maxResults' - The maximum number of rows to return in each page of the results.
 --
 -- 'workbookId', 'queryTableRows_workbookId' - The ID of the workbook whose table rows are being queried.
 --
@@ -123,12 +124,16 @@ newQueryTableRows
   pTableId_
   pFilterFormula_ =
     QueryTableRows'
-      { nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+      { maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         workbookId = pWorkbookId_,
         tableId = pTableId_,
         filterFormula = pFilterFormula_
       }
+
+-- | The maximum number of rows to return in each page of the results.
+queryTableRows_maxResults :: Lens.Lens' QueryTableRows (Prelude.Maybe Prelude.Natural)
+queryTableRows_maxResults = Lens.lens (\QueryTableRows' {maxResults} -> maxResults) (\s@QueryTableRows' {} a -> s {maxResults = a} :: QueryTableRows)
 
 -- | This parameter is optional. If a nextToken is not specified, the API
 -- returns the first page of data.
@@ -137,10 +142,6 @@ newQueryTableRows
 -- returned more than an hour back, the API will throw ValidationException.
 queryTableRows_nextToken :: Lens.Lens' QueryTableRows (Prelude.Maybe Prelude.Text)
 queryTableRows_nextToken = Lens.lens (\QueryTableRows' {nextToken} -> nextToken) (\s@QueryTableRows' {} a -> s {nextToken = a} :: QueryTableRows)
-
--- | The maximum number of rows to return in each page of the results.
-queryTableRows_maxResults :: Lens.Lens' QueryTableRows (Prelude.Maybe Prelude.Natural)
-queryTableRows_maxResults = Lens.lens (\QueryTableRows' {maxResults} -> maxResults) (\s@QueryTableRows' {} a -> s {maxResults = a} :: QueryTableRows)
 
 -- | The ID of the workbook whose table rows are being queried.
 --
@@ -182,67 +183,68 @@ instance Core.AWSRequest QueryTableRows where
   type
     AWSResponse QueryTableRows =
       QueryTableRowsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           QueryTableRowsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "columnIds")
-            Prelude.<*> (x Core..?> "rows" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "workbookCursor")
+            Prelude.<*> (x Data..:> "columnIds")
+            Prelude.<*> (x Data..?> "rows" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "workbookCursor")
       )
 
 instance Prelude.Hashable QueryTableRows where
   hashWithSalt _salt QueryTableRows' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workbookId
       `Prelude.hashWithSalt` tableId
       `Prelude.hashWithSalt` filterFormula
 
 instance Prelude.NFData QueryTableRows where
   rnf QueryTableRows' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workbookId
       `Prelude.seq` Prelude.rnf tableId
       `Prelude.seq` Prelude.rnf filterFormula
 
-instance Core.ToHeaders QueryTableRows where
+instance Data.ToHeaders QueryTableRows where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON QueryTableRows where
+instance Data.ToJSON QueryTableRows where
   toJSON QueryTableRows' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("filterFormula" Core..= filterFormula)
+              ("filterFormula" Data..= filterFormula)
           ]
       )
 
-instance Core.ToPath QueryTableRows where
+instance Data.ToPath QueryTableRows where
   toPath QueryTableRows' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS tableId,
+        Data.toBS tableId,
         "/rows/query"
       ]
 
-instance Core.ToQuery QueryTableRows where
+instance Data.ToQuery QueryTableRows where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newQueryTableRowsResponse' smart constructor.

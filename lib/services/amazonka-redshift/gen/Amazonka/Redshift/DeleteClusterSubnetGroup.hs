@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteClusterSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.Redshift.DeleteClusterSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteClusterSubnetGroup where
   type
     AWSResponse DeleteClusterSubnetGroup =
       DeleteClusterSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteClusterSubnetGroupResponse'
@@ -91,21 +93,21 @@ instance Prelude.NFData DeleteClusterSubnetGroup where
   rnf DeleteClusterSubnetGroup' {..} =
     Prelude.rnf clusterSubnetGroupName
 
-instance Core.ToHeaders DeleteClusterSubnetGroup where
+instance Data.ToHeaders DeleteClusterSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteClusterSubnetGroup where
+instance Data.ToPath DeleteClusterSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteClusterSubnetGroup where
+instance Data.ToQuery DeleteClusterSubnetGroup where
   toQuery DeleteClusterSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteClusterSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteClusterSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterSubnetGroupName"
-          Core.=: clusterSubnetGroupName
+          Data.=: clusterSubnetGroupName
       ]
 
 -- | /See:/ 'newDeleteClusterSubnetGroupResponse' smart constructor.

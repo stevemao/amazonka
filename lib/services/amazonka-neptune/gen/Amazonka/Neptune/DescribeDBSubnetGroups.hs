@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DescribeDBSubnetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.Neptune.DescribeDBSubnetGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -168,16 +169,17 @@ instance Core.AWSRequest DescribeDBSubnetGroups where
   type
     AWSResponse DescribeDBSubnetGroups =
       DescribeDBSubnetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBSubnetGroupsResult"
       ( \s h x ->
           DescribeDBSubnetGroupsResponse'
-            Prelude.<$> ( x Core..@? "DBSubnetGroups" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBSubnetGroup")
+            Prelude.<$> ( x Data..@? "DBSubnetGroups" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "DBSubnetGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -195,25 +197,25 @@ instance Prelude.NFData DescribeDBSubnetGroups where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBSubnetGroups where
+instance Data.ToHeaders DescribeDBSubnetGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBSubnetGroups where
+instance Data.ToPath DescribeDBSubnetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBSubnetGroups where
+instance Data.ToQuery DescribeDBSubnetGroups where
   toQuery DescribeDBSubnetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBSubnetGroups" :: Prelude.ByteString),
+          Data.=: ("DescribeDBSubnetGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | /See:/ 'newDescribeDBSubnetGroupsResponse' smart constructor.

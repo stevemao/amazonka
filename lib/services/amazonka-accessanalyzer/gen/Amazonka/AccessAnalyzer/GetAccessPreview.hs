@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.GetAccessPreview
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,13 +100,14 @@ instance Core.AWSRequest GetAccessPreview where
   type
     AWSResponse GetAccessPreview =
       GetAccessPreviewResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccessPreviewResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "accessPreview")
+            Prelude.<*> (x Data..:> "accessPreview")
       )
 
 instance Prelude.Hashable GetAccessPreview where
@@ -118,25 +120,25 @@ instance Prelude.NFData GetAccessPreview where
     Prelude.rnf accessPreviewId
       `Prelude.seq` Prelude.rnf analyzerArn
 
-instance Core.ToHeaders GetAccessPreview where
+instance Data.ToHeaders GetAccessPreview where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAccessPreview where
+instance Data.ToPath GetAccessPreview where
   toPath GetAccessPreview' {..} =
     Prelude.mconcat
-      ["/access-preview/", Core.toBS accessPreviewId]
+      ["/access-preview/", Data.toBS accessPreviewId]
 
-instance Core.ToQuery GetAccessPreview where
+instance Data.ToQuery GetAccessPreview where
   toQuery GetAccessPreview' {..} =
-    Prelude.mconcat ["analyzerArn" Core.=: analyzerArn]
+    Prelude.mconcat ["analyzerArn" Data.=: analyzerArn]
 
 -- | /See:/ 'newGetAccessPreviewResponse' smart constructor.
 data GetAccessPreviewResponse = GetAccessPreviewResponse'

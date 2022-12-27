@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.CloudWatchEventsExecutionDataDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.CloudWatchEventsExecutionDataDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details about execution input or output.
@@ -57,15 +58,15 @@ cloudWatchEventsExecutionDataDetails_included :: Lens.Lens' CloudWatchEventsExec
 cloudWatchEventsExecutionDataDetails_included = Lens.lens (\CloudWatchEventsExecutionDataDetails' {included} -> included) (\s@CloudWatchEventsExecutionDataDetails' {} a -> s {included = a} :: CloudWatchEventsExecutionDataDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CloudWatchEventsExecutionDataDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchEventsExecutionDataDetails"
       ( \x ->
           CloudWatchEventsExecutionDataDetails'
-            Prelude.<$> (x Core..:? "included")
+            Prelude.<$> (x Data..:? "included")
       )
 
 instance

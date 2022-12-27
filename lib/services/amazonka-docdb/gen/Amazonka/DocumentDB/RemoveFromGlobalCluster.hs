@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.RemoveFromGlobalCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DocumentDB.RemoveFromGlobalCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,13 +108,14 @@ instance Core.AWSRequest RemoveFromGlobalCluster where
   type
     AWSResponse RemoveFromGlobalCluster =
       RemoveFromGlobalClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RemoveFromGlobalClusterResult"
       ( \s h x ->
           RemoveFromGlobalClusterResponse'
-            Prelude.<$> (x Core..@? "GlobalCluster")
+            Prelude.<$> (x Data..@? "GlobalCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,22 +130,22 @@ instance Prelude.NFData RemoveFromGlobalCluster where
     Prelude.rnf globalClusterIdentifier
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders RemoveFromGlobalCluster where
+instance Data.ToHeaders RemoveFromGlobalCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveFromGlobalCluster where
+instance Data.ToPath RemoveFromGlobalCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveFromGlobalCluster where
+instance Data.ToQuery RemoveFromGlobalCluster where
   toQuery RemoveFromGlobalCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveFromGlobalCluster" :: Prelude.ByteString),
+          Data.=: ("RemoveFromGlobalCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier,
-        "DbClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: globalClusterIdentifier,
+        "DbClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newRemoveFromGlobalClusterResponse' smart constructor.

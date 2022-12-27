@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.StateEnteredEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.StateEnteredEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 
@@ -28,12 +29,12 @@ import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 --
 -- /See:/ 'newStateEnteredEventDetails' smart constructor.
 data StateEnteredEventDetails = StateEnteredEventDetails'
-  { -- | Contains details about the input for an execution history event.
-    inputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails,
-    -- | The string that contains the JSON input data for the state. Length
+  { -- | The string that contains the JSON input data for the state. Length
     -- constraints apply to the payload size, and are expressed as bytes in
     -- UTF-8 encoding.
-    input :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    input :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Contains details about the input for an execution history event.
+    inputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails,
     -- | The name of the state.
     name :: Prelude.Text
   }
@@ -47,11 +48,11 @@ data StateEnteredEventDetails = StateEnteredEventDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'inputDetails', 'stateEnteredEventDetails_inputDetails' - Contains details about the input for an execution history event.
---
 -- 'input', 'stateEnteredEventDetails_input' - The string that contains the JSON input data for the state. Length
 -- constraints apply to the payload size, and are expressed as bytes in
 -- UTF-8 encoding.
+--
+-- 'inputDetails', 'stateEnteredEventDetails_inputDetails' - Contains details about the input for an execution history event.
 --
 -- 'name', 'stateEnteredEventDetails_name' - The name of the state.
 newStateEnteredEventDetails ::
@@ -60,45 +61,44 @@ newStateEnteredEventDetails ::
   StateEnteredEventDetails
 newStateEnteredEventDetails pName_ =
   StateEnteredEventDetails'
-    { inputDetails =
-        Prelude.Nothing,
-      input = Prelude.Nothing,
+    { input = Prelude.Nothing,
+      inputDetails = Prelude.Nothing,
       name = pName_
     }
-
--- | Contains details about the input for an execution history event.
-stateEnteredEventDetails_inputDetails :: Lens.Lens' StateEnteredEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
-stateEnteredEventDetails_inputDetails = Lens.lens (\StateEnteredEventDetails' {inputDetails} -> inputDetails) (\s@StateEnteredEventDetails' {} a -> s {inputDetails = a} :: StateEnteredEventDetails)
 
 -- | The string that contains the JSON input data for the state. Length
 -- constraints apply to the payload size, and are expressed as bytes in
 -- UTF-8 encoding.
 stateEnteredEventDetails_input :: Lens.Lens' StateEnteredEventDetails (Prelude.Maybe Prelude.Text)
-stateEnteredEventDetails_input = Lens.lens (\StateEnteredEventDetails' {input} -> input) (\s@StateEnteredEventDetails' {} a -> s {input = a} :: StateEnteredEventDetails) Prelude.. Lens.mapping Core._Sensitive
+stateEnteredEventDetails_input = Lens.lens (\StateEnteredEventDetails' {input} -> input) (\s@StateEnteredEventDetails' {} a -> s {input = a} :: StateEnteredEventDetails) Prelude.. Lens.mapping Data._Sensitive
+
+-- | Contains details about the input for an execution history event.
+stateEnteredEventDetails_inputDetails :: Lens.Lens' StateEnteredEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
+stateEnteredEventDetails_inputDetails = Lens.lens (\StateEnteredEventDetails' {inputDetails} -> inputDetails) (\s@StateEnteredEventDetails' {} a -> s {inputDetails = a} :: StateEnteredEventDetails)
 
 -- | The name of the state.
 stateEnteredEventDetails_name :: Lens.Lens' StateEnteredEventDetails Prelude.Text
 stateEnteredEventDetails_name = Lens.lens (\StateEnteredEventDetails' {name} -> name) (\s@StateEnteredEventDetails' {} a -> s {name = a} :: StateEnteredEventDetails)
 
-instance Core.FromJSON StateEnteredEventDetails where
+instance Data.FromJSON StateEnteredEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StateEnteredEventDetails"
       ( \x ->
           StateEnteredEventDetails'
-            Prelude.<$> (x Core..:? "inputDetails")
-            Prelude.<*> (x Core..:? "input")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "input")
+            Prelude.<*> (x Data..:? "inputDetails")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable StateEnteredEventDetails where
   hashWithSalt _salt StateEnteredEventDetails' {..} =
-    _salt `Prelude.hashWithSalt` inputDetails
-      `Prelude.hashWithSalt` input
+    _salt `Prelude.hashWithSalt` input
+      `Prelude.hashWithSalt` inputDetails
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData StateEnteredEventDetails where
   rnf StateEnteredEventDetails' {..} =
-    Prelude.rnf inputDetails
-      `Prelude.seq` Prelude.rnf input
+    Prelude.rnf input
+      `Prelude.seq` Prelude.rnf inputDetails
       `Prelude.seq` Prelude.rnf name

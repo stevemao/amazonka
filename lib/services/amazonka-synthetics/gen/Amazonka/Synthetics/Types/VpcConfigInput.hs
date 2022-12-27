@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.VpcConfigInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.VpcConfigInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | If this canary is to test an endpoint in a VPC, this structure contains
@@ -74,12 +75,12 @@ instance Prelude.NFData VpcConfigInput where
     Prelude.rnf securityGroupIds
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToJSON VpcConfigInput where
+instance Data.ToJSON VpcConfigInput where
   toJSON VpcConfigInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
+          [ ("SecurityGroupIds" Data..=)
               Prelude.<$> securityGroupIds,
-            ("SubnetIds" Core..=) Prelude.<$> subnetIds
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceExportDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.EC2.Types.InstanceExportDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ExportEnvironment
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an instance to export.
 --
 -- /See:/ 'newInstanceExportDetails' smart constructor.
 data InstanceExportDetails = InstanceExportDetails'
-  { -- | The target virtualization environment.
-    targetEnvironment :: Prelude.Maybe ExportEnvironment,
-    -- | The ID of the resource being exported.
-    instanceId :: Prelude.Maybe Prelude.Text
+  { -- | The ID of the resource being exported.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The target virtualization environment.
+    targetEnvironment :: Prelude.Maybe ExportEnvironment
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,38 +45,38 @@ data InstanceExportDetails = InstanceExportDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetEnvironment', 'instanceExportDetails_targetEnvironment' - The target virtualization environment.
---
 -- 'instanceId', 'instanceExportDetails_instanceId' - The ID of the resource being exported.
+--
+-- 'targetEnvironment', 'instanceExportDetails_targetEnvironment' - The target virtualization environment.
 newInstanceExportDetails ::
   InstanceExportDetails
 newInstanceExportDetails =
   InstanceExportDetails'
-    { targetEnvironment =
+    { instanceId =
         Prelude.Nothing,
-      instanceId = Prelude.Nothing
+      targetEnvironment = Prelude.Nothing
     }
-
--- | The target virtualization environment.
-instanceExportDetails_targetEnvironment :: Lens.Lens' InstanceExportDetails (Prelude.Maybe ExportEnvironment)
-instanceExportDetails_targetEnvironment = Lens.lens (\InstanceExportDetails' {targetEnvironment} -> targetEnvironment) (\s@InstanceExportDetails' {} a -> s {targetEnvironment = a} :: InstanceExportDetails)
 
 -- | The ID of the resource being exported.
 instanceExportDetails_instanceId :: Lens.Lens' InstanceExportDetails (Prelude.Maybe Prelude.Text)
 instanceExportDetails_instanceId = Lens.lens (\InstanceExportDetails' {instanceId} -> instanceId) (\s@InstanceExportDetails' {} a -> s {instanceId = a} :: InstanceExportDetails)
 
-instance Core.FromXML InstanceExportDetails where
+-- | The target virtualization environment.
+instanceExportDetails_targetEnvironment :: Lens.Lens' InstanceExportDetails (Prelude.Maybe ExportEnvironment)
+instanceExportDetails_targetEnvironment = Lens.lens (\InstanceExportDetails' {targetEnvironment} -> targetEnvironment) (\s@InstanceExportDetails' {} a -> s {targetEnvironment = a} :: InstanceExportDetails)
+
+instance Data.FromXML InstanceExportDetails where
   parseXML x =
     InstanceExportDetails'
-      Prelude.<$> (x Core..@? "targetEnvironment")
-      Prelude.<*> (x Core..@? "instanceId")
+      Prelude.<$> (x Data..@? "instanceId")
+      Prelude.<*> (x Data..@? "targetEnvironment")
 
 instance Prelude.Hashable InstanceExportDetails where
   hashWithSalt _salt InstanceExportDetails' {..} =
-    _salt `Prelude.hashWithSalt` targetEnvironment
-      `Prelude.hashWithSalt` instanceId
+    _salt `Prelude.hashWithSalt` instanceId
+      `Prelude.hashWithSalt` targetEnvironment
 
 instance Prelude.NFData InstanceExportDetails where
   rnf InstanceExportDetails' {..} =
-    Prelude.rnf targetEnvironment
-      `Prelude.seq` Prelude.rnf instanceId
+    Prelude.rnf instanceId
+      `Prelude.seq` Prelude.rnf targetEnvironment

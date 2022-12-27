@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.PutDedicatedIpInPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.SESV2.PutDedicatedIpInPool
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance Core.AWSRequest PutDedicatedIpInPool where
   type
     AWSResponse PutDedicatedIpInPool =
       PutDedicatedIpInPoolResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -125,32 +127,32 @@ instance Prelude.NFData PutDedicatedIpInPool where
     Prelude.rnf ip
       `Prelude.seq` Prelude.rnf destinationPoolName
 
-instance Core.ToHeaders PutDedicatedIpInPool where
+instance Data.ToHeaders PutDedicatedIpInPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutDedicatedIpInPool where
+instance Data.ToJSON PutDedicatedIpInPool where
   toJSON PutDedicatedIpInPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DestinationPoolName" Core..= destinationPoolName)
+              ("DestinationPoolName" Data..= destinationPoolName)
           ]
       )
 
-instance Core.ToPath PutDedicatedIpInPool where
+instance Data.ToPath PutDedicatedIpInPool where
   toPath PutDedicatedIpInPool' {..} =
     Prelude.mconcat
-      ["/v2/email/dedicated-ips/", Core.toBS ip, "/pool"]
+      ["/v2/email/dedicated-ips/", Data.toBS ip, "/pool"]
 
-instance Core.ToQuery PutDedicatedIpInPool where
+instance Data.ToQuery PutDedicatedIpInPool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

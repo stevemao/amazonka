@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.Pipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.ElasticTranscoder.Types.Pipeline where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types.Notifications
 import Amazonka.ElasticTranscoder.Types.PipelineOutputConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The pipeline (queue) that is used to manage jobs.
 --
 -- /See:/ 'newPipeline' smart constructor.
 data Pipeline = Pipeline'
-  { -- | The current status of the pipeline:
-    --
-    -- -   @Active@: The pipeline is processing jobs.
-    --
-    -- -   @Paused@: The pipeline is not currently processing jobs.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the pipeline.
+  { -- | The Amazon Resource Name (ARN) for the pipeline.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon S3 bucket from which Elastic Transcoder gets media files for
-    -- transcoding and the graphics files, if any, that you want to use for
-    -- watermarks.
-    inputBucket :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Key Management Service (AWS KMS) key that you want to use with
+    -- this pipeline.
+    --
+    -- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+    -- don\'t need to provide a key with your job because a default key, known
+    -- as an AWS-KMS key, is created for you automatically. You need to provide
+    -- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+    -- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+    -- @aes-gcm@.
+    awsKmsKeyArn :: Prelude.Maybe Prelude.Text,
     -- | Information about the Amazon S3 bucket in which you want Elastic
     -- Transcoder to save transcoded files and playlists. Either you specify
     -- both @ContentConfig@ and @ThumbnailConfig@, or you specify
@@ -89,32 +90,19 @@ data Pipeline = Pipeline'
     --     ReducedRedundancy, that you want Elastic Transcoder to assign to the
     --     video files and playlists that it stores in your Amazon S3 bucket.
     contentConfig :: Prelude.Maybe PipelineOutputConfig,
-    -- | The Amazon S3 bucket in which you want Elastic Transcoder to save
-    -- transcoded files, thumbnails, and playlists. Either you specify this
-    -- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
-    outputBucket :: Prelude.Maybe Prelude.Text,
-    -- | The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
-    -- uses to transcode jobs for this pipeline.
-    role' :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the pipeline. You use this value to identify the
+    -- pipeline in which you want to perform a variety of operations, such as
+    -- creating a job or a preset.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 bucket from which Elastic Transcoder gets media files for
+    -- transcoding and the graphics files, if any, that you want to use for
+    -- watermarks.
+    inputBucket :: Prelude.Maybe Prelude.Text,
     -- | The name of the pipeline. We recommend that the name be unique within
     -- the AWS account, but uniqueness is not enforced.
     --
     -- Constraints: Maximum 40 characters
     name :: Prelude.Maybe Prelude.Text,
-    -- | The AWS Key Management Service (AWS KMS) key that you want to use with
-    -- this pipeline.
-    --
-    -- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
-    -- don\'t need to provide a key with your job because a default key, known
-    -- as an AWS-KMS key, is created for you automatically. You need to provide
-    -- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
-    -- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
-    -- @aes-gcm@.
-    awsKmsKeyArn :: Prelude.Maybe Prelude.Text,
-    -- | The identifier for the pipeline. You use this value to identify the
-    -- pipeline in which you want to perform a variety of operations, such as
-    -- creating a job or a preset.
-    id :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
     -- to notify to report job status.
     --
@@ -134,6 +122,19 @@ data Pipeline = Pipeline'
     -- -   __Error__ (optional): The Amazon SNS topic that you want to notify
     --     when Elastic Transcoder encounters an error condition.
     notifications :: Prelude.Maybe Notifications,
+    -- | The Amazon S3 bucket in which you want Elastic Transcoder to save
+    -- transcoded files, thumbnails, and playlists. Either you specify this
+    -- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
+    outputBucket :: Prelude.Maybe Prelude.Text,
+    -- | The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
+    -- uses to transcode jobs for this pipeline.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the pipeline:
+    --
+    -- -   @Active@: The pipeline is processing jobs.
+    --
+    -- -   @Paused@: The pipeline is not currently processing jobs.
+    status :: Prelude.Maybe Prelude.Text,
     -- | Information about the Amazon S3 bucket in which you want Elastic
     -- Transcoder to save thumbnail files. Either you specify both
     -- @ContentConfig@ and @ThumbnailConfig@, or you specify @OutputBucket@.
@@ -197,17 +198,17 @@ data Pipeline = Pipeline'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'pipeline_status' - The current status of the pipeline:
---
--- -   @Active@: The pipeline is processing jobs.
---
--- -   @Paused@: The pipeline is not currently processing jobs.
---
 -- 'arn', 'pipeline_arn' - The Amazon Resource Name (ARN) for the pipeline.
 --
--- 'inputBucket', 'pipeline_inputBucket' - The Amazon S3 bucket from which Elastic Transcoder gets media files for
--- transcoding and the graphics files, if any, that you want to use for
--- watermarks.
+-- 'awsKmsKeyArn', 'pipeline_awsKmsKeyArn' - The AWS Key Management Service (AWS KMS) key that you want to use with
+-- this pipeline.
+--
+-- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+-- don\'t need to provide a key with your job because a default key, known
+-- as an AWS-KMS key, is created for you automatically. You need to provide
+-- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+-- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+-- @aes-gcm@.
 --
 -- 'contentConfig', 'pipeline_contentConfig' - Information about the Amazon S3 bucket in which you want Elastic
 -- Transcoder to save transcoded files and playlists. Either you specify
@@ -257,31 +258,18 @@ data Pipeline = Pipeline'
 --     ReducedRedundancy, that you want Elastic Transcoder to assign to the
 --     video files and playlists that it stores in your Amazon S3 bucket.
 --
--- 'outputBucket', 'pipeline_outputBucket' - The Amazon S3 bucket in which you want Elastic Transcoder to save
--- transcoded files, thumbnails, and playlists. Either you specify this
--- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
+-- 'id', 'pipeline_id' - The identifier for the pipeline. You use this value to identify the
+-- pipeline in which you want to perform a variety of operations, such as
+-- creating a job or a preset.
 --
--- 'role'', 'pipeline_role' - The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
--- uses to transcode jobs for this pipeline.
+-- 'inputBucket', 'pipeline_inputBucket' - The Amazon S3 bucket from which Elastic Transcoder gets media files for
+-- transcoding and the graphics files, if any, that you want to use for
+-- watermarks.
 --
 -- 'name', 'pipeline_name' - The name of the pipeline. We recommend that the name be unique within
 -- the AWS account, but uniqueness is not enforced.
 --
 -- Constraints: Maximum 40 characters
---
--- 'awsKmsKeyArn', 'pipeline_awsKmsKeyArn' - The AWS Key Management Service (AWS KMS) key that you want to use with
--- this pipeline.
---
--- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
--- don\'t need to provide a key with your job because a default key, known
--- as an AWS-KMS key, is created for you automatically. You need to provide
--- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
--- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
--- @aes-gcm@.
---
--- 'id', 'pipeline_id' - The identifier for the pipeline. You use this value to identify the
--- pipeline in which you want to perform a variety of operations, such as
--- creating a job or a preset.
 --
 -- 'notifications', 'pipeline_notifications' - The Amazon Simple Notification Service (Amazon SNS) topic that you want
 -- to notify to report job status.
@@ -301,6 +289,19 @@ data Pipeline = Pipeline'
 --
 -- -   __Error__ (optional): The Amazon SNS topic that you want to notify
 --     when Elastic Transcoder encounters an error condition.
+--
+-- 'outputBucket', 'pipeline_outputBucket' - The Amazon S3 bucket in which you want Elastic Transcoder to save
+-- transcoded files, thumbnails, and playlists. Either you specify this
+-- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
+--
+-- 'role'', 'pipeline_role' - The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
+-- uses to transcode jobs for this pipeline.
+--
+-- 'status', 'pipeline_status' - The current status of the pipeline:
+--
+-- -   @Active@: The pipeline is processing jobs.
+--
+-- -   @Paused@: The pipeline is not currently processing jobs.
 --
 -- 'thumbnailConfig', 'pipeline_thumbnailConfig' - Information about the Amazon S3 bucket in which you want Elastic
 -- Transcoder to save thumbnail files. Either you specify both
@@ -357,36 +358,34 @@ newPipeline ::
   Pipeline
 newPipeline =
   Pipeline'
-    { status = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      inputBucket = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      awsKmsKeyArn = Prelude.Nothing,
       contentConfig = Prelude.Nothing,
+      id = Prelude.Nothing,
+      inputBucket = Prelude.Nothing,
+      name = Prelude.Nothing,
+      notifications = Prelude.Nothing,
       outputBucket = Prelude.Nothing,
       role' = Prelude.Nothing,
-      name = Prelude.Nothing,
-      awsKmsKeyArn = Prelude.Nothing,
-      id = Prelude.Nothing,
-      notifications = Prelude.Nothing,
+      status = Prelude.Nothing,
       thumbnailConfig = Prelude.Nothing
     }
-
--- | The current status of the pipeline:
---
--- -   @Active@: The pipeline is processing jobs.
---
--- -   @Paused@: The pipeline is not currently processing jobs.
-pipeline_status :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_status = Lens.lens (\Pipeline' {status} -> status) (\s@Pipeline' {} a -> s {status = a} :: Pipeline)
 
 -- | The Amazon Resource Name (ARN) for the pipeline.
 pipeline_arn :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
 pipeline_arn = Lens.lens (\Pipeline' {arn} -> arn) (\s@Pipeline' {} a -> s {arn = a} :: Pipeline)
 
--- | The Amazon S3 bucket from which Elastic Transcoder gets media files for
--- transcoding and the graphics files, if any, that you want to use for
--- watermarks.
-pipeline_inputBucket :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_inputBucket = Lens.lens (\Pipeline' {inputBucket} -> inputBucket) (\s@Pipeline' {} a -> s {inputBucket = a} :: Pipeline)
+-- | The AWS Key Management Service (AWS KMS) key that you want to use with
+-- this pipeline.
+--
+-- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+-- don\'t need to provide a key with your job because a default key, known
+-- as an AWS-KMS key, is created for you automatically. You need to provide
+-- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+-- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+-- @aes-gcm@.
+pipeline_awsKmsKeyArn :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_awsKmsKeyArn = Lens.lens (\Pipeline' {awsKmsKeyArn} -> awsKmsKeyArn) (\s@Pipeline' {} a -> s {awsKmsKeyArn = a} :: Pipeline)
 
 -- | Information about the Amazon S3 bucket in which you want Elastic
 -- Transcoder to save transcoded files and playlists. Either you specify
@@ -438,16 +437,17 @@ pipeline_inputBucket = Lens.lens (\Pipeline' {inputBucket} -> inputBucket) (\s@P
 pipeline_contentConfig :: Lens.Lens' Pipeline (Prelude.Maybe PipelineOutputConfig)
 pipeline_contentConfig = Lens.lens (\Pipeline' {contentConfig} -> contentConfig) (\s@Pipeline' {} a -> s {contentConfig = a} :: Pipeline)
 
--- | The Amazon S3 bucket in which you want Elastic Transcoder to save
--- transcoded files, thumbnails, and playlists. Either you specify this
--- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
-pipeline_outputBucket :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_outputBucket = Lens.lens (\Pipeline' {outputBucket} -> outputBucket) (\s@Pipeline' {} a -> s {outputBucket = a} :: Pipeline)
+-- | The identifier for the pipeline. You use this value to identify the
+-- pipeline in which you want to perform a variety of operations, such as
+-- creating a job or a preset.
+pipeline_id :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_id = Lens.lens (\Pipeline' {id} -> id) (\s@Pipeline' {} a -> s {id = a} :: Pipeline)
 
--- | The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
--- uses to transcode jobs for this pipeline.
-pipeline_role :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_role = Lens.lens (\Pipeline' {role'} -> role') (\s@Pipeline' {} a -> s {role' = a} :: Pipeline)
+-- | The Amazon S3 bucket from which Elastic Transcoder gets media files for
+-- transcoding and the graphics files, if any, that you want to use for
+-- watermarks.
+pipeline_inputBucket :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_inputBucket = Lens.lens (\Pipeline' {inputBucket} -> inputBucket) (\s@Pipeline' {} a -> s {inputBucket = a} :: Pipeline)
 
 -- | The name of the pipeline. We recommend that the name be unique within
 -- the AWS account, but uniqueness is not enforced.
@@ -455,24 +455,6 @@ pipeline_role = Lens.lens (\Pipeline' {role'} -> role') (\s@Pipeline' {} a -> s 
 -- Constraints: Maximum 40 characters
 pipeline_name :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
 pipeline_name = Lens.lens (\Pipeline' {name} -> name) (\s@Pipeline' {} a -> s {name = a} :: Pipeline)
-
--- | The AWS Key Management Service (AWS KMS) key that you want to use with
--- this pipeline.
---
--- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
--- don\'t need to provide a key with your job because a default key, known
--- as an AWS-KMS key, is created for you automatically. You need to provide
--- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
--- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
--- @aes-gcm@.
-pipeline_awsKmsKeyArn :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_awsKmsKeyArn = Lens.lens (\Pipeline' {awsKmsKeyArn} -> awsKmsKeyArn) (\s@Pipeline' {} a -> s {awsKmsKeyArn = a} :: Pipeline)
-
--- | The identifier for the pipeline. You use this value to identify the
--- pipeline in which you want to perform a variety of operations, such as
--- creating a job or a preset.
-pipeline_id :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
-pipeline_id = Lens.lens (\Pipeline' {id} -> id) (\s@Pipeline' {} a -> s {id = a} :: Pipeline)
 
 -- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
 -- to notify to report job status.
@@ -494,6 +476,25 @@ pipeline_id = Lens.lens (\Pipeline' {id} -> id) (\s@Pipeline' {} a -> s {id = a}
 --     when Elastic Transcoder encounters an error condition.
 pipeline_notifications :: Lens.Lens' Pipeline (Prelude.Maybe Notifications)
 pipeline_notifications = Lens.lens (\Pipeline' {notifications} -> notifications) (\s@Pipeline' {} a -> s {notifications = a} :: Pipeline)
+
+-- | The Amazon S3 bucket in which you want Elastic Transcoder to save
+-- transcoded files, thumbnails, and playlists. Either you specify this
+-- value, or you specify both @ContentConfig@ and @ThumbnailConfig@.
+pipeline_outputBucket :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_outputBucket = Lens.lens (\Pipeline' {outputBucket} -> outputBucket) (\s@Pipeline' {} a -> s {outputBucket = a} :: Pipeline)
+
+-- | The IAM Amazon Resource Name (ARN) for the role that Elastic Transcoder
+-- uses to transcode jobs for this pipeline.
+pipeline_role :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_role = Lens.lens (\Pipeline' {role'} -> role') (\s@Pipeline' {} a -> s {role' = a} :: Pipeline)
+
+-- | The current status of the pipeline:
+--
+-- -   @Active@: The pipeline is processing jobs.
+--
+-- -   @Paused@: The pipeline is not currently processing jobs.
+pipeline_status :: Lens.Lens' Pipeline (Prelude.Maybe Prelude.Text)
+pipeline_status = Lens.lens (\Pipeline' {status} -> status) (\s@Pipeline' {} a -> s {status = a} :: Pipeline)
 
 -- | Information about the Amazon S3 bucket in which you want Elastic
 -- Transcoder to save thumbnail files. Either you specify both
@@ -549,49 +550,49 @@ pipeline_notifications = Lens.lens (\Pipeline' {notifications} -> notifications)
 pipeline_thumbnailConfig :: Lens.Lens' Pipeline (Prelude.Maybe PipelineOutputConfig)
 pipeline_thumbnailConfig = Lens.lens (\Pipeline' {thumbnailConfig} -> thumbnailConfig) (\s@Pipeline' {} a -> s {thumbnailConfig = a} :: Pipeline)
 
-instance Core.FromJSON Pipeline where
+instance Data.FromJSON Pipeline where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Pipeline"
       ( \x ->
           Pipeline'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "InputBucket")
-            Prelude.<*> (x Core..:? "ContentConfig")
-            Prelude.<*> (x Core..:? "OutputBucket")
-            Prelude.<*> (x Core..:? "Role")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "AwsKmsKeyArn")
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Notifications")
-            Prelude.<*> (x Core..:? "ThumbnailConfig")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "AwsKmsKeyArn")
+            Prelude.<*> (x Data..:? "ContentConfig")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "InputBucket")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Notifications")
+            Prelude.<*> (x Data..:? "OutputBucket")
+            Prelude.<*> (x Data..:? "Role")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "ThumbnailConfig")
       )
 
 instance Prelude.Hashable Pipeline where
   hashWithSalt _salt Pipeline' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` inputBucket
+    _salt `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` awsKmsKeyArn
       `Prelude.hashWithSalt` contentConfig
+      `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` inputBucket
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` notifications
       `Prelude.hashWithSalt` outputBucket
       `Prelude.hashWithSalt` role'
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` awsKmsKeyArn
-      `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` notifications
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` thumbnailConfig
 
 instance Prelude.NFData Pipeline where
   rnf Pipeline' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf inputBucket
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf awsKmsKeyArn
       `Prelude.seq` Prelude.rnf contentConfig
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf inputBucket
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf notifications
       `Prelude.seq` Prelude.rnf outputBucket
       `Prelude.seq` Prelude.rnf role'
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf awsKmsKeyArn
-      `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf notifications
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf thumbnailConfig

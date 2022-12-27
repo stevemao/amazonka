@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.StatusCodes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.StatusCodes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the percentage of requests over the last 10 seconds that
@@ -93,13 +94,13 @@ statusCodes_status4xx = Lens.lens (\StatusCodes' {status4xx} -> status4xx) (\s@S
 statusCodes_status5xx :: Lens.Lens' StatusCodes (Prelude.Maybe Prelude.Int)
 statusCodes_status5xx = Lens.lens (\StatusCodes' {status5xx} -> status5xx) (\s@StatusCodes' {} a -> s {status5xx = a} :: StatusCodes)
 
-instance Core.FromXML StatusCodes where
+instance Data.FromXML StatusCodes where
   parseXML x =
     StatusCodes'
-      Prelude.<$> (x Core..@? "Status2xx")
-      Prelude.<*> (x Core..@? "Status3xx")
-      Prelude.<*> (x Core..@? "Status4xx")
-      Prelude.<*> (x Core..@? "Status5xx")
+      Prelude.<$> (x Data..@? "Status2xx")
+      Prelude.<*> (x Data..@? "Status3xx")
+      Prelude.<*> (x Data..@? "Status4xx")
+      Prelude.<*> (x Data..@? "Status5xx")
 
 instance Prelude.Hashable StatusCodes where
   hashWithSalt _salt StatusCodes' {..} =

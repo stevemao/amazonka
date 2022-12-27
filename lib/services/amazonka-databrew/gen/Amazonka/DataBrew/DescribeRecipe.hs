@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.DescribeRecipe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,17 @@ module Amazonka.DataBrew.DescribeRecipe
     newDescribeRecipeResponse,
 
     -- * Response Lenses
-    describeRecipeResponse_lastModifiedDate,
     describeRecipeResponse_createDate,
-    describeRecipeResponse_publishedBy,
     describeRecipeResponse_createdBy,
-    describeRecipeResponse_steps,
-    describeRecipeResponse_publishedDate,
-    describeRecipeResponse_resourceArn,
-    describeRecipeResponse_recipeVersion,
-    describeRecipeResponse_projectName,
-    describeRecipeResponse_lastModifiedBy,
     describeRecipeResponse_description,
+    describeRecipeResponse_lastModifiedBy,
+    describeRecipeResponse_lastModifiedDate,
+    describeRecipeResponse_projectName,
+    describeRecipeResponse_publishedBy,
+    describeRecipeResponse_publishedDate,
+    describeRecipeResponse_recipeVersion,
+    describeRecipeResponse_resourceArn,
+    describeRecipeResponse_steps,
     describeRecipeResponse_tags,
     describeRecipeResponse_httpStatus,
     describeRecipeResponse_name,
@@ -54,8 +54,9 @@ module Amazonka.DataBrew.DescribeRecipe
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,25 +106,26 @@ instance Core.AWSRequest DescribeRecipe where
   type
     AWSResponse DescribeRecipe =
       DescribeRecipeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRecipeResponse'
-            Prelude.<$> (x Core..?> "LastModifiedDate")
-            Prelude.<*> (x Core..?> "CreateDate")
-            Prelude.<*> (x Core..?> "PublishedBy")
-            Prelude.<*> (x Core..?> "CreatedBy")
-            Prelude.<*> (x Core..?> "Steps" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "PublishedDate")
-            Prelude.<*> (x Core..?> "ResourceArn")
-            Prelude.<*> (x Core..?> "RecipeVersion")
-            Prelude.<*> (x Core..?> "ProjectName")
-            Prelude.<*> (x Core..?> "LastModifiedBy")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "CreateDate")
+            Prelude.<*> (x Data..?> "CreatedBy")
+            Prelude.<*> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "LastModifiedBy")
+            Prelude.<*> (x Data..?> "LastModifiedDate")
+            Prelude.<*> (x Data..?> "ProjectName")
+            Prelude.<*> (x Data..?> "PublishedBy")
+            Prelude.<*> (x Data..?> "PublishedDate")
+            Prelude.<*> (x Data..?> "RecipeVersion")
+            Prelude.<*> (x Data..?> "ResourceArn")
+            Prelude.<*> (x Data..?> "Steps" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable DescribeRecipe where
@@ -136,51 +138,51 @@ instance Prelude.NFData DescribeRecipe where
     Prelude.rnf recipeVersion
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DescribeRecipe where
+instance Data.ToHeaders DescribeRecipe where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRecipe where
+instance Data.ToPath DescribeRecipe where
   toPath DescribeRecipe' {..} =
-    Prelude.mconcat ["/recipes/", Core.toBS name]
+    Prelude.mconcat ["/recipes/", Data.toBS name]
 
-instance Core.ToQuery DescribeRecipe where
+instance Data.ToQuery DescribeRecipe where
   toQuery DescribeRecipe' {..} =
     Prelude.mconcat
-      ["recipeVersion" Core.=: recipeVersion]
+      ["recipeVersion" Data.=: recipeVersion]
 
 -- | /See:/ 'newDescribeRecipeResponse' smart constructor.
 data DescribeRecipeResponse = DescribeRecipeResponse'
-  { -- | The date and time that the recipe was last modified.
-    lastModifiedDate :: Prelude.Maybe Core.POSIX,
-    -- | The date and time that the recipe was created.
-    createDate :: Prelude.Maybe Core.POSIX,
-    -- | The identifier (user name) of the user who last published the recipe.
-    publishedBy :: Prelude.Maybe Prelude.Text,
+  { -- | The date and time that the recipe was created.
+    createDate :: Prelude.Maybe Data.POSIX,
     -- | The identifier (user name) of the user who created the recipe.
     createdBy :: Prelude.Maybe Prelude.Text,
+    -- | The description of the recipe.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier (user name) of the user who last modified the recipe.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the recipe was last modified.
+    lastModifiedDate :: Prelude.Maybe Data.POSIX,
+    -- | The name of the project associated with this recipe.
+    projectName :: Prelude.Maybe Prelude.Text,
+    -- | The identifier (user name) of the user who last published the recipe.
+    publishedBy :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the recipe was last published.
+    publishedDate :: Prelude.Maybe Data.POSIX,
+    -- | The recipe version identifier.
+    recipeVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the recipe.
+    resourceArn :: Prelude.Maybe Prelude.Text,
     -- | One or more steps to be performed by the recipe. Each step consists of
     -- an action, and the conditions under which the action should succeed.
     steps :: Prelude.Maybe [RecipeStep],
-    -- | The date and time when the recipe was last published.
-    publishedDate :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the recipe.
-    resourceArn :: Prelude.Maybe Prelude.Text,
-    -- | The recipe version identifier.
-    recipeVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of the project associated with this recipe.
-    projectName :: Prelude.Maybe Prelude.Text,
-    -- | The identifier (user name) of the user who last modified the recipe.
-    lastModifiedBy :: Prelude.Maybe Prelude.Text,
-    -- | The description of the recipe.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Metadata tags associated with this project.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -198,28 +200,28 @@ data DescribeRecipeResponse = DescribeRecipeResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastModifiedDate', 'describeRecipeResponse_lastModifiedDate' - The date and time that the recipe was last modified.
---
 -- 'createDate', 'describeRecipeResponse_createDate' - The date and time that the recipe was created.
---
--- 'publishedBy', 'describeRecipeResponse_publishedBy' - The identifier (user name) of the user who last published the recipe.
 --
 -- 'createdBy', 'describeRecipeResponse_createdBy' - The identifier (user name) of the user who created the recipe.
 --
--- 'steps', 'describeRecipeResponse_steps' - One or more steps to be performed by the recipe. Each step consists of
--- an action, and the conditions under which the action should succeed.
---
--- 'publishedDate', 'describeRecipeResponse_publishedDate' - The date and time when the recipe was last published.
---
--- 'resourceArn', 'describeRecipeResponse_resourceArn' - The ARN of the recipe.
---
--- 'recipeVersion', 'describeRecipeResponse_recipeVersion' - The recipe version identifier.
---
--- 'projectName', 'describeRecipeResponse_projectName' - The name of the project associated with this recipe.
+-- 'description', 'describeRecipeResponse_description' - The description of the recipe.
 --
 -- 'lastModifiedBy', 'describeRecipeResponse_lastModifiedBy' - The identifier (user name) of the user who last modified the recipe.
 --
--- 'description', 'describeRecipeResponse_description' - The description of the recipe.
+-- 'lastModifiedDate', 'describeRecipeResponse_lastModifiedDate' - The date and time that the recipe was last modified.
+--
+-- 'projectName', 'describeRecipeResponse_projectName' - The name of the project associated with this recipe.
+--
+-- 'publishedBy', 'describeRecipeResponse_publishedBy' - The identifier (user name) of the user who last published the recipe.
+--
+-- 'publishedDate', 'describeRecipeResponse_publishedDate' - The date and time when the recipe was last published.
+--
+-- 'recipeVersion', 'describeRecipeResponse_recipeVersion' - The recipe version identifier.
+--
+-- 'resourceArn', 'describeRecipeResponse_resourceArn' - The ARN of the recipe.
+--
+-- 'steps', 'describeRecipeResponse_steps' - One or more steps to be performed by the recipe. Each step consists of
+-- an action, and the conditions under which the action should succeed.
 --
 -- 'tags', 'describeRecipeResponse_tags' - Metadata tags associated with this project.
 --
@@ -234,67 +236,67 @@ newDescribeRecipeResponse ::
   DescribeRecipeResponse
 newDescribeRecipeResponse pHttpStatus_ pName_ =
   DescribeRecipeResponse'
-    { lastModifiedDate =
+    { createDate =
         Prelude.Nothing,
-      createDate = Prelude.Nothing,
-      publishedBy = Prelude.Nothing,
       createdBy = Prelude.Nothing,
-      steps = Prelude.Nothing,
-      publishedDate = Prelude.Nothing,
-      resourceArn = Prelude.Nothing,
-      recipeVersion = Prelude.Nothing,
-      projectName = Prelude.Nothing,
-      lastModifiedBy = Prelude.Nothing,
       description = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
+      projectName = Prelude.Nothing,
+      publishedBy = Prelude.Nothing,
+      publishedDate = Prelude.Nothing,
+      recipeVersion = Prelude.Nothing,
+      resourceArn = Prelude.Nothing,
+      steps = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       name = pName_
     }
 
--- | The date and time that the recipe was last modified.
-describeRecipeResponse_lastModifiedDate :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.UTCTime)
-describeRecipeResponse_lastModifiedDate = Lens.lens (\DescribeRecipeResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeRecipeResponse' {} a -> s {lastModifiedDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The date and time that the recipe was created.
 describeRecipeResponse_createDate :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.UTCTime)
-describeRecipeResponse_createDate = Lens.lens (\DescribeRecipeResponse' {createDate} -> createDate) (\s@DescribeRecipeResponse' {} a -> s {createDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Core._Time
-
--- | The identifier (user name) of the user who last published the recipe.
-describeRecipeResponse_publishedBy :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
-describeRecipeResponse_publishedBy = Lens.lens (\DescribeRecipeResponse' {publishedBy} -> publishedBy) (\s@DescribeRecipeResponse' {} a -> s {publishedBy = a} :: DescribeRecipeResponse)
+describeRecipeResponse_createDate = Lens.lens (\DescribeRecipeResponse' {createDate} -> createDate) (\s@DescribeRecipeResponse' {} a -> s {createDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The identifier (user name) of the user who created the recipe.
 describeRecipeResponse_createdBy :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
 describeRecipeResponse_createdBy = Lens.lens (\DescribeRecipeResponse' {createdBy} -> createdBy) (\s@DescribeRecipeResponse' {} a -> s {createdBy = a} :: DescribeRecipeResponse)
 
--- | One or more steps to be performed by the recipe. Each step consists of
--- an action, and the conditions under which the action should succeed.
-describeRecipeResponse_steps :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe [RecipeStep])
-describeRecipeResponse_steps = Lens.lens (\DescribeRecipeResponse' {steps} -> steps) (\s@DescribeRecipeResponse' {} a -> s {steps = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The date and time when the recipe was last published.
-describeRecipeResponse_publishedDate :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.UTCTime)
-describeRecipeResponse_publishedDate = Lens.lens (\DescribeRecipeResponse' {publishedDate} -> publishedDate) (\s@DescribeRecipeResponse' {} a -> s {publishedDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Core._Time
-
--- | The ARN of the recipe.
-describeRecipeResponse_resourceArn :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
-describeRecipeResponse_resourceArn = Lens.lens (\DescribeRecipeResponse' {resourceArn} -> resourceArn) (\s@DescribeRecipeResponse' {} a -> s {resourceArn = a} :: DescribeRecipeResponse)
-
--- | The recipe version identifier.
-describeRecipeResponse_recipeVersion :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
-describeRecipeResponse_recipeVersion = Lens.lens (\DescribeRecipeResponse' {recipeVersion} -> recipeVersion) (\s@DescribeRecipeResponse' {} a -> s {recipeVersion = a} :: DescribeRecipeResponse)
-
--- | The name of the project associated with this recipe.
-describeRecipeResponse_projectName :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
-describeRecipeResponse_projectName = Lens.lens (\DescribeRecipeResponse' {projectName} -> projectName) (\s@DescribeRecipeResponse' {} a -> s {projectName = a} :: DescribeRecipeResponse)
+-- | The description of the recipe.
+describeRecipeResponse_description :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
+describeRecipeResponse_description = Lens.lens (\DescribeRecipeResponse' {description} -> description) (\s@DescribeRecipeResponse' {} a -> s {description = a} :: DescribeRecipeResponse)
 
 -- | The identifier (user name) of the user who last modified the recipe.
 describeRecipeResponse_lastModifiedBy :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
 describeRecipeResponse_lastModifiedBy = Lens.lens (\DescribeRecipeResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeRecipeResponse' {} a -> s {lastModifiedBy = a} :: DescribeRecipeResponse)
 
--- | The description of the recipe.
-describeRecipeResponse_description :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
-describeRecipeResponse_description = Lens.lens (\DescribeRecipeResponse' {description} -> description) (\s@DescribeRecipeResponse' {} a -> s {description = a} :: DescribeRecipeResponse)
+-- | The date and time that the recipe was last modified.
+describeRecipeResponse_lastModifiedDate :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.UTCTime)
+describeRecipeResponse_lastModifiedDate = Lens.lens (\DescribeRecipeResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeRecipeResponse' {} a -> s {lastModifiedDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the project associated with this recipe.
+describeRecipeResponse_projectName :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
+describeRecipeResponse_projectName = Lens.lens (\DescribeRecipeResponse' {projectName} -> projectName) (\s@DescribeRecipeResponse' {} a -> s {projectName = a} :: DescribeRecipeResponse)
+
+-- | The identifier (user name) of the user who last published the recipe.
+describeRecipeResponse_publishedBy :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
+describeRecipeResponse_publishedBy = Lens.lens (\DescribeRecipeResponse' {publishedBy} -> publishedBy) (\s@DescribeRecipeResponse' {} a -> s {publishedBy = a} :: DescribeRecipeResponse)
+
+-- | The date and time when the recipe was last published.
+describeRecipeResponse_publishedDate :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.UTCTime)
+describeRecipeResponse_publishedDate = Lens.lens (\DescribeRecipeResponse' {publishedDate} -> publishedDate) (\s@DescribeRecipeResponse' {} a -> s {publishedDate = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The recipe version identifier.
+describeRecipeResponse_recipeVersion :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
+describeRecipeResponse_recipeVersion = Lens.lens (\DescribeRecipeResponse' {recipeVersion} -> recipeVersion) (\s@DescribeRecipeResponse' {} a -> s {recipeVersion = a} :: DescribeRecipeResponse)
+
+-- | The ARN of the recipe.
+describeRecipeResponse_resourceArn :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe Prelude.Text)
+describeRecipeResponse_resourceArn = Lens.lens (\DescribeRecipeResponse' {resourceArn} -> resourceArn) (\s@DescribeRecipeResponse' {} a -> s {resourceArn = a} :: DescribeRecipeResponse)
+
+-- | One or more steps to be performed by the recipe. Each step consists of
+-- an action, and the conditions under which the action should succeed.
+describeRecipeResponse_steps :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe [RecipeStep])
+describeRecipeResponse_steps = Lens.lens (\DescribeRecipeResponse' {steps} -> steps) (\s@DescribeRecipeResponse' {} a -> s {steps = a} :: DescribeRecipeResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Metadata tags associated with this project.
 describeRecipeResponse_tags :: Lens.Lens' DescribeRecipeResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -310,17 +312,17 @@ describeRecipeResponse_name = Lens.lens (\DescribeRecipeResponse' {name} -> name
 
 instance Prelude.NFData DescribeRecipeResponse where
   rnf DescribeRecipeResponse' {..} =
-    Prelude.rnf lastModifiedDate
-      `Prelude.seq` Prelude.rnf createDate
-      `Prelude.seq` Prelude.rnf publishedBy
+    Prelude.rnf createDate
       `Prelude.seq` Prelude.rnf createdBy
-      `Prelude.seq` Prelude.rnf steps
-      `Prelude.seq` Prelude.rnf publishedDate
-      `Prelude.seq` Prelude.rnf resourceArn
-      `Prelude.seq` Prelude.rnf recipeVersion
-      `Prelude.seq` Prelude.rnf projectName
-      `Prelude.seq` Prelude.rnf lastModifiedBy
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf lastModifiedBy
+      `Prelude.seq` Prelude.rnf lastModifiedDate
+      `Prelude.seq` Prelude.rnf projectName
+      `Prelude.seq` Prelude.rnf publishedBy
+      `Prelude.seq` Prelude.rnf publishedDate
+      `Prelude.seq` Prelude.rnf recipeVersion
+      `Prelude.seq` Prelude.rnf resourceArn
+      `Prelude.seq` Prelude.rnf steps
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf name

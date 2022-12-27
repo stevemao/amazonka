@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetVoiceChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.GetVoiceChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,13 +82,14 @@ instance Core.AWSRequest GetVoiceChannel where
   type
     AWSResponse GetVoiceChannel =
       GetVoiceChannelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetVoiceChannel where
@@ -97,26 +99,26 @@ instance Prelude.Hashable GetVoiceChannel where
 instance Prelude.NFData GetVoiceChannel where
   rnf GetVoiceChannel' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders GetVoiceChannel where
+instance Data.ToHeaders GetVoiceChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetVoiceChannel where
+instance Data.ToPath GetVoiceChannel where
   toPath GetVoiceChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/voice"
       ]
 
-instance Core.ToQuery GetVoiceChannel where
+instance Data.ToQuery GetVoiceChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetVoiceChannelResponse' smart constructor.

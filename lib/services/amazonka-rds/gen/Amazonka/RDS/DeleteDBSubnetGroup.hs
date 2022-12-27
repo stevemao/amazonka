@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.RDS.DeleteDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -53,12 +54,10 @@ data DeleteDBSubnetGroup = DeleteDBSubnetGroup'
     --
     -- You can\'t delete the default subnet group.
     --
-    -- Constraints:
-    --
     -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
     -- be default.
     --
-    -- Example: @mySubnetgroup@
+    -- Example: @mydbsubnetgroup@
     dbSubnetGroupName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,12 +74,10 @@ data DeleteDBSubnetGroup = DeleteDBSubnetGroup'
 --
 -- You can\'t delete the default subnet group.
 --
--- Constraints:
---
 -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
 -- be default.
 --
--- Example: @mySubnetgroup@
+-- Example: @mydbsubnetgroup@
 newDeleteDBSubnetGroup ::
   -- | 'dbSubnetGroupName'
   Prelude.Text ->
@@ -95,12 +92,10 @@ newDeleteDBSubnetGroup pDBSubnetGroupName_ =
 --
 -- You can\'t delete the default subnet group.
 --
--- Constraints:
---
 -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
 -- be default.
 --
--- Example: @mySubnetgroup@
+-- Example: @mydbsubnetgroup@
 deleteDBSubnetGroup_dbSubnetGroupName :: Lens.Lens' DeleteDBSubnetGroup Prelude.Text
 deleteDBSubnetGroup_dbSubnetGroupName = Lens.lens (\DeleteDBSubnetGroup' {dbSubnetGroupName} -> dbSubnetGroupName) (\s@DeleteDBSubnetGroup' {} a -> s {dbSubnetGroupName = a} :: DeleteDBSubnetGroup)
 
@@ -108,7 +103,8 @@ instance Core.AWSRequest DeleteDBSubnetGroup where
   type
     AWSResponse DeleteDBSubnetGroup =
       DeleteDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteDBSubnetGroupResponse'
 
@@ -120,20 +116,20 @@ instance Prelude.NFData DeleteDBSubnetGroup where
   rnf DeleteDBSubnetGroup' {..} =
     Prelude.rnf dbSubnetGroupName
 
-instance Core.ToHeaders DeleteDBSubnetGroup where
+instance Data.ToHeaders DeleteDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBSubnetGroup where
+instance Data.ToPath DeleteDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBSubnetGroup where
+instance Data.ToQuery DeleteDBSubnetGroup where
   toQuery DeleteDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName
       ]
 
 -- | /See:/ 'newDeleteDBSubnetGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.AssociateApprovedOrigin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest AssociateApprovedOrigin where
   type
     AWSResponse AssociateApprovedOrigin =
       AssociateApprovedOriginResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull
       AssociateApprovedOriginResponse'
@@ -108,33 +110,33 @@ instance Prelude.NFData AssociateApprovedOrigin where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf origin
 
-instance Core.ToHeaders AssociateApprovedOrigin where
+instance Data.ToHeaders AssociateApprovedOrigin where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateApprovedOrigin where
+instance Data.ToJSON AssociateApprovedOrigin where
   toJSON AssociateApprovedOrigin' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Origin" Core..= origin)]
+          [Prelude.Just ("Origin" Data..= origin)]
       )
 
-instance Core.ToPath AssociateApprovedOrigin where
+instance Data.ToPath AssociateApprovedOrigin where
   toPath AssociateApprovedOrigin' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/approved-origin"
       ]
 
-instance Core.ToQuery AssociateApprovedOrigin where
+instance Data.ToQuery AssociateApprovedOrigin where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateApprovedOriginResponse' smart constructor.

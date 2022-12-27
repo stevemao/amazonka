@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.ReserveContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.GroundStation.ReserveContact
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,16 +57,16 @@ import qualified Amazonka.Response as Response
 data ReserveContact = ReserveContact'
   { -- | Tags assigned to a contact.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | End time of a contact.
-    endTime :: Core.POSIX,
+    -- | End time of a contact in UTC.
+    endTime :: Data.POSIX,
     -- | Name of a ground station.
     groundStation :: Prelude.Text,
     -- | ARN of a mission profile.
     missionProfileArn :: Prelude.Text,
     -- | ARN of a satellite
     satelliteArn :: Prelude.Text,
-    -- | Start time of a contact.
-    startTime :: Core.POSIX
+    -- | Start time of a contact in UTC.
+    startTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,7 +80,7 @@ data ReserveContact = ReserveContact'
 --
 -- 'tags', 'reserveContact_tags' - Tags assigned to a contact.
 --
--- 'endTime', 'reserveContact_endTime' - End time of a contact.
+-- 'endTime', 'reserveContact_endTime' - End time of a contact in UTC.
 --
 -- 'groundStation', 'reserveContact_groundStation' - Name of a ground station.
 --
@@ -87,7 +88,7 @@ data ReserveContact = ReserveContact'
 --
 -- 'satelliteArn', 'reserveContact_satelliteArn' - ARN of a satellite
 --
--- 'startTime', 'reserveContact_startTime' - Start time of a contact.
+-- 'startTime', 'reserveContact_startTime' - Start time of a contact in UTC.
 newReserveContact ::
   -- | 'endTime'
   Prelude.UTCTime ->
@@ -108,20 +109,20 @@ newReserveContact
   pStartTime_ =
     ReserveContact'
       { tags = Prelude.Nothing,
-        endTime = Core._Time Lens.# pEndTime_,
+        endTime = Data._Time Lens.# pEndTime_,
         groundStation = pGroundStation_,
         missionProfileArn = pMissionProfileArn_,
         satelliteArn = pSatelliteArn_,
-        startTime = Core._Time Lens.# pStartTime_
+        startTime = Data._Time Lens.# pStartTime_
       }
 
 -- | Tags assigned to a contact.
 reserveContact_tags :: Lens.Lens' ReserveContact (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 reserveContact_tags = Lens.lens (\ReserveContact' {tags} -> tags) (\s@ReserveContact' {} a -> s {tags = a} :: ReserveContact) Prelude.. Lens.mapping Lens.coerced
 
--- | End time of a contact.
+-- | End time of a contact in UTC.
 reserveContact_endTime :: Lens.Lens' ReserveContact Prelude.UTCTime
-reserveContact_endTime = Lens.lens (\ReserveContact' {endTime} -> endTime) (\s@ReserveContact' {} a -> s {endTime = a} :: ReserveContact) Prelude.. Core._Time
+reserveContact_endTime = Lens.lens (\ReserveContact' {endTime} -> endTime) (\s@ReserveContact' {} a -> s {endTime = a} :: ReserveContact) Prelude.. Data._Time
 
 -- | Name of a ground station.
 reserveContact_groundStation :: Lens.Lens' ReserveContact Prelude.Text
@@ -135,16 +136,17 @@ reserveContact_missionProfileArn = Lens.lens (\ReserveContact' {missionProfileAr
 reserveContact_satelliteArn :: Lens.Lens' ReserveContact Prelude.Text
 reserveContact_satelliteArn = Lens.lens (\ReserveContact' {satelliteArn} -> satelliteArn) (\s@ReserveContact' {} a -> s {satelliteArn = a} :: ReserveContact)
 
--- | Start time of a contact.
+-- | Start time of a contact in UTC.
 reserveContact_startTime :: Lens.Lens' ReserveContact Prelude.UTCTime
-reserveContact_startTime = Lens.lens (\ReserveContact' {startTime} -> startTime) (\s@ReserveContact' {} a -> s {startTime = a} :: ReserveContact) Prelude.. Core._Time
+reserveContact_startTime = Lens.lens (\ReserveContact' {startTime} -> startTime) (\s@ReserveContact' {} a -> s {startTime = a} :: ReserveContact) Prelude.. Data._Time
 
 instance Core.AWSRequest ReserveContact where
   type AWSResponse ReserveContact = ContactIdResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable ReserveContact where
   hashWithSalt _salt ReserveContact' {..} =
@@ -164,33 +166,33 @@ instance Prelude.NFData ReserveContact where
       `Prelude.seq` Prelude.rnf satelliteArn
       `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToHeaders ReserveContact where
+instance Data.ToHeaders ReserveContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ReserveContact where
+instance Data.ToJSON ReserveContact where
   toJSON ReserveContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("endTime" Core..= endTime),
-            Prelude.Just ("groundStation" Core..= groundStation),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("endTime" Data..= endTime),
+            Prelude.Just ("groundStation" Data..= groundStation),
             Prelude.Just
-              ("missionProfileArn" Core..= missionProfileArn),
-            Prelude.Just ("satelliteArn" Core..= satelliteArn),
-            Prelude.Just ("startTime" Core..= startTime)
+              ("missionProfileArn" Data..= missionProfileArn),
+            Prelude.Just ("satelliteArn" Data..= satelliteArn),
+            Prelude.Just ("startTime" Data..= startTime)
           ]
       )
 
-instance Core.ToPath ReserveContact where
+instance Data.ToPath ReserveContact where
   toPath = Prelude.const "/contact"
 
-instance Core.ToQuery ReserveContact where
+instance Data.ToQuery ReserveContact where
   toQuery = Prelude.const Prelude.mempty

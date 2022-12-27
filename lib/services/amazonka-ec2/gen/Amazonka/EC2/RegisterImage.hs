@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.RegisterImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,12 +23,13 @@
 -- Registers an AMI. When you\'re creating an AMI, this is the final step
 -- you must complete before you can launch an instance from the AMI. For
 -- more information about creating AMIs, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html Creating your own AMIs>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html Create your own AMI>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- For Amazon EBS-backed instances, CreateImage creates and registers the
 -- AMI in a single request, so you don\'t have to register the AMI
--- yourself.
+-- yourself. We recommend that you always use CreateImage unless you have a
+-- specific reason to use RegisterImage.
 --
 -- If needed, you can deregister an AMI at any time. Any modifications you
 -- make to an AMI backed by an instance store volume invalidates its
@@ -76,7 +77,7 @@
 -- the Reserved Instance will not be applied to the On-Demand Instance. For
 -- information about how to obtain the platform details and billing
 -- information of an AMI, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html Understanding AMI billing>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html Understand AMI billing information>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.RegisterImage
   ( -- * Creating a Request
@@ -84,19 +85,22 @@ module Amazonka.EC2.RegisterImage
     newRegisterImage,
 
     -- * Request Lenses
-    registerImage_virtualizationType,
-    registerImage_imageLocation,
-    registerImage_enaSupport,
+    registerImage_architecture,
     registerImage_billingProducts,
-    registerImage_ramdiskId,
+    registerImage_blockDeviceMappings,
+    registerImage_bootMode,
+    registerImage_description,
+    registerImage_dryRun,
+    registerImage_enaSupport,
+    registerImage_imageLocation,
+    registerImage_imdsSupport,
     registerImage_kernelId,
+    registerImage_ramdiskId,
     registerImage_rootDeviceName,
     registerImage_sriovNetSupport,
-    registerImage_bootMode,
-    registerImage_architecture,
-    registerImage_description,
-    registerImage_blockDeviceMappings,
-    registerImage_dryRun,
+    registerImage_tpmSupport,
+    registerImage_uefiData,
+    registerImage_virtualizationType,
     registerImage_name,
 
     -- * Destructuring the Response
@@ -110,8 +114,9 @@ module Amazonka.EC2.RegisterImage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,52 +125,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newRegisterImage' smart constructor.
 data RegisterImage = RegisterImage'
-  { -- | The type of virtualization (@hvm@ | @paravirtual@).
-    --
-    -- Default: @paravirtual@
-    virtualizationType :: Prelude.Maybe Prelude.Text,
-    -- | The full path to your AMI manifest in Amazon S3 storage. The specified
-    -- bucket must have the @aws-exec-read@ canned access control list (ACL) to
-    -- ensure that it can be accessed by Amazon EC2. For more information, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
-    -- in the /Amazon S3 Service Developer Guide/.
-    imageLocation :: Prelude.Maybe Prelude.Text,
-    -- | Set to @true@ to enable enhanced networking with ENA for the AMI and any
-    -- instances that you launch from the AMI.
-    --
-    -- This option is supported only for HVM AMIs. Specifying this option with
-    -- a PV AMI can make instances launched from the AMI unreachable.
-    enaSupport :: Prelude.Maybe Prelude.Bool,
-    -- | The billing product codes. Your account must be authorized to specify
-    -- billing product codes. Otherwise, you can use the Amazon Web Services
-    -- Marketplace to bill for the use of an AMI.
-    billingProducts :: Prelude.Maybe [Prelude.Text],
-    -- | The ID of the RAM disk.
-    ramdiskId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the kernel.
-    kernelId :: Prelude.Maybe Prelude.Text,
-    -- | The device name of the root device volume (for example, @\/dev\/sda1@).
-    rootDeviceName :: Prelude.Maybe Prelude.Text,
-    -- | Set to @simple@ to enable enhanced networking with the Intel 82599
-    -- Virtual Function interface for the AMI and any instances that you launch
-    -- from the AMI.
-    --
-    -- There is no way to disable @sriovNetSupport@ at this time.
-    --
-    -- This option is supported only for HVM AMIs. Specifying this option with
-    -- a PV AMI can make instances launched from the AMI unreachable.
-    sriovNetSupport :: Prelude.Maybe Prelude.Text,
-    -- | The boot mode of the AMI. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
-    -- in the /Amazon Elastic Compute Cloud User Guide/.
-    bootMode :: Prelude.Maybe BootModeValues,
-    -- | The architecture of the AMI.
+  { -- | The architecture of the AMI.
     --
     -- Default: For Amazon EBS-backed AMIs, @i386@. For instance store-backed
     -- AMIs, the architecture specified in the manifest file.
     architecture :: Prelude.Maybe ArchitectureValues,
-    -- | A description for your AMI.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The billing product codes. Your account must be authorized to specify
+    -- billing product codes. Otherwise, you can use the Amazon Web Services
+    -- Marketplace to bill for the use of an AMI.
+    billingProducts :: Prelude.Maybe [Prelude.Text],
     -- | The block device mapping entries.
     --
     -- If you specify an Amazon EBS volume using the ID of an Amazon EBS
@@ -178,11 +146,73 @@ data RegisterImage = RegisterImage'
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami Amazon EBS local snapshots on Outposts>
     -- in the /Amazon Elastic Compute Cloud User Guide/.
     blockDeviceMappings :: Prelude.Maybe [BlockDeviceMapping],
+    -- | The boot mode of the AMI. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    bootMode :: Prelude.Maybe BootModeValues,
+    -- | A description for your AMI.
+    description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Set to @true@ to enable enhanced networking with ENA for the AMI and any
+    -- instances that you launch from the AMI.
+    --
+    -- This option is supported only for HVM AMIs. Specifying this option with
+    -- a PV AMI can make instances launched from the AMI unreachable.
+    enaSupport :: Prelude.Maybe Prelude.Bool,
+    -- | The full path to your AMI manifest in Amazon S3 storage. The specified
+    -- bucket must have the @aws-exec-read@ canned access control list (ACL) to
+    -- ensure that it can be accessed by Amazon EC2. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
+    -- in the /Amazon S3 Service Developer Guide/.
+    imageLocation :: Prelude.Maybe Prelude.Text,
+    -- | Set to @v2.0@ to indicate that IMDSv2 is specified in the AMI. Instances
+    -- launched from this AMI will have @HttpTokens@ automatically set to
+    -- @required@ so that, by default, the instance requires that IMDSv2 is
+    -- used when requesting instance metadata. In addition,
+    -- @HttpPutResponseHopLimit@ is set to @2@. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration Configure the AMI>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    --
+    -- If you set the value to @v2.0@, make sure that your AMI software can
+    -- support IMDSv2.
+    imdsSupport :: Prelude.Maybe ImdsSupportValues,
+    -- | The ID of the kernel.
+    kernelId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the RAM disk.
+    ramdiskId :: Prelude.Maybe Prelude.Text,
+    -- | The device name of the root device volume (for example, @\/dev\/sda1@).
+    rootDeviceName :: Prelude.Maybe Prelude.Text,
+    -- | Set to @simple@ to enable enhanced networking with the Intel 82599
+    -- Virtual Function interface for the AMI and any instances that you launch
+    -- from the AMI.
+    --
+    -- There is no way to disable @sriovNetSupport@ at this time.
+    --
+    -- This option is supported only for HVM AMIs. Specifying this option with
+    -- a PV AMI can make instances launched from the AMI unreachable.
+    sriovNetSupport :: Prelude.Maybe Prelude.Text,
+    -- | Set to @v2.0@ to enable Trusted Platform Module (TPM) support. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html NitroTPM>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    tpmSupport :: Prelude.Maybe TpmSupportValues,
+    -- | Base64 representation of the non-volatile UEFI variable store. To
+    -- retrieve the UEFI data, use the
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData GetInstanceUefiData>
+    -- command. You can inspect and modify the UEFI data by using the
+    -- <https://github.com/awslabs/python-uefivars python-uefivars tool> on
+    -- GitHub. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html UEFI Secure Boot>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    uefiData :: Prelude.Maybe Prelude.Text,
+    -- | The type of virtualization (@hvm@ | @paravirtual@).
+    --
+    -- Default: @paravirtual@
+    virtualizationType :: Prelude.Maybe Prelude.Text,
     -- | A name for your AMI.
     --
     -- Constraints: 3-128 alphanumeric characters, parentheses (()), square
@@ -200,51 +230,14 @@ data RegisterImage = RegisterImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'virtualizationType', 'registerImage_virtualizationType' - The type of virtualization (@hvm@ | @paravirtual@).
---
--- Default: @paravirtual@
---
--- 'imageLocation', 'registerImage_imageLocation' - The full path to your AMI manifest in Amazon S3 storage. The specified
--- bucket must have the @aws-exec-read@ canned access control list (ACL) to
--- ensure that it can be accessed by Amazon EC2. For more information, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
--- in the /Amazon S3 Service Developer Guide/.
---
--- 'enaSupport', 'registerImage_enaSupport' - Set to @true@ to enable enhanced networking with ENA for the AMI and any
--- instances that you launch from the AMI.
---
--- This option is supported only for HVM AMIs. Specifying this option with
--- a PV AMI can make instances launched from the AMI unreachable.
---
--- 'billingProducts', 'registerImage_billingProducts' - The billing product codes. Your account must be authorized to specify
--- billing product codes. Otherwise, you can use the Amazon Web Services
--- Marketplace to bill for the use of an AMI.
---
--- 'ramdiskId', 'registerImage_ramdiskId' - The ID of the RAM disk.
---
--- 'kernelId', 'registerImage_kernelId' - The ID of the kernel.
---
--- 'rootDeviceName', 'registerImage_rootDeviceName' - The device name of the root device volume (for example, @\/dev\/sda1@).
---
--- 'sriovNetSupport', 'registerImage_sriovNetSupport' - Set to @simple@ to enable enhanced networking with the Intel 82599
--- Virtual Function interface for the AMI and any instances that you launch
--- from the AMI.
---
--- There is no way to disable @sriovNetSupport@ at this time.
---
--- This option is supported only for HVM AMIs. Specifying this option with
--- a PV AMI can make instances launched from the AMI unreachable.
---
--- 'bootMode', 'registerImage_bootMode' - The boot mode of the AMI. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
--- in the /Amazon Elastic Compute Cloud User Guide/.
---
 -- 'architecture', 'registerImage_architecture' - The architecture of the AMI.
 --
 -- Default: For Amazon EBS-backed AMIs, @i386@. For instance store-backed
 -- AMIs, the architecture specified in the manifest file.
 --
--- 'description', 'registerImage_description' - A description for your AMI.
+-- 'billingProducts', 'registerImage_billingProducts' - The billing product codes. Your account must be authorized to specify
+-- billing product codes. Otherwise, you can use the Amazon Web Services
+-- Marketplace to bill for the use of an AMI.
 --
 -- 'blockDeviceMappings', 'registerImage_blockDeviceMappings' - The block device mapping entries.
 --
@@ -258,10 +251,72 @@ data RegisterImage = RegisterImage'
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami Amazon EBS local snapshots on Outposts>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 --
+-- 'bootMode', 'registerImage_bootMode' - The boot mode of the AMI. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- 'description', 'registerImage_description' - A description for your AMI.
+--
 -- 'dryRun', 'registerImage_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'enaSupport', 'registerImage_enaSupport' - Set to @true@ to enable enhanced networking with ENA for the AMI and any
+-- instances that you launch from the AMI.
+--
+-- This option is supported only for HVM AMIs. Specifying this option with
+-- a PV AMI can make instances launched from the AMI unreachable.
+--
+-- 'imageLocation', 'registerImage_imageLocation' - The full path to your AMI manifest in Amazon S3 storage. The specified
+-- bucket must have the @aws-exec-read@ canned access control list (ACL) to
+-- ensure that it can be accessed by Amazon EC2. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
+-- in the /Amazon S3 Service Developer Guide/.
+--
+-- 'imdsSupport', 'registerImage_imdsSupport' - Set to @v2.0@ to indicate that IMDSv2 is specified in the AMI. Instances
+-- launched from this AMI will have @HttpTokens@ automatically set to
+-- @required@ so that, by default, the instance requires that IMDSv2 is
+-- used when requesting instance metadata. In addition,
+-- @HttpPutResponseHopLimit@ is set to @2@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration Configure the AMI>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- If you set the value to @v2.0@, make sure that your AMI software can
+-- support IMDSv2.
+--
+-- 'kernelId', 'registerImage_kernelId' - The ID of the kernel.
+--
+-- 'ramdiskId', 'registerImage_ramdiskId' - The ID of the RAM disk.
+--
+-- 'rootDeviceName', 'registerImage_rootDeviceName' - The device name of the root device volume (for example, @\/dev\/sda1@).
+--
+-- 'sriovNetSupport', 'registerImage_sriovNetSupport' - Set to @simple@ to enable enhanced networking with the Intel 82599
+-- Virtual Function interface for the AMI and any instances that you launch
+-- from the AMI.
+--
+-- There is no way to disable @sriovNetSupport@ at this time.
+--
+-- This option is supported only for HVM AMIs. Specifying this option with
+-- a PV AMI can make instances launched from the AMI unreachable.
+--
+-- 'tpmSupport', 'registerImage_tpmSupport' - Set to @v2.0@ to enable Trusted Platform Module (TPM) support. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html NitroTPM>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- 'uefiData', 'registerImage_uefiData' - Base64 representation of the non-volatile UEFI variable store. To
+-- retrieve the UEFI data, use the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData GetInstanceUefiData>
+-- command. You can inspect and modify the UEFI data by using the
+-- <https://github.com/awslabs/python-uefivars python-uefivars tool> on
+-- GitHub. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html UEFI Secure Boot>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- 'virtualizationType', 'registerImage_virtualizationType' - The type of virtualization (@hvm@ | @paravirtual@).
+--
+-- Default: @paravirtual@
 --
 -- 'name', 'registerImage_name' - A name for your AMI.
 --
@@ -274,36 +329,68 @@ newRegisterImage ::
   RegisterImage
 newRegisterImage pName_ =
   RegisterImage'
-    { virtualizationType =
-        Prelude.Nothing,
-      imageLocation = Prelude.Nothing,
-      enaSupport = Prelude.Nothing,
+    { architecture = Prelude.Nothing,
       billingProducts = Prelude.Nothing,
-      ramdiskId = Prelude.Nothing,
+      blockDeviceMappings = Prelude.Nothing,
+      bootMode = Prelude.Nothing,
+      description = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      enaSupport = Prelude.Nothing,
+      imageLocation = Prelude.Nothing,
+      imdsSupport = Prelude.Nothing,
       kernelId = Prelude.Nothing,
+      ramdiskId = Prelude.Nothing,
       rootDeviceName = Prelude.Nothing,
       sriovNetSupport = Prelude.Nothing,
-      bootMode = Prelude.Nothing,
-      architecture = Prelude.Nothing,
-      description = Prelude.Nothing,
-      blockDeviceMappings = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      tpmSupport = Prelude.Nothing,
+      uefiData = Prelude.Nothing,
+      virtualizationType = Prelude.Nothing,
       name = pName_
     }
 
--- | The type of virtualization (@hvm@ | @paravirtual@).
+-- | The architecture of the AMI.
 --
--- Default: @paravirtual@
-registerImage_virtualizationType :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
-registerImage_virtualizationType = Lens.lens (\RegisterImage' {virtualizationType} -> virtualizationType) (\s@RegisterImage' {} a -> s {virtualizationType = a} :: RegisterImage)
+-- Default: For Amazon EBS-backed AMIs, @i386@. For instance store-backed
+-- AMIs, the architecture specified in the manifest file.
+registerImage_architecture :: Lens.Lens' RegisterImage (Prelude.Maybe ArchitectureValues)
+registerImage_architecture = Lens.lens (\RegisterImage' {architecture} -> architecture) (\s@RegisterImage' {} a -> s {architecture = a} :: RegisterImage)
 
--- | The full path to your AMI manifest in Amazon S3 storage. The specified
--- bucket must have the @aws-exec-read@ canned access control list (ACL) to
--- ensure that it can be accessed by Amazon EC2. For more information, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
--- in the /Amazon S3 Service Developer Guide/.
-registerImage_imageLocation :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
-registerImage_imageLocation = Lens.lens (\RegisterImage' {imageLocation} -> imageLocation) (\s@RegisterImage' {} a -> s {imageLocation = a} :: RegisterImage)
+-- | The billing product codes. Your account must be authorized to specify
+-- billing product codes. Otherwise, you can use the Amazon Web Services
+-- Marketplace to bill for the use of an AMI.
+registerImage_billingProducts :: Lens.Lens' RegisterImage (Prelude.Maybe [Prelude.Text])
+registerImage_billingProducts = Lens.lens (\RegisterImage' {billingProducts} -> billingProducts) (\s@RegisterImage' {} a -> s {billingProducts = a} :: RegisterImage) Prelude.. Lens.mapping Lens.coerced
+
+-- | The block device mapping entries.
+--
+-- If you specify an Amazon EBS volume using the ID of an Amazon EBS
+-- snapshot, you can\'t specify the encryption state of the volume.
+--
+-- If you create an AMI on an Outpost, then all backing snapshots must be
+-- on the same Outpost or in the Region of that Outpost. AMIs on an Outpost
+-- that include local snapshots can be used to launch instances on the same
+-- Outpost only. For more information,
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami Amazon EBS local snapshots on Outposts>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+registerImage_blockDeviceMappings :: Lens.Lens' RegisterImage (Prelude.Maybe [BlockDeviceMapping])
+registerImage_blockDeviceMappings = Lens.lens (\RegisterImage' {blockDeviceMappings} -> blockDeviceMappings) (\s@RegisterImage' {} a -> s {blockDeviceMappings = a} :: RegisterImage) Prelude.. Lens.mapping Lens.coerced
+
+-- | The boot mode of the AMI. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+registerImage_bootMode :: Lens.Lens' RegisterImage (Prelude.Maybe BootModeValues)
+registerImage_bootMode = Lens.lens (\RegisterImage' {bootMode} -> bootMode) (\s@RegisterImage' {} a -> s {bootMode = a} :: RegisterImage)
+
+-- | A description for your AMI.
+registerImage_description :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
+registerImage_description = Lens.lens (\RegisterImage' {description} -> description) (\s@RegisterImage' {} a -> s {description = a} :: RegisterImage)
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+registerImage_dryRun :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Bool)
+registerImage_dryRun = Lens.lens (\RegisterImage' {dryRun} -> dryRun) (\s@RegisterImage' {} a -> s {dryRun = a} :: RegisterImage)
 
 -- | Set to @true@ to enable enhanced networking with ENA for the AMI and any
 -- instances that you launch from the AMI.
@@ -313,19 +400,34 @@ registerImage_imageLocation = Lens.lens (\RegisterImage' {imageLocation} -> imag
 registerImage_enaSupport :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Bool)
 registerImage_enaSupport = Lens.lens (\RegisterImage' {enaSupport} -> enaSupport) (\s@RegisterImage' {} a -> s {enaSupport = a} :: RegisterImage)
 
--- | The billing product codes. Your account must be authorized to specify
--- billing product codes. Otherwise, you can use the Amazon Web Services
--- Marketplace to bill for the use of an AMI.
-registerImage_billingProducts :: Lens.Lens' RegisterImage (Prelude.Maybe [Prelude.Text])
-registerImage_billingProducts = Lens.lens (\RegisterImage' {billingProducts} -> billingProducts) (\s@RegisterImage' {} a -> s {billingProducts = a} :: RegisterImage) Prelude.. Lens.mapping Lens.coerced
+-- | The full path to your AMI manifest in Amazon S3 storage. The specified
+-- bucket must have the @aws-exec-read@ canned access control list (ACL) to
+-- ensure that it can be accessed by Amazon EC2. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl Canned ACLs>
+-- in the /Amazon S3 Service Developer Guide/.
+registerImage_imageLocation :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
+registerImage_imageLocation = Lens.lens (\RegisterImage' {imageLocation} -> imageLocation) (\s@RegisterImage' {} a -> s {imageLocation = a} :: RegisterImage)
 
--- | The ID of the RAM disk.
-registerImage_ramdiskId :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
-registerImage_ramdiskId = Lens.lens (\RegisterImage' {ramdiskId} -> ramdiskId) (\s@RegisterImage' {} a -> s {ramdiskId = a} :: RegisterImage)
+-- | Set to @v2.0@ to indicate that IMDSv2 is specified in the AMI. Instances
+-- launched from this AMI will have @HttpTokens@ automatically set to
+-- @required@ so that, by default, the instance requires that IMDSv2 is
+-- used when requesting instance metadata. In addition,
+-- @HttpPutResponseHopLimit@ is set to @2@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration Configure the AMI>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- If you set the value to @v2.0@, make sure that your AMI software can
+-- support IMDSv2.
+registerImage_imdsSupport :: Lens.Lens' RegisterImage (Prelude.Maybe ImdsSupportValues)
+registerImage_imdsSupport = Lens.lens (\RegisterImage' {imdsSupport} -> imdsSupport) (\s@RegisterImage' {} a -> s {imdsSupport = a} :: RegisterImage)
 
 -- | The ID of the kernel.
 registerImage_kernelId :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
 registerImage_kernelId = Lens.lens (\RegisterImage' {kernelId} -> kernelId) (\s@RegisterImage' {} a -> s {kernelId = a} :: RegisterImage)
+
+-- | The ID of the RAM disk.
+registerImage_ramdiskId :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
+registerImage_ramdiskId = Lens.lens (\RegisterImage' {ramdiskId} -> ramdiskId) (\s@RegisterImage' {} a -> s {ramdiskId = a} :: RegisterImage)
 
 -- | The device name of the root device volume (for example, @\/dev\/sda1@).
 registerImage_rootDeviceName :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
@@ -342,43 +444,29 @@ registerImage_rootDeviceName = Lens.lens (\RegisterImage' {rootDeviceName} -> ro
 registerImage_sriovNetSupport :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
 registerImage_sriovNetSupport = Lens.lens (\RegisterImage' {sriovNetSupport} -> sriovNetSupport) (\s@RegisterImage' {} a -> s {sriovNetSupport = a} :: RegisterImage)
 
--- | The boot mode of the AMI. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html Boot modes>
+-- | Set to @v2.0@ to enable Trusted Platform Module (TPM) support. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html NitroTPM>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
-registerImage_bootMode :: Lens.Lens' RegisterImage (Prelude.Maybe BootModeValues)
-registerImage_bootMode = Lens.lens (\RegisterImage' {bootMode} -> bootMode) (\s@RegisterImage' {} a -> s {bootMode = a} :: RegisterImage)
+registerImage_tpmSupport :: Lens.Lens' RegisterImage (Prelude.Maybe TpmSupportValues)
+registerImage_tpmSupport = Lens.lens (\RegisterImage' {tpmSupport} -> tpmSupport) (\s@RegisterImage' {} a -> s {tpmSupport = a} :: RegisterImage)
 
--- | The architecture of the AMI.
---
--- Default: For Amazon EBS-backed AMIs, @i386@. For instance store-backed
--- AMIs, the architecture specified in the manifest file.
-registerImage_architecture :: Lens.Lens' RegisterImage (Prelude.Maybe ArchitectureValues)
-registerImage_architecture = Lens.lens (\RegisterImage' {architecture} -> architecture) (\s@RegisterImage' {} a -> s {architecture = a} :: RegisterImage)
-
--- | A description for your AMI.
-registerImage_description :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
-registerImage_description = Lens.lens (\RegisterImage' {description} -> description) (\s@RegisterImage' {} a -> s {description = a} :: RegisterImage)
-
--- | The block device mapping entries.
---
--- If you specify an Amazon EBS volume using the ID of an Amazon EBS
--- snapshot, you can\'t specify the encryption state of the volume.
---
--- If you create an AMI on an Outpost, then all backing snapshots must be
--- on the same Outpost or in the Region of that Outpost. AMIs on an Outpost
--- that include local snapshots can be used to launch instances on the same
--- Outpost only. For more information,
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami Amazon EBS local snapshots on Outposts>
+-- | Base64 representation of the non-volatile UEFI variable store. To
+-- retrieve the UEFI data, use the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData GetInstanceUefiData>
+-- command. You can inspect and modify the UEFI data by using the
+-- <https://github.com/awslabs/python-uefivars python-uefivars tool> on
+-- GitHub. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html UEFI Secure Boot>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
-registerImage_blockDeviceMappings :: Lens.Lens' RegisterImage (Prelude.Maybe [BlockDeviceMapping])
-registerImage_blockDeviceMappings = Lens.lens (\RegisterImage' {blockDeviceMappings} -> blockDeviceMappings) (\s@RegisterImage' {} a -> s {blockDeviceMappings = a} :: RegisterImage) Prelude.. Lens.mapping Lens.coerced
+registerImage_uefiData :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
+registerImage_uefiData = Lens.lens (\RegisterImage' {uefiData} -> uefiData) (\s@RegisterImage' {} a -> s {uefiData = a} :: RegisterImage)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-registerImage_dryRun :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Bool)
-registerImage_dryRun = Lens.lens (\RegisterImage' {dryRun} -> dryRun) (\s@RegisterImage' {} a -> s {dryRun = a} :: RegisterImage)
+-- | The type of virtualization (@hvm@ | @paravirtual@).
+--
+-- Default: @paravirtual@
+registerImage_virtualizationType :: Lens.Lens' RegisterImage (Prelude.Maybe Prelude.Text)
+registerImage_virtualizationType = Lens.lens (\RegisterImage' {virtualizationType} -> virtualizationType) (\s@RegisterImage' {} a -> s {virtualizationType = a} :: RegisterImage)
 
 -- | A name for your AMI.
 --
@@ -392,82 +480,92 @@ instance Core.AWSRequest RegisterImage where
   type
     AWSResponse RegisterImage =
       RegisterImageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           RegisterImageResponse'
-            Prelude.<$> (x Core..@? "imageId")
+            Prelude.<$> (x Data..@? "imageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RegisterImage where
   hashWithSalt _salt RegisterImage' {..} =
-    _salt `Prelude.hashWithSalt` virtualizationType
-      `Prelude.hashWithSalt` imageLocation
-      `Prelude.hashWithSalt` enaSupport
+    _salt `Prelude.hashWithSalt` architecture
       `Prelude.hashWithSalt` billingProducts
-      `Prelude.hashWithSalt` ramdiskId
+      `Prelude.hashWithSalt` blockDeviceMappings
+      `Prelude.hashWithSalt` bootMode
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` enaSupport
+      `Prelude.hashWithSalt` imageLocation
+      `Prelude.hashWithSalt` imdsSupport
       `Prelude.hashWithSalt` kernelId
+      `Prelude.hashWithSalt` ramdiskId
       `Prelude.hashWithSalt` rootDeviceName
       `Prelude.hashWithSalt` sriovNetSupport
-      `Prelude.hashWithSalt` bootMode
-      `Prelude.hashWithSalt` architecture
-      `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` blockDeviceMappings
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tpmSupport
+      `Prelude.hashWithSalt` uefiData
+      `Prelude.hashWithSalt` virtualizationType
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData RegisterImage where
   rnf RegisterImage' {..} =
-    Prelude.rnf virtualizationType
-      `Prelude.seq` Prelude.rnf imageLocation
-      `Prelude.seq` Prelude.rnf enaSupport
+    Prelude.rnf architecture
       `Prelude.seq` Prelude.rnf billingProducts
-      `Prelude.seq` Prelude.rnf ramdiskId
+      `Prelude.seq` Prelude.rnf blockDeviceMappings
+      `Prelude.seq` Prelude.rnf bootMode
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf enaSupport
+      `Prelude.seq` Prelude.rnf imageLocation
+      `Prelude.seq` Prelude.rnf imdsSupport
       `Prelude.seq` Prelude.rnf kernelId
+      `Prelude.seq` Prelude.rnf ramdiskId
       `Prelude.seq` Prelude.rnf rootDeviceName
       `Prelude.seq` Prelude.rnf sriovNetSupport
-      `Prelude.seq` Prelude.rnf bootMode
-      `Prelude.seq` Prelude.rnf architecture
-      `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf blockDeviceMappings
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tpmSupport
+      `Prelude.seq` Prelude.rnf uefiData
+      `Prelude.seq` Prelude.rnf virtualizationType
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders RegisterImage where
+instance Data.ToHeaders RegisterImage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RegisterImage where
+instance Data.ToPath RegisterImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterImage where
+instance Data.ToQuery RegisterImage where
   toQuery RegisterImage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RegisterImage" :: Prelude.ByteString),
+          Data.=: ("RegisterImage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "VirtualizationType" Core.=: virtualizationType,
-        "ImageLocation" Core.=: imageLocation,
-        "EnaSupport" Core.=: enaSupport,
-        Core.toQuery
-          ( Core.toQueryList "BillingProduct"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Architecture" Data.=: architecture,
+        Data.toQuery
+          ( Data.toQueryList "BillingProduct"
               Prelude.<$> billingProducts
           ),
-        "RamdiskId" Core.=: ramdiskId,
-        "KernelId" Core.=: kernelId,
-        "RootDeviceName" Core.=: rootDeviceName,
-        "SriovNetSupport" Core.=: sriovNetSupport,
-        "BootMode" Core.=: bootMode,
-        "Architecture" Core.=: architecture,
-        "Description" Core.=: description,
-        Core.toQuery
-          ( Core.toQueryList "BlockDeviceMapping"
+        Data.toQuery
+          ( Data.toQueryList "BlockDeviceMapping"
               Prelude.<$> blockDeviceMappings
           ),
-        "DryRun" Core.=: dryRun,
-        "Name" Core.=: name
+        "BootMode" Data.=: bootMode,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "EnaSupport" Data.=: enaSupport,
+        "ImageLocation" Data.=: imageLocation,
+        "ImdsSupport" Data.=: imdsSupport,
+        "KernelId" Data.=: kernelId,
+        "RamdiskId" Data.=: ramdiskId,
+        "RootDeviceName" Data.=: rootDeviceName,
+        "SriovNetSupport" Data.=: sriovNetSupport,
+        "TpmSupport" Data.=: tpmSupport,
+        "UefiData" Data.=: uefiData,
+        "VirtualizationType" Data.=: virtualizationType,
+        "Name" Data.=: name
       ]
 
 -- | Contains the output of RegisterImage.

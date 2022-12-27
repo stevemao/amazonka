@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.ResourceTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FMS.Types.ResourceTag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The resource tags that Firewall Manager uses to determine if a
@@ -68,13 +69,13 @@ resourceTag_value = Lens.lens (\ResourceTag' {value} -> value) (\s@ResourceTag' 
 resourceTag_key :: Lens.Lens' ResourceTag Prelude.Text
 resourceTag_key = Lens.lens (\ResourceTag' {key} -> key) (\s@ResourceTag' {} a -> s {key = a} :: ResourceTag)
 
-instance Core.FromJSON ResourceTag where
+instance Data.FromJSON ResourceTag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceTag"
       ( \x ->
           ResourceTag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..: "Key")
+            Prelude.<$> (x Data..:? "Value") Prelude.<*> (x Data..: "Key")
       )
 
 instance Prelude.Hashable ResourceTag where
@@ -86,11 +87,11 @@ instance Prelude.NFData ResourceTag where
   rnf ResourceTag' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON ResourceTag where
+instance Data.ToJSON ResourceTag where
   toJSON ResourceTag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            Prelude.Just ("Key" Core..= key)
+          [ ("Value" Data..=) Prelude.<$> value,
+            Prelude.Just ("Key" Data..= key)
           ]
       )

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerEdge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.SageMakerEdge
     -- * Operations
     -- $operations
 
-    -- ** SendHeartbeat
-    SendHeartbeat (SendHeartbeat'),
-    newSendHeartbeat,
-    SendHeartbeatResponse (SendHeartbeatResponse'),
-    newSendHeartbeatResponse,
+    -- ** GetDeployments
+    GetDeployments (GetDeployments'),
+    newGetDeployments,
+    GetDeploymentsResponse (GetDeploymentsResponse'),
+    newGetDeploymentsResponse,
 
     -- ** GetDeviceRegistration
     GetDeviceRegistration (GetDeviceRegistration'),
@@ -41,7 +41,48 @@ module Amazonka.SageMakerEdge
     GetDeviceRegistrationResponse (GetDeviceRegistrationResponse'),
     newGetDeviceRegistrationResponse,
 
+    -- ** SendHeartbeat
+    SendHeartbeat (SendHeartbeat'),
+    newSendHeartbeat,
+    SendHeartbeatResponse (SendHeartbeatResponse'),
+    newSendHeartbeatResponse,
+
     -- * Types
+
+    -- ** ChecksumType
+    ChecksumType (..),
+
+    -- ** DeploymentStatus
+    DeploymentStatus (..),
+
+    -- ** DeploymentType
+    DeploymentType (..),
+
+    -- ** FailureHandlingPolicy
+    FailureHandlingPolicy (..),
+
+    -- ** ModelState
+    ModelState (..),
+
+    -- ** Checksum
+    Checksum (Checksum'),
+    newChecksum,
+
+    -- ** Definition
+    Definition (Definition'),
+    newDefinition,
+
+    -- ** DeploymentModel
+    DeploymentModel (DeploymentModel'),
+    newDeploymentModel,
+
+    -- ** DeploymentResult
+    DeploymentResult (DeploymentResult'),
+    newDeploymentResult,
+
+    -- ** EdgeDeployment
+    EdgeDeployment (EdgeDeployment'),
+    newEdgeDeployment,
 
     -- ** EdgeMetric
     EdgeMetric (EdgeMetric'),
@@ -53,6 +94,7 @@ module Amazonka.SageMakerEdge
   )
 where
 
+import Amazonka.SageMakerEdge.GetDeployments
 import Amazonka.SageMakerEdge.GetDeviceRegistration
 import Amazonka.SageMakerEdge.Lens
 import Amazonka.SageMakerEdge.SendHeartbeat

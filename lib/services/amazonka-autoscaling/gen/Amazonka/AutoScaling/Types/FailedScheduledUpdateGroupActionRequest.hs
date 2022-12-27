@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.FailedScheduledUpdateGroupActionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.FailedScheduledUpdateGroupActionRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a scheduled action that could not be created, updated, or
@@ -77,14 +78,14 @@ failedScheduledUpdateGroupActionRequest_scheduledActionName :: Lens.Lens' Failed
 failedScheduledUpdateGroupActionRequest_scheduledActionName = Lens.lens (\FailedScheduledUpdateGroupActionRequest' {scheduledActionName} -> scheduledActionName) (\s@FailedScheduledUpdateGroupActionRequest' {} a -> s {scheduledActionName = a} :: FailedScheduledUpdateGroupActionRequest)
 
 instance
-  Core.FromXML
+  Data.FromXML
     FailedScheduledUpdateGroupActionRequest
   where
   parseXML x =
     FailedScheduledUpdateGroupActionRequest'
-      Prelude.<$> (x Core..@? "ErrorCode")
-        Prelude.<*> (x Core..@? "ErrorMessage")
-        Prelude.<*> (x Core..@ "ScheduledActionName")
+      Prelude.<$> (x Data..@? "ErrorCode")
+        Prelude.<*> (x Data..@? "ErrorMessage")
+        Prelude.<*> (x Data..@ "ScheduledActionName")
 
 instance
   Prelude.Hashable

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.StopFleetActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,22 +39,12 @@
 --     actions to suspend.
 --
 -- If successful, GameLift no longer initiates scaling events except in
--- response to manual changes using UpdateFleetCapacity. You can view a
--- fleet\'s stopped actions using DescribeFleetAttributes or
--- DescribeFleetLocationAttributes. Suspended activity can be restarted
--- using StartFleetActions.
+-- response to manual changes using
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateFleetCapacity.html UpdateFleetCapacity>.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html Setting up GameLift Fleets>
---
--- __Related actions__
---
--- CreateFleet | UpdateFleetCapacity | PutScalingPolicy |
--- DescribeEC2InstanceLimits | DescribeFleetAttributes |
--- DescribeFleetLocationAttributes | UpdateFleetAttributes |
--- StopFleetActions | DeleteFleet |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.StopFleetActions
   ( -- * Creating a Request
     StopFleetActions (..),
@@ -77,18 +67,17 @@ module Amazonka.GameLift.StopFleetActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStopFleetActions' smart constructor.
+-- | /See:/ 'newStopFleetActions' smart constructor.
 data StopFleetActions = StopFleetActions'
   { -- | The fleet location to stop fleet actions for. Specify a location in the
-    -- form of an AWS Region code, such as @us-west-2@.
+    -- form of an Amazon Web Services Region code, such as @us-west-2@.
     location :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the fleet to stop actions on. You can use either
     -- the fleet ID or ARN value.
@@ -107,7 +96,7 @@ data StopFleetActions = StopFleetActions'
 -- for backwards compatibility:
 --
 -- 'location', 'stopFleetActions_location' - The fleet location to stop fleet actions for. Specify a location in the
--- form of an AWS Region code, such as @us-west-2@.
+-- form of an Amazon Web Services Region code, such as @us-west-2@.
 --
 -- 'fleetId', 'stopFleetActions_fleetId' - A unique identifier for the fleet to stop actions on. You can use either
 -- the fleet ID or ARN value.
@@ -127,7 +116,7 @@ newStopFleetActions pFleetId_ pActions_ =
     }
 
 -- | The fleet location to stop fleet actions for. Specify a location in the
--- form of an AWS Region code, such as @us-west-2@.
+-- form of an Amazon Web Services Region code, such as @us-west-2@.
 stopFleetActions_location :: Lens.Lens' StopFleetActions (Prelude.Maybe Prelude.Text)
 stopFleetActions_location = Lens.lens (\StopFleetActions' {location} -> location) (\s@StopFleetActions' {} a -> s {location = a} :: StopFleetActions)
 
@@ -144,13 +133,14 @@ instance Core.AWSRequest StopFleetActions where
   type
     AWSResponse StopFleetActions =
       StopFleetActionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopFleetActionsResponse'
-            Prelude.<$> (x Core..?> "FleetArn")
-            Prelude.<*> (x Core..?> "FleetId")
+            Prelude.<$> (x Data..?> "FleetArn")
+            Prelude.<*> (x Data..?> "FleetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,38 +156,36 @@ instance Prelude.NFData StopFleetActions where
       `Prelude.seq` Prelude.rnf fleetId
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToHeaders StopFleetActions where
+instance Data.ToHeaders StopFleetActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.StopFleetActions" :: Prelude.ByteString),
+              Data.=# ("GameLift.StopFleetActions" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopFleetActions where
+instance Data.ToJSON StopFleetActions where
   toJSON StopFleetActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Location" Core..=) Prelude.<$> location,
-            Prelude.Just ("FleetId" Core..= fleetId),
-            Prelude.Just ("Actions" Core..= actions)
+          [ ("Location" Data..=) Prelude.<$> location,
+            Prelude.Just ("FleetId" Data..= fleetId),
+            Prelude.Just ("Actions" Data..= actions)
           ]
       )
 
-instance Core.ToPath StopFleetActions where
+instance Data.ToPath StopFleetActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopFleetActions where
+instance Data.ToQuery StopFleetActions where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStopFleetActionsResponse' smart constructor.
+-- | /See:/ 'newStopFleetActionsResponse' smart constructor.
 data StopFleetActionsResponse = StopFleetActionsResponse'
   { -- | The Amazon Resource Name
     -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)

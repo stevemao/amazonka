@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CreditSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.EC2.Types.CreditSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Describes the credit option for CPU usage of a T2, T3, or T3a instance.
+-- | Describes the credit option for CPU usage of a T instance.
 --
 -- /See:/ 'newCreditSpecification' smart constructor.
 data CreditSpecification = CreditSpecification'
-  { -- | The credit option for CPU usage of a T2, T3, or T3a instance. Valid
-    -- values are @standard@ and @unlimited@.
+  { -- | The credit option for CPU usage of a T instance.
+    --
+    -- Valid values: @standard@ | @unlimited@
     cpuCredits :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,22 +44,24 @@ data CreditSpecification = CreditSpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cpuCredits', 'creditSpecification_cpuCredits' - The credit option for CPU usage of a T2, T3, or T3a instance. Valid
--- values are @standard@ and @unlimited@.
+-- 'cpuCredits', 'creditSpecification_cpuCredits' - The credit option for CPU usage of a T instance.
+--
+-- Valid values: @standard@ | @unlimited@
 newCreditSpecification ::
   CreditSpecification
 newCreditSpecification =
   CreditSpecification' {cpuCredits = Prelude.Nothing}
 
--- | The credit option for CPU usage of a T2, T3, or T3a instance. Valid
--- values are @standard@ and @unlimited@.
+-- | The credit option for CPU usage of a T instance.
+--
+-- Valid values: @standard@ | @unlimited@
 creditSpecification_cpuCredits :: Lens.Lens' CreditSpecification (Prelude.Maybe Prelude.Text)
 creditSpecification_cpuCredits = Lens.lens (\CreditSpecification' {cpuCredits} -> cpuCredits) (\s@CreditSpecification' {} a -> s {cpuCredits = a} :: CreditSpecification)
 
-instance Core.FromXML CreditSpecification where
+instance Data.FromXML CreditSpecification where
   parseXML x =
     CreditSpecification'
-      Prelude.<$> (x Core..@? "cpuCredits")
+      Prelude.<$> (x Data..@? "cpuCredits")
 
 instance Prelude.Hashable CreditSpecification where
   hashWithSalt _salt CreditSpecification' {..} =

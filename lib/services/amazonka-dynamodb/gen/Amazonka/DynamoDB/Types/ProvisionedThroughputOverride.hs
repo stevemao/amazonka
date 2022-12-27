@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ProvisionedThroughputOverride
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.ProvisionedThroughputOverride where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Replica-specific provisioned throughput settings. If not specified, uses
@@ -58,13 +60,13 @@ newProvisionedThroughputOverride =
 provisionedThroughputOverride_readCapacityUnits :: Lens.Lens' ProvisionedThroughputOverride (Prelude.Maybe Prelude.Natural)
 provisionedThroughputOverride_readCapacityUnits = Lens.lens (\ProvisionedThroughputOverride' {readCapacityUnits} -> readCapacityUnits) (\s@ProvisionedThroughputOverride' {} a -> s {readCapacityUnits = a} :: ProvisionedThroughputOverride)
 
-instance Core.FromJSON ProvisionedThroughputOverride where
+instance Data.FromJSON ProvisionedThroughputOverride where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProvisionedThroughputOverride"
       ( \x ->
           ProvisionedThroughputOverride'
-            Prelude.<$> (x Core..:? "ReadCapacityUnits")
+            Prelude.<$> (x Data..:? "ReadCapacityUnits")
       )
 
 instance
@@ -78,11 +80,11 @@ instance Prelude.NFData ProvisionedThroughputOverride where
   rnf ProvisionedThroughputOverride' {..} =
     Prelude.rnf readCapacityUnits
 
-instance Core.ToJSON ProvisionedThroughputOverride where
+instance Data.ToJSON ProvisionedThroughputOverride where
   toJSON ProvisionedThroughputOverride' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReadCapacityUnits" Core..=)
+          [ ("ReadCapacityUnits" Data..=)
               Prelude.<$> readCapacityUnits
           ]
       )

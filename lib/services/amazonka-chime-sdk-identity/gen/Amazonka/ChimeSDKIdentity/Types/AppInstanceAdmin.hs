@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKIdentity.Types.AppInstanceAdmin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ChimeSDKIdentity.Types.AppInstanceAdmin where
 
 import Amazonka.ChimeSDKIdentity.Types.Identity
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of an @AppInstanceAdmin@.
@@ -33,7 +34,7 @@ data AppInstanceAdmin = AppInstanceAdmin'
     -- | The ARN of the @AppInstance@ for which the user is an administrator.
     appInstanceArn :: Prelude.Maybe Prelude.Text,
     -- | The time at which an administrator was created.
-    createdTimestamp :: Prelude.Maybe Core.POSIX
+    createdTimestamp :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,17 +70,17 @@ appInstanceAdmin_appInstanceArn = Lens.lens (\AppInstanceAdmin' {appInstanceArn}
 
 -- | The time at which an administrator was created.
 appInstanceAdmin_createdTimestamp :: Lens.Lens' AppInstanceAdmin (Prelude.Maybe Prelude.UTCTime)
-appInstanceAdmin_createdTimestamp = Lens.lens (\AppInstanceAdmin' {createdTimestamp} -> createdTimestamp) (\s@AppInstanceAdmin' {} a -> s {createdTimestamp = a} :: AppInstanceAdmin) Prelude.. Lens.mapping Core._Time
+appInstanceAdmin_createdTimestamp = Lens.lens (\AppInstanceAdmin' {createdTimestamp} -> createdTimestamp) (\s@AppInstanceAdmin' {} a -> s {createdTimestamp = a} :: AppInstanceAdmin) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON AppInstanceAdmin where
+instance Data.FromJSON AppInstanceAdmin where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppInstanceAdmin"
       ( \x ->
           AppInstanceAdmin'
-            Prelude.<$> (x Core..:? "Admin")
-            Prelude.<*> (x Core..:? "AppInstanceArn")
-            Prelude.<*> (x Core..:? "CreatedTimestamp")
+            Prelude.<$> (x Data..:? "Admin")
+            Prelude.<*> (x Data..:? "AppInstanceArn")
+            Prelude.<*> (x Data..:? "CreatedTimestamp")
       )
 
 instance Prelude.Hashable AppInstanceAdmin where

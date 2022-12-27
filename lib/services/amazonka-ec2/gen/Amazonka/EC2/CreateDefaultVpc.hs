@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateDefaultVpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,6 +35,11 @@
 -- a default VPC in a Region that supports EC2-Classic, see \"I really want
 -- a default VPC for my existing EC2 account. Is that possible?\" in the
 -- <http://aws.amazon.com/vpc/faqs/#Default_VPCs Default VPCs FAQ>.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.CreateDefaultVpc
   ( -- * Creating a Request
     CreateDefaultVpc (..),
@@ -54,8 +59,9 @@ module Amazonka.EC2.CreateDefaultVpc
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +104,13 @@ instance Core.AWSRequest CreateDefaultVpc where
   type
     AWSResponse CreateDefaultVpc =
       CreateDefaultVpcResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateDefaultVpcResponse'
-            Prelude.<$> (x Core..@? "vpc")
+            Prelude.<$> (x Data..@? "vpc")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,20 +121,20 @@ instance Prelude.Hashable CreateDefaultVpc where
 instance Prelude.NFData CreateDefaultVpc where
   rnf CreateDefaultVpc' {..} = Prelude.rnf dryRun
 
-instance Core.ToHeaders CreateDefaultVpc where
+instance Data.ToHeaders CreateDefaultVpc where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDefaultVpc where
+instance Data.ToPath CreateDefaultVpc where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDefaultVpc where
+instance Data.ToQuery CreateDefaultVpc where
   toQuery CreateDefaultVpc' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDefaultVpc" :: Prelude.ByteString),
+          Data.=: ("CreateDefaultVpc" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newCreateDefaultVpcResponse' smart constructor.

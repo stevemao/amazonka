@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.DeleteCrossAccountAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete cross account readiness authorization
+-- Deletes cross account readiness authorization.
 module Amazonka.Route53RecoveryReadiness.DeleteCrossAccountAuthorization
   ( -- * Creating a Request
     DeleteCrossAccountAuthorization (..),
@@ -39,7 +39,8 @@ module Amazonka.Route53RecoveryReadiness.DeleteCrossAccountAuthorization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,7 +48,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newDeleteCrossAccountAuthorization' smart constructor.
 data DeleteCrossAccountAuthorization = DeleteCrossAccountAuthorization'
-  { -- | The cross account authorization
+  { -- | The cross-account authorization.
     crossAccountAuthorization :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data DeleteCrossAccountAuthorization = DeleteCrossAccountAuthorization'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'crossAccountAuthorization', 'deleteCrossAccountAuthorization_crossAccountAuthorization' - The cross account authorization
+-- 'crossAccountAuthorization', 'deleteCrossAccountAuthorization_crossAccountAuthorization' - The cross-account authorization.
 newDeleteCrossAccountAuthorization ::
   -- | 'crossAccountAuthorization'
   Prelude.Text ->
@@ -72,7 +73,7 @@ newDeleteCrossAccountAuthorization
           pCrossAccountAuthorization_
       }
 
--- | The cross account authorization
+-- | The cross-account authorization.
 deleteCrossAccountAuthorization_crossAccountAuthorization :: Lens.Lens' DeleteCrossAccountAuthorization Prelude.Text
 deleteCrossAccountAuthorization_crossAccountAuthorization = Lens.lens (\DeleteCrossAccountAuthorization' {crossAccountAuthorization} -> crossAccountAuthorization) (\s@DeleteCrossAccountAuthorization' {} a -> s {crossAccountAuthorization = a} :: DeleteCrossAccountAuthorization)
 
@@ -83,7 +84,8 @@ instance
   type
     AWSResponse DeleteCrossAccountAuthorization =
       DeleteCrossAccountAuthorizationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,27 +111,27 @@ instance
     Prelude.rnf crossAccountAuthorization
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteCrossAccountAuthorization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteCrossAccountAuthorization where
+instance Data.ToPath DeleteCrossAccountAuthorization where
   toPath DeleteCrossAccountAuthorization' {..} =
     Prelude.mconcat
       [ "/crossaccountauthorizations/",
-        Core.toBS crossAccountAuthorization
+        Data.toBS crossAccountAuthorization
       ]
 
-instance Core.ToQuery DeleteCrossAccountAuthorization where
+instance Data.ToQuery DeleteCrossAccountAuthorization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCrossAccountAuthorizationResponse' smart constructor.

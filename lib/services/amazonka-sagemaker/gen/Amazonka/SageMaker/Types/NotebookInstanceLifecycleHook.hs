@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.NotebookInstanceLifecycleHook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.NotebookInstanceLifecycleHook where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the notebook instance lifecycle configuration script.
@@ -72,13 +73,13 @@ newNotebookInstanceLifecycleHook =
 notebookInstanceLifecycleHook_content :: Lens.Lens' NotebookInstanceLifecycleHook (Prelude.Maybe Prelude.Text)
 notebookInstanceLifecycleHook_content = Lens.lens (\NotebookInstanceLifecycleHook' {content} -> content) (\s@NotebookInstanceLifecycleHook' {} a -> s {content = a} :: NotebookInstanceLifecycleHook)
 
-instance Core.FromJSON NotebookInstanceLifecycleHook where
+instance Data.FromJSON NotebookInstanceLifecycleHook where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotebookInstanceLifecycleHook"
       ( \x ->
           NotebookInstanceLifecycleHook'
-            Prelude.<$> (x Core..:? "Content")
+            Prelude.<$> (x Data..:? "Content")
       )
 
 instance
@@ -92,9 +93,9 @@ instance Prelude.NFData NotebookInstanceLifecycleHook where
   rnf NotebookInstanceLifecycleHook' {..} =
     Prelude.rnf content
 
-instance Core.ToJSON NotebookInstanceLifecycleHook where
+instance Data.ToJSON NotebookInstanceLifecycleHook where
   toJSON NotebookInstanceLifecycleHook' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Content" Core..=) Prelude.<$> content]
+          [("Content" Data..=) Prelude.<$> content]
       )

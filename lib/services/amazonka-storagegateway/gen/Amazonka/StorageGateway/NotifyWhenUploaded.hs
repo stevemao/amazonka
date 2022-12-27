@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.NotifyWhenUploaded
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Sends you notification through CloudWatch Events when all files written
--- to your file share have been uploaded to Amazon S3.
+-- to your file share have been uploaded to S3. Amazon S3.
 --
 -- Storage Gateway can send a notification through Amazon CloudWatch Events
 -- when all files written to your file share up to that point in time have
@@ -55,7 +55,8 @@ module Amazonka.StorageGateway.NotifyWhenUploaded
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ instance Core.AWSRequest NotifyWhenUploaded where
   type
     AWSResponse NotifyWhenUploaded =
       NotifyWhenUploadedResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           NotifyWhenUploadedResponse'
-            Prelude.<$> (x Core..?> "FileShareARN")
-            Prelude.<*> (x Core..?> "NotificationId")
+            Prelude.<$> (x Data..?> "FileShareARN")
+            Prelude.<*> (x Data..?> "NotificationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,32 +111,32 @@ instance Prelude.NFData NotifyWhenUploaded where
   rnf NotifyWhenUploaded' {..} =
     Prelude.rnf fileShareARN
 
-instance Core.ToHeaders NotifyWhenUploaded where
+instance Data.ToHeaders NotifyWhenUploaded where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.NotifyWhenUploaded" ::
+              Data.=# ( "StorageGateway_20130630.NotifyWhenUploaded" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON NotifyWhenUploaded where
+instance Data.ToJSON NotifyWhenUploaded where
   toJSON NotifyWhenUploaded' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("FileShareARN" Core..= fileShareARN)]
+          [Prelude.Just ("FileShareARN" Data..= fileShareARN)]
       )
 
-instance Core.ToPath NotifyWhenUploaded where
+instance Data.ToPath NotifyWhenUploaded where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery NotifyWhenUploaded where
+instance Data.ToQuery NotifyWhenUploaded where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newNotifyWhenUploadedResponse' smart constructor.

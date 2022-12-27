@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetModelHierarchyDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSiteWise.Types.AssetModelHierarchyDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an asset model hierarchy used in asset model creation. An asset
@@ -94,12 +95,12 @@ instance Prelude.NFData AssetModelHierarchyDefinition where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf childAssetModelId
 
-instance Core.ToJSON AssetModelHierarchyDefinition where
+instance Data.ToJSON AssetModelHierarchyDefinition where
   toJSON AssetModelHierarchyDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
+          [ Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("childAssetModelId" Core..= childAssetModelId)
+              ("childAssetModelId" Data..= childAssetModelId)
           ]
       )

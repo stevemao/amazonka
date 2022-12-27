@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.UpdateMultiplex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.MediaLive.UpdateMultiplex
     newUpdateMultiplex',
 
     -- * Request Lenses
-    updateMultiplex'_name,
     updateMultiplex'_multiplexSettings,
+    updateMultiplex'_name,
     updateMultiplex'_multiplexId,
 
     -- * Destructuring the Response
@@ -42,7 +42,8 @@ module Amazonka.MediaLive.UpdateMultiplex
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateMultiplex'' smart constructor.
 data UpdateMultiplex' = UpdateMultiplex''
-  { -- | Name of the multiplex.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The new settings for a multiplex.
+  { -- | The new settings for a multiplex.
     multiplexSettings :: Prelude.Maybe MultiplexSettings,
+    -- | Name of the multiplex.
+    name :: Prelude.Maybe Prelude.Text,
     -- | ID of the multiplex to update.
     multiplexId :: Prelude.Text
   }
@@ -69,9 +70,9 @@ data UpdateMultiplex' = UpdateMultiplex''
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateMultiplex'_name' - Name of the multiplex.
---
 -- 'multiplexSettings', 'updateMultiplex'_multiplexSettings' - The new settings for a multiplex.
+--
+-- 'name', 'updateMultiplex'_name' - Name of the multiplex.
 --
 -- 'multiplexId', 'updateMultiplex'_multiplexId' - ID of the multiplex to update.
 newUpdateMultiplex' ::
@@ -80,18 +81,19 @@ newUpdateMultiplex' ::
   UpdateMultiplex'
 newUpdateMultiplex' pMultiplexId_ =
   UpdateMultiplex''
-    { name = Prelude.Nothing,
-      multiplexSettings = Prelude.Nothing,
+    { multiplexSettings =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
       multiplexId = pMultiplexId_
     }
-
--- | Name of the multiplex.
-updateMultiplex'_name :: Lens.Lens' UpdateMultiplex' (Prelude.Maybe Prelude.Text)
-updateMultiplex'_name = Lens.lens (\UpdateMultiplex'' {name} -> name) (\s@UpdateMultiplex'' {} a -> s {name = a} :: UpdateMultiplex')
 
 -- | The new settings for a multiplex.
 updateMultiplex'_multiplexSettings :: Lens.Lens' UpdateMultiplex' (Prelude.Maybe MultiplexSettings)
 updateMultiplex'_multiplexSettings = Lens.lens (\UpdateMultiplex'' {multiplexSettings} -> multiplexSettings) (\s@UpdateMultiplex'' {} a -> s {multiplexSettings = a} :: UpdateMultiplex')
+
+-- | Name of the multiplex.
+updateMultiplex'_name :: Lens.Lens' UpdateMultiplex' (Prelude.Maybe Prelude.Text)
+updateMultiplex'_name = Lens.lens (\UpdateMultiplex'' {name} -> name) (\s@UpdateMultiplex'' {} a -> s {name = a} :: UpdateMultiplex')
 
 -- | ID of the multiplex to update.
 updateMultiplex'_multiplexId :: Lens.Lens' UpdateMultiplex' Prelude.Text
@@ -101,54 +103,55 @@ instance Core.AWSRequest UpdateMultiplex' where
   type
     AWSResponse UpdateMultiplex' =
       UpdateMultiplexResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMultiplexResponse'
-            Prelude.<$> (x Core..?> "multiplex")
+            Prelude.<$> (x Data..?> "multiplex")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateMultiplex' where
   hashWithSalt _salt UpdateMultiplex'' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` multiplexSettings
+    _salt `Prelude.hashWithSalt` multiplexSettings
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` multiplexId
 
 instance Prelude.NFData UpdateMultiplex' where
   rnf UpdateMultiplex'' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf multiplexSettings
+    Prelude.rnf multiplexSettings
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf multiplexId
 
-instance Core.ToHeaders UpdateMultiplex' where
+instance Data.ToHeaders UpdateMultiplex' where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMultiplex' where
+instance Data.ToJSON UpdateMultiplex' where
   toJSON UpdateMultiplex'' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("multiplexSettings" Core..=)
-              Prelude.<$> multiplexSettings
+          [ ("multiplexSettings" Data..=)
+              Prelude.<$> multiplexSettings,
+            ("name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateMultiplex' where
+instance Data.ToPath UpdateMultiplex' where
   toPath UpdateMultiplex'' {..} =
     Prelude.mconcat
-      ["/prod/multiplexes/", Core.toBS multiplexId]
+      ["/prod/multiplexes/", Data.toBS multiplexId]
 
-instance Core.ToQuery UpdateMultiplex' where
+instance Data.ToQuery UpdateMultiplex' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateMultiplexResponse

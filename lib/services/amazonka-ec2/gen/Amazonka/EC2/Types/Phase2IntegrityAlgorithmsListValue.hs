@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Phase2IntegrityAlgorithmsListValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Phase2IntegrityAlgorithmsListValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The integrity algorithm for phase 2 IKE negotiations.
@@ -55,12 +56,12 @@ phase2IntegrityAlgorithmsListValue_value :: Lens.Lens' Phase2IntegrityAlgorithms
 phase2IntegrityAlgorithmsListValue_value = Lens.lens (\Phase2IntegrityAlgorithmsListValue' {value} -> value) (\s@Phase2IntegrityAlgorithmsListValue' {} a -> s {value = a} :: Phase2IntegrityAlgorithmsListValue)
 
 instance
-  Core.FromXML
+  Data.FromXML
     Phase2IntegrityAlgorithmsListValue
   where
   parseXML x =
     Phase2IntegrityAlgorithmsListValue'
-      Prelude.<$> (x Core..@? "value")
+      Prelude.<$> (x Data..@? "value")
 
 instance
   Prelude.Hashable

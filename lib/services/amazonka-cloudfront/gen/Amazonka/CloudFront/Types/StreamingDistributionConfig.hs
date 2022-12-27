@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.StreamingDistributionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,8 @@ import Amazonka.CloudFront.Types.S3Origin
 import Amazonka.CloudFront.Types.StreamingLoggingConfig
 import Amazonka.CloudFront.Types.TrustedSigners
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The RTMP distribution\'s configuration information.
@@ -35,12 +36,12 @@ data StreamingDistributionConfig = StreamingDistributionConfig'
   { -- | A complex type that contains information about CNAMEs (alternate domain
     -- names), if any, for this streaming distribution.
     aliases :: Prelude.Maybe Aliases,
-    -- | A complex type that contains information about price class for this
-    -- streaming distribution.
-    priceClass :: Prelude.Maybe PriceClass,
     -- | A complex type that controls whether access logs are written for the
     -- streaming distribution.
     logging :: Prelude.Maybe StreamingLoggingConfig,
+    -- | A complex type that contains information about price class for this
+    -- streaming distribution.
+    priceClass :: Prelude.Maybe PriceClass,
     -- | A unique value (for example, a date-time stamp) that ensures that the
     -- request can\'t be replayed.
     --
@@ -57,10 +58,11 @@ data StreamingDistributionConfig = StreamingDistributionConfig'
     s3Origin :: S3Origin,
     -- | Any comments you want to include about the streaming distribution.
     comment :: Prelude.Text,
-    -- | A complex type that specifies any accounts that you want to permit to
-    -- create signed URLs for private content. If you want the distribution to
-    -- use signed URLs, include this element; if you want the distribution to
-    -- use public URLs, remove this element. For more information, see
+    -- | A complex type that specifies any Amazon Web Services accounts that you
+    -- want to permit to create signed URLs for private content. If you want
+    -- the distribution to use signed URLs, include this element; if you want
+    -- the distribution to use public URLs, remove this element. For more
+    -- information, see
     -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
     -- in the /Amazon CloudFront Developer Guide/.
     trustedSigners :: TrustedSigners,
@@ -81,10 +83,10 @@ data StreamingDistributionConfig = StreamingDistributionConfig'
 -- 'aliases', 'streamingDistributionConfig_aliases' - A complex type that contains information about CNAMEs (alternate domain
 -- names), if any, for this streaming distribution.
 --
--- 'priceClass', 'streamingDistributionConfig_priceClass' - A complex type that contains information about price class for this
+-- 'logging', 'streamingDistributionConfig_logging' - A complex type that controls whether access logs are written for the
 -- streaming distribution.
 --
--- 'logging', 'streamingDistributionConfig_logging' - A complex type that controls whether access logs are written for the
+-- 'priceClass', 'streamingDistributionConfig_priceClass' - A complex type that contains information about price class for this
 -- streaming distribution.
 --
 -- 'callerReference', 'streamingDistributionConfig_callerReference' - A unique value (for example, a date-time stamp) that ensures that the
@@ -103,10 +105,11 @@ data StreamingDistributionConfig = StreamingDistributionConfig'
 --
 -- 'comment', 'streamingDistributionConfig_comment' - Any comments you want to include about the streaming distribution.
 --
--- 'trustedSigners', 'streamingDistributionConfig_trustedSigners' - A complex type that specifies any accounts that you want to permit to
--- create signed URLs for private content. If you want the distribution to
--- use signed URLs, include this element; if you want the distribution to
--- use public URLs, remove this element. For more information, see
+-- 'trustedSigners', 'streamingDistributionConfig_trustedSigners' - A complex type that specifies any Amazon Web Services accounts that you
+-- want to permit to create signed URLs for private content. If you want
+-- the distribution to use signed URLs, include this element; if you want
+-- the distribution to use public URLs, remove this element. For more
+-- information, see
 -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
 -- in the /Amazon CloudFront Developer Guide/.
 --
@@ -133,8 +136,8 @@ newStreamingDistributionConfig
     StreamingDistributionConfig'
       { aliases =
           Prelude.Nothing,
-        priceClass = Prelude.Nothing,
         logging = Prelude.Nothing,
+        priceClass = Prelude.Nothing,
         callerReference = pCallerReference_,
         s3Origin = pS3Origin_,
         comment = pComment_,
@@ -147,15 +150,15 @@ newStreamingDistributionConfig
 streamingDistributionConfig_aliases :: Lens.Lens' StreamingDistributionConfig (Prelude.Maybe Aliases)
 streamingDistributionConfig_aliases = Lens.lens (\StreamingDistributionConfig' {aliases} -> aliases) (\s@StreamingDistributionConfig' {} a -> s {aliases = a} :: StreamingDistributionConfig)
 
--- | A complex type that contains information about price class for this
--- streaming distribution.
-streamingDistributionConfig_priceClass :: Lens.Lens' StreamingDistributionConfig (Prelude.Maybe PriceClass)
-streamingDistributionConfig_priceClass = Lens.lens (\StreamingDistributionConfig' {priceClass} -> priceClass) (\s@StreamingDistributionConfig' {} a -> s {priceClass = a} :: StreamingDistributionConfig)
-
 -- | A complex type that controls whether access logs are written for the
 -- streaming distribution.
 streamingDistributionConfig_logging :: Lens.Lens' StreamingDistributionConfig (Prelude.Maybe StreamingLoggingConfig)
 streamingDistributionConfig_logging = Lens.lens (\StreamingDistributionConfig' {logging} -> logging) (\s@StreamingDistributionConfig' {} a -> s {logging = a} :: StreamingDistributionConfig)
+
+-- | A complex type that contains information about price class for this
+-- streaming distribution.
+streamingDistributionConfig_priceClass :: Lens.Lens' StreamingDistributionConfig (Prelude.Maybe PriceClass)
+streamingDistributionConfig_priceClass = Lens.lens (\StreamingDistributionConfig' {priceClass} -> priceClass) (\s@StreamingDistributionConfig' {} a -> s {priceClass = a} :: StreamingDistributionConfig)
 
 -- | A unique value (for example, a date-time stamp) that ensures that the
 -- request can\'t be replayed.
@@ -179,10 +182,11 @@ streamingDistributionConfig_s3Origin = Lens.lens (\StreamingDistributionConfig' 
 streamingDistributionConfig_comment :: Lens.Lens' StreamingDistributionConfig Prelude.Text
 streamingDistributionConfig_comment = Lens.lens (\StreamingDistributionConfig' {comment} -> comment) (\s@StreamingDistributionConfig' {} a -> s {comment = a} :: StreamingDistributionConfig)
 
--- | A complex type that specifies any accounts that you want to permit to
--- create signed URLs for private content. If you want the distribution to
--- use signed URLs, include this element; if you want the distribution to
--- use public URLs, remove this element. For more information, see
+-- | A complex type that specifies any Amazon Web Services accounts that you
+-- want to permit to create signed URLs for private content. If you want
+-- the distribution to use signed URLs, include this element; if you want
+-- the distribution to use public URLs, remove this element. For more
+-- information, see
 -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
 -- in the /Amazon CloudFront Developer Guide/.
 streamingDistributionConfig_trustedSigners :: Lens.Lens' StreamingDistributionConfig TrustedSigners
@@ -193,23 +197,23 @@ streamingDistributionConfig_trustedSigners = Lens.lens (\StreamingDistributionCo
 streamingDistributionConfig_enabled :: Lens.Lens' StreamingDistributionConfig Prelude.Bool
 streamingDistributionConfig_enabled = Lens.lens (\StreamingDistributionConfig' {enabled} -> enabled) (\s@StreamingDistributionConfig' {} a -> s {enabled = a} :: StreamingDistributionConfig)
 
-instance Core.FromXML StreamingDistributionConfig where
+instance Data.FromXML StreamingDistributionConfig where
   parseXML x =
     StreamingDistributionConfig'
-      Prelude.<$> (x Core..@? "Aliases")
-      Prelude.<*> (x Core..@? "PriceClass")
-      Prelude.<*> (x Core..@? "Logging")
-      Prelude.<*> (x Core..@ "CallerReference")
-      Prelude.<*> (x Core..@ "S3Origin")
-      Prelude.<*> (x Core..@ "Comment")
-      Prelude.<*> (x Core..@ "TrustedSigners")
-      Prelude.<*> (x Core..@ "Enabled")
+      Prelude.<$> (x Data..@? "Aliases")
+      Prelude.<*> (x Data..@? "Logging")
+      Prelude.<*> (x Data..@? "PriceClass")
+      Prelude.<*> (x Data..@ "CallerReference")
+      Prelude.<*> (x Data..@ "S3Origin")
+      Prelude.<*> (x Data..@ "Comment")
+      Prelude.<*> (x Data..@ "TrustedSigners")
+      Prelude.<*> (x Data..@ "Enabled")
 
 instance Prelude.Hashable StreamingDistributionConfig where
   hashWithSalt _salt StreamingDistributionConfig' {..} =
     _salt `Prelude.hashWithSalt` aliases
-      `Prelude.hashWithSalt` priceClass
       `Prelude.hashWithSalt` logging
+      `Prelude.hashWithSalt` priceClass
       `Prelude.hashWithSalt` callerReference
       `Prelude.hashWithSalt` s3Origin
       `Prelude.hashWithSalt` comment
@@ -219,23 +223,23 @@ instance Prelude.Hashable StreamingDistributionConfig where
 instance Prelude.NFData StreamingDistributionConfig where
   rnf StreamingDistributionConfig' {..} =
     Prelude.rnf aliases
-      `Prelude.seq` Prelude.rnf priceClass
       `Prelude.seq` Prelude.rnf logging
+      `Prelude.seq` Prelude.rnf priceClass
       `Prelude.seq` Prelude.rnf callerReference
       `Prelude.seq` Prelude.rnf s3Origin
       `Prelude.seq` Prelude.rnf comment
       `Prelude.seq` Prelude.rnf trustedSigners
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToXML StreamingDistributionConfig where
+instance Data.ToXML StreamingDistributionConfig where
   toXML StreamingDistributionConfig' {..} =
     Prelude.mconcat
-      [ "Aliases" Core.@= aliases,
-        "PriceClass" Core.@= priceClass,
-        "Logging" Core.@= logging,
-        "CallerReference" Core.@= callerReference,
-        "S3Origin" Core.@= s3Origin,
-        "Comment" Core.@= comment,
-        "TrustedSigners" Core.@= trustedSigners,
-        "Enabled" Core.@= enabled
+      [ "Aliases" Data.@= aliases,
+        "Logging" Data.@= logging,
+        "PriceClass" Data.@= priceClass,
+        "CallerReference" Data.@= callerReference,
+        "S3Origin" Data.@= s3Origin,
+        "Comment" Data.@= comment,
+        "TrustedSigners" Data.@= trustedSigners,
+        "Enabled" Data.@= enabled
       ]

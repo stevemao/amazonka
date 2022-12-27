@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.DisassociateRoleFromGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Greengrass.DisassociateRoleFromGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DisassociateRoleFromGroup where
   type
     AWSResponse DisassociateRoleFromGroup =
       DisassociateRoleFromGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateRoleFromGroupResponse'
-            Prelude.<$> (x Core..?> "DisassociatedAt")
+            Prelude.<$> (x Data..?> "DisassociatedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,23 +96,23 @@ instance Prelude.NFData DisassociateRoleFromGroup where
   rnf DisassociateRoleFromGroup' {..} =
     Prelude.rnf groupId
 
-instance Core.ToHeaders DisassociateRoleFromGroup where
+instance Data.ToHeaders DisassociateRoleFromGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateRoleFromGroup where
+instance Data.ToPath DisassociateRoleFromGroup where
   toPath DisassociateRoleFromGroup' {..} =
     Prelude.mconcat
-      ["/greengrass/groups/", Core.toBS groupId, "/role"]
+      ["/greengrass/groups/", Data.toBS groupId, "/role"]
 
-instance Core.ToQuery DisassociateRoleFromGroup where
+instance Data.ToQuery DisassociateRoleFromGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateRoleFromGroupResponse' smart constructor.

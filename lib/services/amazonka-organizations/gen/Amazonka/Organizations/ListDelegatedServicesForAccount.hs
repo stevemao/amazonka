@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListDelegatedServicesForAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List the AWS services for which the specified account is a delegated
--- administrator.
+-- List the Amazon Web Services services for which the specified account is
+-- a delegated administrator.
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- This operation returns paginated results.
 module Amazonka.Organizations.ListDelegatedServicesForAccount
@@ -34,8 +34,8 @@ module Amazonka.Organizations.ListDelegatedServicesForAccount
     newListDelegatedServicesForAccount,
 
     -- * Request Lenses
-    listDelegatedServicesForAccount_nextToken,
     listDelegatedServicesForAccount_maxResults,
+    listDelegatedServicesForAccount_nextToken,
     listDelegatedServicesForAccount_accountId,
 
     -- * Destructuring the Response
@@ -50,7 +50,8 @@ module Amazonka.Organizations.ListDelegatedServicesForAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,13 +59,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDelegatedServicesForAccount' smart constructor.
 data ListDelegatedServicesForAccount = ListDelegatedServicesForAccount'
-  { -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of results that you want included on each page of the
+  { -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
     -- maximum you specify, the @NextToken@ response element is present and has
@@ -75,6 +70,12 @@ data ListDelegatedServicesForAccount = ListDelegatedServicesForAccount'
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The account ID number of a delegated administrator account in the
     -- organization.
     accountId :: Prelude.Text
@@ -89,12 +90,6 @@ data ListDelegatedServicesForAccount = ListDelegatedServicesForAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDelegatedServicesForAccount_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
---
 -- 'maxResults', 'listDelegatedServicesForAccount_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -106,6 +101,12 @@ data ListDelegatedServicesForAccount = ListDelegatedServicesForAccount'
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
 --
+-- 'nextToken', 'listDelegatedServicesForAccount_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+--
 -- 'accountId', 'listDelegatedServicesForAccount_accountId' - The account ID number of a delegated administrator account in the
 -- organization.
 newListDelegatedServicesForAccount ::
@@ -114,19 +115,11 @@ newListDelegatedServicesForAccount ::
   ListDelegatedServicesForAccount
 newListDelegatedServicesForAccount pAccountId_ =
   ListDelegatedServicesForAccount'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       accountId = pAccountId_
     }
-
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
-listDelegatedServicesForAccount_nextToken :: Lens.Lens' ListDelegatedServicesForAccount (Prelude.Maybe Prelude.Text)
-listDelegatedServicesForAccount_nextToken = Lens.lens (\ListDelegatedServicesForAccount' {nextToken} -> nextToken) (\s@ListDelegatedServicesForAccount' {} a -> s {nextToken = a} :: ListDelegatedServicesForAccount)
 
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
@@ -140,6 +133,14 @@ listDelegatedServicesForAccount_nextToken = Lens.lens (\ListDelegatedServicesFor
 -- results.
 listDelegatedServicesForAccount_maxResults :: Lens.Lens' ListDelegatedServicesForAccount (Prelude.Maybe Prelude.Natural)
 listDelegatedServicesForAccount_maxResults = Lens.lens (\ListDelegatedServicesForAccount' {maxResults} -> maxResults) (\s@ListDelegatedServicesForAccount' {} a -> s {maxResults = a} :: ListDelegatedServicesForAccount)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listDelegatedServicesForAccount_nextToken :: Lens.Lens' ListDelegatedServicesForAccount (Prelude.Maybe Prelude.Text)
+listDelegatedServicesForAccount_nextToken = Lens.lens (\ListDelegatedServicesForAccount' {nextToken} -> nextToken) (\s@ListDelegatedServicesForAccount' {} a -> s {nextToken = a} :: ListDelegatedServicesForAccount)
 
 -- | The account ID number of a delegated administrator account in the
 -- organization.
@@ -178,15 +179,16 @@ instance
   type
     AWSResponse ListDelegatedServicesForAccount =
       ListDelegatedServicesForAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDelegatedServicesForAccountResponse'
-            Prelude.<$> ( x Core..?> "DelegatedServices"
+            Prelude.<$> ( x Data..?> "DelegatedServices"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -197,8 +199,8 @@ instance
   hashWithSalt
     _salt
     ListDelegatedServicesForAccount' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` accountId
 
 instance
@@ -206,42 +208,42 @@ instance
     ListDelegatedServicesForAccount
   where
   rnf ListDelegatedServicesForAccount' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accountId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDelegatedServicesForAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListDelegatedServicesForAccount" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListDelegatedServicesForAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDelegatedServicesForAccount where
+instance Data.ToJSON ListDelegatedServicesForAccount where
   toJSON ListDelegatedServicesForAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("AccountId" Core..= accountId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("AccountId" Data..= accountId)
           ]
       )
 
-instance Core.ToPath ListDelegatedServicesForAccount where
+instance Data.ToPath ListDelegatedServicesForAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDelegatedServicesForAccount where
+instance Data.ToQuery ListDelegatedServicesForAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDelegatedServicesForAccountResponse' smart constructor.

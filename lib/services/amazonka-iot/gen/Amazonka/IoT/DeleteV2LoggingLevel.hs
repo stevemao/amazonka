@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteV2LoggingLevel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT.DeleteV2LoggingLevel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteV2LoggingLevel where
   type
     AWSResponse DeleteV2LoggingLevel =
       DeleteV2LoggingLevelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteV2LoggingLevelResponse'
 
@@ -108,17 +110,17 @@ instance Prelude.NFData DeleteV2LoggingLevel where
     Prelude.rnf targetType
       `Prelude.seq` Prelude.rnf targetName
 
-instance Core.ToHeaders DeleteV2LoggingLevel where
+instance Data.ToHeaders DeleteV2LoggingLevel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteV2LoggingLevel where
+instance Data.ToPath DeleteV2LoggingLevel where
   toPath = Prelude.const "/v2LoggingLevel"
 
-instance Core.ToQuery DeleteV2LoggingLevel where
+instance Data.ToQuery DeleteV2LoggingLevel where
   toQuery DeleteV2LoggingLevel' {..} =
     Prelude.mconcat
-      [ "targetType" Core.=: targetType,
-        "targetName" Core.=: targetName
+      [ "targetType" Data.=: targetType,
+        "targetName" Data.=: targetName
       ]
 
 -- | /See:/ 'newDeleteV2LoggingLevelResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.DeleteProfilingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteProfilingGroup where
   type
     AWSResponse DeleteProfilingGroup =
       DeleteProfilingGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,23 +99,23 @@ instance Prelude.NFData DeleteProfilingGroup where
   rnf DeleteProfilingGroup' {..} =
     Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders DeleteProfilingGroup where
+instance Data.ToHeaders DeleteProfilingGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteProfilingGroup where
+instance Data.ToPath DeleteProfilingGroup where
   toPath DeleteProfilingGroup' {..} =
     Prelude.mconcat
-      ["/profilingGroups/", Core.toBS profilingGroupName]
+      ["/profilingGroups/", Data.toBS profilingGroupName]
 
-instance Core.ToQuery DeleteProfilingGroup where
+instance Data.ToQuery DeleteProfilingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the deleteProfilingGroupResponse.

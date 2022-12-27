@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.ListPagesByContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSMContacts.ListPagesByContact
     newListPagesByContact,
 
     -- * Request Lenses
-    listPagesByContact_nextToken,
     listPagesByContact_maxResults,
+    listPagesByContact_nextToken,
     listPagesByContact_contactId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SSMContacts.ListPagesByContact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newListPagesByContact' smart constructor.
 data ListPagesByContact = ListPagesByContact'
-  { -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of engagements to contact channels to list per page
+  { -- | The maximum number of engagements to contact channels to list per page
     -- of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact you are retrieving
     -- engagements for.
     contactId :: Prelude.Text
@@ -72,10 +73,10 @@ data ListPagesByContact = ListPagesByContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPagesByContact_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'maxResults', 'listPagesByContact_maxResults' - The maximum number of engagements to contact channels to list per page
 -- of results.
+--
+-- 'nextToken', 'listPagesByContact_nextToken' - The pagination token to continue to the next page of results.
 --
 -- 'contactId', 'listPagesByContact_contactId' - The Amazon Resource Name (ARN) of the contact you are retrieving
 -- engagements for.
@@ -85,19 +86,19 @@ newListPagesByContact ::
   ListPagesByContact
 newListPagesByContact pContactId_ =
   ListPagesByContact'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       contactId = pContactId_
     }
-
--- | The pagination token to continue to the next page of results.
-listPagesByContact_nextToken :: Lens.Lens' ListPagesByContact (Prelude.Maybe Prelude.Text)
-listPagesByContact_nextToken = Lens.lens (\ListPagesByContact' {nextToken} -> nextToken) (\s@ListPagesByContact' {} a -> s {nextToken = a} :: ListPagesByContact)
 
 -- | The maximum number of engagements to contact channels to list per page
 -- of results.
 listPagesByContact_maxResults :: Lens.Lens' ListPagesByContact (Prelude.Maybe Prelude.Natural)
 listPagesByContact_maxResults = Lens.lens (\ListPagesByContact' {maxResults} -> maxResults) (\s@ListPagesByContact' {} a -> s {maxResults = a} :: ListPagesByContact)
+
+-- | The pagination token to continue to the next page of results.
+listPagesByContact_nextToken :: Lens.Lens' ListPagesByContact (Prelude.Maybe Prelude.Text)
+listPagesByContact_nextToken = Lens.lens (\ListPagesByContact' {nextToken} -> nextToken) (\s@ListPagesByContact' {} a -> s {nextToken = a} :: ListPagesByContact)
 
 -- | The Amazon Resource Name (ARN) of the contact you are retrieving
 -- engagements for.
@@ -127,57 +128,58 @@ instance Core.AWSRequest ListPagesByContact where
   type
     AWSResponse ListPagesByContact =
       ListPagesByContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPagesByContactResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Pages" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Pages" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListPagesByContact where
   hashWithSalt _salt ListPagesByContact' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` contactId
 
 instance Prelude.NFData ListPagesByContact where
   rnf ListPagesByContact' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf contactId
 
-instance Core.ToHeaders ListPagesByContact where
+instance Data.ToHeaders ListPagesByContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.ListPagesByContact" ::
+              Data.=# ( "SSMContacts.ListPagesByContact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPagesByContact where
+instance Data.ToJSON ListPagesByContact where
   toJSON ListPagesByContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ContactId" Core..= contactId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ContactId" Data..= contactId)
           ]
       )
 
-instance Core.ToPath ListPagesByContact where
+instance Data.ToPath ListPagesByContact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPagesByContact where
+instance Data.ToQuery ListPagesByContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPagesByContactResponse' smart constructor.

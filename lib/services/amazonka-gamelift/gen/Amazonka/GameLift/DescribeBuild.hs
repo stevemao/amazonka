@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeBuild
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,6 @@
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html Upload a Custom Server Build>
 --
--- __Related actions__
---
--- CreateBuild | ListBuilds | DescribeBuild | UpdateBuild | DeleteBuild |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeBuild
   ( -- * Creating a Request
@@ -51,15 +48,14 @@ module Amazonka.GameLift.DescribeBuild
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeBuild' smart constructor.
+-- | /See:/ 'newDescribeBuild' smart constructor.
 data DescribeBuild = DescribeBuild'
   { -- | A unique identifier for the build to retrieve properties for. You can
     -- use either the build ID or ARN value.
@@ -93,12 +89,13 @@ instance Core.AWSRequest DescribeBuild where
   type
     AWSResponse DescribeBuild =
       DescribeBuildResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeBuildResponse'
-            Prelude.<$> (x Core..?> "Build")
+            Prelude.<$> (x Data..?> "Build")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,35 +106,33 @@ instance Prelude.Hashable DescribeBuild where
 instance Prelude.NFData DescribeBuild where
   rnf DescribeBuild' {..} = Prelude.rnf buildId
 
-instance Core.ToHeaders DescribeBuild where
+instance Data.ToHeaders DescribeBuild where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.DescribeBuild" :: Prelude.ByteString),
+              Data.=# ("GameLift.DescribeBuild" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeBuild where
+instance Data.ToJSON DescribeBuild where
   toJSON DescribeBuild' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BuildId" Core..= buildId)]
+          [Prelude.Just ("BuildId" Data..= buildId)]
       )
 
-instance Core.ToPath DescribeBuild where
+instance Data.ToPath DescribeBuild where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeBuild where
+instance Data.ToQuery DescribeBuild where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeBuildResponse' smart constructor.
+-- | /See:/ 'newDescribeBuildResponse' smart constructor.
 data DescribeBuildResponse = DescribeBuildResponse'
   { -- | Set of properties describing the requested build.
     build :: Prelude.Maybe Build,

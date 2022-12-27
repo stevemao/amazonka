@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.StartCelebrityRecognition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,7 +34,7 @@
 -- call GetCelebrityRecognition and pass the job identifier (@JobId@) from
 -- the initial call to @StartCelebrityRecognition@.
 --
--- For more information, see Recognizing Celebrities in the Amazon
+-- For more information, see Recognizing celebrities in the Amazon
 -- Rekognition Developer Guide.
 module Amazonka.Rekognition.StartCelebrityRecognition
   ( -- * Creating a Request
@@ -42,9 +42,9 @@ module Amazonka.Rekognition.StartCelebrityRecognition
     newStartCelebrityRecognition,
 
     -- * Request Lenses
+    startCelebrityRecognition_clientRequestToken,
     startCelebrityRecognition_jobTag,
     startCelebrityRecognition_notificationChannel,
-    startCelebrityRecognition_clientRequestToken,
     startCelebrityRecognition_video,
 
     -- * Destructuring the Response
@@ -58,7 +58,8 @@ module Amazonka.Rekognition.StartCelebrityRecognition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -66,7 +67,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartCelebrityRecognition' smart constructor.
 data StartCelebrityRecognition = StartCelebrityRecognition'
-  { -- | An identifier you specify that\'s returned in the completion
+  { -- | Idempotent token used to identify the start request. If you use the same
+    -- token with multiple @StartCelebrityRecognition@ requests, the same
+    -- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
+    -- from being accidently started more than once.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | An identifier you specify that\'s returned in the completion
     -- notification that\'s published to your Amazon Simple Notification
     -- Service topic. For example, you can use @JobTag@ to group related jobs
     -- and identify them in the completion notification.
@@ -77,11 +83,6 @@ data StartCelebrityRecognition = StartCelebrityRecognition'
     -- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
     -- permissions policy.
     notificationChannel :: Prelude.Maybe NotificationChannel,
-    -- | Idempotent token used to identify the start request. If you use the same
-    -- token with multiple @StartCelebrityRecognition@ requests, the same
-    -- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
-    -- from being accidently started more than once.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The video in which you want to recognize celebrities. The video must be
     -- stored in an Amazon S3 bucket.
     video :: Video
@@ -96,6 +97,11 @@ data StartCelebrityRecognition = StartCelebrityRecognition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'startCelebrityRecognition_clientRequestToken' - Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartCelebrityRecognition@ requests, the same
+-- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
+-- from being accidently started more than once.
+--
 -- 'jobTag', 'startCelebrityRecognition_jobTag' - An identifier you specify that\'s returned in the completion
 -- notification that\'s published to your Amazon Simple Notification
 -- Service topic. For example, you can use @JobTag@ to group related jobs
@@ -107,11 +113,6 @@ data StartCelebrityRecognition = StartCelebrityRecognition'
 -- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
 -- permissions policy.
 --
--- 'clientRequestToken', 'startCelebrityRecognition_clientRequestToken' - Idempotent token used to identify the start request. If you use the same
--- token with multiple @StartCelebrityRecognition@ requests, the same
--- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
--- from being accidently started more than once.
---
 -- 'video', 'startCelebrityRecognition_video' - The video in which you want to recognize celebrities. The video must be
 -- stored in an Amazon S3 bucket.
 newStartCelebrityRecognition ::
@@ -120,12 +121,19 @@ newStartCelebrityRecognition ::
   StartCelebrityRecognition
 newStartCelebrityRecognition pVideo_ =
   StartCelebrityRecognition'
-    { jobTag =
+    { clientRequestToken =
         Prelude.Nothing,
+      jobTag = Prelude.Nothing,
       notificationChannel = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
       video = pVideo_
     }
+
+-- | Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartCelebrityRecognition@ requests, the same
+-- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
+-- from being accidently started more than once.
+startCelebrityRecognition_clientRequestToken :: Lens.Lens' StartCelebrityRecognition (Prelude.Maybe Prelude.Text)
+startCelebrityRecognition_clientRequestToken = Lens.lens (\StartCelebrityRecognition' {clientRequestToken} -> clientRequestToken) (\s@StartCelebrityRecognition' {} a -> s {clientRequestToken = a} :: StartCelebrityRecognition)
 
 -- | An identifier you specify that\'s returned in the completion
 -- notification that\'s published to your Amazon Simple Notification
@@ -142,13 +150,6 @@ startCelebrityRecognition_jobTag = Lens.lens (\StartCelebrityRecognition' {jobTa
 startCelebrityRecognition_notificationChannel :: Lens.Lens' StartCelebrityRecognition (Prelude.Maybe NotificationChannel)
 startCelebrityRecognition_notificationChannel = Lens.lens (\StartCelebrityRecognition' {notificationChannel} -> notificationChannel) (\s@StartCelebrityRecognition' {} a -> s {notificationChannel = a} :: StartCelebrityRecognition)
 
--- | Idempotent token used to identify the start request. If you use the same
--- token with multiple @StartCelebrityRecognition@ requests, the same
--- @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job
--- from being accidently started more than once.
-startCelebrityRecognition_clientRequestToken :: Lens.Lens' StartCelebrityRecognition (Prelude.Maybe Prelude.Text)
-startCelebrityRecognition_clientRequestToken = Lens.lens (\StartCelebrityRecognition' {clientRequestToken} -> clientRequestToken) (\s@StartCelebrityRecognition' {} a -> s {clientRequestToken = a} :: StartCelebrityRecognition)
-
 -- | The video in which you want to recognize celebrities. The video must be
 -- stored in an Amazon S3 bucket.
 startCelebrityRecognition_video :: Lens.Lens' StartCelebrityRecognition Video
@@ -158,61 +159,62 @@ instance Core.AWSRequest StartCelebrityRecognition where
   type
     AWSResponse StartCelebrityRecognition =
       StartCelebrityRecognitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartCelebrityRecognitionResponse'
-            Prelude.<$> (x Core..?> "JobId")
+            Prelude.<$> (x Data..?> "JobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartCelebrityRecognition where
   hashWithSalt _salt StartCelebrityRecognition' {..} =
-    _salt `Prelude.hashWithSalt` jobTag
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` jobTag
       `Prelude.hashWithSalt` notificationChannel
-      `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` video
 
 instance Prelude.NFData StartCelebrityRecognition where
   rnf StartCelebrityRecognition' {..} =
-    Prelude.rnf jobTag
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf jobTag
       `Prelude.seq` Prelude.rnf notificationChannel
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf video
 
-instance Core.ToHeaders StartCelebrityRecognition where
+instance Data.ToHeaders StartCelebrityRecognition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.StartCelebrityRecognition" ::
+              Data.=# ( "RekognitionService.StartCelebrityRecognition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartCelebrityRecognition where
+instance Data.ToJSON StartCelebrityRecognition where
   toJSON StartCelebrityRecognition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobTag" Core..=) Prelude.<$> jobTag,
-            ("NotificationChannel" Core..=)
-              Prelude.<$> notificationChannel,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("Video" Core..= video)
+            ("JobTag" Data..=) Prelude.<$> jobTag,
+            ("NotificationChannel" Data..=)
+              Prelude.<$> notificationChannel,
+            Prelude.Just ("Video" Data..= video)
           ]
       )
 
-instance Core.ToPath StartCelebrityRecognition where
+instance Data.ToPath StartCelebrityRecognition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartCelebrityRecognition where
+instance Data.ToQuery StartCelebrityRecognition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartCelebrityRecognitionResponse' smart constructor.

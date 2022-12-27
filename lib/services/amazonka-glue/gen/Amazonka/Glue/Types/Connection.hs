@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Connection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,18 @@
 module Amazonka.Glue.Types.Connection where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.ConnectionPropertyKey
 import Amazonka.Glue.Types.ConnectionType
 import Amazonka.Glue.Types.PhysicalConnectionRequirements
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines a connection to a data source.
 --
 -- /See:/ 'newConnection' smart constructor.
 data Connection = Connection'
-  { -- | The time that this connection definition was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The user, group, or role that last updated this connection definition.
-    lastUpdatedBy :: Prelude.Maybe Prelude.Text,
-    -- | These key-value pairs define parameters for the connection:
+  { -- | These key-value pairs define parameters for the connection:
     --
     -- -   @HOST@ - The host URI: either the fully qualified domain name (FQDN)
     --     or the IPv4 address of the database host.
@@ -98,6 +95,18 @@ data Connection = Connection'
     -- -   @CONNECTION_URL@ - The URL for connecting to a general (non-JDBC)
     --     data source.
     --
+    -- -   @SECRET_ID@ - The secret ID used for the secret manager of
+    --     credentials.
+    --
+    -- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
+    --     connection.
+    --
+    -- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
+    --     connection.
+    --
+    -- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
+    --     or CUSTOM connection.
+    --
     -- -   @KAFKA_BOOTSTRAP_SERVERS@ - A comma-separated list of host and port
     --     pairs that are the addresses of the Apache Kafka brokers in a Kafka
     --     cluster to which a Kafka client will connect to and bootstrap
@@ -113,18 +122,6 @@ data Connection = Connection'
     --     of the CA cert file or not. Glue validates for three algorithms:
     --     SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is
     --     \"false\".
-    --
-    -- -   @SECRET_ID@ - The secret ID used for the secret manager of
-    --     credentials.
-    --
-    -- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
-    --     connection.
-    --
-    -- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
-    --     connection.
-    --
-    -- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
-    --     or CUSTOM connection.
     --
     -- -   @KAFKA_CLIENT_KEYSTORE@ - The Amazon S3 location of the client
     --     keystore file for Kafka client side authentication (Optional).
@@ -143,21 +140,58 @@ data Connection = Connection'
     -- -   @ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD@ - The encrypted version of the
     --     Kafka client key password (if the user has the Glue encrypt
     --     passwords setting selected).
+    --
+    -- -   @KAFKA_SASL_MECHANISM@ - @\"SCRAM-SHA-512\"@ or @\"GSSAPI\"@. These
+    --     are the two supported
+    --     <https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml SASL Mechanisms>.
+    --
+    -- -   @KAFKA_SASL_SCRAM_USERNAME@ - A plaintext username used to
+    --     authenticate with the \"SCRAM-SHA-512\" mechanism.
+    --
+    -- -   @KAFKA_SASL_SCRAM_PASSWORD@ - A plaintext password used to
+    --     authenticate with the \"SCRAM-SHA-512\" mechanism.
+    --
+    -- -   @ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD@ - The encrypted version of the
+    --     Kafka SASL SCRAM password (if the user has the Glue encrypt
+    --     passwords setting selected).
+    --
+    -- -   @KAFKA_SASL_GSSAPI_KEYTAB@ - The S3 location of a Kerberos @keytab@
+    --     file. A keytab stores long-term keys for one or more principals. For
+    --     more information, see
+    --     <https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html MIT Kerberos Documentation: Keytab>.
+    --
+    -- -   @KAFKA_SASL_GSSAPI_KRB5_CONF@ - The S3 location of a Kerberos
+    --     @krb5.conf@ file. A krb5.conf stores Kerberos configuration
+    --     information, such as the location of the KDC server. For more
+    --     information, see
+    --     <https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html MIT Kerberos Documentation: krb5.conf>.
+    --
+    -- -   @KAFKA_SASL_GSSAPI_SERVICE@ - The Kerberos service name, as set with
+    --     @sasl.kerberos.service.name@ in your
+    --     <https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name Kafka Configuration>.
+    --
+    -- -   @KAFKA_SASL_GSSAPI_PRINCIPAL@ - The name of the Kerberos princial
+    --     used by Glue. For more information, see
+    --     <https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig Kafka Documentation: Configuring Kafka Brokers>.
     connectionProperties :: Prelude.Maybe (Prelude.HashMap ConnectionPropertyKey Prelude.Text),
+    -- | The type of the connection. Currently, SFTP is not supported.
+    connectionType :: Prelude.Maybe ConnectionType,
+    -- | The time that this connection definition was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The description of the connection.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The user, group, or role that last updated this connection definition.
+    lastUpdatedBy :: Prelude.Maybe Prelude.Text,
     -- | The last time that this connection definition was updated.
-    lastUpdatedTime :: Prelude.Maybe Core.POSIX,
+    lastUpdatedTime :: Prelude.Maybe Data.POSIX,
     -- | A list of criteria that can be used in selecting this connection.
     matchCriteria :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the connection definition.
+    name :: Prelude.Maybe Prelude.Text,
     -- | A map of physical connection requirements, such as virtual private cloud
     -- (VPC) and @SecurityGroup@, that are needed to make this connection
     -- successfully.
-    physicalConnectionRequirements :: Prelude.Maybe PhysicalConnectionRequirements,
-    -- | The name of the connection definition.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the connection.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The type of the connection. Currently, SFTP is not supported.
-    connectionType :: Prelude.Maybe ConnectionType
+    physicalConnectionRequirements :: Prelude.Maybe PhysicalConnectionRequirements
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -168,10 +202,6 @@ data Connection = Connection'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'creationTime', 'connection_creationTime' - The time that this connection definition was created.
---
--- 'lastUpdatedBy', 'connection_lastUpdatedBy' - The user, group, or role that last updated this connection definition.
 --
 -- 'connectionProperties', 'connection_connectionProperties' - These key-value pairs define parameters for the connection:
 --
@@ -237,6 +267,18 @@ data Connection = Connection'
 -- -   @CONNECTION_URL@ - The URL for connecting to a general (non-JDBC)
 --     data source.
 --
+-- -   @SECRET_ID@ - The secret ID used for the secret manager of
+--     credentials.
+--
+-- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
+--     connection.
+--
+-- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
+--     connection.
+--
+-- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
+--     or CUSTOM connection.
+--
 -- -   @KAFKA_BOOTSTRAP_SERVERS@ - A comma-separated list of host and port
 --     pairs that are the addresses of the Apache Kafka brokers in a Kafka
 --     cluster to which a Kafka client will connect to and bootstrap
@@ -252,18 +294,6 @@ data Connection = Connection'
 --     of the CA cert file or not. Glue validates for three algorithms:
 --     SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is
 --     \"false\".
---
--- -   @SECRET_ID@ - The secret ID used for the secret manager of
---     credentials.
---
--- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
---     connection.
---
--- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
---     connection.
---
--- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
---     or CUSTOM connection.
 --
 -- -   @KAFKA_CLIENT_KEYSTORE@ - The Amazon S3 location of the client
 --     keystore file for Kafka client side authentication (Optional).
@@ -283,41 +313,70 @@ data Connection = Connection'
 --     Kafka client key password (if the user has the Glue encrypt
 --     passwords setting selected).
 --
+-- -   @KAFKA_SASL_MECHANISM@ - @\"SCRAM-SHA-512\"@ or @\"GSSAPI\"@. These
+--     are the two supported
+--     <https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml SASL Mechanisms>.
+--
+-- -   @KAFKA_SASL_SCRAM_USERNAME@ - A plaintext username used to
+--     authenticate with the \"SCRAM-SHA-512\" mechanism.
+--
+-- -   @KAFKA_SASL_SCRAM_PASSWORD@ - A plaintext password used to
+--     authenticate with the \"SCRAM-SHA-512\" mechanism.
+--
+-- -   @ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD@ - The encrypted version of the
+--     Kafka SASL SCRAM password (if the user has the Glue encrypt
+--     passwords setting selected).
+--
+-- -   @KAFKA_SASL_GSSAPI_KEYTAB@ - The S3 location of a Kerberos @keytab@
+--     file. A keytab stores long-term keys for one or more principals. For
+--     more information, see
+--     <https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html MIT Kerberos Documentation: Keytab>.
+--
+-- -   @KAFKA_SASL_GSSAPI_KRB5_CONF@ - The S3 location of a Kerberos
+--     @krb5.conf@ file. A krb5.conf stores Kerberos configuration
+--     information, such as the location of the KDC server. For more
+--     information, see
+--     <https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html MIT Kerberos Documentation: krb5.conf>.
+--
+-- -   @KAFKA_SASL_GSSAPI_SERVICE@ - The Kerberos service name, as set with
+--     @sasl.kerberos.service.name@ in your
+--     <https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name Kafka Configuration>.
+--
+-- -   @KAFKA_SASL_GSSAPI_PRINCIPAL@ - The name of the Kerberos princial
+--     used by Glue. For more information, see
+--     <https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig Kafka Documentation: Configuring Kafka Brokers>.
+--
+-- 'connectionType', 'connection_connectionType' - The type of the connection. Currently, SFTP is not supported.
+--
+-- 'creationTime', 'connection_creationTime' - The time that this connection definition was created.
+--
+-- 'description', 'connection_description' - The description of the connection.
+--
+-- 'lastUpdatedBy', 'connection_lastUpdatedBy' - The user, group, or role that last updated this connection definition.
+--
 -- 'lastUpdatedTime', 'connection_lastUpdatedTime' - The last time that this connection definition was updated.
 --
 -- 'matchCriteria', 'connection_matchCriteria' - A list of criteria that can be used in selecting this connection.
 --
+-- 'name', 'connection_name' - The name of the connection definition.
+--
 -- 'physicalConnectionRequirements', 'connection_physicalConnectionRequirements' - A map of physical connection requirements, such as virtual private cloud
 -- (VPC) and @SecurityGroup@, that are needed to make this connection
 -- successfully.
---
--- 'name', 'connection_name' - The name of the connection definition.
---
--- 'description', 'connection_description' - The description of the connection.
---
--- 'connectionType', 'connection_connectionType' - The type of the connection. Currently, SFTP is not supported.
 newConnection ::
   Connection
 newConnection =
   Connection'
-    { creationTime = Prelude.Nothing,
+    { connectionProperties = Prelude.Nothing,
+      connectionType = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      description = Prelude.Nothing,
       lastUpdatedBy = Prelude.Nothing,
-      connectionProperties = Prelude.Nothing,
       lastUpdatedTime = Prelude.Nothing,
       matchCriteria = Prelude.Nothing,
-      physicalConnectionRequirements = Prelude.Nothing,
       name = Prelude.Nothing,
-      description = Prelude.Nothing,
-      connectionType = Prelude.Nothing
+      physicalConnectionRequirements = Prelude.Nothing
     }
-
--- | The time that this connection definition was created.
-connection_creationTime :: Lens.Lens' Connection (Prelude.Maybe Prelude.UTCTime)
-connection_creationTime = Lens.lens (\Connection' {creationTime} -> creationTime) (\s@Connection' {} a -> s {creationTime = a} :: Connection) Prelude.. Lens.mapping Core._Time
-
--- | The user, group, or role that last updated this connection definition.
-connection_lastUpdatedBy :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
-connection_lastUpdatedBy = Lens.lens (\Connection' {lastUpdatedBy} -> lastUpdatedBy) (\s@Connection' {} a -> s {lastUpdatedBy = a} :: Connection)
 
 -- | These key-value pairs define parameters for the connection:
 --
@@ -383,6 +442,18 @@ connection_lastUpdatedBy = Lens.lens (\Connection' {lastUpdatedBy} -> lastUpdate
 -- -   @CONNECTION_URL@ - The URL for connecting to a general (non-JDBC)
 --     data source.
 --
+-- -   @SECRET_ID@ - The secret ID used for the secret manager of
+--     credentials.
+--
+-- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
+--     connection.
+--
+-- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
+--     connection.
+--
+-- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
+--     or CUSTOM connection.
+--
 -- -   @KAFKA_BOOTSTRAP_SERVERS@ - A comma-separated list of host and port
 --     pairs that are the addresses of the Apache Kafka brokers in a Kafka
 --     cluster to which a Kafka client will connect to and bootstrap
@@ -398,18 +469,6 @@ connection_lastUpdatedBy = Lens.lens (\Connection' {lastUpdatedBy} -> lastUpdate
 --     of the CA cert file or not. Glue validates for three algorithms:
 --     SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is
 --     \"false\".
---
--- -   @SECRET_ID@ - The secret ID used for the secret manager of
---     credentials.
---
--- -   @CONNECTOR_URL@ - The connector URL for a MARKETPLACE or CUSTOM
---     connection.
---
--- -   @CONNECTOR_TYPE@ - The connector type for a MARKETPLACE or CUSTOM
---     connection.
---
--- -   @CONNECTOR_CLASS_NAME@ - The connector class name for a MARKETPLACE
---     or CUSTOM connection.
 --
 -- -   @KAFKA_CLIENT_KEYSTORE@ - The Amazon S3 location of the client
 --     keystore file for Kafka client side authentication (Optional).
@@ -428,16 +487,69 @@ connection_lastUpdatedBy = Lens.lens (\Connection' {lastUpdatedBy} -> lastUpdate
 -- -   @ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD@ - The encrypted version of the
 --     Kafka client key password (if the user has the Glue encrypt
 --     passwords setting selected).
+--
+-- -   @KAFKA_SASL_MECHANISM@ - @\"SCRAM-SHA-512\"@ or @\"GSSAPI\"@. These
+--     are the two supported
+--     <https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml SASL Mechanisms>.
+--
+-- -   @KAFKA_SASL_SCRAM_USERNAME@ - A plaintext username used to
+--     authenticate with the \"SCRAM-SHA-512\" mechanism.
+--
+-- -   @KAFKA_SASL_SCRAM_PASSWORD@ - A plaintext password used to
+--     authenticate with the \"SCRAM-SHA-512\" mechanism.
+--
+-- -   @ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD@ - The encrypted version of the
+--     Kafka SASL SCRAM password (if the user has the Glue encrypt
+--     passwords setting selected).
+--
+-- -   @KAFKA_SASL_GSSAPI_KEYTAB@ - The S3 location of a Kerberos @keytab@
+--     file. A keytab stores long-term keys for one or more principals. For
+--     more information, see
+--     <https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html MIT Kerberos Documentation: Keytab>.
+--
+-- -   @KAFKA_SASL_GSSAPI_KRB5_CONF@ - The S3 location of a Kerberos
+--     @krb5.conf@ file. A krb5.conf stores Kerberos configuration
+--     information, such as the location of the KDC server. For more
+--     information, see
+--     <https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html MIT Kerberos Documentation: krb5.conf>.
+--
+-- -   @KAFKA_SASL_GSSAPI_SERVICE@ - The Kerberos service name, as set with
+--     @sasl.kerberos.service.name@ in your
+--     <https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name Kafka Configuration>.
+--
+-- -   @KAFKA_SASL_GSSAPI_PRINCIPAL@ - The name of the Kerberos princial
+--     used by Glue. For more information, see
+--     <https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig Kafka Documentation: Configuring Kafka Brokers>.
 connection_connectionProperties :: Lens.Lens' Connection (Prelude.Maybe (Prelude.HashMap ConnectionPropertyKey Prelude.Text))
 connection_connectionProperties = Lens.lens (\Connection' {connectionProperties} -> connectionProperties) (\s@Connection' {} a -> s {connectionProperties = a} :: Connection) Prelude.. Lens.mapping Lens.coerced
 
+-- | The type of the connection. Currently, SFTP is not supported.
+connection_connectionType :: Lens.Lens' Connection (Prelude.Maybe ConnectionType)
+connection_connectionType = Lens.lens (\Connection' {connectionType} -> connectionType) (\s@Connection' {} a -> s {connectionType = a} :: Connection)
+
+-- | The time that this connection definition was created.
+connection_creationTime :: Lens.Lens' Connection (Prelude.Maybe Prelude.UTCTime)
+connection_creationTime = Lens.lens (\Connection' {creationTime} -> creationTime) (\s@Connection' {} a -> s {creationTime = a} :: Connection) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the connection.
+connection_description :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
+connection_description = Lens.lens (\Connection' {description} -> description) (\s@Connection' {} a -> s {description = a} :: Connection)
+
+-- | The user, group, or role that last updated this connection definition.
+connection_lastUpdatedBy :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
+connection_lastUpdatedBy = Lens.lens (\Connection' {lastUpdatedBy} -> lastUpdatedBy) (\s@Connection' {} a -> s {lastUpdatedBy = a} :: Connection)
+
 -- | The last time that this connection definition was updated.
 connection_lastUpdatedTime :: Lens.Lens' Connection (Prelude.Maybe Prelude.UTCTime)
-connection_lastUpdatedTime = Lens.lens (\Connection' {lastUpdatedTime} -> lastUpdatedTime) (\s@Connection' {} a -> s {lastUpdatedTime = a} :: Connection) Prelude.. Lens.mapping Core._Time
+connection_lastUpdatedTime = Lens.lens (\Connection' {lastUpdatedTime} -> lastUpdatedTime) (\s@Connection' {} a -> s {lastUpdatedTime = a} :: Connection) Prelude.. Lens.mapping Data._Time
 
 -- | A list of criteria that can be used in selecting this connection.
 connection_matchCriteria :: Lens.Lens' Connection (Prelude.Maybe [Prelude.Text])
 connection_matchCriteria = Lens.lens (\Connection' {matchCriteria} -> matchCriteria) (\s@Connection' {} a -> s {matchCriteria = a} :: Connection) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the connection definition.
+connection_name :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
+connection_name = Lens.lens (\Connection' {name} -> name) (\s@Connection' {} a -> s {name = a} :: Connection)
 
 -- | A map of physical connection requirements, such as virtual private cloud
 -- (VPC) and @SecurityGroup@, that are needed to make this connection
@@ -445,57 +557,45 @@ connection_matchCriteria = Lens.lens (\Connection' {matchCriteria} -> matchCrite
 connection_physicalConnectionRequirements :: Lens.Lens' Connection (Prelude.Maybe PhysicalConnectionRequirements)
 connection_physicalConnectionRequirements = Lens.lens (\Connection' {physicalConnectionRequirements} -> physicalConnectionRequirements) (\s@Connection' {} a -> s {physicalConnectionRequirements = a} :: Connection)
 
--- | The name of the connection definition.
-connection_name :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
-connection_name = Lens.lens (\Connection' {name} -> name) (\s@Connection' {} a -> s {name = a} :: Connection)
-
--- | The description of the connection.
-connection_description :: Lens.Lens' Connection (Prelude.Maybe Prelude.Text)
-connection_description = Lens.lens (\Connection' {description} -> description) (\s@Connection' {} a -> s {description = a} :: Connection)
-
--- | The type of the connection. Currently, SFTP is not supported.
-connection_connectionType :: Lens.Lens' Connection (Prelude.Maybe ConnectionType)
-connection_connectionType = Lens.lens (\Connection' {connectionType} -> connectionType) (\s@Connection' {} a -> s {connectionType = a} :: Connection)
-
-instance Core.FromJSON Connection where
+instance Data.FromJSON Connection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Connection"
       ( \x ->
           Connection'
-            Prelude.<$> (x Core..:? "CreationTime")
-            Prelude.<*> (x Core..:? "LastUpdatedBy")
-            Prelude.<*> ( x Core..:? "ConnectionProperties"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ConnectionProperties"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "LastUpdatedTime")
-            Prelude.<*> (x Core..:? "MatchCriteria" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "PhysicalConnectionRequirements")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..:? "ConnectionType")
+            Prelude.<*> (x Data..:? "ConnectionType")
+            Prelude.<*> (x Data..:? "CreationTime")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "LastUpdatedBy")
+            Prelude.<*> (x Data..:? "LastUpdatedTime")
+            Prelude.<*> (x Data..:? "MatchCriteria" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "PhysicalConnectionRequirements")
       )
 
 instance Prelude.Hashable Connection where
   hashWithSalt _salt Connection' {..} =
-    _salt `Prelude.hashWithSalt` creationTime
+    _salt `Prelude.hashWithSalt` connectionProperties
+      `Prelude.hashWithSalt` connectionType
+      `Prelude.hashWithSalt` creationTime
+      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` lastUpdatedBy
-      `Prelude.hashWithSalt` connectionProperties
       `Prelude.hashWithSalt` lastUpdatedTime
       `Prelude.hashWithSalt` matchCriteria
-      `Prelude.hashWithSalt` physicalConnectionRequirements
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` connectionType
+      `Prelude.hashWithSalt` physicalConnectionRequirements
 
 instance Prelude.NFData Connection where
   rnf Connection' {..} =
-    Prelude.rnf creationTime
+    Prelude.rnf connectionProperties
+      `Prelude.seq` Prelude.rnf connectionType
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf lastUpdatedBy
-      `Prelude.seq` Prelude.rnf connectionProperties
       `Prelude.seq` Prelude.rnf lastUpdatedTime
       `Prelude.seq` Prelude.rnf matchCriteria
-      `Prelude.seq` Prelude.rnf physicalConnectionRequirements
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf connectionType
+      `Prelude.seq` Prelude.rnf physicalConnectionRequirements

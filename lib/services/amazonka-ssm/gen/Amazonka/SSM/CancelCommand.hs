@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.CancelCommand
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SSM.CancelCommand
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import Amazonka.SSM.Types
 --
 -- /See:/ 'newCancelCommand' smart constructor.
 data CancelCommand = CancelCommand'
-  { -- | (Optional) A list of instance IDs on which you want to cancel the
-    -- command. If not provided, the command is canceled on every instance on
-    -- which it was requested.
+  { -- | (Optional) A list of managed node IDs on which you want to cancel the
+    -- command. If not provided, the command is canceled on every node on which
+    -- it was requested.
     instanceIds :: Prelude.Maybe [Prelude.Text],
     -- | The ID of the command you want to cancel.
     commandId :: Prelude.Text
@@ -69,9 +70,9 @@ data CancelCommand = CancelCommand'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceIds', 'cancelCommand_instanceIds' - (Optional) A list of instance IDs on which you want to cancel the
--- command. If not provided, the command is canceled on every instance on
--- which it was requested.
+-- 'instanceIds', 'cancelCommand_instanceIds' - (Optional) A list of managed node IDs on which you want to cancel the
+-- command. If not provided, the command is canceled on every node on which
+-- it was requested.
 --
 -- 'commandId', 'cancelCommand_commandId' - The ID of the command you want to cancel.
 newCancelCommand ::
@@ -84,9 +85,9 @@ newCancelCommand pCommandId_ =
       commandId = pCommandId_
     }
 
--- | (Optional) A list of instance IDs on which you want to cancel the
--- command. If not provided, the command is canceled on every instance on
--- which it was requested.
+-- | (Optional) A list of managed node IDs on which you want to cancel the
+-- command. If not provided, the command is canceled on every node on which
+-- it was requested.
 cancelCommand_instanceIds :: Lens.Lens' CancelCommand (Prelude.Maybe [Prelude.Text])
 cancelCommand_instanceIds = Lens.lens (\CancelCommand' {instanceIds} -> instanceIds) (\s@CancelCommand' {} a -> s {instanceIds = a} :: CancelCommand) Prelude.. Lens.mapping Lens.coerced
 
@@ -98,7 +99,8 @@ instance Core.AWSRequest CancelCommand where
   type
     AWSResponse CancelCommand =
       CancelCommandResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,32 +118,32 @@ instance Prelude.NFData CancelCommand where
     Prelude.rnf instanceIds
       `Prelude.seq` Prelude.rnf commandId
 
-instance Core.ToHeaders CancelCommand where
+instance Data.ToHeaders CancelCommand where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.CancelCommand" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.CancelCommand" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelCommand where
+instance Data.ToJSON CancelCommand where
   toJSON CancelCommand' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstanceIds" Core..=) Prelude.<$> instanceIds,
-            Prelude.Just ("CommandId" Core..= commandId)
+          [ ("InstanceIds" Data..=) Prelude.<$> instanceIds,
+            Prelude.Just ("CommandId" Data..= commandId)
           ]
       )
 
-instance Core.ToPath CancelCommand where
+instance Data.ToPath CancelCommand where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelCommand where
+instance Data.ToQuery CancelCommand where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Whether or not the command was successfully canceled. There is no

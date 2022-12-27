@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types.ServiceInstanceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,35 +20,36 @@
 module Amazonka.Proton.Types.ServiceInstanceSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types.DeploymentStatus
 
--- | A summary of the service instance detail data.
+-- | Summary data of an Proton service instance resource.
 --
 -- /See:/ 'newServiceInstanceSummary' smart constructor.
 data ServiceInstanceSummary = ServiceInstanceSummary'
   { -- | A service instance deployment status message.
-    deploymentStatusMessage :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    deploymentStatusMessage :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The Amazon Resource Name (ARN) of the service instance.
     arn :: Prelude.Text,
     -- | The time when the service instance was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The service instance deployment status.
     deploymentStatus :: DeploymentStatus,
     -- | The name of the environment that the service instance was deployed into.
     environmentName :: Prelude.Text,
     -- | The time when a deployment of the service was last attempted.
-    lastDeploymentAttemptedAt :: Core.POSIX,
+    lastDeploymentAttemptedAt :: Data.POSIX,
     -- | The time when the service was last deployed successfully.
-    lastDeploymentSucceededAt :: Core.POSIX,
+    lastDeploymentSucceededAt :: Data.POSIX,
     -- | The name of the service instance.
     name :: Prelude.Text,
     -- | The name of the service that the service instance belongs to.
     serviceName :: Prelude.Text,
-    -- | The ID of the major version of a service template.
+    -- | The service instance template major version.
     templateMajorVersion :: Prelude.Text,
-    -- | The ID of the minor version of a service template.
+    -- | The service instance template minor version.
     templateMinorVersion :: Prelude.Text,
     -- | The name of the service template.
     templateName :: Prelude.Text
@@ -81,9 +82,9 @@ data ServiceInstanceSummary = ServiceInstanceSummary'
 --
 -- 'serviceName', 'serviceInstanceSummary_serviceName' - The name of the service that the service instance belongs to.
 --
--- 'templateMajorVersion', 'serviceInstanceSummary_templateMajorVersion' - The ID of the major version of a service template.
+-- 'templateMajorVersion', 'serviceInstanceSummary_templateMajorVersion' - The service instance template major version.
 --
--- 'templateMinorVersion', 'serviceInstanceSummary_templateMinorVersion' - The ID of the minor version of a service template.
+-- 'templateMinorVersion', 'serviceInstanceSummary_templateMinorVersion' - The service instance template minor version.
 --
 -- 'templateName', 'serviceInstanceSummary_templateName' - The name of the service template.
 newServiceInstanceSummary ::
@@ -126,13 +127,13 @@ newServiceInstanceSummary
       { deploymentStatusMessage =
           Prelude.Nothing,
         arn = pArn_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
         deploymentStatus = pDeploymentStatus_,
         environmentName = pEnvironmentName_,
         lastDeploymentAttemptedAt =
-          Core._Time Lens.# pLastDeploymentAttemptedAt_,
+          Data._Time Lens.# pLastDeploymentAttemptedAt_,
         lastDeploymentSucceededAt =
-          Core._Time Lens.# pLastDeploymentSucceededAt_,
+          Data._Time Lens.# pLastDeploymentSucceededAt_,
         name = pName_,
         serviceName = pServiceName_,
         templateMajorVersion = pTemplateMajorVersion_,
@@ -142,7 +143,7 @@ newServiceInstanceSummary
 
 -- | A service instance deployment status message.
 serviceInstanceSummary_deploymentStatusMessage :: Lens.Lens' ServiceInstanceSummary (Prelude.Maybe Prelude.Text)
-serviceInstanceSummary_deploymentStatusMessage = Lens.lens (\ServiceInstanceSummary' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@ServiceInstanceSummary' {} a -> s {deploymentStatusMessage = a} :: ServiceInstanceSummary) Prelude.. Lens.mapping Core._Sensitive
+serviceInstanceSummary_deploymentStatusMessage = Lens.lens (\ServiceInstanceSummary' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@ServiceInstanceSummary' {} a -> s {deploymentStatusMessage = a} :: ServiceInstanceSummary) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The Amazon Resource Name (ARN) of the service instance.
 serviceInstanceSummary_arn :: Lens.Lens' ServiceInstanceSummary Prelude.Text
@@ -150,7 +151,7 @@ serviceInstanceSummary_arn = Lens.lens (\ServiceInstanceSummary' {arn} -> arn) (
 
 -- | The time when the service instance was created.
 serviceInstanceSummary_createdAt :: Lens.Lens' ServiceInstanceSummary Prelude.UTCTime
-serviceInstanceSummary_createdAt = Lens.lens (\ServiceInstanceSummary' {createdAt} -> createdAt) (\s@ServiceInstanceSummary' {} a -> s {createdAt = a} :: ServiceInstanceSummary) Prelude.. Core._Time
+serviceInstanceSummary_createdAt = Lens.lens (\ServiceInstanceSummary' {createdAt} -> createdAt) (\s@ServiceInstanceSummary' {} a -> s {createdAt = a} :: ServiceInstanceSummary) Prelude.. Data._Time
 
 -- | The service instance deployment status.
 serviceInstanceSummary_deploymentStatus :: Lens.Lens' ServiceInstanceSummary DeploymentStatus
@@ -162,11 +163,11 @@ serviceInstanceSummary_environmentName = Lens.lens (\ServiceInstanceSummary' {en
 
 -- | The time when a deployment of the service was last attempted.
 serviceInstanceSummary_lastDeploymentAttemptedAt :: Lens.Lens' ServiceInstanceSummary Prelude.UTCTime
-serviceInstanceSummary_lastDeploymentAttemptedAt = Lens.lens (\ServiceInstanceSummary' {lastDeploymentAttemptedAt} -> lastDeploymentAttemptedAt) (\s@ServiceInstanceSummary' {} a -> s {lastDeploymentAttemptedAt = a} :: ServiceInstanceSummary) Prelude.. Core._Time
+serviceInstanceSummary_lastDeploymentAttemptedAt = Lens.lens (\ServiceInstanceSummary' {lastDeploymentAttemptedAt} -> lastDeploymentAttemptedAt) (\s@ServiceInstanceSummary' {} a -> s {lastDeploymentAttemptedAt = a} :: ServiceInstanceSummary) Prelude.. Data._Time
 
 -- | The time when the service was last deployed successfully.
 serviceInstanceSummary_lastDeploymentSucceededAt :: Lens.Lens' ServiceInstanceSummary Prelude.UTCTime
-serviceInstanceSummary_lastDeploymentSucceededAt = Lens.lens (\ServiceInstanceSummary' {lastDeploymentSucceededAt} -> lastDeploymentSucceededAt) (\s@ServiceInstanceSummary' {} a -> s {lastDeploymentSucceededAt = a} :: ServiceInstanceSummary) Prelude.. Core._Time
+serviceInstanceSummary_lastDeploymentSucceededAt = Lens.lens (\ServiceInstanceSummary' {lastDeploymentSucceededAt} -> lastDeploymentSucceededAt) (\s@ServiceInstanceSummary' {} a -> s {lastDeploymentSucceededAt = a} :: ServiceInstanceSummary) Prelude.. Data._Time
 
 -- | The name of the service instance.
 serviceInstanceSummary_name :: Lens.Lens' ServiceInstanceSummary Prelude.Text
@@ -176,11 +177,11 @@ serviceInstanceSummary_name = Lens.lens (\ServiceInstanceSummary' {name} -> name
 serviceInstanceSummary_serviceName :: Lens.Lens' ServiceInstanceSummary Prelude.Text
 serviceInstanceSummary_serviceName = Lens.lens (\ServiceInstanceSummary' {serviceName} -> serviceName) (\s@ServiceInstanceSummary' {} a -> s {serviceName = a} :: ServiceInstanceSummary)
 
--- | The ID of the major version of a service template.
+-- | The service instance template major version.
 serviceInstanceSummary_templateMajorVersion :: Lens.Lens' ServiceInstanceSummary Prelude.Text
 serviceInstanceSummary_templateMajorVersion = Lens.lens (\ServiceInstanceSummary' {templateMajorVersion} -> templateMajorVersion) (\s@ServiceInstanceSummary' {} a -> s {templateMajorVersion = a} :: ServiceInstanceSummary)
 
--- | The ID of the minor version of a service template.
+-- | The service instance template minor version.
 serviceInstanceSummary_templateMinorVersion :: Lens.Lens' ServiceInstanceSummary Prelude.Text
 serviceInstanceSummary_templateMinorVersion = Lens.lens (\ServiceInstanceSummary' {templateMinorVersion} -> templateMinorVersion) (\s@ServiceInstanceSummary' {} a -> s {templateMinorVersion = a} :: ServiceInstanceSummary)
 
@@ -188,24 +189,24 @@ serviceInstanceSummary_templateMinorVersion = Lens.lens (\ServiceInstanceSummary
 serviceInstanceSummary_templateName :: Lens.Lens' ServiceInstanceSummary Prelude.Text
 serviceInstanceSummary_templateName = Lens.lens (\ServiceInstanceSummary' {templateName} -> templateName) (\s@ServiceInstanceSummary' {} a -> s {templateName = a} :: ServiceInstanceSummary)
 
-instance Core.FromJSON ServiceInstanceSummary where
+instance Data.FromJSON ServiceInstanceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceInstanceSummary"
       ( \x ->
           ServiceInstanceSummary'
-            Prelude.<$> (x Core..:? "deploymentStatusMessage")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "deploymentStatus")
-            Prelude.<*> (x Core..: "environmentName")
-            Prelude.<*> (x Core..: "lastDeploymentAttemptedAt")
-            Prelude.<*> (x Core..: "lastDeploymentSucceededAt")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "serviceName")
-            Prelude.<*> (x Core..: "templateMajorVersion")
-            Prelude.<*> (x Core..: "templateMinorVersion")
-            Prelude.<*> (x Core..: "templateName")
+            Prelude.<$> (x Data..:? "deploymentStatusMessage")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "deploymentStatus")
+            Prelude.<*> (x Data..: "environmentName")
+            Prelude.<*> (x Data..: "lastDeploymentAttemptedAt")
+            Prelude.<*> (x Data..: "lastDeploymentSucceededAt")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "serviceName")
+            Prelude.<*> (x Data..: "templateMajorVersion")
+            Prelude.<*> (x Data..: "templateMinorVersion")
+            Prelude.<*> (x Data..: "templateName")
       )
 
 instance Prelude.Hashable ServiceInstanceSummary where

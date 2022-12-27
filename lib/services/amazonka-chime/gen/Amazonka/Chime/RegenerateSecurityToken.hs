@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.RegenerateSecurityToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest RegenerateSecurityToken where
   type
     AWSResponse RegenerateSecurityToken =
       RegenerateSecurityTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegenerateSecurityTokenResponse'
-            Prelude.<$> (x Core..?> "Bot")
+            Prelude.<$> (x Data..?> "Bot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,22 +112,22 @@ instance Prelude.NFData RegenerateSecurityToken where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf botId
 
-instance Core.ToHeaders RegenerateSecurityToken where
+instance Data.ToHeaders RegenerateSecurityToken where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RegenerateSecurityToken where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RegenerateSecurityToken where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath RegenerateSecurityToken where
+instance Data.ToPath RegenerateSecurityToken where
   toPath RegenerateSecurityToken' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/bots/",
-        Core.toBS botId
+        Data.toBS botId
       ]
 
-instance Core.ToQuery RegenerateSecurityToken where
+instance Data.ToQuery RegenerateSecurityToken where
   toQuery =
     Prelude.const
       ( Prelude.mconcat

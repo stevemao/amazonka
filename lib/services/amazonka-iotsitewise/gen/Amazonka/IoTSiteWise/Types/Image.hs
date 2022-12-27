@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.Image
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.Image where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.ImageFile
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an image that is one of the following:
@@ -33,10 +34,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newImage' smart constructor.
 data Image = Image'
-  { -- | The ID of an existing image. Specify this parameter to keep an existing
+  { file :: Prelude.Maybe ImageFile,
+    -- | The ID of an existing image. Specify this parameter to keep an existing
     -- image.
-    id :: Prelude.Maybe Prelude.Text,
-    file :: Prelude.Maybe ImageFile
+    id :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,41 +49,41 @@ data Image = Image'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'file', 'image_file' - Undocumented member.
+--
 -- 'id', 'image_id' - The ID of an existing image. Specify this parameter to keep an existing
 -- image.
---
--- 'file', 'image_file' - Undocumented member.
 newImage ::
   Image
 newImage =
   Image'
-    { id = Prelude.Nothing,
-      file = Prelude.Nothing
+    { file = Prelude.Nothing,
+      id = Prelude.Nothing
     }
+
+-- | Undocumented member.
+image_file :: Lens.Lens' Image (Prelude.Maybe ImageFile)
+image_file = Lens.lens (\Image' {file} -> file) (\s@Image' {} a -> s {file = a} :: Image)
 
 -- | The ID of an existing image. Specify this parameter to keep an existing
 -- image.
 image_id :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
 image_id = Lens.lens (\Image' {id} -> id) (\s@Image' {} a -> s {id = a} :: Image)
 
--- | Undocumented member.
-image_file :: Lens.Lens' Image (Prelude.Maybe ImageFile)
-image_file = Lens.lens (\Image' {file} -> file) (\s@Image' {} a -> s {file = a} :: Image)
-
 instance Prelude.Hashable Image where
   hashWithSalt _salt Image' {..} =
-    _salt `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` file
+    _salt `Prelude.hashWithSalt` file
+      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData Image where
   rnf Image' {..} =
-    Prelude.rnf id `Prelude.seq` Prelude.rnf file
+    Prelude.rnf file `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON Image where
+instance Data.ToJSON Image where
   toJSON Image' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("id" Core..=) Prelude.<$> id,
-            ("file" Core..=) Prelude.<$> file
+          [ ("file" Data..=) Prelude.<$> file,
+            ("id" Data..=) Prelude.<$> id
           ]
       )

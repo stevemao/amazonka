@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.ExpenseType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.ExpenseType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object used to store information about the Type detected by Amazon
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExpenseType' smart constructor.
 data ExpenseType = ExpenseType'
-  { -- | The word or line of text detected by Amazon Textract.
-    text :: Prelude.Maybe Prelude.Text,
-    -- | The confidence of accuracy, as a percentage.
-    confidence :: Prelude.Maybe Prelude.Double
+  { -- | The confidence of accuracy, as a percentage.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | The word or line of text detected by Amazon Textract.
+    text :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data ExpenseType = ExpenseType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'expenseType_text' - The word or line of text detected by Amazon Textract.
---
 -- 'confidence', 'expenseType_confidence' - The confidence of accuracy, as a percentage.
+--
+-- 'text', 'expenseType_text' - The word or line of text detected by Amazon Textract.
 newExpenseType ::
   ExpenseType
 newExpenseType =
   ExpenseType'
-    { text = Prelude.Nothing,
-      confidence = Prelude.Nothing
+    { confidence = Prelude.Nothing,
+      text = Prelude.Nothing
     }
-
--- | The word or line of text detected by Amazon Textract.
-expenseType_text :: Lens.Lens' ExpenseType (Prelude.Maybe Prelude.Text)
-expenseType_text = Lens.lens (\ExpenseType' {text} -> text) (\s@ExpenseType' {} a -> s {text = a} :: ExpenseType)
 
 -- | The confidence of accuracy, as a percentage.
 expenseType_confidence :: Lens.Lens' ExpenseType (Prelude.Maybe Prelude.Double)
 expenseType_confidence = Lens.lens (\ExpenseType' {confidence} -> confidence) (\s@ExpenseType' {} a -> s {confidence = a} :: ExpenseType)
 
-instance Core.FromJSON ExpenseType where
+-- | The word or line of text detected by Amazon Textract.
+expenseType_text :: Lens.Lens' ExpenseType (Prelude.Maybe Prelude.Text)
+expenseType_text = Lens.lens (\ExpenseType' {text} -> text) (\s@ExpenseType' {} a -> s {text = a} :: ExpenseType)
+
+instance Data.FromJSON ExpenseType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExpenseType"
       ( \x ->
           ExpenseType'
-            Prelude.<$> (x Core..:? "Text")
-            Prelude.<*> (x Core..:? "Confidence")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Text")
       )
 
 instance Prelude.Hashable ExpenseType where
   hashWithSalt _salt ExpenseType' {..} =
-    _salt `Prelude.hashWithSalt` text
-      `Prelude.hashWithSalt` confidence
+    _salt `Prelude.hashWithSalt` confidence
+      `Prelude.hashWithSalt` text
 
 instance Prelude.NFData ExpenseType where
   rnf ExpenseType' {..} =
-    Prelude.rnf text
-      `Prelude.seq` Prelude.rnf confidence
+    Prelude.rnf confidence
+      `Prelude.seq` Prelude.rnf text

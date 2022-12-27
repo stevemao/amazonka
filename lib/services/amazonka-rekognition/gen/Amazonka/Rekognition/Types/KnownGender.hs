@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.KnownGender
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,14 @@
 module Amazonka.Rekognition.Types.KnownGender where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.KnownGenderType
 
 -- | The known gender identity for the celebrity that matches the provided
--- ID.
+-- ID. The known gender identity can be Male, Female, Nonbinary, or
+-- Unlisted.
 --
 -- /See:/ 'newKnownGender' smart constructor.
 data KnownGender = KnownGender'
@@ -52,11 +54,11 @@ newKnownGender =
 knownGender_type :: Lens.Lens' KnownGender (Prelude.Maybe KnownGenderType)
 knownGender_type = Lens.lens (\KnownGender' {type'} -> type') (\s@KnownGender' {} a -> s {type' = a} :: KnownGender)
 
-instance Core.FromJSON KnownGender where
+instance Data.FromJSON KnownGender where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KnownGender"
-      (\x -> KnownGender' Prelude.<$> (x Core..:? "Type"))
+      (\x -> KnownGender' Prelude.<$> (x Data..:? "Type"))
 
 instance Prelude.Hashable KnownGender where
   hashWithSalt _salt KnownGender' {..} =

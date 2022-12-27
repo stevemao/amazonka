@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateUserHierarchyStructure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest UpdateUserHierarchyStructure where
   type
     AWSResponse UpdateUserHierarchyStructure =
       UpdateUserHierarchyStructureResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateUserHierarchyStructureResponse'
@@ -112,32 +114,32 @@ instance Prelude.NFData UpdateUserHierarchyStructure where
     Prelude.rnf hierarchyStructure
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders UpdateUserHierarchyStructure where
+instance Data.ToHeaders UpdateUserHierarchyStructure where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateUserHierarchyStructure where
+instance Data.ToJSON UpdateUserHierarchyStructure where
   toJSON UpdateUserHierarchyStructure' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("HierarchyStructure" Core..= hierarchyStructure)
+              ("HierarchyStructure" Data..= hierarchyStructure)
           ]
       )
 
-instance Core.ToPath UpdateUserHierarchyStructure where
+instance Data.ToPath UpdateUserHierarchyStructure where
   toPath UpdateUserHierarchyStructure' {..} =
     Prelude.mconcat
-      ["/user-hierarchy-structure/", Core.toBS instanceId]
+      ["/user-hierarchy-structure/", Data.toBS instanceId]
 
-instance Core.ToQuery UpdateUserHierarchyStructure where
+instance Data.ToQuery UpdateUserHierarchyStructure where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateUserHierarchyStructureResponse' smart constructor.

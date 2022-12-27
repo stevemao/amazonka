@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ElasticGpuHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ElasticGpuHealth where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ElasticGpuStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the status of an Elastic Graphics accelerator.
@@ -52,9 +53,9 @@ newElasticGpuHealth =
 elasticGpuHealth_status :: Lens.Lens' ElasticGpuHealth (Prelude.Maybe ElasticGpuStatus)
 elasticGpuHealth_status = Lens.lens (\ElasticGpuHealth' {status} -> status) (\s@ElasticGpuHealth' {} a -> s {status = a} :: ElasticGpuHealth)
 
-instance Core.FromXML ElasticGpuHealth where
+instance Data.FromXML ElasticGpuHealth where
   parseXML x =
-    ElasticGpuHealth' Prelude.<$> (x Core..@? "status")
+    ElasticGpuHealth' Prelude.<$> (x Data..@? "status")
 
 instance Prelude.Hashable ElasticGpuHealth where
   hashWithSalt _salt ElasticGpuHealth' {..} =

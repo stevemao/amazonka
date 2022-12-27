@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.DeleteIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.CustomerProfiles.DeleteIntegration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ instance Core.AWSRequest DeleteIntegration where
   type
     AWSResponse DeleteIntegration =
       DeleteIntegrationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteIntegrationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Message")
+            Prelude.<*> (x Data..:> "Message")
       )
 
 instance Prelude.Hashable DeleteIntegration where
@@ -110,33 +112,33 @@ instance Prelude.NFData DeleteIntegration where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf uri
 
-instance Core.ToHeaders DeleteIntegration where
+instance Data.ToHeaders DeleteIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteIntegration where
+instance Data.ToJSON DeleteIntegration where
   toJSON DeleteIntegration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Uri" Core..= uri)]
+          [Prelude.Just ("Uri" Data..= uri)]
       )
 
-instance Core.ToPath DeleteIntegration where
+instance Data.ToPath DeleteIntegration where
   toPath DeleteIntegration' {..} =
     Prelude.mconcat
       [ "/domains/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/integrations/delete"
       ]
 
-instance Core.ToQuery DeleteIntegration where
+instance Data.ToQuery DeleteIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIntegrationResponse' smart constructor.

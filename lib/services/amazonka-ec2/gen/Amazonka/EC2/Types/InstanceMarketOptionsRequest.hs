@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceMarketOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.InstanceMarketOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.MarketType
 import Amazonka.EC2.Types.SpotMarketOptions
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the market (purchasing) option for the instances.
@@ -78,9 +79,9 @@ instance Prelude.NFData InstanceMarketOptionsRequest where
     Prelude.rnf marketType
       `Prelude.seq` Prelude.rnf spotOptions
 
-instance Core.ToQuery InstanceMarketOptionsRequest where
+instance Data.ToQuery InstanceMarketOptionsRequest where
   toQuery InstanceMarketOptionsRequest' {..} =
     Prelude.mconcat
-      [ "MarketType" Core.=: marketType,
-        "SpotOptions" Core.=: spotOptions
+      [ "MarketType" Data.=: marketType,
+        "SpotOptions" Data.=: spotOptions
       ]

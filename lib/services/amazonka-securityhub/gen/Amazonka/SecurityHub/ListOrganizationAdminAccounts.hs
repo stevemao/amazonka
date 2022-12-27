@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.ListOrganizationAdminAccounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SecurityHub.ListOrganizationAdminAccounts
     newListOrganizationAdminAccounts,
 
     -- * Request Lenses
-    listOrganizationAdminAccounts_nextToken,
     listOrganizationAdminAccounts_maxResults,
+    listOrganizationAdminAccounts_nextToken,
 
     -- * Destructuring the Response
     ListOrganizationAdminAccountsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SecurityHub.ListOrganizationAdminAccounts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +54,14 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newListOrganizationAdminAccounts' smart constructor.
 data ListOrganizationAdminAccounts = ListOrganizationAdminAccounts'
-  { -- | The token that is required for pagination. On your first call to the
+  { -- | The maximum number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that is required for pagination. On your first call to the
     -- @ListOrganizationAdminAccounts@ operation, set the value of this
     -- parameter to @NULL@. For subsequent calls to the operation, to continue
     -- listing data, set the value of this parameter to the value returned from
     -- the previous response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,25 @@ data ListOrganizationAdminAccounts = ListOrganizationAdminAccounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listOrganizationAdminAccounts_maxResults' - The maximum number of items to return in the response.
+--
 -- 'nextToken', 'listOrganizationAdminAccounts_nextToken' - The token that is required for pagination. On your first call to the
 -- @ListOrganizationAdminAccounts@ operation, set the value of this
 -- parameter to @NULL@. For subsequent calls to the operation, to continue
 -- listing data, set the value of this parameter to the value returned from
 -- the previous response.
---
--- 'maxResults', 'listOrganizationAdminAccounts_maxResults' - The maximum number of items to return in the response.
 newListOrganizationAdminAccounts ::
   ListOrganizationAdminAccounts
 newListOrganizationAdminAccounts =
   ListOrganizationAdminAccounts'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of items to return in the response.
+listOrganizationAdminAccounts_maxResults :: Lens.Lens' ListOrganizationAdminAccounts (Prelude.Maybe Prelude.Natural)
+listOrganizationAdminAccounts_maxResults = Lens.lens (\ListOrganizationAdminAccounts' {maxResults} -> maxResults) (\s@ListOrganizationAdminAccounts' {} a -> s {maxResults = a} :: ListOrganizationAdminAccounts)
 
 -- | The token that is required for pagination. On your first call to the
 -- @ListOrganizationAdminAccounts@ operation, set the value of this
@@ -95,10 +100,6 @@ newListOrganizationAdminAccounts =
 -- the previous response.
 listOrganizationAdminAccounts_nextToken :: Lens.Lens' ListOrganizationAdminAccounts (Prelude.Maybe Prelude.Text)
 listOrganizationAdminAccounts_nextToken = Lens.lens (\ListOrganizationAdminAccounts' {nextToken} -> nextToken) (\s@ListOrganizationAdminAccounts' {} a -> s {nextToken = a} :: ListOrganizationAdminAccounts)
-
--- | The maximum number of items to return in the response.
-listOrganizationAdminAccounts_maxResults :: Lens.Lens' ListOrganizationAdminAccounts (Prelude.Maybe Prelude.Natural)
-listOrganizationAdminAccounts_maxResults = Lens.lens (\ListOrganizationAdminAccounts' {maxResults} -> maxResults) (\s@ListOrganizationAdminAccounts' {} a -> s {maxResults = a} :: ListOrganizationAdminAccounts)
 
 instance Core.AWSPager ListOrganizationAdminAccounts where
   page rq rs
@@ -129,13 +130,14 @@ instance
   type
     AWSResponse ListOrganizationAdminAccounts =
       ListOrganizationAdminAccountsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOrganizationAdminAccountsResponse'
-            Prelude.<$> (x Core..?> "AdminAccounts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "AdminAccounts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,33 +146,33 @@ instance
     ListOrganizationAdminAccounts
   where
   hashWithSalt _salt ListOrganizationAdminAccounts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListOrganizationAdminAccounts where
   rnf ListOrganizationAdminAccounts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOrganizationAdminAccounts where
+instance Data.ToHeaders ListOrganizationAdminAccounts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListOrganizationAdminAccounts where
+instance Data.ToPath ListOrganizationAdminAccounts where
   toPath = Prelude.const "/organization/admin"
 
-instance Core.ToQuery ListOrganizationAdminAccounts where
+instance Data.ToQuery ListOrganizationAdminAccounts where
   toQuery ListOrganizationAdminAccounts' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListOrganizationAdminAccountsResponse' smart constructor.

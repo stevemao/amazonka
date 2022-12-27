@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DeleteElasticsearchServiceRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.ElasticSearch.DeleteElasticsearchServiceRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,7 +67,8 @@ instance
   type
     AWSResponse DeleteElasticsearchServiceRole =
       DeleteElasticsearchServiceRoleResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteElasticsearchServiceRoleResponse'
@@ -85,15 +87,15 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteElasticsearchServiceRole
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteElasticsearchServiceRole where
+instance Data.ToPath DeleteElasticsearchServiceRole where
   toPath = Prelude.const "/2015-01-01/es/role"
 
-instance Core.ToQuery DeleteElasticsearchServiceRole where
+instance Data.ToQuery DeleteElasticsearchServiceRole where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteElasticsearchServiceRoleResponse' smart constructor.

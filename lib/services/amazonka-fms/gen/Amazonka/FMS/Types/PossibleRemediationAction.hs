@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.PossibleRemediationAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.FMS.Types.PossibleRemediationAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.RemediationActionWithOrder
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of remediation actions.
 --
 -- /See:/ 'newPossibleRemediationAction' smart constructor.
 data PossibleRemediationAction = PossibleRemediationAction'
-  { -- | Information about whether an action is taken by default.
-    isDefaultAction :: Prelude.Maybe Prelude.Bool,
-    -- | A description of the list of remediation actions.
+  { -- | A description of the list of remediation actions.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Information about whether an action is taken by default.
+    isDefaultAction :: Prelude.Maybe Prelude.Bool,
     -- | The ordered list of remediation actions.
     orderedRemediationActions :: [RemediationActionWithOrder]
   }
@@ -45,54 +46,54 @@ data PossibleRemediationAction = PossibleRemediationAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'isDefaultAction', 'possibleRemediationAction_isDefaultAction' - Information about whether an action is taken by default.
---
 -- 'description', 'possibleRemediationAction_description' - A description of the list of remediation actions.
+--
+-- 'isDefaultAction', 'possibleRemediationAction_isDefaultAction' - Information about whether an action is taken by default.
 --
 -- 'orderedRemediationActions', 'possibleRemediationAction_orderedRemediationActions' - The ordered list of remediation actions.
 newPossibleRemediationAction ::
   PossibleRemediationAction
 newPossibleRemediationAction =
   PossibleRemediationAction'
-    { isDefaultAction =
+    { description =
         Prelude.Nothing,
-      description = Prelude.Nothing,
+      isDefaultAction = Prelude.Nothing,
       orderedRemediationActions = Prelude.mempty
     }
-
--- | Information about whether an action is taken by default.
-possibleRemediationAction_isDefaultAction :: Lens.Lens' PossibleRemediationAction (Prelude.Maybe Prelude.Bool)
-possibleRemediationAction_isDefaultAction = Lens.lens (\PossibleRemediationAction' {isDefaultAction} -> isDefaultAction) (\s@PossibleRemediationAction' {} a -> s {isDefaultAction = a} :: PossibleRemediationAction)
 
 -- | A description of the list of remediation actions.
 possibleRemediationAction_description :: Lens.Lens' PossibleRemediationAction (Prelude.Maybe Prelude.Text)
 possibleRemediationAction_description = Lens.lens (\PossibleRemediationAction' {description} -> description) (\s@PossibleRemediationAction' {} a -> s {description = a} :: PossibleRemediationAction)
 
+-- | Information about whether an action is taken by default.
+possibleRemediationAction_isDefaultAction :: Lens.Lens' PossibleRemediationAction (Prelude.Maybe Prelude.Bool)
+possibleRemediationAction_isDefaultAction = Lens.lens (\PossibleRemediationAction' {isDefaultAction} -> isDefaultAction) (\s@PossibleRemediationAction' {} a -> s {isDefaultAction = a} :: PossibleRemediationAction)
+
 -- | The ordered list of remediation actions.
 possibleRemediationAction_orderedRemediationActions :: Lens.Lens' PossibleRemediationAction [RemediationActionWithOrder]
 possibleRemediationAction_orderedRemediationActions = Lens.lens (\PossibleRemediationAction' {orderedRemediationActions} -> orderedRemediationActions) (\s@PossibleRemediationAction' {} a -> s {orderedRemediationActions = a} :: PossibleRemediationAction) Prelude.. Lens.coerced
 
-instance Core.FromJSON PossibleRemediationAction where
+instance Data.FromJSON PossibleRemediationAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PossibleRemediationAction"
       ( \x ->
           PossibleRemediationAction'
-            Prelude.<$> (x Core..:? "IsDefaultAction")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> ( x Core..:? "OrderedRemediationActions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "IsDefaultAction")
+            Prelude.<*> ( x Data..:? "OrderedRemediationActions"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable PossibleRemediationAction where
   hashWithSalt _salt PossibleRemediationAction' {..} =
-    _salt `Prelude.hashWithSalt` isDefaultAction
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` isDefaultAction
       `Prelude.hashWithSalt` orderedRemediationActions
 
 instance Prelude.NFData PossibleRemediationAction where
   rnf PossibleRemediationAction' {..} =
-    Prelude.rnf isDefaultAction
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf isDefaultAction
       `Prelude.seq` Prelude.rnf orderedRemediationActions

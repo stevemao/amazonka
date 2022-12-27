@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Summary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Summary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.S3Object
 
@@ -54,11 +55,11 @@ newSummary = Summary' {s3Object = Prelude.Nothing}
 summary_s3Object :: Lens.Lens' Summary (Prelude.Maybe S3Object)
 summary_s3Object = Lens.lens (\Summary' {s3Object} -> s3Object) (\s@Summary' {} a -> s {s3Object = a} :: Summary)
 
-instance Core.FromJSON Summary where
+instance Data.FromJSON Summary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Summary"
-      (\x -> Summary' Prelude.<$> (x Core..:? "S3Object"))
+      (\x -> Summary' Prelude.<$> (x Data..:? "S3Object"))
 
 instance Prelude.Hashable Summary where
   hashWithSalt _salt Summary' {..} =

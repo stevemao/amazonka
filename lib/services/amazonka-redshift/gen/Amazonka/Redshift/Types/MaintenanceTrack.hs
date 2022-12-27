@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.MaintenanceTrack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.MaintenanceTrack where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.UpdateTarget
@@ -80,13 +81,13 @@ maintenanceTrack_maintenanceTrackName = Lens.lens (\MaintenanceTrack' {maintenan
 maintenanceTrack_updateTargets :: Lens.Lens' MaintenanceTrack (Prelude.Maybe [UpdateTarget])
 maintenanceTrack_updateTargets = Lens.lens (\MaintenanceTrack' {updateTargets} -> updateTargets) (\s@MaintenanceTrack' {} a -> s {updateTargets = a} :: MaintenanceTrack) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML MaintenanceTrack where
+instance Data.FromXML MaintenanceTrack where
   parseXML x =
     MaintenanceTrack'
-      Prelude.<$> (x Core..@? "DatabaseVersion")
-      Prelude.<*> (x Core..@? "MaintenanceTrackName")
-      Prelude.<*> ( x Core..@? "UpdateTargets" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "UpdateTarget")
+      Prelude.<$> (x Data..@? "DatabaseVersion")
+      Prelude.<*> (x Data..@? "MaintenanceTrackName")
+      Prelude.<*> ( x Data..@? "UpdateTargets" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "UpdateTarget")
                   )
 
 instance Prelude.Hashable MaintenanceTrack where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.KinesisAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.KinesisAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action to write data to an Amazon Kinesis stream.
@@ -74,15 +75,15 @@ kinesisAction_roleArn = Lens.lens (\KinesisAction' {roleArn} -> roleArn) (\s@Kin
 kinesisAction_streamName :: Lens.Lens' KinesisAction Prelude.Text
 kinesisAction_streamName = Lens.lens (\KinesisAction' {streamName} -> streamName) (\s@KinesisAction' {} a -> s {streamName = a} :: KinesisAction)
 
-instance Core.FromJSON KinesisAction where
+instance Data.FromJSON KinesisAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisAction"
       ( \x ->
           KinesisAction'
-            Prelude.<$> (x Core..:? "partitionKey")
-            Prelude.<*> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "streamName")
+            Prelude.<$> (x Data..:? "partitionKey")
+            Prelude.<*> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "streamName")
       )
 
 instance Prelude.Hashable KinesisAction where
@@ -97,12 +98,12 @@ instance Prelude.NFData KinesisAction where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToJSON KinesisAction where
+instance Data.ToJSON KinesisAction where
   toJSON KinesisAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("partitionKey" Core..=) Prelude.<$> partitionKey,
-            Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("streamName" Core..= streamName)
+          [ ("partitionKey" Data..=) Prelude.<$> partitionKey,
+            Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("streamName" Data..= streamName)
           ]
       )

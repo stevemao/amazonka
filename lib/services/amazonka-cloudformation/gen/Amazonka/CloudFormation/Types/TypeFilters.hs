@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.TypeFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,16 +21,15 @@ module Amazonka.CloudFormation.Types.TypeFilters where
 
 import Amazonka.CloudFormation.Types.Category
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filter criteria to use in determining which extensions to return.
 --
 -- /See:/ 'newTypeFilters' smart constructor.
 data TypeFilters = TypeFilters'
-  { -- | A prefix to use as a filter for results.
-    typeNamePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The category of extensions to return.
+  { -- | The category of extensions to return.
     --
     -- -   @REGISTERED@: Private extensions that have been registered for this
     --     account and region.
@@ -38,7 +37,7 @@ data TypeFilters = TypeFilters'
     -- -   @ACTIVATED@: Public extensions that have been activated for this
     --     account and region.
     --
-    -- -   @THIRD-PARTY@: Extensions available for use from publishers other
+    -- -   @THIRD_PARTY@: Extensions available for use from publishers other
     --     than Amazon. This includes:
     --
     --     -   Private extensions registered in the account.
@@ -46,13 +45,15 @@ data TypeFilters = TypeFilters'
     --     -   Public extensions from publishers other than Amazon, whether
     --         activated or not.
     --
-    -- -   @AWS-TYPES@: Extensions available for use from Amazon.
+    -- -   @AWS_TYPES@: Extensions available for use from Amazon.
     category :: Prelude.Maybe Category,
     -- | The id of the publisher of the extension.
     --
-    -- Extensions published by Amazon are not assigned a publisher ID. Use the
-    -- @AWS-TYPES@ category to specify a list of types published by Amazon.
-    publisherId :: Prelude.Maybe Prelude.Text
+    -- Extensions published by Amazon aren\'t assigned a publisher ID. Use the
+    -- @AWS_TYPES@ category to specify a list of types published by Amazon.
+    publisherId :: Prelude.Maybe Prelude.Text,
+    -- | A prefix to use as a filter for results.
+    typeNamePrefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,8 +65,6 @@ data TypeFilters = TypeFilters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'typeNamePrefix', 'typeFilters_typeNamePrefix' - A prefix to use as a filter for results.
---
 -- 'category', 'typeFilters_category' - The category of extensions to return.
 --
 -- -   @REGISTERED@: Private extensions that have been registered for this
@@ -74,7 +73,7 @@ data TypeFilters = TypeFilters'
 -- -   @ACTIVATED@: Public extensions that have been activated for this
 --     account and region.
 --
--- -   @THIRD-PARTY@: Extensions available for use from publishers other
+-- -   @THIRD_PARTY@: Extensions available for use from publishers other
 --     than Amazon. This includes:
 --
 --     -   Private extensions registered in the account.
@@ -82,24 +81,22 @@ data TypeFilters = TypeFilters'
 --     -   Public extensions from publishers other than Amazon, whether
 --         activated or not.
 --
--- -   @AWS-TYPES@: Extensions available for use from Amazon.
+-- -   @AWS_TYPES@: Extensions available for use from Amazon.
 --
 -- 'publisherId', 'typeFilters_publisherId' - The id of the publisher of the extension.
 --
--- Extensions published by Amazon are not assigned a publisher ID. Use the
--- @AWS-TYPES@ category to specify a list of types published by Amazon.
+-- Extensions published by Amazon aren\'t assigned a publisher ID. Use the
+-- @AWS_TYPES@ category to specify a list of types published by Amazon.
+--
+-- 'typeNamePrefix', 'typeFilters_typeNamePrefix' - A prefix to use as a filter for results.
 newTypeFilters ::
   TypeFilters
 newTypeFilters =
   TypeFilters'
-    { typeNamePrefix = Prelude.Nothing,
-      category = Prelude.Nothing,
-      publisherId = Prelude.Nothing
+    { category = Prelude.Nothing,
+      publisherId = Prelude.Nothing,
+      typeNamePrefix = Prelude.Nothing
     }
-
--- | A prefix to use as a filter for results.
-typeFilters_typeNamePrefix :: Lens.Lens' TypeFilters (Prelude.Maybe Prelude.Text)
-typeFilters_typeNamePrefix = Lens.lens (\TypeFilters' {typeNamePrefix} -> typeNamePrefix) (\s@TypeFilters' {} a -> s {typeNamePrefix = a} :: TypeFilters)
 
 -- | The category of extensions to return.
 --
@@ -109,7 +106,7 @@ typeFilters_typeNamePrefix = Lens.lens (\TypeFilters' {typeNamePrefix} -> typeNa
 -- -   @ACTIVATED@: Public extensions that have been activated for this
 --     account and region.
 --
--- -   @THIRD-PARTY@: Extensions available for use from publishers other
+-- -   @THIRD_PARTY@: Extensions available for use from publishers other
 --     than Amazon. This includes:
 --
 --     -   Private extensions registered in the account.
@@ -117,33 +114,37 @@ typeFilters_typeNamePrefix = Lens.lens (\TypeFilters' {typeNamePrefix} -> typeNa
 --     -   Public extensions from publishers other than Amazon, whether
 --         activated or not.
 --
--- -   @AWS-TYPES@: Extensions available for use from Amazon.
+-- -   @AWS_TYPES@: Extensions available for use from Amazon.
 typeFilters_category :: Lens.Lens' TypeFilters (Prelude.Maybe Category)
 typeFilters_category = Lens.lens (\TypeFilters' {category} -> category) (\s@TypeFilters' {} a -> s {category = a} :: TypeFilters)
 
 -- | The id of the publisher of the extension.
 --
--- Extensions published by Amazon are not assigned a publisher ID. Use the
--- @AWS-TYPES@ category to specify a list of types published by Amazon.
+-- Extensions published by Amazon aren\'t assigned a publisher ID. Use the
+-- @AWS_TYPES@ category to specify a list of types published by Amazon.
 typeFilters_publisherId :: Lens.Lens' TypeFilters (Prelude.Maybe Prelude.Text)
 typeFilters_publisherId = Lens.lens (\TypeFilters' {publisherId} -> publisherId) (\s@TypeFilters' {} a -> s {publisherId = a} :: TypeFilters)
 
+-- | A prefix to use as a filter for results.
+typeFilters_typeNamePrefix :: Lens.Lens' TypeFilters (Prelude.Maybe Prelude.Text)
+typeFilters_typeNamePrefix = Lens.lens (\TypeFilters' {typeNamePrefix} -> typeNamePrefix) (\s@TypeFilters' {} a -> s {typeNamePrefix = a} :: TypeFilters)
+
 instance Prelude.Hashable TypeFilters where
   hashWithSalt _salt TypeFilters' {..} =
-    _salt `Prelude.hashWithSalt` typeNamePrefix
-      `Prelude.hashWithSalt` category
+    _salt `Prelude.hashWithSalt` category
       `Prelude.hashWithSalt` publisherId
+      `Prelude.hashWithSalt` typeNamePrefix
 
 instance Prelude.NFData TypeFilters where
   rnf TypeFilters' {..} =
-    Prelude.rnf typeNamePrefix
-      `Prelude.seq` Prelude.rnf category
+    Prelude.rnf category
       `Prelude.seq` Prelude.rnf publisherId
+      `Prelude.seq` Prelude.rnf typeNamePrefix
 
-instance Core.ToQuery TypeFilters where
+instance Data.ToQuery TypeFilters where
   toQuery TypeFilters' {..} =
     Prelude.mconcat
-      [ "TypeNamePrefix" Core.=: typeNamePrefix,
-        "Category" Core.=: category,
-        "PublisherId" Core.=: publisherId
+      [ "Category" Data.=: category,
+        "PublisherId" Data.=: publisherId,
+        "TypeNamePrefix" Data.=: typeNamePrefix
       ]

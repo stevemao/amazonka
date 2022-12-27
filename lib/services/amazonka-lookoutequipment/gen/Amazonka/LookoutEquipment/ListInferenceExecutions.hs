@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.ListInferenceExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,11 @@ module Amazonka.LookoutEquipment.ListInferenceExecutions
     newListInferenceExecutions,
 
     -- * Request Lenses
-    listInferenceExecutions_status,
     listInferenceExecutions_dataEndTimeBefore,
-    listInferenceExecutions_nextToken,
-    listInferenceExecutions_maxResults,
     listInferenceExecutions_dataStartTimeAfter,
+    listInferenceExecutions_maxResults,
+    listInferenceExecutions_nextToken,
+    listInferenceExecutions_status,
     listInferenceExecutions_inferenceSchedulerName,
 
     -- * Destructuring the Response
@@ -40,14 +40,15 @@ module Amazonka.LookoutEquipment.ListInferenceExecutions
     newListInferenceExecutionsResponse,
 
     -- * Response Lenses
-    listInferenceExecutionsResponse_nextToken,
     listInferenceExecutionsResponse_inferenceExecutionSummaries,
+    listInferenceExecutionsResponse_nextToken,
     listInferenceExecutionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,19 +56,19 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInferenceExecutions' smart constructor.
 data ListInferenceExecutions = ListInferenceExecutions'
-  { -- | The status of the inference execution.
-    status :: Prelude.Maybe InferenceExecutionStatus,
-    -- | The time reference in the inferenced dataset before which Amazon Lookout
+  { -- | The time reference in the inferenced dataset before which Amazon Lookout
     -- for Equipment stopped the inference execution.
-    dataEndTimeBefore :: Prelude.Maybe Core.POSIX,
+    dataEndTimeBefore :: Prelude.Maybe Data.POSIX,
+    -- | The time reference in the inferenced dataset after which Amazon Lookout
+    -- for Equipment started the inference execution.
+    dataStartTimeAfter :: Prelude.Maybe Data.POSIX,
+    -- | Specifies the maximum number of inference executions to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An opaque pagination token indicating where to continue the listing of
     -- inference executions.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the maximum number of inference executions to list.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The time reference in the inferenced dataset after which Amazon Lookout
-    -- for Equipment started the inference execution.
-    dataStartTimeAfter :: Prelude.Maybe Core.POSIX,
+    -- | The status of the inference execution.
+    status :: Prelude.Maybe InferenceExecutionStatus,
     -- | The name of the inference scheduler for the inference execution listed.
     inferenceSchedulerName :: Prelude.Text
   }
@@ -81,18 +82,18 @@ data ListInferenceExecutions = ListInferenceExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listInferenceExecutions_status' - The status of the inference execution.
---
 -- 'dataEndTimeBefore', 'listInferenceExecutions_dataEndTimeBefore' - The time reference in the inferenced dataset before which Amazon Lookout
 -- for Equipment stopped the inference execution.
+--
+-- 'dataStartTimeAfter', 'listInferenceExecutions_dataStartTimeAfter' - The time reference in the inferenced dataset after which Amazon Lookout
+-- for Equipment started the inference execution.
+--
+-- 'maxResults', 'listInferenceExecutions_maxResults' - Specifies the maximum number of inference executions to list.
 --
 -- 'nextToken', 'listInferenceExecutions_nextToken' - An opaque pagination token indicating where to continue the listing of
 -- inference executions.
 --
--- 'maxResults', 'listInferenceExecutions_maxResults' - Specifies the maximum number of inference executions to list.
---
--- 'dataStartTimeAfter', 'listInferenceExecutions_dataStartTimeAfter' - The time reference in the inferenced dataset after which Amazon Lookout
--- for Equipment started the inference execution.
+-- 'status', 'listInferenceExecutions_status' - The status of the inference execution.
 --
 -- 'inferenceSchedulerName', 'listInferenceExecutions_inferenceSchedulerName' - The name of the inference scheduler for the inference execution listed.
 newListInferenceExecutions ::
@@ -101,36 +102,37 @@ newListInferenceExecutions ::
   ListInferenceExecutions
 newListInferenceExecutions pInferenceSchedulerName_ =
   ListInferenceExecutions'
-    { status = Prelude.Nothing,
-      dataEndTimeBefore = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { dataEndTimeBefore =
+        Prelude.Nothing,
       dataStartTimeAfter = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      status = Prelude.Nothing,
       inferenceSchedulerName = pInferenceSchedulerName_
     }
-
--- | The status of the inference execution.
-listInferenceExecutions_status :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe InferenceExecutionStatus)
-listInferenceExecutions_status = Lens.lens (\ListInferenceExecutions' {status} -> status) (\s@ListInferenceExecutions' {} a -> s {status = a} :: ListInferenceExecutions)
 
 -- | The time reference in the inferenced dataset before which Amazon Lookout
 -- for Equipment stopped the inference execution.
 listInferenceExecutions_dataEndTimeBefore :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.UTCTime)
-listInferenceExecutions_dataEndTimeBefore = Lens.lens (\ListInferenceExecutions' {dataEndTimeBefore} -> dataEndTimeBefore) (\s@ListInferenceExecutions' {} a -> s {dataEndTimeBefore = a} :: ListInferenceExecutions) Prelude.. Lens.mapping Core._Time
+listInferenceExecutions_dataEndTimeBefore = Lens.lens (\ListInferenceExecutions' {dataEndTimeBefore} -> dataEndTimeBefore) (\s@ListInferenceExecutions' {} a -> s {dataEndTimeBefore = a} :: ListInferenceExecutions) Prelude.. Lens.mapping Data._Time
+
+-- | The time reference in the inferenced dataset after which Amazon Lookout
+-- for Equipment started the inference execution.
+listInferenceExecutions_dataStartTimeAfter :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.UTCTime)
+listInferenceExecutions_dataStartTimeAfter = Lens.lens (\ListInferenceExecutions' {dataStartTimeAfter} -> dataStartTimeAfter) (\s@ListInferenceExecutions' {} a -> s {dataStartTimeAfter = a} :: ListInferenceExecutions) Prelude.. Lens.mapping Data._Time
+
+-- | Specifies the maximum number of inference executions to list.
+listInferenceExecutions_maxResults :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.Natural)
+listInferenceExecutions_maxResults = Lens.lens (\ListInferenceExecutions' {maxResults} -> maxResults) (\s@ListInferenceExecutions' {} a -> s {maxResults = a} :: ListInferenceExecutions)
 
 -- | An opaque pagination token indicating where to continue the listing of
 -- inference executions.
 listInferenceExecutions_nextToken :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.Text)
 listInferenceExecutions_nextToken = Lens.lens (\ListInferenceExecutions' {nextToken} -> nextToken) (\s@ListInferenceExecutions' {} a -> s {nextToken = a} :: ListInferenceExecutions)
 
--- | Specifies the maximum number of inference executions to list.
-listInferenceExecutions_maxResults :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.Natural)
-listInferenceExecutions_maxResults = Lens.lens (\ListInferenceExecutions' {maxResults} -> maxResults) (\s@ListInferenceExecutions' {} a -> s {maxResults = a} :: ListInferenceExecutions)
-
--- | The time reference in the inferenced dataset after which Amazon Lookout
--- for Equipment started the inference execution.
-listInferenceExecutions_dataStartTimeAfter :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe Prelude.UTCTime)
-listInferenceExecutions_dataStartTimeAfter = Lens.lens (\ListInferenceExecutions' {dataStartTimeAfter} -> dataStartTimeAfter) (\s@ListInferenceExecutions' {} a -> s {dataStartTimeAfter = a} :: ListInferenceExecutions) Prelude.. Lens.mapping Core._Time
+-- | The status of the inference execution.
+listInferenceExecutions_status :: Lens.Lens' ListInferenceExecutions (Prelude.Maybe InferenceExecutionStatus)
+listInferenceExecutions_status = Lens.lens (\ListInferenceExecutions' {status} -> status) (\s@ListInferenceExecutions' {} a -> s {status = a} :: ListInferenceExecutions)
 
 -- | The name of the inference scheduler for the inference execution listed.
 listInferenceExecutions_inferenceSchedulerName :: Lens.Lens' ListInferenceExecutions Prelude.Text
@@ -140,85 +142,86 @@ instance Core.AWSRequest ListInferenceExecutions where
   type
     AWSResponse ListInferenceExecutions =
       ListInferenceExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInferenceExecutionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "InferenceExecutionSummaries"
+            Prelude.<$> ( x Data..?> "InferenceExecutionSummaries"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInferenceExecutions where
   hashWithSalt _salt ListInferenceExecutions' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` dataEndTimeBefore
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` dataEndTimeBefore
       `Prelude.hashWithSalt` dataStartTimeAfter
+      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` inferenceSchedulerName
 
 instance Prelude.NFData ListInferenceExecutions where
   rnf ListInferenceExecutions' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf dataEndTimeBefore
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf dataEndTimeBefore
       `Prelude.seq` Prelude.rnf dataStartTimeAfter
+      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf inferenceSchedulerName
 
-instance Core.ToHeaders ListInferenceExecutions where
+instance Data.ToHeaders ListInferenceExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLookoutEquipmentFrontendService.ListInferenceExecutions" ::
+              Data.=# ( "AWSLookoutEquipmentFrontendService.ListInferenceExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListInferenceExecutions where
+instance Data.ToJSON ListInferenceExecutions where
   toJSON ListInferenceExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("DataEndTimeBefore" Core..=)
+          [ ("DataEndTimeBefore" Data..=)
               Prelude.<$> dataEndTimeBefore,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("DataStartTimeAfter" Core..=)
+            ("DataStartTimeAfter" Data..=)
               Prelude.<$> dataStartTimeAfter,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Status" Data..=) Prelude.<$> status,
             Prelude.Just
               ( "InferenceSchedulerName"
-                  Core..= inferenceSchedulerName
+                  Data..= inferenceSchedulerName
               )
           ]
       )
 
-instance Core.ToPath ListInferenceExecutions where
+instance Data.ToPath ListInferenceExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListInferenceExecutions where
+instance Data.ToQuery ListInferenceExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListInferenceExecutionsResponse' smart constructor.
 data ListInferenceExecutionsResponse = ListInferenceExecutionsResponse'
-  { -- | An opaque pagination token indicating where to continue the listing of
-    -- inference executions.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Provides an array of information about the individual inference
+  { -- | Provides an array of information about the individual inference
     -- executions returned from the @ListInferenceExecutions@ operation,
     -- including model used, inference scheduler, data configuration, and so
     -- on.
     inferenceExecutionSummaries :: Prelude.Maybe [InferenceExecutionSummary],
+    -- | An opaque pagination token indicating where to continue the listing of
+    -- inference executions.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -232,13 +235,13 @@ data ListInferenceExecutionsResponse = ListInferenceExecutionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInferenceExecutionsResponse_nextToken' - An opaque pagination token indicating where to continue the listing of
--- inference executions.
---
 -- 'inferenceExecutionSummaries', 'listInferenceExecutionsResponse_inferenceExecutionSummaries' - Provides an array of information about the individual inference
 -- executions returned from the @ListInferenceExecutions@ operation,
 -- including model used, inference scheduler, data configuration, and so
 -- on.
+--
+-- 'nextToken', 'listInferenceExecutionsResponse_nextToken' - An opaque pagination token indicating where to continue the listing of
+-- inference executions.
 --
 -- 'httpStatus', 'listInferenceExecutionsResponse_httpStatus' - The response's http status code.
 newListInferenceExecutionsResponse ::
@@ -247,17 +250,11 @@ newListInferenceExecutionsResponse ::
   ListInferenceExecutionsResponse
 newListInferenceExecutionsResponse pHttpStatus_ =
   ListInferenceExecutionsResponse'
-    { nextToken =
+    { inferenceExecutionSummaries =
         Prelude.Nothing,
-      inferenceExecutionSummaries =
-        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An opaque pagination token indicating where to continue the listing of
--- inference executions.
-listInferenceExecutionsResponse_nextToken :: Lens.Lens' ListInferenceExecutionsResponse (Prelude.Maybe Prelude.Text)
-listInferenceExecutionsResponse_nextToken = Lens.lens (\ListInferenceExecutionsResponse' {nextToken} -> nextToken) (\s@ListInferenceExecutionsResponse' {} a -> s {nextToken = a} :: ListInferenceExecutionsResponse)
 
 -- | Provides an array of information about the individual inference
 -- executions returned from the @ListInferenceExecutions@ operation,
@@ -265,6 +262,11 @@ listInferenceExecutionsResponse_nextToken = Lens.lens (\ListInferenceExecutionsR
 -- on.
 listInferenceExecutionsResponse_inferenceExecutionSummaries :: Lens.Lens' ListInferenceExecutionsResponse (Prelude.Maybe [InferenceExecutionSummary])
 listInferenceExecutionsResponse_inferenceExecutionSummaries = Lens.lens (\ListInferenceExecutionsResponse' {inferenceExecutionSummaries} -> inferenceExecutionSummaries) (\s@ListInferenceExecutionsResponse' {} a -> s {inferenceExecutionSummaries = a} :: ListInferenceExecutionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | An opaque pagination token indicating where to continue the listing of
+-- inference executions.
+listInferenceExecutionsResponse_nextToken :: Lens.Lens' ListInferenceExecutionsResponse (Prelude.Maybe Prelude.Text)
+listInferenceExecutionsResponse_nextToken = Lens.lens (\ListInferenceExecutionsResponse' {nextToken} -> nextToken) (\s@ListInferenceExecutionsResponse' {} a -> s {nextToken = a} :: ListInferenceExecutionsResponse)
 
 -- | The response's http status code.
 listInferenceExecutionsResponse_httpStatus :: Lens.Lens' ListInferenceExecutionsResponse Prelude.Int
@@ -275,6 +277,6 @@ instance
     ListInferenceExecutionsResponse
   where
   rnf ListInferenceExecutionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf inferenceExecutionSummaries
+    Prelude.rnf inferenceExecutionSummaries
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

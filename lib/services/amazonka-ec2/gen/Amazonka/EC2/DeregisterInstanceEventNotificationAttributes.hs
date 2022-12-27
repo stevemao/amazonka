@@ -14,13 +14,11 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeregisterInstanceEventNotificationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
--- c
 --
 -- Deregisters tag keys to prevent tags that have the specified tag keys
 -- from being included in scheduled event notifications for resources in
@@ -31,8 +29,8 @@ module Amazonka.EC2.DeregisterInstanceEventNotificationAttributes
     newDeregisterInstanceEventNotificationAttributes,
 
     -- * Request Lenses
-    deregisterInstanceEventNotificationAttributes_instanceTagAttribute,
     deregisterInstanceEventNotificationAttributes_dryRun,
+    deregisterInstanceEventNotificationAttributes_instanceTagAttribute,
 
     -- * Destructuring the Response
     DeregisterInstanceEventNotificationAttributesResponse (..),
@@ -45,21 +43,22 @@ module Amazonka.EC2.DeregisterInstanceEventNotificationAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeregisterInstanceEventNotificationAttributes' smart constructor.
 data DeregisterInstanceEventNotificationAttributes = DeregisterInstanceEventNotificationAttributes'
-  { -- | Information about the tag keys to deregister.
-    instanceTagAttribute :: Prelude.Maybe DeregisterInstanceTagAttributeRequest,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Information about the tag keys to deregister.
+    instanceTagAttribute :: Prelude.Maybe DeregisterInstanceTagAttributeRequest
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,24 +70,21 @@ data DeregisterInstanceEventNotificationAttributes = DeregisterInstanceEventNoti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceTagAttribute', 'deregisterInstanceEventNotificationAttributes_instanceTagAttribute' - Information about the tag keys to deregister.
---
 -- 'dryRun', 'deregisterInstanceEventNotificationAttributes_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'instanceTagAttribute', 'deregisterInstanceEventNotificationAttributes_instanceTagAttribute' - Information about the tag keys to deregister.
 newDeregisterInstanceEventNotificationAttributes ::
   DeregisterInstanceEventNotificationAttributes
 newDeregisterInstanceEventNotificationAttributes =
   DeregisterInstanceEventNotificationAttributes'
-    { instanceTagAttribute =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      instanceTagAttribute =
+        Prelude.Nothing
     }
-
--- | Information about the tag keys to deregister.
-deregisterInstanceEventNotificationAttributes_instanceTagAttribute :: Lens.Lens' DeregisterInstanceEventNotificationAttributes (Prelude.Maybe DeregisterInstanceTagAttributeRequest)
-deregisterInstanceEventNotificationAttributes_instanceTagAttribute = Lens.lens (\DeregisterInstanceEventNotificationAttributes' {instanceTagAttribute} -> instanceTagAttribute) (\s@DeregisterInstanceEventNotificationAttributes' {} a -> s {instanceTagAttribute = a} :: DeregisterInstanceEventNotificationAttributes)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -96,6 +92,10 @@ deregisterInstanceEventNotificationAttributes_instanceTagAttribute = Lens.lens (
 -- Otherwise, it is @UnauthorizedOperation@.
 deregisterInstanceEventNotificationAttributes_dryRun :: Lens.Lens' DeregisterInstanceEventNotificationAttributes (Prelude.Maybe Prelude.Bool)
 deregisterInstanceEventNotificationAttributes_dryRun = Lens.lens (\DeregisterInstanceEventNotificationAttributes' {dryRun} -> dryRun) (\s@DeregisterInstanceEventNotificationAttributes' {} a -> s {dryRun = a} :: DeregisterInstanceEventNotificationAttributes)
+
+-- | Information about the tag keys to deregister.
+deregisterInstanceEventNotificationAttributes_instanceTagAttribute :: Lens.Lens' DeregisterInstanceEventNotificationAttributes (Prelude.Maybe DeregisterInstanceTagAttributeRequest)
+deregisterInstanceEventNotificationAttributes_instanceTagAttribute = Lens.lens (\DeregisterInstanceEventNotificationAttributes' {instanceTagAttribute} -> instanceTagAttribute) (\s@DeregisterInstanceEventNotificationAttributes' {} a -> s {instanceTagAttribute = a} :: DeregisterInstanceEventNotificationAttributes)
 
 instance
   Core.AWSRequest
@@ -105,12 +105,13 @@ instance
     AWSResponse
       DeregisterInstanceEventNotificationAttributes =
       DeregisterInstanceEventNotificationAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeregisterInstanceEventNotificationAttributesResponse'
-            Prelude.<$> (x Core..@? "instanceTagAttribute")
+            Prelude.<$> (x Data..@? "instanceTagAttribute")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,8 +122,8 @@ instance
   hashWithSalt
     _salt
     DeregisterInstanceEventNotificationAttributes' {..} =
-      _salt `Prelude.hashWithSalt` instanceTagAttribute
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` instanceTagAttribute
 
 instance
   Prelude.NFData
@@ -130,36 +131,36 @@ instance
   where
   rnf
     DeregisterInstanceEventNotificationAttributes' {..} =
-      Prelude.rnf instanceTagAttribute
-        `Prelude.seq` Prelude.rnf dryRun
+      Prelude.rnf dryRun
+        `Prelude.seq` Prelude.rnf instanceTagAttribute
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeregisterInstanceEventNotificationAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeregisterInstanceEventNotificationAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeregisterInstanceEventNotificationAttributes
   where
   toQuery
     DeregisterInstanceEventNotificationAttributes' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "DeregisterInstanceEventNotificationAttributes" ::
+            Data.=: ( "DeregisterInstanceEventNotificationAttributes" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          "InstanceTagAttribute" Core.=: instanceTagAttribute,
-          "DryRun" Core.=: dryRun
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          "InstanceTagAttribute" Data.=: instanceTagAttribute
         ]
 
 -- | /See:/ 'newDeregisterInstanceEventNotificationAttributesResponse' smart constructor.

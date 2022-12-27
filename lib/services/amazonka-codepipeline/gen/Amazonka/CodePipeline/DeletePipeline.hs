@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.DeletePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,7 +76,8 @@ instance Core.AWSRequest DeletePipeline where
   type
     AWSResponse DeletePipeline =
       DeletePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeletePipelineResponse'
 
@@ -86,32 +88,32 @@ instance Prelude.Hashable DeletePipeline where
 instance Prelude.NFData DeletePipeline where
   rnf DeletePipeline' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeletePipeline where
+instance Data.ToHeaders DeletePipeline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.DeletePipeline" ::
+              Data.=# ( "CodePipeline_20150709.DeletePipeline" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePipeline where
+instance Data.ToJSON DeletePipeline where
   toJSON DeletePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeletePipeline where
+instance Data.ToPath DeletePipeline where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePipeline where
+instance Data.ToQuery DeletePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePipelineResponse' smart constructor.

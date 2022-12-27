@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RedshiftData.DescribeTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,14 +25,18 @@
 -- page through the column list. Depending on the authorization method, use
 -- one of the following combinations of request parameters:
 --
--- -   Secrets Manager - specify the Amazon Resource Name (ARN) of the
---     secret, the database name, and the cluster identifier that matches
---     the cluster in the secret.
+-- -   Secrets Manager - when connecting to a cluster, specify the Amazon
+--     Resource Name (ARN) of the secret, the database name, and the
+--     cluster identifier that matches the cluster in the secret. When
+--     connecting to a serverless workgroup, specify the Amazon Resource
+--     Name (ARN) of the secret and the database name.
 --
--- -   Temporary credentials - specify the cluster identifier, the database
---     name, and the database user name. Permission to call the
---     @redshift:GetClusterCredentials@ operation is required to use this
---     method.
+-- -   Temporary credentials - when connecting to a cluster, specify the
+--     cluster identifier, the database name, and the database user name.
+--     Also, permission to call the @redshift:GetClusterCredentials@
+--     operation is required. When connecting to a serverless workgroup,
+--     specify the workgroup name and database name. Also, permission to
+--     call the @redshift-serverless:GetCredentials@ operation is required.
 --
 -- This operation returns paginated results.
 module Amazonka.RedshiftData.DescribeTable
@@ -41,14 +45,15 @@ module Amazonka.RedshiftData.DescribeTable
     newDescribeTable,
 
     -- * Request Lenses
-    describeTable_dbUser,
+    describeTable_clusterIdentifier,
     describeTable_connectedDatabase,
-    describeTable_schema,
+    describeTable_dbUser,
+    describeTable_maxResults,
     describeTable_nextToken,
+    describeTable_schema,
     describeTable_secretArn,
     describeTable_table,
-    describeTable_maxResults,
-    describeTable_clusterIdentifier,
+    describeTable_workgroupName,
     describeTable_database,
 
     -- * Destructuring the Response
@@ -64,7 +69,8 @@ module Amazonka.RedshiftData.DescribeTable
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RedshiftData.Types
 import qualified Amazonka.Request as Request
@@ -72,15 +78,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTable' smart constructor.
 data DescribeTable = DescribeTable'
-  { -- | The database user name. This parameter is required when authenticating
-    -- using temporary credentials.
-    dbUser :: Prelude.Maybe Prelude.Text,
+  { -- | The cluster identifier. This parameter is required when connecting to a
+    -- cluster and authenticating using either Secrets Manager or temporary
+    -- credentials.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | A database name. The connected database is specified when you connect
     -- with your authentication credentials.
     connectedDatabase :: Prelude.Maybe Prelude.Text,
-    -- | The schema that contains the table. If no schema is specified, then
-    -- matching tables for all schemas are returned.
-    schema :: Prelude.Maybe Prelude.Text,
+    -- | The database user name. This parameter is required when connecting to a
+    -- cluster and authenticating using temporary credentials.
+    dbUser :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of tables to return in the response. If more tables
+    -- exist than fit in one response, then @NextToken@ is returned to page
+    -- through the results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A value that indicates the starting point for the next set of response
     -- records in a subsequent request. If a value is returned in a response,
     -- you can retrieve the next set of records by providing this returned
@@ -88,6 +99,9 @@ data DescribeTable = DescribeTable'
     -- command. If the NextToken field is empty, all response records have been
     -- retrieved for the request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The schema that contains the table. If no schema is specified, then
+    -- matching tables for all schemas are returned.
+    schema :: Prelude.Maybe Prelude.Text,
     -- | The name or ARN of the secret that enables access to the database. This
     -- parameter is required when authenticating using Secrets Manager.
     secretArn :: Prelude.Maybe Prelude.Text,
@@ -95,13 +109,10 @@ data DescribeTable = DescribeTable'
     -- matching schemas are returned. If no table and no schema is specified,
     -- then all tables for all schemas in the database are returned
     table :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tables to return in the response. If more tables
-    -- exist than fit in one response, then @NextToken@ is returned to page
-    -- through the results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The cluster identifier. This parameter is required when authenticating
-    -- using either Secrets Manager or temporary credentials.
-    clusterIdentifier :: Prelude.Text,
+    -- | The serverless workgroup name. This parameter is required when
+    -- connecting to a serverless workgroup and authenticating using either
+    -- Secrets Manager or temporary credentials.
+    workgroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the database that contains the tables to be described. If
     -- @ConnectedDatabase@ is not specified, this is also the database to
     -- connect to with your authentication credentials.
@@ -117,14 +128,19 @@ data DescribeTable = DescribeTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dbUser', 'describeTable_dbUser' - The database user name. This parameter is required when authenticating
--- using temporary credentials.
+-- 'clusterIdentifier', 'describeTable_clusterIdentifier' - The cluster identifier. This parameter is required when connecting to a
+-- cluster and authenticating using either Secrets Manager or temporary
+-- credentials.
 --
 -- 'connectedDatabase', 'describeTable_connectedDatabase' - A database name. The connected database is specified when you connect
 -- with your authentication credentials.
 --
--- 'schema', 'describeTable_schema' - The schema that contains the table. If no schema is specified, then
--- matching tables for all schemas are returned.
+-- 'dbUser', 'describeTable_dbUser' - The database user name. This parameter is required when connecting to a
+-- cluster and authenticating using temporary credentials.
+--
+-- 'maxResults', 'describeTable_maxResults' - The maximum number of tables to return in the response. If more tables
+-- exist than fit in one response, then @NextToken@ is returned to page
+-- through the results.
 --
 -- 'nextToken', 'describeTable_nextToken' - A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
@@ -133,6 +149,9 @@ data DescribeTable = DescribeTable'
 -- command. If the NextToken field is empty, all response records have been
 -- retrieved for the request.
 --
+-- 'schema', 'describeTable_schema' - The schema that contains the table. If no schema is specified, then
+-- matching tables for all schemas are returned.
+--
 -- 'secretArn', 'describeTable_secretArn' - The name or ARN of the secret that enables access to the database. This
 -- parameter is required when authenticating using Secrets Manager.
 --
@@ -140,49 +159,52 @@ data DescribeTable = DescribeTable'
 -- matching schemas are returned. If no table and no schema is specified,
 -- then all tables for all schemas in the database are returned
 --
--- 'maxResults', 'describeTable_maxResults' - The maximum number of tables to return in the response. If more tables
--- exist than fit in one response, then @NextToken@ is returned to page
--- through the results.
---
--- 'clusterIdentifier', 'describeTable_clusterIdentifier' - The cluster identifier. This parameter is required when authenticating
--- using either Secrets Manager or temporary credentials.
+-- 'workgroupName', 'describeTable_workgroupName' - The serverless workgroup name. This parameter is required when
+-- connecting to a serverless workgroup and authenticating using either
+-- Secrets Manager or temporary credentials.
 --
 -- 'database', 'describeTable_database' - The name of the database that contains the tables to be described. If
 -- @ConnectedDatabase@ is not specified, this is also the database to
 -- connect to with your authentication credentials.
 newDescribeTable ::
-  -- | 'clusterIdentifier'
-  Prelude.Text ->
   -- | 'database'
   Prelude.Text ->
   DescribeTable
-newDescribeTable pClusterIdentifier_ pDatabase_ =
+newDescribeTable pDatabase_ =
   DescribeTable'
-    { dbUser = Prelude.Nothing,
+    { clusterIdentifier = Prelude.Nothing,
       connectedDatabase = Prelude.Nothing,
-      schema = Prelude.Nothing,
+      dbUser = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      schema = Prelude.Nothing,
       secretArn = Prelude.Nothing,
       table = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      clusterIdentifier = pClusterIdentifier_,
+      workgroupName = Prelude.Nothing,
       database = pDatabase_
     }
 
--- | The database user name. This parameter is required when authenticating
--- using temporary credentials.
-describeTable_dbUser :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
-describeTable_dbUser = Lens.lens (\DescribeTable' {dbUser} -> dbUser) (\s@DescribeTable' {} a -> s {dbUser = a} :: DescribeTable)
+-- | The cluster identifier. This parameter is required when connecting to a
+-- cluster and authenticating using either Secrets Manager or temporary
+-- credentials.
+describeTable_clusterIdentifier :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
+describeTable_clusterIdentifier = Lens.lens (\DescribeTable' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeTable' {} a -> s {clusterIdentifier = a} :: DescribeTable)
 
 -- | A database name. The connected database is specified when you connect
 -- with your authentication credentials.
 describeTable_connectedDatabase :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
 describeTable_connectedDatabase = Lens.lens (\DescribeTable' {connectedDatabase} -> connectedDatabase) (\s@DescribeTable' {} a -> s {connectedDatabase = a} :: DescribeTable)
 
--- | The schema that contains the table. If no schema is specified, then
--- matching tables for all schemas are returned.
-describeTable_schema :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
-describeTable_schema = Lens.lens (\DescribeTable' {schema} -> schema) (\s@DescribeTable' {} a -> s {schema = a} :: DescribeTable)
+-- | The database user name. This parameter is required when connecting to a
+-- cluster and authenticating using temporary credentials.
+describeTable_dbUser :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
+describeTable_dbUser = Lens.lens (\DescribeTable' {dbUser} -> dbUser) (\s@DescribeTable' {} a -> s {dbUser = a} :: DescribeTable)
+
+-- | The maximum number of tables to return in the response. If more tables
+-- exist than fit in one response, then @NextToken@ is returned to page
+-- through the results.
+describeTable_maxResults :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Natural)
+describeTable_maxResults = Lens.lens (\DescribeTable' {maxResults} -> maxResults) (\s@DescribeTable' {} a -> s {maxResults = a} :: DescribeTable)
 
 -- | A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
@@ -192,6 +214,11 @@ describeTable_schema = Lens.lens (\DescribeTable' {schema} -> schema) (\s@Descri
 -- retrieved for the request.
 describeTable_nextToken :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
 describeTable_nextToken = Lens.lens (\DescribeTable' {nextToken} -> nextToken) (\s@DescribeTable' {} a -> s {nextToken = a} :: DescribeTable)
+
+-- | The schema that contains the table. If no schema is specified, then
+-- matching tables for all schemas are returned.
+describeTable_schema :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
+describeTable_schema = Lens.lens (\DescribeTable' {schema} -> schema) (\s@DescribeTable' {} a -> s {schema = a} :: DescribeTable)
 
 -- | The name or ARN of the secret that enables access to the database. This
 -- parameter is required when authenticating using Secrets Manager.
@@ -204,16 +231,11 @@ describeTable_secretArn = Lens.lens (\DescribeTable' {secretArn} -> secretArn) (
 describeTable_table :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
 describeTable_table = Lens.lens (\DescribeTable' {table} -> table) (\s@DescribeTable' {} a -> s {table = a} :: DescribeTable)
 
--- | The maximum number of tables to return in the response. If more tables
--- exist than fit in one response, then @NextToken@ is returned to page
--- through the results.
-describeTable_maxResults :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Natural)
-describeTable_maxResults = Lens.lens (\DescribeTable' {maxResults} -> maxResults) (\s@DescribeTable' {} a -> s {maxResults = a} :: DescribeTable)
-
--- | The cluster identifier. This parameter is required when authenticating
--- using either Secrets Manager or temporary credentials.
-describeTable_clusterIdentifier :: Lens.Lens' DescribeTable Prelude.Text
-describeTable_clusterIdentifier = Lens.lens (\DescribeTable' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeTable' {} a -> s {clusterIdentifier = a} :: DescribeTable)
+-- | The serverless workgroup name. This parameter is required when
+-- connecting to a serverless workgroup and authenticating using either
+-- Secrets Manager or temporary credentials.
+describeTable_workgroupName :: Lens.Lens' DescribeTable (Prelude.Maybe Prelude.Text)
+describeTable_workgroupName = Lens.lens (\DescribeTable' {workgroupName} -> workgroupName) (\s@DescribeTable' {} a -> s {workgroupName = a} :: DescribeTable)
 
 -- | The name of the database that contains the tables to be described. If
 -- @ConnectedDatabase@ is not specified, this is also the database to
@@ -245,76 +267,80 @@ instance Core.AWSRequest DescribeTable where
   type
     AWSResponse DescribeTable =
       DescribeTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTableResponse'
-            Prelude.<$> (x Core..?> "ColumnList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "TableName")
+            Prelude.<$> (x Data..?> "ColumnList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "TableName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTable where
   hashWithSalt _salt DescribeTable' {..} =
-    _salt `Prelude.hashWithSalt` dbUser
+    _salt `Prelude.hashWithSalt` clusterIdentifier
       `Prelude.hashWithSalt` connectedDatabase
-      `Prelude.hashWithSalt` schema
+      `Prelude.hashWithSalt` dbUser
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` schema
       `Prelude.hashWithSalt` secretArn
       `Prelude.hashWithSalt` table
-      `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` clusterIdentifier
+      `Prelude.hashWithSalt` workgroupName
       `Prelude.hashWithSalt` database
 
 instance Prelude.NFData DescribeTable where
   rnf DescribeTable' {..} =
-    Prelude.rnf dbUser
+    Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf connectedDatabase
-      `Prelude.seq` Prelude.rnf schema
+      `Prelude.seq` Prelude.rnf dbUser
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schema
       `Prelude.seq` Prelude.rnf secretArn
       `Prelude.seq` Prelude.rnf table
-      `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf clusterIdentifier
+      `Prelude.seq` Prelude.rnf workgroupName
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToHeaders DescribeTable where
+instance Data.ToHeaders DescribeTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("RedshiftData.DescribeTable" :: Prelude.ByteString),
+              Data.=# ("RedshiftData.DescribeTable" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTable where
+instance Data.ToJSON DescribeTable where
   toJSON DescribeTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DbUser" Core..=) Prelude.<$> dbUser,
-            ("ConnectedDatabase" Core..=)
+          [ ("ClusterIdentifier" Data..=)
+              Prelude.<$> clusterIdentifier,
+            ("ConnectedDatabase" Data..=)
               Prelude.<$> connectedDatabase,
-            ("Schema" Core..=) Prelude.<$> schema,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SecretArn" Core..=) Prelude.<$> secretArn,
-            ("Table" Core..=) Prelude.<$> table,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just
-              ("ClusterIdentifier" Core..= clusterIdentifier),
-            Prelude.Just ("Database" Core..= database)
+            ("DbUser" Data..=) Prelude.<$> dbUser,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Schema" Data..=) Prelude.<$> schema,
+            ("SecretArn" Data..=) Prelude.<$> secretArn,
+            ("Table" Data..=) Prelude.<$> table,
+            ("WorkgroupName" Data..=) Prelude.<$> workgroupName,
+            Prelude.Just ("Database" Data..= database)
           ]
       )
 
-instance Core.ToPath DescribeTable where
+instance Data.ToPath DescribeTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTable where
+instance Data.ToQuery DescribeTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTableResponse' smart constructor.

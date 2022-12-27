@@ -1,14 +1,16 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-route53/amazonka-route53.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-route53/amazonka-route53.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-route53",
     srcs = [
         "gen/Amazonka/Route53.hs",
         "gen/Amazonka/Route53/ActivateKeySigningKey.hs",
         "gen/Amazonka/Route53/AssociateVPCWithHostedZone.hs",
+        "gen/Amazonka/Route53/ChangeCidrCollection.hs",
         "gen/Amazonka/Route53/ChangeResourceRecordSets.hs",
         "gen/Amazonka/Route53/ChangeTagsForResource.hs",
+        "gen/Amazonka/Route53/CreateCidrCollection.hs",
         "gen/Amazonka/Route53/CreateHealthCheck.hs",
         "gen/Amazonka/Route53/CreateHostedZone.hs",
         "gen/Amazonka/Route53/CreateKeySigningKey.hs",
@@ -19,6 +21,7 @@ haskell_library(
         "gen/Amazonka/Route53/CreateTrafficPolicyVersion.hs",
         "gen/Amazonka/Route53/CreateVPCAssociationAuthorization.hs",
         "gen/Amazonka/Route53/DeactivateKeySigningKey.hs",
+        "gen/Amazonka/Route53/DeleteCidrCollection.hs",
         "gen/Amazonka/Route53/DeleteHealthCheck.hs",
         "gen/Amazonka/Route53/DeleteHostedZone.hs",
         "gen/Amazonka/Route53/DeleteKeySigningKey.hs",
@@ -49,6 +52,9 @@ haskell_library(
         "gen/Amazonka/Route53/GetTrafficPolicyInstance.hs",
         "gen/Amazonka/Route53/GetTrafficPolicyInstanceCount.hs",
         "gen/Amazonka/Route53/Lens.hs",
+        "gen/Amazonka/Route53/ListCidrBlocks.hs",
+        "gen/Amazonka/Route53/ListCidrCollections.hs",
+        "gen/Amazonka/Route53/ListCidrLocations.hs",
         "gen/Amazonka/Route53/ListGeoLocations.hs",
         "gen/Amazonka/Route53/ListHealthChecks.hs",
         "gen/Amazonka/Route53/ListHostedZones.hs",
@@ -76,8 +82,14 @@ haskell_library(
         "gen/Amazonka/Route53/Types/ChangeBatch.hs",
         "gen/Amazonka/Route53/Types/ChangeInfo.hs",
         "gen/Amazonka/Route53/Types/ChangeStatus.hs",
+        "gen/Amazonka/Route53/Types/CidrBlockSummary.hs",
+        "gen/Amazonka/Route53/Types/CidrCollection.hs",
+        "gen/Amazonka/Route53/Types/CidrCollectionChange.hs",
+        "gen/Amazonka/Route53/Types/CidrCollectionChangeAction.hs",
+        "gen/Amazonka/Route53/Types/CidrRoutingConfig.hs",
         "gen/Amazonka/Route53/Types/CloudWatchAlarmConfiguration.hs",
         "gen/Amazonka/Route53/Types/CloudWatchRegion.hs",
+        "gen/Amazonka/Route53/Types/CollectionSummary.hs",
         "gen/Amazonka/Route53/Types/ComparisonOperator.hs",
         "gen/Amazonka/Route53/Types/DNSSECStatus.hs",
         "gen/Amazonka/Route53/Types/DelegationSet.hs",
@@ -98,6 +110,7 @@ haskell_library(
         "gen/Amazonka/Route53/Types/InsufficientDataHealthStatus.hs",
         "gen/Amazonka/Route53/Types/KeySigningKey.hs",
         "gen/Amazonka/Route53/Types/LinkedService.hs",
+        "gen/Amazonka/Route53/Types/LocationSummary.hs",
         "gen/Amazonka/Route53/Types/QueryLoggingConfig.hs",
         "gen/Amazonka/Route53/Types/RRType.hs",
         "gen/Amazonka/Route53/Types/ResettableElementName.hs",
@@ -123,14 +136,13 @@ haskell_library(
         "gen/Amazonka/Route53/Waiters.hs",
         "src/Amazonka/Route53/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_route53=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_route53=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -140,7 +152,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-route53/amazonka-route53.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-route53/amazonka-route53.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-route53-test",
     srcs = [
@@ -149,11 +161,12 @@ haskell_test(
         "test/Test/Amazonka/Route53.hs",
         "test/Test/Amazonka/Route53/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_route53=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_route53=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

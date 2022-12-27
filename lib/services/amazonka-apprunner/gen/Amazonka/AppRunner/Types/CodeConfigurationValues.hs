@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.CodeConfigurationValues
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppRunner.Types.CodeConfigurationValues where
 
 import Amazonka.AppRunner.Types.Runtime
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the basic configuration needed for building and running an App
@@ -31,18 +32,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCodeConfigurationValues' smart constructor.
 data CodeConfigurationValues = CodeConfigurationValues'
-  { -- | The command App Runner runs to start your application.
-    startCommand :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The environment variables that are available to your running App Runner
-    -- service. An array of key-value pairs. Keys with a prefix of
-    -- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
-    runtimeEnvironmentVariables :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)),
-    -- | The command App Runner runs to build your application.
-    buildCommand :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | The command App Runner runs to build your application.
+    buildCommand :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The port that your application listens to in the container.
     --
     -- Default: @8080@
     port :: Prelude.Maybe Prelude.Text,
+    -- | The environment variables that are available to your running App Runner
+    -- service. An array of key-value pairs. Keys with a prefix of
+    -- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
+    runtimeEnvironmentVariables :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)),
+    -- | The command App Runner runs to start your application.
+    startCommand :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A runtime environment type for building and running an App Runner
     -- service. It represents a programming language runtime.
     runtime :: Runtime
@@ -57,17 +58,17 @@ data CodeConfigurationValues = CodeConfigurationValues'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startCommand', 'codeConfigurationValues_startCommand' - The command App Runner runs to start your application.
---
--- 'runtimeEnvironmentVariables', 'codeConfigurationValues_runtimeEnvironmentVariables' - The environment variables that are available to your running App Runner
--- service. An array of key-value pairs. Keys with a prefix of
--- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
---
 -- 'buildCommand', 'codeConfigurationValues_buildCommand' - The command App Runner runs to build your application.
 --
 -- 'port', 'codeConfigurationValues_port' - The port that your application listens to in the container.
 --
 -- Default: @8080@
+--
+-- 'runtimeEnvironmentVariables', 'codeConfigurationValues_runtimeEnvironmentVariables' - The environment variables that are available to your running App Runner
+-- service. An array of key-value pairs. Keys with a prefix of
+-- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
+--
+-- 'startCommand', 'codeConfigurationValues_startCommand' - The command App Runner runs to start your application.
 --
 -- 'runtime', 'codeConfigurationValues_runtime' - A runtime environment type for building and running an App Runner
 -- service. It represents a programming language runtime.
@@ -77,27 +78,17 @@ newCodeConfigurationValues ::
   CodeConfigurationValues
 newCodeConfigurationValues pRuntime_ =
   CodeConfigurationValues'
-    { startCommand =
+    { buildCommand =
         Prelude.Nothing,
-      runtimeEnvironmentVariables = Prelude.Nothing,
-      buildCommand = Prelude.Nothing,
       port = Prelude.Nothing,
+      runtimeEnvironmentVariables = Prelude.Nothing,
+      startCommand = Prelude.Nothing,
       runtime = pRuntime_
     }
 
--- | The command App Runner runs to start your application.
-codeConfigurationValues_startCommand :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe Prelude.Text)
-codeConfigurationValues_startCommand = Lens.lens (\CodeConfigurationValues' {startCommand} -> startCommand) (\s@CodeConfigurationValues' {} a -> s {startCommand = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Core._Sensitive
-
--- | The environment variables that are available to your running App Runner
--- service. An array of key-value pairs. Keys with a prefix of
--- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
-codeConfigurationValues_runtimeEnvironmentVariables :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-codeConfigurationValues_runtimeEnvironmentVariables = Lens.lens (\CodeConfigurationValues' {runtimeEnvironmentVariables} -> runtimeEnvironmentVariables) (\s@CodeConfigurationValues' {} a -> s {runtimeEnvironmentVariables = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Lens.coerced
-
 -- | The command App Runner runs to build your application.
 codeConfigurationValues_buildCommand :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe Prelude.Text)
-codeConfigurationValues_buildCommand = Lens.lens (\CodeConfigurationValues' {buildCommand} -> buildCommand) (\s@CodeConfigurationValues' {} a -> s {buildCommand = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Core._Sensitive
+codeConfigurationValues_buildCommand = Lens.lens (\CodeConfigurationValues' {buildCommand} -> buildCommand) (\s@CodeConfigurationValues' {} a -> s {buildCommand = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The port that your application listens to in the container.
 --
@@ -105,51 +96,61 @@ codeConfigurationValues_buildCommand = Lens.lens (\CodeConfigurationValues' {bui
 codeConfigurationValues_port :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe Prelude.Text)
 codeConfigurationValues_port = Lens.lens (\CodeConfigurationValues' {port} -> port) (\s@CodeConfigurationValues' {} a -> s {port = a} :: CodeConfigurationValues)
 
+-- | The environment variables that are available to your running App Runner
+-- service. An array of key-value pairs. Keys with a prefix of
+-- @AWSAPPRUNNER@ are reserved for system use and aren\'t valid.
+codeConfigurationValues_runtimeEnvironmentVariables :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+codeConfigurationValues_runtimeEnvironmentVariables = Lens.lens (\CodeConfigurationValues' {runtimeEnvironmentVariables} -> runtimeEnvironmentVariables) (\s@CodeConfigurationValues' {} a -> s {runtimeEnvironmentVariables = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Lens.coerced
+
+-- | The command App Runner runs to start your application.
+codeConfigurationValues_startCommand :: Lens.Lens' CodeConfigurationValues (Prelude.Maybe Prelude.Text)
+codeConfigurationValues_startCommand = Lens.lens (\CodeConfigurationValues' {startCommand} -> startCommand) (\s@CodeConfigurationValues' {} a -> s {startCommand = a} :: CodeConfigurationValues) Prelude.. Lens.mapping Data._Sensitive
+
 -- | A runtime environment type for building and running an App Runner
 -- service. It represents a programming language runtime.
 codeConfigurationValues_runtime :: Lens.Lens' CodeConfigurationValues Runtime
 codeConfigurationValues_runtime = Lens.lens (\CodeConfigurationValues' {runtime} -> runtime) (\s@CodeConfigurationValues' {} a -> s {runtime = a} :: CodeConfigurationValues)
 
-instance Core.FromJSON CodeConfigurationValues where
+instance Data.FromJSON CodeConfigurationValues where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeConfigurationValues"
       ( \x ->
           CodeConfigurationValues'
-            Prelude.<$> (x Core..:? "StartCommand")
-            Prelude.<*> ( x Core..:? "RuntimeEnvironmentVariables"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "BuildCommand")
+            Prelude.<*> (x Data..:? "Port")
+            Prelude.<*> ( x Data..:? "RuntimeEnvironmentVariables"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "BuildCommand")
-            Prelude.<*> (x Core..:? "Port")
-            Prelude.<*> (x Core..: "Runtime")
+            Prelude.<*> (x Data..:? "StartCommand")
+            Prelude.<*> (x Data..: "Runtime")
       )
 
 instance Prelude.Hashable CodeConfigurationValues where
   hashWithSalt _salt CodeConfigurationValues' {..} =
-    _salt `Prelude.hashWithSalt` startCommand
-      `Prelude.hashWithSalt` runtimeEnvironmentVariables
-      `Prelude.hashWithSalt` buildCommand
+    _salt `Prelude.hashWithSalt` buildCommand
       `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` runtimeEnvironmentVariables
+      `Prelude.hashWithSalt` startCommand
       `Prelude.hashWithSalt` runtime
 
 instance Prelude.NFData CodeConfigurationValues where
   rnf CodeConfigurationValues' {..} =
-    Prelude.rnf startCommand
-      `Prelude.seq` Prelude.rnf runtimeEnvironmentVariables
-      `Prelude.seq` Prelude.rnf buildCommand
+    Prelude.rnf buildCommand
       `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf runtimeEnvironmentVariables
+      `Prelude.seq` Prelude.rnf startCommand
       `Prelude.seq` Prelude.rnf runtime
 
-instance Core.ToJSON CodeConfigurationValues where
+instance Data.ToJSON CodeConfigurationValues where
   toJSON CodeConfigurationValues' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StartCommand" Core..=) Prelude.<$> startCommand,
-            ("RuntimeEnvironmentVariables" Core..=)
+          [ ("BuildCommand" Data..=) Prelude.<$> buildCommand,
+            ("Port" Data..=) Prelude.<$> port,
+            ("RuntimeEnvironmentVariables" Data..=)
               Prelude.<$> runtimeEnvironmentVariables,
-            ("BuildCommand" Core..=) Prelude.<$> buildCommand,
-            ("Port" Core..=) Prelude.<$> port,
-            Prelude.Just ("Runtime" Core..= runtime)
+            ("StartCommand" Data..=) Prelude.<$> startCommand,
+            Prelude.Just ("Runtime" Data..= runtime)
           ]
       )

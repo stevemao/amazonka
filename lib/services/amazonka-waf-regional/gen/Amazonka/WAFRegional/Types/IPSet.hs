@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.IPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.IPSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.IPSetDescriptor
 
@@ -122,16 +123,16 @@ iPSet_iPSetId = Lens.lens (\IPSet' {iPSetId} -> iPSetId) (\s@IPSet' {} a -> s {i
 iPSet_iPSetDescriptors :: Lens.Lens' IPSet [IPSetDescriptor]
 iPSet_iPSetDescriptors = Lens.lens (\IPSet' {iPSetDescriptors} -> iPSetDescriptors) (\s@IPSet' {} a -> s {iPSetDescriptors = a} :: IPSet) Prelude.. Lens.coerced
 
-instance Core.FromJSON IPSet where
+instance Data.FromJSON IPSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IPSet"
       ( \x ->
           IPSet'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..: "IPSetId")
-            Prelude.<*> ( x Core..:? "IPSetDescriptors"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..: "IPSetId")
+            Prelude.<*> ( x Data..:? "IPSetDescriptors"
+                            Data..!= Prelude.mempty
                         )
       )
 

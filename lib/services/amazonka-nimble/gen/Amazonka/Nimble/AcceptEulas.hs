@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.AcceptEulas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,24 +42,19 @@ module Amazonka.Nimble.AcceptEulas
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | A collection of EULA acceptances.
---
--- /See:/ 'newAcceptEulas' smart constructor.
+-- | /See:/ 'newAcceptEulas' smart constructor.
 data AcceptEulas = AcceptEulas'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The EULA ID.
     eulaIds :: Prelude.Maybe [Prelude.Text],
@@ -76,14 +71,10 @@ data AcceptEulas = AcceptEulas'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'acceptEulas_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'acceptEulas_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'eulaIds', 'acceptEulas_eulaIds' - The EULA ID.
 --
@@ -99,14 +90,10 @@ newAcceptEulas pStudioId_ =
       studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 acceptEulas_clientToken :: Lens.Lens' AcceptEulas (Prelude.Maybe Prelude.Text)
 acceptEulas_clientToken = Lens.lens (\AcceptEulas' {clientToken} -> clientToken) (\s@AcceptEulas' {} a -> s {clientToken = a} :: AcceptEulas)
 
@@ -120,12 +107,13 @@ acceptEulas_studioId = Lens.lens (\AcceptEulas' {studioId} -> studioId) (\s@Acce
 
 instance Core.AWSRequest AcceptEulas where
   type AWSResponse AcceptEulas = AcceptEulasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcceptEulasResponse'
-            Prelude.<$> ( x Core..?> "eulaAcceptances"
+            Prelude.<$> ( x Data..?> "eulaAcceptances"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -143,30 +131,30 @@ instance Prelude.NFData AcceptEulas where
       `Prelude.seq` Prelude.rnf eulaIds
       `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders AcceptEulas where
+instance Data.ToHeaders AcceptEulas where
   toHeaders AcceptEulas' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON AcceptEulas where
+instance Data.ToJSON AcceptEulas where
   toJSON AcceptEulas' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("eulaIds" Core..=) Prelude.<$> eulaIds]
+          [("eulaIds" Data..=) Prelude.<$> eulaIds]
       )
 
-instance Core.ToPath AcceptEulas where
+instance Data.ToPath AcceptEulas where
   toPath AcceptEulas' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/eula-acceptances"
       ]
 
-instance Core.ToQuery AcceptEulas where
+instance Data.ToQuery AcceptEulas where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAcceptEulasResponse' smart constructor.

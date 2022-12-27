@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.CreateAnomalyDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.LookoutMetrics.CreateAnomalyDetector
     newCreateAnomalyDetector,
 
     -- * Request Lenses
-    createAnomalyDetector_kmsKeyArn,
     createAnomalyDetector_anomalyDetectorDescription,
+    createAnomalyDetector_kmsKeyArn,
     createAnomalyDetector_tags,
     createAnomalyDetector_anomalyDetectorName,
     createAnomalyDetector_anomalyDetectorConfig,
@@ -44,7 +44,8 @@ module Amazonka.LookoutMetrics.CreateAnomalyDetector
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAnomalyDetector' smart constructor.
 data CreateAnomalyDetector = CreateAnomalyDetector'
-  { -- | The ARN of the KMS key to use to encrypt your data.
-    kmsKeyArn :: Prelude.Maybe Prelude.Text,
-    -- | A description of the detector.
+  { -- | A description of the detector.
     anomalyDetectorDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the KMS key to use to encrypt your data.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text,
     -- | A list of
     -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
     -- to apply to the anomaly detector.
@@ -75,9 +76,9 @@ data CreateAnomalyDetector = CreateAnomalyDetector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyArn', 'createAnomalyDetector_kmsKeyArn' - The ARN of the KMS key to use to encrypt your data.
---
 -- 'anomalyDetectorDescription', 'createAnomalyDetector_anomalyDetectorDescription' - A description of the detector.
+--
+-- 'kmsKeyArn', 'createAnomalyDetector_kmsKeyArn' - The ARN of the KMS key to use to encrypt your data.
 --
 -- 'tags', 'createAnomalyDetector_tags' - A list of
 -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
@@ -96,20 +97,21 @@ newCreateAnomalyDetector
   pAnomalyDetectorName_
   pAnomalyDetectorConfig_ =
     CreateAnomalyDetector'
-      { kmsKeyArn = Prelude.Nothing,
-        anomalyDetectorDescription = Prelude.Nothing,
+      { anomalyDetectorDescription =
+          Prelude.Nothing,
+        kmsKeyArn = Prelude.Nothing,
         tags = Prelude.Nothing,
         anomalyDetectorName = pAnomalyDetectorName_,
         anomalyDetectorConfig = pAnomalyDetectorConfig_
       }
 
--- | The ARN of the KMS key to use to encrypt your data.
-createAnomalyDetector_kmsKeyArn :: Lens.Lens' CreateAnomalyDetector (Prelude.Maybe Prelude.Text)
-createAnomalyDetector_kmsKeyArn = Lens.lens (\CreateAnomalyDetector' {kmsKeyArn} -> kmsKeyArn) (\s@CreateAnomalyDetector' {} a -> s {kmsKeyArn = a} :: CreateAnomalyDetector)
-
 -- | A description of the detector.
 createAnomalyDetector_anomalyDetectorDescription :: Lens.Lens' CreateAnomalyDetector (Prelude.Maybe Prelude.Text)
 createAnomalyDetector_anomalyDetectorDescription = Lens.lens (\CreateAnomalyDetector' {anomalyDetectorDescription} -> anomalyDetectorDescription) (\s@CreateAnomalyDetector' {} a -> s {anomalyDetectorDescription = a} :: CreateAnomalyDetector)
+
+-- | The ARN of the KMS key to use to encrypt your data.
+createAnomalyDetector_kmsKeyArn :: Lens.Lens' CreateAnomalyDetector (Prelude.Maybe Prelude.Text)
+createAnomalyDetector_kmsKeyArn = Lens.lens (\CreateAnomalyDetector' {kmsKeyArn} -> kmsKeyArn) (\s@CreateAnomalyDetector' {} a -> s {kmsKeyArn = a} :: CreateAnomalyDetector)
 
 -- | A list of
 -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
@@ -129,63 +131,65 @@ instance Core.AWSRequest CreateAnomalyDetector where
   type
     AWSResponse CreateAnomalyDetector =
       CreateAnomalyDetectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAnomalyDetectorResponse'
-            Prelude.<$> (x Core..?> "AnomalyDetectorArn")
+            Prelude.<$> (x Data..?> "AnomalyDetectorArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateAnomalyDetector where
   hashWithSalt _salt CreateAnomalyDetector' {..} =
-    _salt `Prelude.hashWithSalt` kmsKeyArn
+    _salt
       `Prelude.hashWithSalt` anomalyDetectorDescription
+      `Prelude.hashWithSalt` kmsKeyArn
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` anomalyDetectorName
       `Prelude.hashWithSalt` anomalyDetectorConfig
 
 instance Prelude.NFData CreateAnomalyDetector where
   rnf CreateAnomalyDetector' {..} =
-    Prelude.rnf kmsKeyArn
-      `Prelude.seq` Prelude.rnf anomalyDetectorDescription
+    Prelude.rnf anomalyDetectorDescription
+      `Prelude.seq` Prelude.rnf kmsKeyArn
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf anomalyDetectorName
       `Prelude.seq` Prelude.rnf anomalyDetectorConfig
 
-instance Core.ToHeaders CreateAnomalyDetector where
+instance Data.ToHeaders CreateAnomalyDetector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAnomalyDetector where
+instance Data.ToJSON CreateAnomalyDetector where
   toJSON CreateAnomalyDetector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
-            ("AnomalyDetectorDescription" Core..=)
+          [ ("AnomalyDetectorDescription" Data..=)
               Prelude.<$> anomalyDetectorDescription,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("KmsKeyArn" Data..=) Prelude.<$> kmsKeyArn,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("AnomalyDetectorName" Core..= anomalyDetectorName),
+              ("AnomalyDetectorName" Data..= anomalyDetectorName),
             Prelude.Just
               ( "AnomalyDetectorConfig"
-                  Core..= anomalyDetectorConfig
+                  Data..= anomalyDetectorConfig
               )
           ]
       )
 
-instance Core.ToPath CreateAnomalyDetector where
+instance Data.ToPath CreateAnomalyDetector where
   toPath = Prelude.const "/CreateAnomalyDetector"
 
-instance Core.ToQuery CreateAnomalyDetector where
+instance Data.ToQuery CreateAnomalyDetector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAnomalyDetectorResponse' smart constructor.

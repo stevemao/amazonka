@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types.S3Object
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutEquipment.Types.S3Object where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an S3 bucket.
@@ -65,13 +66,13 @@ s3Object_bucket = Lens.lens (\S3Object' {bucket} -> bucket) (\s@S3Object' {} a -
 s3Object_key :: Lens.Lens' S3Object Prelude.Text
 s3Object_key = Lens.lens (\S3Object' {key} -> key) (\s@S3Object' {} a -> s {key = a} :: S3Object)
 
-instance Core.FromJSON S3Object where
+instance Data.FromJSON S3Object where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Object"
       ( \x ->
           S3Object'
-            Prelude.<$> (x Core..: "Bucket") Prelude.<*> (x Core..: "Key")
+            Prelude.<$> (x Data..: "Bucket") Prelude.<*> (x Data..: "Key")
       )
 
 instance Prelude.Hashable S3Object where

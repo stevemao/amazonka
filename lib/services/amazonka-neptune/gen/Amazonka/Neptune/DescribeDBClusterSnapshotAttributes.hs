@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DescribeDBClusterSnapshotAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.Neptune.DescribeDBClusterSnapshotAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -99,13 +100,14 @@ instance
   type
     AWSResponse DescribeDBClusterSnapshotAttributes =
       DescribeDBClusterSnapshotAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterSnapshotAttributesResult"
       ( \s h x ->
           DescribeDBClusterSnapshotAttributesResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBClusterSnapshotAttributesResult")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,31 +129,31 @@ instance
     Prelude.rnf dbClusterSnapshotIdentifier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeDBClusterSnapshotAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeDBClusterSnapshotAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeDBClusterSnapshotAttributes
   where
   toQuery DescribeDBClusterSnapshotAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDBClusterSnapshotAttributes" ::
+          Data.=: ( "DescribeDBClusterSnapshotAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier
+          Data.=: dbClusterSnapshotIdentifier
       ]
 
 -- | /See:/ 'newDescribeDBClusterSnapshotAttributesResponse' smart constructor.

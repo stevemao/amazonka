@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.CreateSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ createSchema_name = Lens.lens (\CreateSchema' {name} -> name) (\s@CreateSchema' 
 
 instance Core.AWSRequest CreateSchema where
   type AWSResponse CreateSchema = CreateSchemaResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSchemaResponse'
-            Prelude.<$> (x Core..?> "SchemaArn")
+            Prelude.<$> (x Data..?> "SchemaArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,22 +108,22 @@ instance Prelude.Hashable CreateSchema where
 instance Prelude.NFData CreateSchema where
   rnf CreateSchema' {..} = Prelude.rnf name
 
-instance Core.ToHeaders CreateSchema where
+instance Data.ToHeaders CreateSchema where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateSchema where
+instance Data.ToJSON CreateSchema where
   toJSON CreateSchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath CreateSchema where
+instance Data.ToPath CreateSchema where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/create"
 
-instance Core.ToQuery CreateSchema where
+instance Data.ToQuery CreateSchema where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSchemaResponse' smart constructor.

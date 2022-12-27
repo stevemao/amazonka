@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.SearchProducts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,12 @@ module Amazonka.ServiceCatalog.SearchProducts
     newSearchProducts,
 
     -- * Request Lenses
-    searchProducts_filters,
-    searchProducts_sortOrder,
     searchProducts_acceptLanguage,
-    searchProducts_pageToken,
+    searchProducts_filters,
     searchProducts_pageSize,
+    searchProducts_pageToken,
     searchProducts_sortBy,
+    searchProducts_sortOrder,
 
     -- * Destructuring the Response
     SearchProductsResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.ServiceCatalog.SearchProducts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newSearchProducts' smart constructor.
 data SearchProducts = SearchProducts'
-  { -- | The search filters. If no search filters are specified, the output
-    -- includes all products to which the caller has access.
-    filters :: Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]),
-    -- | The sort order. If no value is specified, the results are not sorted.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -68,13 +64,18 @@ data SearchProducts = SearchProducts'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The search filters. If no search filters are specified, the output
+    -- includes all products to which the caller has access.
+    filters :: Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]),
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The sort field. If no value is specified, the results are not sorted.
-    sortBy :: Prelude.Maybe ProductViewSortBy
+    sortBy :: Prelude.Maybe ProductViewSortBy,
+    -- | The sort order. If no value is specified, the results are not sorted.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,11 +87,6 @@ data SearchProducts = SearchProducts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'searchProducts_filters' - The search filters. If no search filters are specified, the output
--- includes all products to which the caller has access.
---
--- 'sortOrder', 'searchProducts_sortOrder' - The sort order. If no value is specified, the results are not sorted.
---
 -- 'acceptLanguage', 'searchProducts_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -99,32 +95,28 @@ data SearchProducts = SearchProducts'
 --
 -- -   @zh@ - Chinese
 --
--- 'pageToken', 'searchProducts_pageToken' - The page token for the next set of results. To retrieve the first set of
--- results, use null.
+-- 'filters', 'searchProducts_filters' - The search filters. If no search filters are specified, the output
+-- includes all products to which the caller has access.
 --
 -- 'pageSize', 'searchProducts_pageSize' - The maximum number of items to return with this call.
 --
+-- 'pageToken', 'searchProducts_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+--
 -- 'sortBy', 'searchProducts_sortBy' - The sort field. If no value is specified, the results are not sorted.
+--
+-- 'sortOrder', 'searchProducts_sortOrder' - The sort order. If no value is specified, the results are not sorted.
 newSearchProducts ::
   SearchProducts
 newSearchProducts =
   SearchProducts'
-    { filters = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
+    { acceptLanguage = Prelude.Nothing,
+      filters = Prelude.Nothing,
       pageSize = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      pageToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
-
--- | The search filters. If no search filters are specified, the output
--- includes all products to which the caller has access.
-searchProducts_filters :: Lens.Lens' SearchProducts (Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]))
-searchProducts_filters = Lens.lens (\SearchProducts' {filters} -> filters) (\s@SearchProducts' {} a -> s {filters = a} :: SearchProducts) Prelude.. Lens.mapping Lens.coerced
-
--- | The sort order. If no value is specified, the results are not sorted.
-searchProducts_sortOrder :: Lens.Lens' SearchProducts (Prelude.Maybe SortOrder)
-searchProducts_sortOrder = Lens.lens (\SearchProducts' {sortOrder} -> sortOrder) (\s@SearchProducts' {} a -> s {sortOrder = a} :: SearchProducts)
 
 -- | The language code.
 --
@@ -136,33 +128,43 @@ searchProducts_sortOrder = Lens.lens (\SearchProducts' {sortOrder} -> sortOrder)
 searchProducts_acceptLanguage :: Lens.Lens' SearchProducts (Prelude.Maybe Prelude.Text)
 searchProducts_acceptLanguage = Lens.lens (\SearchProducts' {acceptLanguage} -> acceptLanguage) (\s@SearchProducts' {} a -> s {acceptLanguage = a} :: SearchProducts)
 
--- | The page token for the next set of results. To retrieve the first set of
--- results, use null.
-searchProducts_pageToken :: Lens.Lens' SearchProducts (Prelude.Maybe Prelude.Text)
-searchProducts_pageToken = Lens.lens (\SearchProducts' {pageToken} -> pageToken) (\s@SearchProducts' {} a -> s {pageToken = a} :: SearchProducts)
+-- | The search filters. If no search filters are specified, the output
+-- includes all products to which the caller has access.
+searchProducts_filters :: Lens.Lens' SearchProducts (Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]))
+searchProducts_filters = Lens.lens (\SearchProducts' {filters} -> filters) (\s@SearchProducts' {} a -> s {filters = a} :: SearchProducts) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of items to return with this call.
 searchProducts_pageSize :: Lens.Lens' SearchProducts (Prelude.Maybe Prelude.Natural)
 searchProducts_pageSize = Lens.lens (\SearchProducts' {pageSize} -> pageSize) (\s@SearchProducts' {} a -> s {pageSize = a} :: SearchProducts)
 
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+searchProducts_pageToken :: Lens.Lens' SearchProducts (Prelude.Maybe Prelude.Text)
+searchProducts_pageToken = Lens.lens (\SearchProducts' {pageToken} -> pageToken) (\s@SearchProducts' {} a -> s {pageToken = a} :: SearchProducts)
+
 -- | The sort field. If no value is specified, the results are not sorted.
 searchProducts_sortBy :: Lens.Lens' SearchProducts (Prelude.Maybe ProductViewSortBy)
 searchProducts_sortBy = Lens.lens (\SearchProducts' {sortBy} -> sortBy) (\s@SearchProducts' {} a -> s {sortBy = a} :: SearchProducts)
+
+-- | The sort order. If no value is specified, the results are not sorted.
+searchProducts_sortOrder :: Lens.Lens' SearchProducts (Prelude.Maybe SortOrder)
+searchProducts_sortOrder = Lens.lens (\SearchProducts' {sortOrder} -> sortOrder) (\s@SearchProducts' {} a -> s {sortOrder = a} :: SearchProducts)
 
 instance Core.AWSRequest SearchProducts where
   type
     AWSResponse SearchProducts =
       SearchProductsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchProductsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "ProductViewAggregations"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "ProductViewAggregations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> ( x Core..?> "ProductViewSummaries"
+            Prelude.<*> ( x Data..?> "ProductViewSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -170,55 +172,55 @@ instance Core.AWSRequest SearchProducts where
 
 instance Prelude.Hashable SearchProducts where
   hashWithSalt _salt SearchProducts' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
+    _salt `Prelude.hashWithSalt` acceptLanguage
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData SearchProducts where
   rnf SearchProducts' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
+    Prelude.rnf acceptLanguage
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders SearchProducts where
+instance Data.ToHeaders SearchProducts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.SearchProducts" ::
+              Data.=# ( "AWS242ServiceCatalogService.SearchProducts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchProducts where
+instance Data.ToJSON SearchProducts where
   toJSON SearchProducts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+            ("Filters" Data..=) Prelude.<$> filters,
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath SearchProducts where
+instance Data.ToPath SearchProducts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchProducts where
+instance Data.ToQuery SearchProducts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchProductsResponse' smart constructor.

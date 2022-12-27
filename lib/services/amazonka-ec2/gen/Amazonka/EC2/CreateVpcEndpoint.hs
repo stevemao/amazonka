@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateVpcEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,41 +24,25 @@
 -- to create a private connection between your VPC and the service. The
 -- service may be provided by Amazon Web Services, an Amazon Web Services
 -- Marketplace Partner, or another Amazon Web Services account. For more
--- information, see
--- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html VPC Endpoints>
--- in the /Amazon Virtual Private Cloud User Guide/.
---
--- A @gateway@ endpoint serves as a target for a route in your route table
--- for traffic destined for the Amazon Web Service. You can specify an
--- endpoint policy to attach to the endpoint, which will control access to
--- the service from your VPC. You can also specify the VPC route tables
--- that use the endpoint.
---
--- An @interface@ endpoint is a network interface in your subnet that
--- serves as an endpoint for communicating with the specified service. You
--- can specify the subnets in which to create an endpoint, and the security
--- groups to associate with the endpoint network interface.
---
--- A @GatewayLoadBalancer@ endpoint is a network interface in your subnet
--- that serves an endpoint for communicating with a Gateway Load Balancer
--- that you\'ve configured as a VPC endpoint service.
---
--- Use DescribeVpcEndpointServices to get a list of supported services.
+-- information, see the
+-- <https://docs.aws.amazon.com/vpc/latest/privatelink/ Amazon Web Services PrivateLink Guide>.
 module Amazonka.EC2.CreateVpcEndpoint
   ( -- * Creating a Request
     CreateVpcEndpoint (..),
     newCreateVpcEndpoint,
 
     -- * Request Lenses
-    createVpcEndpoint_policyDocument,
-    createVpcEndpoint_securityGroupIds,
     createVpcEndpoint_clientToken,
-    createVpcEndpoint_subnetIds,
-    createVpcEndpoint_vpcEndpointType,
-    createVpcEndpoint_privateDnsEnabled,
-    createVpcEndpoint_tagSpecifications,
+    createVpcEndpoint_dnsOptions,
     createVpcEndpoint_dryRun,
+    createVpcEndpoint_ipAddressType,
+    createVpcEndpoint_policyDocument,
+    createVpcEndpoint_privateDnsEnabled,
     createVpcEndpoint_routeTableIds,
+    createVpcEndpoint_securityGroupIds,
+    createVpcEndpoint_subnetIds,
+    createVpcEndpoint_tagSpecifications,
+    createVpcEndpoint_vpcEndpointType,
     createVpcEndpoint_vpcId,
     createVpcEndpoint_serviceName,
 
@@ -74,8 +58,9 @@ module Amazonka.EC2.CreateVpcEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,26 +69,24 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateVpcEndpoint' smart constructor.
 data CreateVpcEndpoint = CreateVpcEndpoint'
-  { -- | (Interface and gateway endpoints) A policy to attach to the endpoint
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The DNS options for the endpoint.
+    dnsOptions :: Prelude.Maybe DnsOptionsSpecification,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IP address type for the endpoint.
+    ipAddressType :: Prelude.Maybe IpAddressType,
+    -- | (Interface and gateway endpoints) A policy to attach to the endpoint
     -- that controls access to the service. The policy must be in valid JSON
     -- format. If this parameter is not specified, we attach a default policy
     -- that allows full access to the service.
     policyDocument :: Prelude.Maybe Prelude.Text,
-    -- | (Interface endpoint) The ID of one or more security groups to associate
-    -- with the endpoint network interface.
-    securityGroupIds :: Prelude.Maybe [Prelude.Text],
-    -- | Unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | (Interface and Gateway Load Balancer endpoints) The ID of one or more
-    -- subnets in which to create an endpoint network interface. For a Gateway
-    -- Load Balancer endpoint, you can specify one subnet only.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | The type of endpoint.
-    --
-    -- Default: Gateway
-    vpcEndpointType :: Prelude.Maybe VpcEndpointType,
     -- | (Interface endpoint) Indicates whether to associate a private hosted
     -- zone with the specified VPC. The private hosted zone contains a record
     -- set for the default public DNS name for the service for the Region (for
@@ -119,15 +102,21 @@ data CreateVpcEndpoint = CreateVpcEndpoint'
     --
     -- Default: @true@
     privateDnsEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The tags to associate with the endpoint.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | (Gateway endpoint) One or more route table IDs.
     routeTableIds :: Prelude.Maybe [Prelude.Text],
+    -- | (Interface endpoint) The ID of one or more security groups to associate
+    -- with the endpoint network interface.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | (Interface and Gateway Load Balancer endpoints) The ID of one or more
+    -- subnets in which to create an endpoint network interface. For a Gateway
+    -- Load Balancer endpoint, you can specify one subnet only.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | The tags to associate with the endpoint.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | The type of endpoint.
+    --
+    -- Default: Gateway
+    vpcEndpointType :: Prelude.Maybe VpcEndpointType,
     -- | The ID of the VPC in which the endpoint will be used.
     vpcId :: Prelude.Text,
     -- | The service name. To get a list of available services, use the
@@ -145,25 +134,23 @@ data CreateVpcEndpoint = CreateVpcEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyDocument', 'createVpcEndpoint_policyDocument' - (Interface and gateway endpoints) A policy to attach to the endpoint
--- that controls access to the service. The policy must be in valid JSON
--- format. If this parameter is not specified, we attach a default policy
--- that allows full access to the service.
---
--- 'securityGroupIds', 'createVpcEndpoint_securityGroupIds' - (Interface endpoint) The ID of one or more security groups to associate
--- with the endpoint network interface.
---
 -- 'clientToken', 'createVpcEndpoint_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the request. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
 --
--- 'subnetIds', 'createVpcEndpoint_subnetIds' - (Interface and Gateway Load Balancer endpoints) The ID of one or more
--- subnets in which to create an endpoint network interface. For a Gateway
--- Load Balancer endpoint, you can specify one subnet only.
+-- 'dnsOptions', 'createVpcEndpoint_dnsOptions' - The DNS options for the endpoint.
 --
--- 'vpcEndpointType', 'createVpcEndpoint_vpcEndpointType' - The type of endpoint.
+-- 'dryRun', 'createVpcEndpoint_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- Default: Gateway
+-- 'ipAddressType', 'createVpcEndpoint_ipAddressType' - The IP address type for the endpoint.
+--
+-- 'policyDocument', 'createVpcEndpoint_policyDocument' - (Interface and gateway endpoints) A policy to attach to the endpoint
+-- that controls access to the service. The policy must be in valid JSON
+-- format. If this parameter is not specified, we attach a default policy
+-- that allows full access to the service.
 --
 -- 'privateDnsEnabled', 'createVpcEndpoint_privateDnsEnabled' - (Interface endpoint) Indicates whether to associate a private hosted
 -- zone with the specified VPC. The private hosted zone contains a record
@@ -180,14 +167,20 @@ data CreateVpcEndpoint = CreateVpcEndpoint'
 --
 -- Default: @true@
 --
+-- 'routeTableIds', 'createVpcEndpoint_routeTableIds' - (Gateway endpoint) One or more route table IDs.
+--
+-- 'securityGroupIds', 'createVpcEndpoint_securityGroupIds' - (Interface endpoint) The ID of one or more security groups to associate
+-- with the endpoint network interface.
+--
+-- 'subnetIds', 'createVpcEndpoint_subnetIds' - (Interface and Gateway Load Balancer endpoints) The ID of one or more
+-- subnets in which to create an endpoint network interface. For a Gateway
+-- Load Balancer endpoint, you can specify one subnet only.
+--
 -- 'tagSpecifications', 'createVpcEndpoint_tagSpecifications' - The tags to associate with the endpoint.
 --
--- 'dryRun', 'createVpcEndpoint_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'vpcEndpointType', 'createVpcEndpoint_vpcEndpointType' - The type of endpoint.
 --
--- 'routeTableIds', 'createVpcEndpoint_routeTableIds' - (Gateway endpoint) One or more route table IDs.
+-- Default: Gateway
 --
 -- 'vpcId', 'createVpcEndpoint_vpcId' - The ID of the VPC in which the endpoint will be used.
 --
@@ -202,31 +195,20 @@ newCreateVpcEndpoint ::
   CreateVpcEndpoint
 newCreateVpcEndpoint pVpcId_ pServiceName_ =
   CreateVpcEndpoint'
-    { policyDocument =
-        Prelude.Nothing,
-      securityGroupIds = Prelude.Nothing,
-      clientToken = Prelude.Nothing,
-      subnetIds = Prelude.Nothing,
-      vpcEndpointType = Prelude.Nothing,
-      privateDnsEnabled = Prelude.Nothing,
-      tagSpecifications = Prelude.Nothing,
+    { clientToken = Prelude.Nothing,
+      dnsOptions = Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      ipAddressType = Prelude.Nothing,
+      policyDocument = Prelude.Nothing,
+      privateDnsEnabled = Prelude.Nothing,
       routeTableIds = Prelude.Nothing,
+      securityGroupIds = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
+      vpcEndpointType = Prelude.Nothing,
       vpcId = pVpcId_,
       serviceName = pServiceName_
     }
-
--- | (Interface and gateway endpoints) A policy to attach to the endpoint
--- that controls access to the service. The policy must be in valid JSON
--- format. If this parameter is not specified, we attach a default policy
--- that allows full access to the service.
-createVpcEndpoint_policyDocument :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Text)
-createVpcEndpoint_policyDocument = Lens.lens (\CreateVpcEndpoint' {policyDocument} -> policyDocument) (\s@CreateVpcEndpoint' {} a -> s {policyDocument = a} :: CreateVpcEndpoint)
-
--- | (Interface endpoint) The ID of one or more security groups to associate
--- with the endpoint network interface.
-createVpcEndpoint_securityGroupIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
-createVpcEndpoint_securityGroupIds = Lens.lens (\CreateVpcEndpoint' {securityGroupIds} -> securityGroupIds) (\s@CreateVpcEndpoint' {} a -> s {securityGroupIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
 
 -- | Unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the request. For more information, see
@@ -234,17 +216,27 @@ createVpcEndpoint_securityGroupIds = Lens.lens (\CreateVpcEndpoint' {securityGro
 createVpcEndpoint_clientToken :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Text)
 createVpcEndpoint_clientToken = Lens.lens (\CreateVpcEndpoint' {clientToken} -> clientToken) (\s@CreateVpcEndpoint' {} a -> s {clientToken = a} :: CreateVpcEndpoint)
 
--- | (Interface and Gateway Load Balancer endpoints) The ID of one or more
--- subnets in which to create an endpoint network interface. For a Gateway
--- Load Balancer endpoint, you can specify one subnet only.
-createVpcEndpoint_subnetIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
-createVpcEndpoint_subnetIds = Lens.lens (\CreateVpcEndpoint' {subnetIds} -> subnetIds) (\s@CreateVpcEndpoint' {} a -> s {subnetIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
+-- | The DNS options for the endpoint.
+createVpcEndpoint_dnsOptions :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe DnsOptionsSpecification)
+createVpcEndpoint_dnsOptions = Lens.lens (\CreateVpcEndpoint' {dnsOptions} -> dnsOptions) (\s@CreateVpcEndpoint' {} a -> s {dnsOptions = a} :: CreateVpcEndpoint)
 
--- | The type of endpoint.
---
--- Default: Gateway
-createVpcEndpoint_vpcEndpointType :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe VpcEndpointType)
-createVpcEndpoint_vpcEndpointType = Lens.lens (\CreateVpcEndpoint' {vpcEndpointType} -> vpcEndpointType) (\s@CreateVpcEndpoint' {} a -> s {vpcEndpointType = a} :: CreateVpcEndpoint)
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createVpcEndpoint_dryRun :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Bool)
+createVpcEndpoint_dryRun = Lens.lens (\CreateVpcEndpoint' {dryRun} -> dryRun) (\s@CreateVpcEndpoint' {} a -> s {dryRun = a} :: CreateVpcEndpoint)
+
+-- | The IP address type for the endpoint.
+createVpcEndpoint_ipAddressType :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe IpAddressType)
+createVpcEndpoint_ipAddressType = Lens.lens (\CreateVpcEndpoint' {ipAddressType} -> ipAddressType) (\s@CreateVpcEndpoint' {} a -> s {ipAddressType = a} :: CreateVpcEndpoint)
+
+-- | (Interface and gateway endpoints) A policy to attach to the endpoint
+-- that controls access to the service. The policy must be in valid JSON
+-- format. If this parameter is not specified, we attach a default policy
+-- that allows full access to the service.
+createVpcEndpoint_policyDocument :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Text)
+createVpcEndpoint_policyDocument = Lens.lens (\CreateVpcEndpoint' {policyDocument} -> policyDocument) (\s@CreateVpcEndpoint' {} a -> s {policyDocument = a} :: CreateVpcEndpoint)
 
 -- | (Interface endpoint) Indicates whether to associate a private hosted
 -- zone with the specified VPC. The private hosted zone contains a record
@@ -263,20 +255,30 @@ createVpcEndpoint_vpcEndpointType = Lens.lens (\CreateVpcEndpoint' {vpcEndpointT
 createVpcEndpoint_privateDnsEnabled :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Bool)
 createVpcEndpoint_privateDnsEnabled = Lens.lens (\CreateVpcEndpoint' {privateDnsEnabled} -> privateDnsEnabled) (\s@CreateVpcEndpoint' {} a -> s {privateDnsEnabled = a} :: CreateVpcEndpoint)
 
+-- | (Gateway endpoint) One or more route table IDs.
+createVpcEndpoint_routeTableIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
+createVpcEndpoint_routeTableIds = Lens.lens (\CreateVpcEndpoint' {routeTableIds} -> routeTableIds) (\s@CreateVpcEndpoint' {} a -> s {routeTableIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
+
+-- | (Interface endpoint) The ID of one or more security groups to associate
+-- with the endpoint network interface.
+createVpcEndpoint_securityGroupIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
+createVpcEndpoint_securityGroupIds = Lens.lens (\CreateVpcEndpoint' {securityGroupIds} -> securityGroupIds) (\s@CreateVpcEndpoint' {} a -> s {securityGroupIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
+
+-- | (Interface and Gateway Load Balancer endpoints) The ID of one or more
+-- subnets in which to create an endpoint network interface. For a Gateway
+-- Load Balancer endpoint, you can specify one subnet only.
+createVpcEndpoint_subnetIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
+createVpcEndpoint_subnetIds = Lens.lens (\CreateVpcEndpoint' {subnetIds} -> subnetIds) (\s@CreateVpcEndpoint' {} a -> s {subnetIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
+
 -- | The tags to associate with the endpoint.
 createVpcEndpoint_tagSpecifications :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [TagSpecification])
 createVpcEndpoint_tagSpecifications = Lens.lens (\CreateVpcEndpoint' {tagSpecifications} -> tagSpecifications) (\s@CreateVpcEndpoint' {} a -> s {tagSpecifications = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-createVpcEndpoint_dryRun :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe Prelude.Bool)
-createVpcEndpoint_dryRun = Lens.lens (\CreateVpcEndpoint' {dryRun} -> dryRun) (\s@CreateVpcEndpoint' {} a -> s {dryRun = a} :: CreateVpcEndpoint)
-
--- | (Gateway endpoint) One or more route table IDs.
-createVpcEndpoint_routeTableIds :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe [Prelude.Text])
-createVpcEndpoint_routeTableIds = Lens.lens (\CreateVpcEndpoint' {routeTableIds} -> routeTableIds) (\s@CreateVpcEndpoint' {} a -> s {routeTableIds = a} :: CreateVpcEndpoint) Prelude.. Lens.mapping Lens.coerced
+-- | The type of endpoint.
+--
+-- Default: Gateway
+createVpcEndpoint_vpcEndpointType :: Lens.Lens' CreateVpcEndpoint (Prelude.Maybe VpcEndpointType)
+createVpcEndpoint_vpcEndpointType = Lens.lens (\CreateVpcEndpoint' {vpcEndpointType} -> vpcEndpointType) (\s@CreateVpcEndpoint' {} a -> s {vpcEndpointType = a} :: CreateVpcEndpoint)
 
 -- | The ID of the VPC in which the endpoint will be used.
 createVpcEndpoint_vpcId :: Lens.Lens' CreateVpcEndpoint Prelude.Text
@@ -292,78 +294,85 @@ instance Core.AWSRequest CreateVpcEndpoint where
   type
     AWSResponse CreateVpcEndpoint =
       CreateVpcEndpointResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateVpcEndpointResponse'
-            Prelude.<$> (x Core..@? "clientToken")
-            Prelude.<*> (x Core..@? "vpcEndpoint")
+            Prelude.<$> (x Data..@? "clientToken")
+            Prelude.<*> (x Data..@? "vpcEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateVpcEndpoint where
   hashWithSalt _salt CreateVpcEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` policyDocument
-      `Prelude.hashWithSalt` securityGroupIds
-      `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` subnetIds
-      `Prelude.hashWithSalt` vpcEndpointType
-      `Prelude.hashWithSalt` privateDnsEnabled
-      `Prelude.hashWithSalt` tagSpecifications
+    _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` dnsOptions
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` ipAddressType
+      `Prelude.hashWithSalt` policyDocument
+      `Prelude.hashWithSalt` privateDnsEnabled
       `Prelude.hashWithSalt` routeTableIds
+      `Prelude.hashWithSalt` securityGroupIds
+      `Prelude.hashWithSalt` subnetIds
+      `Prelude.hashWithSalt` tagSpecifications
+      `Prelude.hashWithSalt` vpcEndpointType
       `Prelude.hashWithSalt` vpcId
       `Prelude.hashWithSalt` serviceName
 
 instance Prelude.NFData CreateVpcEndpoint where
   rnf CreateVpcEndpoint' {..} =
-    Prelude.rnf policyDocument
-      `Prelude.seq` Prelude.rnf securityGroupIds
-      `Prelude.seq` Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf vpcEndpointType
-      `Prelude.seq` Prelude.rnf privateDnsEnabled
-      `Prelude.seq` Prelude.rnf tagSpecifications
+    Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf dnsOptions
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf ipAddressType
+      `Prelude.seq` Prelude.rnf policyDocument
+      `Prelude.seq` Prelude.rnf privateDnsEnabled
       `Prelude.seq` Prelude.rnf routeTableIds
+      `Prelude.seq` Prelude.rnf securityGroupIds
+      `Prelude.seq` Prelude.rnf subnetIds
+      `Prelude.seq` Prelude.rnf tagSpecifications
+      `Prelude.seq` Prelude.rnf vpcEndpointType
       `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf serviceName
 
-instance Core.ToHeaders CreateVpcEndpoint where
+instance Data.ToHeaders CreateVpcEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateVpcEndpoint where
+instance Data.ToPath CreateVpcEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateVpcEndpoint where
+instance Data.ToQuery CreateVpcEndpoint where
   toQuery CreateVpcEndpoint' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateVpcEndpoint" :: Prelude.ByteString),
+          Data.=: ("CreateVpcEndpoint" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "PolicyDocument" Core.=: policyDocument,
-        Core.toQuery
-          ( Core.toQueryList "SecurityGroupId"
-              Prelude.<$> securityGroupIds
-          ),
-        "ClientToken" Core.=: clientToken,
-        Core.toQuery
-          (Core.toQueryList "SubnetId" Prelude.<$> subnetIds),
-        "VpcEndpointType" Core.=: vpcEndpointType,
-        "PrivateDnsEnabled" Core.=: privateDnsEnabled,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
-              Prelude.<$> tagSpecifications
-          ),
-        "DryRun" Core.=: dryRun,
-        Core.toQuery
-          ( Core.toQueryList "RouteTableId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "DnsOptions" Data.=: dnsOptions,
+        "DryRun" Data.=: dryRun,
+        "IpAddressType" Data.=: ipAddressType,
+        "PolicyDocument" Data.=: policyDocument,
+        "PrivateDnsEnabled" Data.=: privateDnsEnabled,
+        Data.toQuery
+          ( Data.toQueryList "RouteTableId"
               Prelude.<$> routeTableIds
           ),
-        "VpcId" Core.=: vpcId,
-        "ServiceName" Core.=: serviceName
+        Data.toQuery
+          ( Data.toQueryList "SecurityGroupId"
+              Prelude.<$> securityGroupIds
+          ),
+        Data.toQuery
+          (Data.toQueryList "SubnetId" Prelude.<$> subnetIds),
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
+          ),
+        "VpcEndpointType" Data.=: vpcEndpointType,
+        "VpcId" Data.=: vpcId,
+        "ServiceName" Data.=: serviceName
       ]
 
 -- | Contains the output of CreateVpcEndpoint.

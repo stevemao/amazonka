@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.CreateDevicePool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.DeviceFarm.CreateDevicePool
     newCreateDevicePool,
 
     -- * Request Lenses
-    createDevicePool_maxDevices,
     createDevicePool_description,
+    createDevicePool_maxDevices,
     createDevicePool_projectArn,
     createDevicePool_name,
     createDevicePool_rules,
@@ -44,8 +44,9 @@ module Amazonka.DeviceFarm.CreateDevicePool
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateDevicePool' smart constructor.
 data CreateDevicePool = CreateDevicePool'
-  { -- | The number of devices that Device Farm can add to your device pool.
+  { -- | The device pool\'s description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of devices that Device Farm can add to your device pool.
     -- Device Farm adds devices that are available and meet the criteria that
     -- you assign for the @rules@ parameter. Depending on how many devices meet
     -- these constraints, your device pool might contain fewer devices than the
@@ -63,8 +66,6 @@ data CreateDevicePool = CreateDevicePool'
     -- By specifying the maximum number of devices, you can control the costs
     -- that you incur by running tests.
     maxDevices :: Prelude.Maybe Prelude.Int,
-    -- | The device pool\'s description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the project for the device pool.
     projectArn :: Prelude.Text,
     -- | The device pool\'s name.
@@ -82,6 +83,8 @@ data CreateDevicePool = CreateDevicePool'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createDevicePool_description' - The device pool\'s description.
+--
 -- 'maxDevices', 'createDevicePool_maxDevices' - The number of devices that Device Farm can add to your device pool.
 -- Device Farm adds devices that are available and meet the criteria that
 -- you assign for the @rules@ parameter. Depending on how many devices meet
@@ -90,8 +93,6 @@ data CreateDevicePool = CreateDevicePool'
 --
 -- By specifying the maximum number of devices, you can control the costs
 -- that you incur by running tests.
---
--- 'description', 'createDevicePool_description' - The device pool\'s description.
 --
 -- 'projectArn', 'createDevicePool_projectArn' - The ARN of the project for the device pool.
 --
@@ -106,12 +107,16 @@ newCreateDevicePool ::
   CreateDevicePool
 newCreateDevicePool pProjectArn_ pName_ =
   CreateDevicePool'
-    { maxDevices = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      maxDevices = Prelude.Nothing,
       projectArn = pProjectArn_,
       name = pName_,
       rules = Prelude.mempty
     }
+
+-- | The device pool\'s description.
+createDevicePool_description :: Lens.Lens' CreateDevicePool (Prelude.Maybe Prelude.Text)
+createDevicePool_description = Lens.lens (\CreateDevicePool' {description} -> description) (\s@CreateDevicePool' {} a -> s {description = a} :: CreateDevicePool)
 
 -- | The number of devices that Device Farm can add to your device pool.
 -- Device Farm adds devices that are available and meet the criteria that
@@ -123,10 +128,6 @@ newCreateDevicePool pProjectArn_ pName_ =
 -- that you incur by running tests.
 createDevicePool_maxDevices :: Lens.Lens' CreateDevicePool (Prelude.Maybe Prelude.Int)
 createDevicePool_maxDevices = Lens.lens (\CreateDevicePool' {maxDevices} -> maxDevices) (\s@CreateDevicePool' {} a -> s {maxDevices = a} :: CreateDevicePool)
-
--- | The device pool\'s description.
-createDevicePool_description :: Lens.Lens' CreateDevicePool (Prelude.Maybe Prelude.Text)
-createDevicePool_description = Lens.lens (\CreateDevicePool' {description} -> description) (\s@CreateDevicePool' {} a -> s {description = a} :: CreateDevicePool)
 
 -- | The ARN of the project for the device pool.
 createDevicePool_projectArn :: Lens.Lens' CreateDevicePool Prelude.Text
@@ -144,62 +145,63 @@ instance Core.AWSRequest CreateDevicePool where
   type
     AWSResponse CreateDevicePool =
       CreateDevicePoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDevicePoolResponse'
-            Prelude.<$> (x Core..?> "devicePool")
+            Prelude.<$> (x Data..?> "devicePool")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDevicePool where
   hashWithSalt _salt CreateDevicePool' {..} =
-    _salt `Prelude.hashWithSalt` maxDevices
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` maxDevices
       `Prelude.hashWithSalt` projectArn
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` rules
 
 instance Prelude.NFData CreateDevicePool where
   rnf CreateDevicePool' {..} =
-    Prelude.rnf maxDevices
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf maxDevices
       `Prelude.seq` Prelude.rnf projectArn
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToHeaders CreateDevicePool where
+instance Data.ToHeaders CreateDevicePool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.CreateDevicePool" ::
+              Data.=# ( "DeviceFarm_20150623.CreateDevicePool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDevicePool where
+instance Data.ToJSON CreateDevicePool where
   toJSON CreateDevicePool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maxDevices" Core..=) Prelude.<$> maxDevices,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("projectArn" Core..= projectArn),
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("rules" Core..= rules)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("maxDevices" Data..=) Prelude.<$> maxDevices,
+            Prelude.Just ("projectArn" Data..= projectArn),
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("rules" Data..= rules)
           ]
       )
 
-instance Core.ToPath CreateDevicePool where
+instance Data.ToPath CreateDevicePool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDevicePool where
+instance Data.ToQuery CreateDevicePool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a create device pool request.

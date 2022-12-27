@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.AssociateInstanceStorageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,12 +125,13 @@ instance
   type
     AWSResponse AssociateInstanceStorageConfig =
       AssociateInstanceStorageConfigResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateInstanceStorageConfigResponse'
-            Prelude.<$> (x Core..?> "AssociationId")
+            Prelude.<$> (x Data..?> "AssociationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,38 +156,38 @@ instance
       `Prelude.seq` Prelude.rnf storageConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateInstanceStorageConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateInstanceStorageConfig where
+instance Data.ToJSON AssociateInstanceStorageConfig where
   toJSON AssociateInstanceStorageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceType" Core..= resourceType),
+          [ Prelude.Just ("ResourceType" Data..= resourceType),
             Prelude.Just
-              ("StorageConfig" Core..= storageConfig)
+              ("StorageConfig" Data..= storageConfig)
           ]
       )
 
-instance Core.ToPath AssociateInstanceStorageConfig where
+instance Data.ToPath AssociateInstanceStorageConfig where
   toPath AssociateInstanceStorageConfig' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/storage-config"
       ]
 
-instance Core.ToQuery AssociateInstanceStorageConfig where
+instance Data.ToQuery AssociateInstanceStorageConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateInstanceStorageConfigResponse' smart constructor.

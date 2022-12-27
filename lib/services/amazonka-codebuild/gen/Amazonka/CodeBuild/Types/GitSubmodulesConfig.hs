@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.GitSubmodulesConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.GitSubmodulesConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Git submodules configuration for an CodeBuild
@@ -56,13 +57,13 @@ newGitSubmodulesConfig pFetchSubmodules_ =
 gitSubmodulesConfig_fetchSubmodules :: Lens.Lens' GitSubmodulesConfig Prelude.Bool
 gitSubmodulesConfig_fetchSubmodules = Lens.lens (\GitSubmodulesConfig' {fetchSubmodules} -> fetchSubmodules) (\s@GitSubmodulesConfig' {} a -> s {fetchSubmodules = a} :: GitSubmodulesConfig)
 
-instance Core.FromJSON GitSubmodulesConfig where
+instance Data.FromJSON GitSubmodulesConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GitSubmodulesConfig"
       ( \x ->
           GitSubmodulesConfig'
-            Prelude.<$> (x Core..: "fetchSubmodules")
+            Prelude.<$> (x Data..: "fetchSubmodules")
       )
 
 instance Prelude.Hashable GitSubmodulesConfig where
@@ -73,11 +74,11 @@ instance Prelude.NFData GitSubmodulesConfig where
   rnf GitSubmodulesConfig' {..} =
     Prelude.rnf fetchSubmodules
 
-instance Core.ToJSON GitSubmodulesConfig where
+instance Data.ToJSON GitSubmodulesConfig where
   toJSON GitSubmodulesConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("fetchSubmodules" Core..= fetchSubmodules)
+              ("fetchSubmodules" Data..= fetchSubmodules)
           ]
       )

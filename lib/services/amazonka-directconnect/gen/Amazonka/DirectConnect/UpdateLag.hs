@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.UpdateLag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,9 +45,9 @@ module Amazonka.DirectConnect.UpdateLag
     newUpdateLag,
 
     -- * Request Lenses
-    updateLag_minimumLinks,
-    updateLag_lagName,
     updateLag_encryptionMode,
+    updateLag_lagName,
+    updateLag_minimumLinks,
     updateLag_lagId,
 
     -- * Destructuring the Response
@@ -55,49 +55,50 @@ module Amazonka.DirectConnect.UpdateLag
     newLag,
 
     -- * Response Lenses
-    lag_lagId,
-    lag_macSecCapable,
-    lag_connectionsBandwidth,
-    lag_minimumLinks,
-    lag_lagName,
-    lag_location,
-    lag_connections,
-    lag_awsDevice,
-    lag_hasLogicalRedundancy,
-    lag_awsLogicalDeviceId,
     lag_allowsHostedConnections,
-    lag_encryptionMode,
-    lag_numberOfConnections,
-    lag_jumboFrameCapable,
-    lag_lagState,
-    lag_ownerAccount,
-    lag_region,
-    lag_macSecKeys,
-    lag_providerName,
+    lag_awsDevice,
     lag_awsDeviceV2,
+    lag_awsLogicalDeviceId,
+    lag_connections,
+    lag_connectionsBandwidth,
+    lag_encryptionMode,
+    lag_hasLogicalRedundancy,
+    lag_jumboFrameCapable,
+    lag_lagId,
+    lag_lagName,
+    lag_lagState,
+    lag_location,
+    lag_macSecCapable,
+    lag_macSecKeys,
+    lag_minimumLinks,
+    lag_numberOfConnections,
+    lag_ownerAccount,
+    lag_providerName,
+    lag_region,
     lag_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateLag' smart constructor.
 data UpdateLag = UpdateLag'
-  { -- | The minimum number of physical connections that must be operational for
-    -- the LAG itself to be operational.
-    minimumLinks :: Prelude.Maybe Prelude.Int,
-    -- | The name of the LAG.
-    lagName :: Prelude.Maybe Prelude.Text,
-    -- | The LAG MAC Security (MACsec) encryption mode.
+  { -- | The LAG MAC Security (MACsec) encryption mode.
     --
     -- Amazon Web Services applies the value to all connections which are part
     -- of the LAG.
     encryptionMode :: Prelude.Maybe Prelude.Text,
+    -- | The name of the LAG.
+    lagName :: Prelude.Maybe Prelude.Text,
+    -- | The minimum number of physical connections that must be operational for
+    -- the LAG itself to be operational.
+    minimumLinks :: Prelude.Maybe Prelude.Int,
     -- | The ID of the LAG.
     lagId :: Prelude.Text
   }
@@ -111,15 +112,15 @@ data UpdateLag = UpdateLag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'minimumLinks', 'updateLag_minimumLinks' - The minimum number of physical connections that must be operational for
--- the LAG itself to be operational.
---
--- 'lagName', 'updateLag_lagName' - The name of the LAG.
---
 -- 'encryptionMode', 'updateLag_encryptionMode' - The LAG MAC Security (MACsec) encryption mode.
 --
 -- Amazon Web Services applies the value to all connections which are part
 -- of the LAG.
+--
+-- 'lagName', 'updateLag_lagName' - The name of the LAG.
+--
+-- 'minimumLinks', 'updateLag_minimumLinks' - The minimum number of physical connections that must be operational for
+-- the LAG itself to be operational.
 --
 -- 'lagId', 'updateLag_lagId' - The ID of the LAG.
 newUpdateLag ::
@@ -128,20 +129,11 @@ newUpdateLag ::
   UpdateLag
 newUpdateLag pLagId_ =
   UpdateLag'
-    { minimumLinks = Prelude.Nothing,
+    { encryptionMode = Prelude.Nothing,
       lagName = Prelude.Nothing,
-      encryptionMode = Prelude.Nothing,
+      minimumLinks = Prelude.Nothing,
       lagId = pLagId_
     }
-
--- | The minimum number of physical connections that must be operational for
--- the LAG itself to be operational.
-updateLag_minimumLinks :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Int)
-updateLag_minimumLinks = Lens.lens (\UpdateLag' {minimumLinks} -> minimumLinks) (\s@UpdateLag' {} a -> s {minimumLinks = a} :: UpdateLag)
-
--- | The name of the LAG.
-updateLag_lagName :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Text)
-updateLag_lagName = Lens.lens (\UpdateLag' {lagName} -> lagName) (\s@UpdateLag' {} a -> s {lagName = a} :: UpdateLag)
 
 -- | The LAG MAC Security (MACsec) encryption mode.
 --
@@ -150,58 +142,68 @@ updateLag_lagName = Lens.lens (\UpdateLag' {lagName} -> lagName) (\s@UpdateLag' 
 updateLag_encryptionMode :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Text)
 updateLag_encryptionMode = Lens.lens (\UpdateLag' {encryptionMode} -> encryptionMode) (\s@UpdateLag' {} a -> s {encryptionMode = a} :: UpdateLag)
 
+-- | The name of the LAG.
+updateLag_lagName :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Text)
+updateLag_lagName = Lens.lens (\UpdateLag' {lagName} -> lagName) (\s@UpdateLag' {} a -> s {lagName = a} :: UpdateLag)
+
+-- | The minimum number of physical connections that must be operational for
+-- the LAG itself to be operational.
+updateLag_minimumLinks :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Int)
+updateLag_minimumLinks = Lens.lens (\UpdateLag' {minimumLinks} -> minimumLinks) (\s@UpdateLag' {} a -> s {minimumLinks = a} :: UpdateLag)
+
 -- | The ID of the LAG.
 updateLag_lagId :: Lens.Lens' UpdateLag Prelude.Text
 updateLag_lagId = Lens.lens (\UpdateLag' {lagId} -> lagId) (\s@UpdateLag' {} a -> s {lagId = a} :: UpdateLag)
 
 instance Core.AWSRequest UpdateLag where
   type AWSResponse UpdateLag = Lag
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateLag where
   hashWithSalt _salt UpdateLag' {..} =
-    _salt `Prelude.hashWithSalt` minimumLinks
+    _salt `Prelude.hashWithSalt` encryptionMode
       `Prelude.hashWithSalt` lagName
-      `Prelude.hashWithSalt` encryptionMode
+      `Prelude.hashWithSalt` minimumLinks
       `Prelude.hashWithSalt` lagId
 
 instance Prelude.NFData UpdateLag where
   rnf UpdateLag' {..} =
-    Prelude.rnf minimumLinks
+    Prelude.rnf encryptionMode
       `Prelude.seq` Prelude.rnf lagName
-      `Prelude.seq` Prelude.rnf encryptionMode
+      `Prelude.seq` Prelude.rnf minimumLinks
       `Prelude.seq` Prelude.rnf lagId
 
-instance Core.ToHeaders UpdateLag where
+instance Data.ToHeaders UpdateLag where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("OvertureService.UpdateLag" :: Prelude.ByteString),
+              Data.=# ("OvertureService.UpdateLag" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLag where
+instance Data.ToJSON UpdateLag where
   toJSON UpdateLag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("minimumLinks" Core..=) Prelude.<$> minimumLinks,
-            ("lagName" Core..=) Prelude.<$> lagName,
-            ("encryptionMode" Core..=)
+          [ ("encryptionMode" Data..=)
               Prelude.<$> encryptionMode,
-            Prelude.Just ("lagId" Core..= lagId)
+            ("lagName" Data..=) Prelude.<$> lagName,
+            ("minimumLinks" Data..=) Prelude.<$> minimumLinks,
+            Prelude.Just ("lagId" Data..= lagId)
           ]
       )
 
-instance Core.ToPath UpdateLag where
+instance Data.ToPath UpdateLag where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateLag where
+instance Data.ToQuery UpdateLag where
   toQuery = Prelude.const Prelude.mempty

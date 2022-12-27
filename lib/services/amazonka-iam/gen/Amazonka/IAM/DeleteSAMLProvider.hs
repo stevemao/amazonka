@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteSAMLProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.DeleteSAMLProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +85,8 @@ instance Core.AWSRequest DeleteSAMLProvider where
   type
     AWSResponse DeleteSAMLProvider =
       DeleteSAMLProviderResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteSAMLProviderResponse'
 
@@ -96,20 +98,20 @@ instance Prelude.NFData DeleteSAMLProvider where
   rnf DeleteSAMLProvider' {..} =
     Prelude.rnf sAMLProviderArn
 
-instance Core.ToHeaders DeleteSAMLProvider where
+instance Data.ToHeaders DeleteSAMLProvider where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSAMLProvider where
+instance Data.ToPath DeleteSAMLProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSAMLProvider where
+instance Data.ToQuery DeleteSAMLProvider where
   toQuery DeleteSAMLProvider' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteSAMLProvider" :: Prelude.ByteString),
+          Data.=: ("DeleteSAMLProvider" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "SAMLProviderArn" Core.=: sAMLProviderArn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "SAMLProviderArn" Data.=: sAMLProviderArn
       ]
 
 -- | /See:/ 'newDeleteSAMLProviderResponse' smart constructor.

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,29 +18,29 @@ module Amazonka.SDB.Types
     defaultService,
 
     -- * Errors
-    _InvalidNumberValueTests,
-    _NoSuchDomain,
-    _NumberSubmittedItemsExceeded,
     _AttributeDoesNotExist,
-    _NumberDomainAttributesExceeded,
     _DuplicateItemName,
-    _MissingParameter,
     _InvalidNextToken,
+    _InvalidNumberPredicates,
+    _InvalidNumberValueTests,
     _InvalidParameterValue,
+    _InvalidQueryExpression,
+    _MissingParameter,
+    _NoSuchDomain,
+    _NumberDomainAttributesExceeded,
+    _NumberDomainBytesExceeded,
+    _NumberDomainsExceeded,
     _NumberItemAttributesExceeded,
+    _NumberSubmittedAttributesExceeded,
+    _NumberSubmittedItemsExceeded,
     _RequestTimeout,
     _TooManyRequestedAttributes,
-    _InvalidNumberPredicates,
-    _NumberDomainsExceeded,
-    _NumberSubmittedAttributesExceeded,
-    _NumberDomainBytesExceeded,
-    _InvalidQueryExpression,
 
     -- * Attribute
     Attribute (..),
     newAttribute,
-    attribute_alternateValueEncoding,
     attribute_alternateNameEncoding,
+    attribute_alternateValueEncoding,
     attribute_name,
     attribute_value,
 
@@ -73,13 +74,13 @@ module Amazonka.SDB.Types
     UpdateCondition (..),
     newUpdateCondition,
     updateCondition_exists,
-    updateCondition_value,
     updateCondition_name,
+    updateCondition_value,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SDB.Types.Attribute
 import Amazonka.SDB.Types.DeletableItem
@@ -93,41 +94,49 @@ import qualified Amazonka.Sign.V2 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "SDB",
-      Core._serviceSigner = Sign.v2,
-      Core._serviceEndpointPrefix = "sdb",
-      Core._serviceSigningName = "sdb",
-      Core._serviceVersion = "2009-04-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseXMLError "SDB",
-      Core._serviceRetry = retry
+    { Core.abbrev = "SDB",
+      Core.signer = Sign.v2,
+      Core.endpointPrefix = "sdb",
+      Core.signingName = "sdb",
+      Core.version = "2009-04-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseXMLError "SDB",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -135,53 +144,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | Too many predicates exist in the query expression.
-_InvalidNumberValueTests :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidNumberValueTests =
-  Core._MatchServiceError
-    defaultService
-    "InvalidNumberValueTests"
-    Prelude.. Core.hasStatus 400
-
--- | The specified domain does not exist.
-_NoSuchDomain :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchDomain =
-  Core._MatchServiceError
-    defaultService
-    "NoSuchDomain"
-    Prelude.. Core.hasStatus 400
-
--- | Too many items exist in a single call.
-_NumberSubmittedItemsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NumberSubmittedItemsExceeded =
-  Core._MatchServiceError
-    defaultService
-    "NumberSubmittedItemsExceeded"
-    Prelude.. Core.hasStatus 409
 
 -- | The specified attribute does not exist.
 _AttributeDoesNotExist :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -191,28 +168,12 @@ _AttributeDoesNotExist =
     "AttributeDoesNotExist"
     Prelude.. Core.hasStatus 404
 
--- | Too many attributes in this domain.
-_NumberDomainAttributesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NumberDomainAttributesExceeded =
-  Core._MatchServiceError
-    defaultService
-    "NumberDomainAttributesExceeded"
-    Prelude.. Core.hasStatus 409
-
 -- | The item name was specified more than once.
 _DuplicateItemName :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _DuplicateItemName =
   Core._MatchServiceError
     defaultService
     "DuplicateItemName"
-    Prelude.. Core.hasStatus 400
-
--- | The request must contain the specified missing parameter.
-_MissingParameter :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MissingParameter =
-  Core._MatchServiceError
-    defaultService
-    "MissingParameter"
     Prelude.. Core.hasStatus 400
 
 -- | The specified NextToken is not valid.
@@ -223,6 +184,22 @@ _InvalidNextToken =
     "InvalidNextToken"
     Prelude.. Core.hasStatus 400
 
+-- | Too many predicates exist in the query expression.
+_InvalidNumberPredicates :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidNumberPredicates =
+  Core._MatchServiceError
+    defaultService
+    "InvalidNumberPredicates"
+    Prelude.. Core.hasStatus 400
+
+-- | Too many predicates exist in the query expression.
+_InvalidNumberValueTests :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidNumberValueTests =
+  Core._MatchServiceError
+    defaultService
+    "InvalidNumberValueTests"
+    Prelude.. Core.hasStatus 400
+
 -- | The value for a parameter is invalid.
 _InvalidParameterValue :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InvalidParameterValue =
@@ -231,12 +208,76 @@ _InvalidParameterValue =
     "InvalidParameterValue"
     Prelude.. Core.hasStatus 400
 
+-- | The specified query expression syntax is not valid.
+_InvalidQueryExpression :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidQueryExpression =
+  Core._MatchServiceError
+    defaultService
+    "InvalidQueryExpression"
+    Prelude.. Core.hasStatus 400
+
+-- | The request must contain the specified missing parameter.
+_MissingParameter :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MissingParameter =
+  Core._MatchServiceError
+    defaultService
+    "MissingParameter"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified domain does not exist.
+_NoSuchDomain :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchDomain =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchDomain"
+    Prelude.. Core.hasStatus 400
+
+-- | Too many attributes in this domain.
+_NumberDomainAttributesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NumberDomainAttributesExceeded =
+  Core._MatchServiceError
+    defaultService
+    "NumberDomainAttributesExceeded"
+    Prelude.. Core.hasStatus 409
+
+-- | Too many bytes in this domain.
+_NumberDomainBytesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NumberDomainBytesExceeded =
+  Core._MatchServiceError
+    defaultService
+    "NumberDomainBytesExceeded"
+    Prelude.. Core.hasStatus 409
+
+-- | Too many domains exist per this account.
+_NumberDomainsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NumberDomainsExceeded =
+  Core._MatchServiceError
+    defaultService
+    "NumberDomainsExceeded"
+    Prelude.. Core.hasStatus 409
+
 -- | Too many attributes in this item.
 _NumberItemAttributesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NumberItemAttributesExceeded =
   Core._MatchServiceError
     defaultService
     "NumberItemAttributesExceeded"
+    Prelude.. Core.hasStatus 409
+
+-- | Too many attributes exist in a single call.
+_NumberSubmittedAttributesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NumberSubmittedAttributesExceeded =
+  Core._MatchServiceError
+    defaultService
+    "NumberSubmittedAttributesExceeded"
+    Prelude.. Core.hasStatus 409
+
+-- | Too many items exist in a single call.
+_NumberSubmittedItemsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NumberSubmittedItemsExceeded =
+  Core._MatchServiceError
+    defaultService
+    "NumberSubmittedItemsExceeded"
     Prelude.. Core.hasStatus 409
 
 -- | A timeout occurred when attempting to query the specified domain with
@@ -254,44 +295,4 @@ _TooManyRequestedAttributes =
   Core._MatchServiceError
     defaultService
     "TooManyRequestedAttributes"
-    Prelude.. Core.hasStatus 400
-
--- | Too many predicates exist in the query expression.
-_InvalidNumberPredicates :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidNumberPredicates =
-  Core._MatchServiceError
-    defaultService
-    "InvalidNumberPredicates"
-    Prelude.. Core.hasStatus 400
-
--- | Too many domains exist per this account.
-_NumberDomainsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NumberDomainsExceeded =
-  Core._MatchServiceError
-    defaultService
-    "NumberDomainsExceeded"
-    Prelude.. Core.hasStatus 409
-
--- | Too many attributes exist in a single call.
-_NumberSubmittedAttributesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NumberSubmittedAttributesExceeded =
-  Core._MatchServiceError
-    defaultService
-    "NumberSubmittedAttributesExceeded"
-    Prelude.. Core.hasStatus 409
-
--- | Too many bytes in this domain.
-_NumberDomainBytesExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NumberDomainBytesExceeded =
-  Core._MatchServiceError
-    defaultService
-    "NumberDomainBytesExceeded"
-    Prelude.. Core.hasStatus 409
-
--- | The specified query expression syntax is not valid.
-_InvalidQueryExpression :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidQueryExpression =
-  Core._MatchServiceError
-    defaultService
-    "InvalidQueryExpression"
     Prelude.. Core.hasStatus 400

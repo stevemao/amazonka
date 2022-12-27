@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.PutSkillAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ data PutSkillAuthorization = PutSkillAuthorization'
     -- | The authorization result specific to OAUTH code grant output. \"Code”
     -- must be populated in the AuthorizationResult map to establish the
     -- authorization.
-    authorizationResult :: Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text),
+    authorizationResult :: Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The unique identifier of a skill.
     skillId :: Prelude.Text
   }
@@ -97,7 +98,7 @@ putSkillAuthorization_roomArn = Lens.lens (\PutSkillAuthorization' {roomArn} -> 
 -- must be populated in the AuthorizationResult map to establish the
 -- authorization.
 putSkillAuthorization_authorizationResult :: Lens.Lens' PutSkillAuthorization (Prelude.HashMap Prelude.Text Prelude.Text)
-putSkillAuthorization_authorizationResult = Lens.lens (\PutSkillAuthorization' {authorizationResult} -> authorizationResult) (\s@PutSkillAuthorization' {} a -> s {authorizationResult = a} :: PutSkillAuthorization) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+putSkillAuthorization_authorizationResult = Lens.lens (\PutSkillAuthorization' {authorizationResult} -> authorizationResult) (\s@PutSkillAuthorization' {} a -> s {authorizationResult = a} :: PutSkillAuthorization) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The unique identifier of a skill.
 putSkillAuthorization_skillId :: Lens.Lens' PutSkillAuthorization Prelude.Text
@@ -107,7 +108,8 @@ instance Core.AWSRequest PutSkillAuthorization where
   type
     AWSResponse PutSkillAuthorization =
       PutSkillAuthorizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -127,36 +129,36 @@ instance Prelude.NFData PutSkillAuthorization where
       `Prelude.seq` Prelude.rnf authorizationResult
       `Prelude.seq` Prelude.rnf skillId
 
-instance Core.ToHeaders PutSkillAuthorization where
+instance Data.ToHeaders PutSkillAuthorization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.PutSkillAuthorization" ::
+              Data.=# ( "AlexaForBusiness.PutSkillAuthorization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutSkillAuthorization where
+instance Data.ToJSON PutSkillAuthorization where
   toJSON PutSkillAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoomArn" Core..=) Prelude.<$> roomArn,
+          [ ("RoomArn" Data..=) Prelude.<$> roomArn,
             Prelude.Just
-              ("AuthorizationResult" Core..= authorizationResult),
-            Prelude.Just ("SkillId" Core..= skillId)
+              ("AuthorizationResult" Data..= authorizationResult),
+            Prelude.Just ("SkillId" Data..= skillId)
           ]
       )
 
-instance Core.ToPath PutSkillAuthorization where
+instance Data.ToPath PutSkillAuthorization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutSkillAuthorization where
+instance Data.ToQuery PutSkillAuthorization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutSkillAuthorizationResponse' smart constructor.

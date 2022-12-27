@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.MQ.Types
     defaultService,
 
     -- * Errors
+    _BadRequestException,
     _ConflictException,
     _ForbiddenException,
-    _NotFoundException,
     _InternalServerErrorException,
+    _NotFoundException,
     _UnauthorizedException,
-    _BadRequestException,
 
     -- * AuthenticationStrategy
     AuthenticationStrategy (..),
@@ -48,6 +49,12 @@ module Amazonka.MQ.Types
     -- * SanitizationWarningReason
     SanitizationWarningReason (..),
 
+    -- * ActionRequired
+    ActionRequired (..),
+    newActionRequired,
+    actionRequired_actionRequiredCode,
+    actionRequired_actionRequiredInfo,
+
     -- * AvailabilityZone
     AvailabilityZone (..),
     newAvailabilityZone,
@@ -56,34 +63,34 @@ module Amazonka.MQ.Types
     -- * BrokerEngineType
     BrokerEngineType (..),
     newBrokerEngineType,
-    brokerEngineType_engineVersions,
     brokerEngineType_engineType,
+    brokerEngineType_engineVersions,
 
     -- * BrokerInstance
     BrokerInstance (..),
     newBrokerInstance,
-    brokerInstance_ipAddress,
     brokerInstance_consoleURL,
     brokerInstance_endpoints,
+    brokerInstance_ipAddress,
 
     -- * BrokerInstanceOption
     BrokerInstanceOption (..),
     newBrokerInstanceOption,
-    brokerInstanceOption_supportedEngineVersions,
     brokerInstanceOption_availabilityZones,
-    brokerInstanceOption_supportedDeploymentModes,
     brokerInstanceOption_engineType,
     brokerInstanceOption_hostInstanceType,
     brokerInstanceOption_storageType,
+    brokerInstanceOption_supportedDeploymentModes,
+    brokerInstanceOption_supportedEngineVersions,
 
     -- * BrokerSummary
     BrokerSummary (..),
     newBrokerSummary,
+    brokerSummary_brokerArn,
+    brokerSummary_brokerId,
     brokerSummary_brokerName,
     brokerSummary_brokerState,
     brokerSummary_created,
-    brokerSummary_brokerId,
-    brokerSummary_brokerArn,
     brokerSummary_hostInstanceType,
     brokerSummary_deploymentMode,
     brokerSummary_engineType,
@@ -118,9 +125,9 @@ module Amazonka.MQ.Types
     -- * Configurations
     Configurations (..),
     newConfigurations,
-    configurations_pending,
-    configurations_history,
     configurations_current,
+    configurations_history,
+    configurations_pending,
 
     -- * EncryptionOptions
     EncryptionOptions (..),
@@ -136,10 +143,10 @@ module Amazonka.MQ.Types
     -- * LdapServerMetadataInput
     LdapServerMetadataInput (..),
     newLdapServerMetadataInput,
+    ldapServerMetadataInput_roleName,
+    ldapServerMetadataInput_roleSearchSubtree,
     ldapServerMetadataInput_userRoleName,
     ldapServerMetadataInput_userSearchSubtree,
-    ldapServerMetadataInput_roleSearchSubtree,
-    ldapServerMetadataInput_roleName,
     ldapServerMetadataInput_hosts,
     ldapServerMetadataInput_userSearchMatching,
     ldapServerMetadataInput_userBase,
@@ -151,10 +158,10 @@ module Amazonka.MQ.Types
     -- * LdapServerMetadataOutput
     LdapServerMetadataOutput (..),
     newLdapServerMetadataOutput,
+    ldapServerMetadataOutput_roleName,
+    ldapServerMetadataOutput_roleSearchSubtree,
     ldapServerMetadataOutput_userRoleName,
     ldapServerMetadataOutput_userSearchSubtree,
-    ldapServerMetadataOutput_roleSearchSubtree,
-    ldapServerMetadataOutput_roleName,
     ldapServerMetadataOutput_hosts,
     ldapServerMetadataOutput_userSearchMatching,
     ldapServerMetadataOutput_userBase,
@@ -171,9 +178,9 @@ module Amazonka.MQ.Types
     -- * LogsSummary
     LogsSummary (..),
     newLogsSummary,
-    logsSummary_pending,
     logsSummary_audit,
     logsSummary_auditLogGroup,
+    logsSummary_pending,
     logsSummary_generalLogGroup,
     logsSummary_general,
 
@@ -193,16 +200,16 @@ module Amazonka.MQ.Types
     -- * User
     User (..),
     newUser,
-    user_groups,
     user_consoleAccess,
+    user_groups,
     user_username,
     user_password,
 
     -- * UserPendingChanges
     UserPendingChanges (..),
     newUserPendingChanges,
-    userPendingChanges_groups,
     userPendingChanges_consoleAccess,
+    userPendingChanges_groups,
     userPendingChanges_pendingChange,
 
     -- * UserSummary
@@ -221,7 +228,8 @@ module Amazonka.MQ.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import Amazonka.MQ.Types.ActionRequired
 import Amazonka.MQ.Types.AuthenticationStrategy
 import Amazonka.MQ.Types.AvailabilityZone
 import Amazonka.MQ.Types.BrokerEngineType
@@ -258,41 +266,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "MQ",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "mq",
-      Core._serviceSigningName = "mq",
-      Core._serviceVersion = "2017-11-27",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "MQ",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MQ",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "mq",
+      Core.signingName = "mq",
+      Core.version = "2017-11-27",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MQ",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -300,29 +316,29 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | Returns information about an error.
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
+  Core._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Core.hasStatus 400
 
 -- | Returns information about an error.
 _ConflictException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -341,14 +357,6 @@ _ForbiddenException =
     Prelude.. Core.hasStatus 403
 
 -- | Returns information about an error.
-_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "NotFoundException"
-    Prelude.. Core.hasStatus 404
-
--- | Returns information about an error.
 _InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalServerErrorException =
   Core._MatchServiceError
@@ -357,17 +365,17 @@ _InternalServerErrorException =
     Prelude.. Core.hasStatus 500
 
 -- | Returns information about an error.
+_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Core.hasStatus 404
+
+-- | Returns information about an error.
 _UnauthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _UnauthorizedException =
   Core._MatchServiceError
     defaultService
     "UnauthorizedException"
     Prelude.. Core.hasStatus 401
-
--- | Returns information about an error.
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
-  Core._MatchServiceError
-    defaultService
-    "BadRequestException"
-    Prelude.. Core.hasStatus 400

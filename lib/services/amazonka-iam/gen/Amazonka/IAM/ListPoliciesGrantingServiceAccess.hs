@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListPoliciesGrantingServiceAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -73,16 +73,17 @@ module Amazonka.IAM.ListPoliciesGrantingServiceAccess
     newListPoliciesGrantingServiceAccessResponse,
 
     -- * Response Lenses
-    listPoliciesGrantingServiceAccessResponse_marker,
     listPoliciesGrantingServiceAccessResponse_isTruncated,
+    listPoliciesGrantingServiceAccessResponse_marker,
     listPoliciesGrantingServiceAccessResponse_httpStatus,
     listPoliciesGrantingServiceAccessResponse_policiesGrantingServiceAccess,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -190,18 +191,19 @@ instance
   type
     AWSResponse ListPoliciesGrantingServiceAccess =
       ListPoliciesGrantingServiceAccessResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListPoliciesGrantingServiceAccessResult"
       ( \s h x ->
           ListPoliciesGrantingServiceAccessResponse'
-            Prelude.<$> (x Core..@? "Marker")
-              Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+              Prelude.<*> (x Data..@? "Marker")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..@? "PoliciesGrantingServiceAccess"
+              Prelude.<*> ( x Data..@? "PoliciesGrantingServiceAccess"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.parseXMLList "member"
+                              Prelude.>>= Data.parseXMLList "member"
                           )
       )
 
@@ -226,47 +228,47 @@ instance
       `Prelude.seq` Prelude.rnf serviceNamespaces
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListPoliciesGrantingServiceAccess
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListPoliciesGrantingServiceAccess
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListPoliciesGrantingServiceAccess
   where
   toQuery ListPoliciesGrantingServiceAccess' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ListPoliciesGrantingServiceAccess" ::
+          Data.=: ( "ListPoliciesGrantingServiceAccess" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "Arn" Core.=: arn,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "Arn" Data.=: arn,
         "ServiceNamespaces"
-          Core.=: Core.toQueryList "member" serviceNamespaces
+          Data.=: Data.toQueryList "member" serviceNamespaces
       ]
 
 -- | /See:/ 'newListPoliciesGrantingServiceAccessResponse' smart constructor.
 data ListPoliciesGrantingServiceAccessResponse = ListPoliciesGrantingServiceAccessResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. We
     -- recommend that you check @IsTruncated@ after every call to ensure that
     -- you receive all your results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | A @ListPoliciesGrantingServiceAccess@ object that contains details about
@@ -284,15 +286,15 @@ data ListPoliciesGrantingServiceAccessResponse = ListPoliciesGrantingServiceAcce
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listPoliciesGrantingServiceAccessResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listPoliciesGrantingServiceAccessResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. We
 -- recommend that you check @IsTruncated@ after every call to ensure that
 -- you receive all your results.
+--
+-- 'marker', 'listPoliciesGrantingServiceAccessResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listPoliciesGrantingServiceAccessResponse_httpStatus' - The response's http status code.
 --
@@ -306,19 +308,13 @@ newListPoliciesGrantingServiceAccessResponse ::
 newListPoliciesGrantingServiceAccessResponse
   pHttpStatus_ =
     ListPoliciesGrantingServiceAccessResponse'
-      { marker =
+      { isTruncated =
           Prelude.Nothing,
-        isTruncated = Prelude.Nothing,
+        marker = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         policiesGrantingServiceAccess =
           Prelude.mempty
       }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listPoliciesGrantingServiceAccessResponse_marker :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse (Prelude.Maybe Prelude.Text)
-listPoliciesGrantingServiceAccessResponse_marker = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {marker} -> marker) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {marker = a} :: ListPoliciesGrantingServiceAccessResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -327,6 +323,12 @@ listPoliciesGrantingServiceAccessResponse_marker = Lens.lens (\ListPoliciesGrant
 -- you receive all your results.
 listPoliciesGrantingServiceAccessResponse_isTruncated :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse (Prelude.Maybe Prelude.Bool)
 listPoliciesGrantingServiceAccessResponse_isTruncated = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {isTruncated} -> isTruncated) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {isTruncated = a} :: ListPoliciesGrantingServiceAccessResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listPoliciesGrantingServiceAccessResponse_marker :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse (Prelude.Maybe Prelude.Text)
+listPoliciesGrantingServiceAccessResponse_marker = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {marker} -> marker) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {marker = a} :: ListPoliciesGrantingServiceAccessResponse)
 
 -- | The response's http status code.
 listPoliciesGrantingServiceAccessResponse_httpStatus :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse Prelude.Int
@@ -343,7 +345,7 @@ instance
     ListPoliciesGrantingServiceAccessResponse
   where
   rnf ListPoliciesGrantingServiceAccessResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf policiesGrantingServiceAccess

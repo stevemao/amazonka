@@ -14,13 +14,23 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.AssociateLenses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Associate a lens to a workload.
+--
+-- Up to 10 lenses can be associated with a workload in a single API
+-- operation. A maximum of 20 lenses can be associated with a workload.
+--
+-- __Disclaimer__
+--
+-- By accessing and\/or applying custom lenses created by another Amazon
+-- Web Services user or account, you acknowledge that custom lenses created
+-- by other users and shared with you are Third Party Content as defined in
+-- the Amazon Web Services Customer Agreement.
 module Amazonka.WellArchitected.AssociateLenses
   ( -- * Creating a Request
     AssociateLenses (..),
@@ -37,7 +47,8 @@ module Amazonka.WellArchitected.AssociateLenses
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +98,8 @@ instance Core.AWSRequest AssociateLenses where
   type
     AWSResponse AssociateLenses =
       AssociateLensesResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveNull AssociateLensesResponse'
 
@@ -101,33 +113,33 @@ instance Prelude.NFData AssociateLenses where
     Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf lensAliases
 
-instance Core.ToHeaders AssociateLenses where
+instance Data.ToHeaders AssociateLenses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateLenses where
+instance Data.ToJSON AssociateLenses where
   toJSON AssociateLenses' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LensAliases" Core..= lensAliases)]
+          [Prelude.Just ("LensAliases" Data..= lensAliases)]
       )
 
-instance Core.ToPath AssociateLenses where
+instance Data.ToPath AssociateLenses where
   toPath AssociateLenses' {..} =
     Prelude.mconcat
       [ "/workloads/",
-        Core.toBS workloadId,
+        Data.toBS workloadId,
         "/associateLenses"
       ]
 
-instance Core.ToQuery AssociateLenses where
+instance Data.ToQuery AssociateLenses where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateLensesResponse' smart constructor.

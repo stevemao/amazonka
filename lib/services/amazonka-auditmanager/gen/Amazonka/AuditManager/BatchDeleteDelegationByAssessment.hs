@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.BatchDeleteDelegationByAssessment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the delegations in the specified Audit Manager assessment.
+-- Deletes a batch of delegations for an assessment in Audit Manager.
 module Amazonka.AuditManager.BatchDeleteDelegationByAssessment
   ( -- * Creating a Request
     BatchDeleteDelegationByAssessment (..),
@@ -42,16 +42,17 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchDeleteDelegationByAssessment' smart constructor.
 data BatchDeleteDelegationByAssessment = BatchDeleteDelegationByAssessment'
-  { -- | The identifiers for the specified delegations.
+  { -- | The identifiers for the delegations.
     delegationIds :: Prelude.NonEmpty Prelude.Text,
-    -- | The identifier for the specified assessment.
+    -- | The identifier for the assessment.
     assessmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +65,9 @@ data BatchDeleteDelegationByAssessment = BatchDeleteDelegationByAssessment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'delegationIds', 'batchDeleteDelegationByAssessment_delegationIds' - The identifiers for the specified delegations.
+-- 'delegationIds', 'batchDeleteDelegationByAssessment_delegationIds' - The identifiers for the delegations.
 --
--- 'assessmentId', 'batchDeleteDelegationByAssessment_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'batchDeleteDelegationByAssessment_assessmentId' - The identifier for the assessment.
 newBatchDeleteDelegationByAssessment ::
   -- | 'delegationIds'
   Prelude.NonEmpty Prelude.Text ->
@@ -82,11 +83,11 @@ newBatchDeleteDelegationByAssessment
         assessmentId = pAssessmentId_
       }
 
--- | The identifiers for the specified delegations.
+-- | The identifiers for the delegations.
 batchDeleteDelegationByAssessment_delegationIds :: Lens.Lens' BatchDeleteDelegationByAssessment (Prelude.NonEmpty Prelude.Text)
 batchDeleteDelegationByAssessment_delegationIds = Lens.lens (\BatchDeleteDelegationByAssessment' {delegationIds} -> delegationIds) (\s@BatchDeleteDelegationByAssessment' {} a -> s {delegationIds = a} :: BatchDeleteDelegationByAssessment) Prelude.. Lens.coerced
 
--- | The identifier for the specified assessment.
+-- | The identifier for the assessment.
 batchDeleteDelegationByAssessment_assessmentId :: Lens.Lens' BatchDeleteDelegationByAssessment Prelude.Text
 batchDeleteDelegationByAssessment_assessmentId = Lens.lens (\BatchDeleteDelegationByAssessment' {assessmentId} -> assessmentId) (\s@BatchDeleteDelegationByAssessment' {} a -> s {assessmentId = a} :: BatchDeleteDelegationByAssessment)
 
@@ -97,12 +98,13 @@ instance
   type
     AWSResponse BatchDeleteDelegationByAssessment =
       BatchDeleteDelegationByAssessmentResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteDelegationByAssessmentResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,52 +127,52 @@ instance
       `Prelude.seq` Prelude.rnf assessmentId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchDeleteDelegationByAssessment
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     BatchDeleteDelegationByAssessment
   where
   toJSON BatchDeleteDelegationByAssessment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("delegationIds" Core..= delegationIds)
+              ("delegationIds" Data..= delegationIds)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     BatchDeleteDelegationByAssessment
   where
   toPath BatchDeleteDelegationByAssessment' {..} =
     Prelude.mconcat
       [ "/assessments/",
-        Core.toBS assessmentId,
+        Data.toBS assessmentId,
         "/delegations"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchDeleteDelegationByAssessment
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteDelegationByAssessmentResponse' smart constructor.
 data BatchDeleteDelegationByAssessmentResponse = BatchDeleteDelegationByAssessmentResponse'
-  { -- | A list of errors returned by the @BatchDeleteDelegationByAssessment@
-    -- API.
+  { -- | A list of errors that the @BatchDeleteDelegationByAssessment@ API
+    -- returned.
     errors :: Prelude.Maybe [BatchDeleteDelegationByAssessmentError],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -185,8 +187,8 @@ data BatchDeleteDelegationByAssessmentResponse = BatchDeleteDelegationByAssessme
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errors', 'batchDeleteDelegationByAssessmentResponse_errors' - A list of errors returned by the @BatchDeleteDelegationByAssessment@
--- API.
+-- 'errors', 'batchDeleteDelegationByAssessmentResponse_errors' - A list of errors that the @BatchDeleteDelegationByAssessment@ API
+-- returned.
 --
 -- 'httpStatus', 'batchDeleteDelegationByAssessmentResponse_httpStatus' - The response's http status code.
 newBatchDeleteDelegationByAssessmentResponse ::
@@ -201,8 +203,8 @@ newBatchDeleteDelegationByAssessmentResponse
         httpStatus = pHttpStatus_
       }
 
--- | A list of errors returned by the @BatchDeleteDelegationByAssessment@
--- API.
+-- | A list of errors that the @BatchDeleteDelegationByAssessment@ API
+-- returned.
 batchDeleteDelegationByAssessmentResponse_errors :: Lens.Lens' BatchDeleteDelegationByAssessmentResponse (Prelude.Maybe [BatchDeleteDelegationByAssessmentError])
 batchDeleteDelegationByAssessmentResponse_errors = Lens.lens (\BatchDeleteDelegationByAssessmentResponse' {errors} -> errors) (\s@BatchDeleteDelegationByAssessmentResponse' {} a -> s {errors = a} :: BatchDeleteDelegationByAssessmentResponse) Prelude.. Lens.mapping Lens.coerced
 

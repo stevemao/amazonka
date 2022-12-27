@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.GetThirdPartyJobDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest GetThirdPartyJobDetails where
   type
     AWSResponse GetThirdPartyJobDetails =
       GetThirdPartyJobDetailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetThirdPartyJobDetailsResponse'
-            Prelude.<$> (x Core..?> "jobDetails")
+            Prelude.<$> (x Data..?> "jobDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,34 +126,34 @@ instance Prelude.NFData GetThirdPartyJobDetails where
     Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders GetThirdPartyJobDetails where
+instance Data.ToHeaders GetThirdPartyJobDetails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.GetThirdPartyJobDetails" ::
+              Data.=# ( "CodePipeline_20150709.GetThirdPartyJobDetails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetThirdPartyJobDetails where
+instance Data.ToJSON GetThirdPartyJobDetails where
   toJSON GetThirdPartyJobDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("clientToken" Core..= clientToken)
+          [ Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("clientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath GetThirdPartyJobDetails where
+instance Data.ToPath GetThirdPartyJobDetails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetThirdPartyJobDetails where
+instance Data.ToQuery GetThirdPartyJobDetails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetThirdPartyJobDetails@ action.

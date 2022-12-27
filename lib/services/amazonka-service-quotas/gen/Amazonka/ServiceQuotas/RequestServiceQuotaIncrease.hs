@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.RequestServiceQuotaIncrease
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.ServiceQuotas.RequestServiceQuotaIncrease
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance Core.AWSRequest RequestServiceQuotaIncrease where
   type
     AWSResponse RequestServiceQuotaIncrease =
       RequestServiceQuotaIncreaseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RequestServiceQuotaIncreaseResponse'
-            Prelude.<$> (x Core..?> "RequestedQuota")
+            Prelude.<$> (x Data..?> "RequestedQuota")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,35 +130,35 @@ instance Prelude.NFData RequestServiceQuotaIncrease where
       `Prelude.seq` Prelude.rnf quotaCode
       `Prelude.seq` Prelude.rnf desiredValue
 
-instance Core.ToHeaders RequestServiceQuotaIncrease where
+instance Data.ToHeaders RequestServiceQuotaIncrease where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.RequestServiceQuotaIncrease" ::
+              Data.=# ( "ServiceQuotasV20190624.RequestServiceQuotaIncrease" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RequestServiceQuotaIncrease where
+instance Data.ToJSON RequestServiceQuotaIncrease where
   toJSON RequestServiceQuotaIncrease' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServiceCode" Core..= serviceCode),
-            Prelude.Just ("QuotaCode" Core..= quotaCode),
-            Prelude.Just ("DesiredValue" Core..= desiredValue)
+          [ Prelude.Just ("ServiceCode" Data..= serviceCode),
+            Prelude.Just ("QuotaCode" Data..= quotaCode),
+            Prelude.Just ("DesiredValue" Data..= desiredValue)
           ]
       )
 
-instance Core.ToPath RequestServiceQuotaIncrease where
+instance Data.ToPath RequestServiceQuotaIncrease where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RequestServiceQuotaIncrease where
+instance Data.ToQuery RequestServiceQuotaIncrease where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRequestServiceQuotaIncreaseResponse' smart constructor.

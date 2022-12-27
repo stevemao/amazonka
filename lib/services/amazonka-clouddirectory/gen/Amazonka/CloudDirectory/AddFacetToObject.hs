@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.AddFacetToObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,7 +124,8 @@ instance Core.AWSRequest AddFacetToObject where
   type
     AWSResponse AddFacetToObject =
       AddFacetToObjectResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -145,29 +147,29 @@ instance Prelude.NFData AddFacetToObject where
       `Prelude.seq` Prelude.rnf schemaFacet
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders AddFacetToObject where
+instance Data.ToHeaders AddFacetToObject where
   toHeaders AddFacetToObject' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON AddFacetToObject where
+instance Data.ToJSON AddFacetToObject where
   toJSON AddFacetToObject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ObjectAttributeList" Core..=)
+          [ ("ObjectAttributeList" Data..=)
               Prelude.<$> objectAttributeList,
-            Prelude.Just ("SchemaFacet" Core..= schemaFacet),
+            Prelude.Just ("SchemaFacet" Data..= schemaFacet),
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath AddFacetToObject where
+instance Data.ToPath AddFacetToObject where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/facets"
 
-instance Core.ToQuery AddFacetToObject where
+instance Data.ToQuery AddFacetToObject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddFacetToObjectResponse' smart constructor.

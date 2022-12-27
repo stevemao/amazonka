@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateAppImageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.CreateAppImageConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,10 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateAppImageConfig' smart constructor.
 data CreateAppImageConfig = CreateAppImageConfig'
-  { -- | The KernelGatewayImageConfig.
+  { -- | The KernelGatewayImageConfig. You can only specify one image kernel in
+    -- the AppImageConfig API. This kernel will be shown to users before the
+    -- image starts. Once the image runs, all kernels are visible in
+    -- JupyterLab.
     kernelGatewayImageConfig :: Prelude.Maybe KernelGatewayImageConfig,
     -- | A list of tags to apply to the AppImageConfig.
     tags :: Prelude.Maybe [Tag],
@@ -69,7 +73,10 @@ data CreateAppImageConfig = CreateAppImageConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kernelGatewayImageConfig', 'createAppImageConfig_kernelGatewayImageConfig' - The KernelGatewayImageConfig.
+-- 'kernelGatewayImageConfig', 'createAppImageConfig_kernelGatewayImageConfig' - The KernelGatewayImageConfig. You can only specify one image kernel in
+-- the AppImageConfig API. This kernel will be shown to users before the
+-- image starts. Once the image runs, all kernels are visible in
+-- JupyterLab.
 --
 -- 'tags', 'createAppImageConfig_tags' - A list of tags to apply to the AppImageConfig.
 --
@@ -86,7 +93,10 @@ newCreateAppImageConfig pAppImageConfigName_ =
       appImageConfigName = pAppImageConfigName_
     }
 
--- | The KernelGatewayImageConfig.
+-- | The KernelGatewayImageConfig. You can only specify one image kernel in
+-- the AppImageConfig API. This kernel will be shown to users before the
+-- image starts. Once the image runs, all kernels are visible in
+-- JupyterLab.
 createAppImageConfig_kernelGatewayImageConfig :: Lens.Lens' CreateAppImageConfig (Prelude.Maybe KernelGatewayImageConfig)
 createAppImageConfig_kernelGatewayImageConfig = Lens.lens (\CreateAppImageConfig' {kernelGatewayImageConfig} -> kernelGatewayImageConfig) (\s@CreateAppImageConfig' {} a -> s {kernelGatewayImageConfig = a} :: CreateAppImageConfig)
 
@@ -102,12 +112,13 @@ instance Core.AWSRequest CreateAppImageConfig where
   type
     AWSResponse CreateAppImageConfig =
       CreateAppImageConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAppImageConfigResponse'
-            Prelude.<$> (x Core..?> "AppImageConfigArn")
+            Prelude.<$> (x Data..?> "AppImageConfigArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,37 +135,37 @@ instance Prelude.NFData CreateAppImageConfig where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf appImageConfigName
 
-instance Core.ToHeaders CreateAppImageConfig where
+instance Data.ToHeaders CreateAppImageConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateAppImageConfig" ::
+              Data.=# ( "SageMaker.CreateAppImageConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAppImageConfig where
+instance Data.ToJSON CreateAppImageConfig where
   toJSON CreateAppImageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KernelGatewayImageConfig" Core..=)
+          [ ("KernelGatewayImageConfig" Data..=)
               Prelude.<$> kernelGatewayImageConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("AppImageConfigName" Core..= appImageConfigName)
+              ("AppImageConfigName" Data..= appImageConfigName)
           ]
       )
 
-instance Core.ToPath CreateAppImageConfig where
+instance Data.ToPath CreateAppImageConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAppImageConfig where
+instance Data.ToQuery CreateAppImageConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAppImageConfigResponse' smart constructor.

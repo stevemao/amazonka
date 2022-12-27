@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetApiKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.APIGateway.GetApiKeys
     newGetApiKeys,
 
     -- * Request Lenses
-    getApiKeys_includeValues,
     getApiKeys_customerId,
-    getApiKeys_nameQuery,
+    getApiKeys_includeValues,
     getApiKeys_limit,
+    getApiKeys_nameQuery,
     getApiKeys_position,
 
     -- * Destructuring the Response
@@ -41,15 +41,16 @@ module Amazonka.APIGateway.GetApiKeys
 
     -- * Response Lenses
     getApiKeysResponse_items,
-    getApiKeysResponse_warnings,
     getApiKeysResponse_position,
+    getApiKeysResponse_warnings,
     getApiKeysResponse_httpStatus,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,17 +59,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetApiKeys' smart constructor.
 data GetApiKeys = GetApiKeys'
-  { -- | A boolean flag to specify whether (@true@) or not (@false@) the result
-    -- contains key values.
-    includeValues :: Prelude.Maybe Prelude.Bool,
-    -- | The identifier of a customer in AWS Marketplace or an external system,
+  { -- | The identifier of a customer in AWS Marketplace or an external system,
     -- such as a developer portal.
     customerId :: Prelude.Maybe Prelude.Text,
-    -- | The name of queried API keys.
-    nameQuery :: Prelude.Maybe Prelude.Text,
+    -- | A boolean flag to specify whether (@true@) or not (@false@) the result
+    -- contains key values.
+    includeValues :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of returned results per page. The default value is 25
     -- and the maximum value is 500.
     limit :: Prelude.Maybe Prelude.Int,
+    -- | The name of queried API keys.
+    nameQuery :: Prelude.Maybe Prelude.Text,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text
   }
@@ -82,47 +83,47 @@ data GetApiKeys = GetApiKeys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includeValues', 'getApiKeys_includeValues' - A boolean flag to specify whether (@true@) or not (@false@) the result
--- contains key values.
---
 -- 'customerId', 'getApiKeys_customerId' - The identifier of a customer in AWS Marketplace or an external system,
 -- such as a developer portal.
 --
--- 'nameQuery', 'getApiKeys_nameQuery' - The name of queried API keys.
+-- 'includeValues', 'getApiKeys_includeValues' - A boolean flag to specify whether (@true@) or not (@false@) the result
+-- contains key values.
 --
 -- 'limit', 'getApiKeys_limit' - The maximum number of returned results per page. The default value is 25
 -- and the maximum value is 500.
+--
+-- 'nameQuery', 'getApiKeys_nameQuery' - The name of queried API keys.
 --
 -- 'position', 'getApiKeys_position' - The current pagination position in the paged result set.
 newGetApiKeys ::
   GetApiKeys
 newGetApiKeys =
   GetApiKeys'
-    { includeValues = Prelude.Nothing,
-      customerId = Prelude.Nothing,
-      nameQuery = Prelude.Nothing,
+    { customerId = Prelude.Nothing,
+      includeValues = Prelude.Nothing,
       limit = Prelude.Nothing,
+      nameQuery = Prelude.Nothing,
       position = Prelude.Nothing
     }
-
--- | A boolean flag to specify whether (@true@) or not (@false@) the result
--- contains key values.
-getApiKeys_includeValues :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Bool)
-getApiKeys_includeValues = Lens.lens (\GetApiKeys' {includeValues} -> includeValues) (\s@GetApiKeys' {} a -> s {includeValues = a} :: GetApiKeys)
 
 -- | The identifier of a customer in AWS Marketplace or an external system,
 -- such as a developer portal.
 getApiKeys_customerId :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Text)
 getApiKeys_customerId = Lens.lens (\GetApiKeys' {customerId} -> customerId) (\s@GetApiKeys' {} a -> s {customerId = a} :: GetApiKeys)
 
--- | The name of queried API keys.
-getApiKeys_nameQuery :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Text)
-getApiKeys_nameQuery = Lens.lens (\GetApiKeys' {nameQuery} -> nameQuery) (\s@GetApiKeys' {} a -> s {nameQuery = a} :: GetApiKeys)
+-- | A boolean flag to specify whether (@true@) or not (@false@) the result
+-- contains key values.
+getApiKeys_includeValues :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Bool)
+getApiKeys_includeValues = Lens.lens (\GetApiKeys' {includeValues} -> includeValues) (\s@GetApiKeys' {} a -> s {includeValues = a} :: GetApiKeys)
 
 -- | The maximum number of returned results per page. The default value is 25
 -- and the maximum value is 500.
 getApiKeys_limit :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Int)
 getApiKeys_limit = Lens.lens (\GetApiKeys' {limit} -> limit) (\s@GetApiKeys' {} a -> s {limit = a} :: GetApiKeys)
+
+-- | The name of queried API keys.
+getApiKeys_nameQuery :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Text)
+getApiKeys_nameQuery = Lens.lens (\GetApiKeys' {nameQuery} -> nameQuery) (\s@GetApiKeys' {} a -> s {nameQuery = a} :: GetApiKeys)
 
 -- | The current pagination position in the paged result set.
 getApiKeys_position :: Lens.Lens' GetApiKeys (Prelude.Maybe Prelude.Text)
@@ -149,68 +150,67 @@ instance Core.AWSPager GetApiKeys where
 
 instance Core.AWSRequest GetApiKeys where
   type AWSResponse GetApiKeys = GetApiKeysResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetApiKeysResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "warnings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
+            Prelude.<*> (x Data..?> "warnings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetApiKeys where
   hashWithSalt _salt GetApiKeys' {..} =
-    _salt `Prelude.hashWithSalt` includeValues
-      `Prelude.hashWithSalt` customerId
-      `Prelude.hashWithSalt` nameQuery
+    _salt `Prelude.hashWithSalt` customerId
+      `Prelude.hashWithSalt` includeValues
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nameQuery
       `Prelude.hashWithSalt` position
 
 instance Prelude.NFData GetApiKeys where
   rnf GetApiKeys' {..} =
-    Prelude.rnf includeValues
-      `Prelude.seq` Prelude.rnf customerId
-      `Prelude.seq` Prelude.rnf nameQuery
+    Prelude.rnf customerId
+      `Prelude.seq` Prelude.rnf includeValues
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nameQuery
       `Prelude.seq` Prelude.rnf position
 
-instance Core.ToHeaders GetApiKeys where
+instance Data.ToHeaders GetApiKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetApiKeys where
+instance Data.ToPath GetApiKeys where
   toPath = Prelude.const "/apikeys"
 
-instance Core.ToQuery GetApiKeys where
+instance Data.ToQuery GetApiKeys where
   toQuery GetApiKeys' {..} =
     Prelude.mconcat
-      [ "includeValues" Core.=: includeValues,
-        "customerId" Core.=: customerId,
-        "name" Core.=: nameQuery,
-        "limit" Core.=: limit,
-        "position" Core.=: position
+      [ "customerId" Data.=: customerId,
+        "includeValues" Data.=: includeValues,
+        "limit" Data.=: limit,
+        "name" Data.=: nameQuery,
+        "position" Data.=: position
       ]
 
 -- | Represents a collection of API keys as represented by an ApiKeys
 -- resource.
 --
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-api-keys.html Use API Keys>
---
 -- /See:/ 'newGetApiKeysResponse' smart constructor.
 data GetApiKeysResponse = GetApiKeysResponse'
   { -- | The current page of elements from this collection.
     items :: Prelude.Maybe [ApiKey],
+    position :: Prelude.Maybe Prelude.Text,
     -- | A list of warning messages logged during the import of API keys when the
     -- @failOnWarnings@ option is set to true.
     warnings :: Prelude.Maybe [Prelude.Text],
-    position :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,10 +226,10 @@ data GetApiKeysResponse = GetApiKeysResponse'
 --
 -- 'items', 'getApiKeysResponse_items' - The current page of elements from this collection.
 --
+-- 'position', 'getApiKeysResponse_position' - Undocumented member.
+--
 -- 'warnings', 'getApiKeysResponse_warnings' - A list of warning messages logged during the import of API keys when the
 -- @failOnWarnings@ option is set to true.
---
--- 'position', 'getApiKeysResponse_position' - Undocumented member.
 --
 -- 'httpStatus', 'getApiKeysResponse_httpStatus' - The response's http status code.
 newGetApiKeysResponse ::
@@ -239,8 +239,8 @@ newGetApiKeysResponse ::
 newGetApiKeysResponse pHttpStatus_ =
   GetApiKeysResponse'
     { items = Prelude.Nothing,
-      warnings = Prelude.Nothing,
       position = Prelude.Nothing,
+      warnings = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -248,14 +248,14 @@ newGetApiKeysResponse pHttpStatus_ =
 getApiKeysResponse_items :: Lens.Lens' GetApiKeysResponse (Prelude.Maybe [ApiKey])
 getApiKeysResponse_items = Lens.lens (\GetApiKeysResponse' {items} -> items) (\s@GetApiKeysResponse' {} a -> s {items = a} :: GetApiKeysResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | Undocumented member.
+getApiKeysResponse_position :: Lens.Lens' GetApiKeysResponse (Prelude.Maybe Prelude.Text)
+getApiKeysResponse_position = Lens.lens (\GetApiKeysResponse' {position} -> position) (\s@GetApiKeysResponse' {} a -> s {position = a} :: GetApiKeysResponse)
+
 -- | A list of warning messages logged during the import of API keys when the
 -- @failOnWarnings@ option is set to true.
 getApiKeysResponse_warnings :: Lens.Lens' GetApiKeysResponse (Prelude.Maybe [Prelude.Text])
 getApiKeysResponse_warnings = Lens.lens (\GetApiKeysResponse' {warnings} -> warnings) (\s@GetApiKeysResponse' {} a -> s {warnings = a} :: GetApiKeysResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-getApiKeysResponse_position :: Lens.Lens' GetApiKeysResponse (Prelude.Maybe Prelude.Text)
-getApiKeysResponse_position = Lens.lens (\GetApiKeysResponse' {position} -> position) (\s@GetApiKeysResponse' {} a -> s {position = a} :: GetApiKeysResponse)
 
 -- | The response's http status code.
 getApiKeysResponse_httpStatus :: Lens.Lens' GetApiKeysResponse Prelude.Int
@@ -264,6 +264,6 @@ getApiKeysResponse_httpStatus = Lens.lens (\GetApiKeysResponse' {httpStatus} -> 
 instance Prelude.NFData GetApiKeysResponse where
   rnf GetApiKeysResponse' {..} =
     Prelude.rnf items
-      `Prelude.seq` Prelude.rnf warnings
       `Prelude.seq` Prelude.rnf position
+      `Prelude.seq` Prelude.rnf warnings
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,10 +42,10 @@ module Amazonka.SSM.DescribeParameters
     newDescribeParameters,
 
     -- * Request Lenses
-    describeParameters_parameterFilters,
     describeParameters_filters,
-    describeParameters_nextToken,
     describeParameters_maxResults,
+    describeParameters_nextToken,
+    describeParameters_parameterFilters,
 
     -- * Destructuring the Response
     DescribeParametersResponse (..),
@@ -59,7 +59,8 @@ module Amazonka.SSM.DescribeParameters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,17 +68,17 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeParameters' smart constructor.
 data DescribeParameters = DescribeParameters'
-  { -- | Filters to limit the request results.
-    parameterFilters :: Prelude.Maybe [ParameterStringFilter],
-    -- | This data type is deprecated. Instead, use @ParameterFilters@.
+  { -- | This data type is deprecated. Instead, use @ParameterFilters@.
     filters :: Prelude.Maybe [ParametersFilter],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters to limit the request results.
+    parameterFilters :: Prelude.Maybe [ParameterStringFilter]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,45 +90,44 @@ data DescribeParameters = DescribeParameters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterFilters', 'describeParameters_parameterFilters' - Filters to limit the request results.
---
 -- 'filters', 'describeParameters_filters' - This data type is deprecated. Instead, use @ParameterFilters@.
---
--- 'nextToken', 'describeParameters_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
 --
 -- 'maxResults', 'describeParameters_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'describeParameters_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
+--
+-- 'parameterFilters', 'describeParameters_parameterFilters' - Filters to limit the request results.
 newDescribeParameters ::
   DescribeParameters
 newDescribeParameters =
   DescribeParameters'
-    { parameterFilters =
-        Prelude.Nothing,
-      filters = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      parameterFilters = Prelude.Nothing
     }
-
--- | Filters to limit the request results.
-describeParameters_parameterFilters :: Lens.Lens' DescribeParameters (Prelude.Maybe [ParameterStringFilter])
-describeParameters_parameterFilters = Lens.lens (\DescribeParameters' {parameterFilters} -> parameterFilters) (\s@DescribeParameters' {} a -> s {parameterFilters = a} :: DescribeParameters) Prelude.. Lens.mapping Lens.coerced
 
 -- | This data type is deprecated. Instead, use @ParameterFilters@.
 describeParameters_filters :: Lens.Lens' DescribeParameters (Prelude.Maybe [ParametersFilter])
 describeParameters_filters = Lens.lens (\DescribeParameters' {filters} -> filters) (\s@DescribeParameters' {} a -> s {filters = a} :: DescribeParameters) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeParameters_nextToken :: Lens.Lens' DescribeParameters (Prelude.Maybe Prelude.Text)
-describeParameters_nextToken = Lens.lens (\DescribeParameters' {nextToken} -> nextToken) (\s@DescribeParameters' {} a -> s {nextToken = a} :: DescribeParameters)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 describeParameters_maxResults :: Lens.Lens' DescribeParameters (Prelude.Maybe Prelude.Natural)
 describeParameters_maxResults = Lens.lens (\DescribeParameters' {maxResults} -> maxResults) (\s@DescribeParameters' {} a -> s {maxResults = a} :: DescribeParameters)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeParameters_nextToken :: Lens.Lens' DescribeParameters (Prelude.Maybe Prelude.Text)
+describeParameters_nextToken = Lens.lens (\DescribeParameters' {nextToken} -> nextToken) (\s@DescribeParameters' {} a -> s {nextToken = a} :: DescribeParameters)
+
+-- | Filters to limit the request results.
+describeParameters_parameterFilters :: Lens.Lens' DescribeParameters (Prelude.Maybe [ParameterStringFilter])
+describeParameters_parameterFilters = Lens.lens (\DescribeParameters' {parameterFilters} -> parameterFilters) (\s@DescribeParameters' {} a -> s {parameterFilters = a} :: DescribeParameters) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeParameters where
   page rq rs
@@ -155,61 +155,62 @@ instance Core.AWSRequest DescribeParameters where
   type
     AWSResponse DescribeParameters =
       DescribeParametersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeParametersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Parameters" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Parameters" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeParameters where
   hashWithSalt _salt DescribeParameters' {..} =
-    _salt `Prelude.hashWithSalt` parameterFilters
-      `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` parameterFilters
 
 instance Prelude.NFData DescribeParameters where
   rnf DescribeParameters' {..} =
-    Prelude.rnf parameterFilters
-      `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf parameterFilters
 
-instance Core.ToHeaders DescribeParameters where
+instance Data.ToHeaders DescribeParameters where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeParameters" ::
+              Data.=# ( "AmazonSSM.DescribeParameters" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeParameters where
+instance Data.ToJSON DescribeParameters where
   toJSON DescribeParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParameterFilters" Core..=)
-              Prelude.<$> parameterFilters,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ParameterFilters" Data..=)
+              Prelude.<$> parameterFilters
           ]
       )
 
-instance Core.ToPath DescribeParameters where
+instance Data.ToPath DescribeParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeParameters where
+instance Data.ToQuery DescribeParameters where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeParametersResponse' smart constructor.

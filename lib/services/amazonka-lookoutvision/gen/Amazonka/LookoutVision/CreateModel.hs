@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.CreateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,8 @@ module Amazonka.LookoutVision.CreateModel
 
     -- * Request Lenses
     createModel_clientToken,
-    createModel_kmsKeyId,
     createModel_description,
+    createModel_kmsKeyId,
     createModel_tags,
     createModel_projectName,
     createModel_outputConfig,
@@ -64,7 +64,8 @@ module Amazonka.LookoutVision.CreateModel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -73,22 +74,27 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newCreateModel' smart constructor.
 data CreateModel = CreateModel'
   { -- | ClientToken is an idempotency token that ensures a call to @CreateModel@
-    -- completes only once. You choose the value to pass. For example, An
-    -- issue, such as an network outage, might prevent you from getting a
-    -- response from @CreateModel@. In this case, safely retry your call to
-    -- @CreateModel@ by using the same @ClientToken@ parameter value. An error
-    -- occurs if the other input parameters are not the same as in the first
-    -- request. Using a different value for @ClientToken@ is considered a new
-    -- call to @CreateModel@. An idempotency token is active for 8 hours.
+    -- completes only once. You choose the value to pass. For example, An issue
+    -- might prevent you from getting a response from @CreateModel@. In this
+    -- case, safely retry your call to @CreateModel@ by using the same
+    -- @ClientToken@ parameter value.
+    --
+    -- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+    -- using inserts a value for you. This prevents retries after a network
+    -- error from starting multiple training jobs. You\'ll need to provide your
+    -- own value for other use cases.
+    --
+    -- An error occurs if the other input parameters are not the same as in the
+    -- first request. Using a different value for @ClientToken@ is considered a
+    -- new call to @CreateModel@. An idempotency token is active for 8 hours.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The identifier for your AWS Key Management Service (AWS KMS) customer
-    -- master key (CMK). The key is used to encrypt training and test images
-    -- copied into the service for model training. Your source images are
-    -- unaffected. If this parameter is not specified, the copied images are
-    -- encrypted by a key that AWS owns and manages.
-    kmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | A description for the version of the model.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for your AWS KMS key. The key is used to encrypt training
+    -- and test images copied into the service for model training. Your source
+    -- images are unaffected. If this parameter is not specified, the copied
+    -- images are encrypted by a key that AWS owns and manages.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | A set of tags (key-value pairs) that you want to attach to the model.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the project in which you want to create a model version.
@@ -107,21 +113,26 @@ data CreateModel = CreateModel'
 -- for backwards compatibility:
 --
 -- 'clientToken', 'createModel_clientToken' - ClientToken is an idempotency token that ensures a call to @CreateModel@
--- completes only once. You choose the value to pass. For example, An
--- issue, such as an network outage, might prevent you from getting a
--- response from @CreateModel@. In this case, safely retry your call to
--- @CreateModel@ by using the same @ClientToken@ parameter value. An error
--- occurs if the other input parameters are not the same as in the first
--- request. Using a different value for @ClientToken@ is considered a new
--- call to @CreateModel@. An idempotency token is active for 8 hours.
+-- completes only once. You choose the value to pass. For example, An issue
+-- might prevent you from getting a response from @CreateModel@. In this
+-- case, safely retry your call to @CreateModel@ by using the same
+-- @ClientToken@ parameter value.
 --
--- 'kmsKeyId', 'createModel_kmsKeyId' - The identifier for your AWS Key Management Service (AWS KMS) customer
--- master key (CMK). The key is used to encrypt training and test images
--- copied into the service for model training. Your source images are
--- unaffected. If this parameter is not specified, the copied images are
--- encrypted by a key that AWS owns and manages.
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from starting multiple training jobs. You\'ll need to provide your
+-- own value for other use cases.
+--
+-- An error occurs if the other input parameters are not the same as in the
+-- first request. Using a different value for @ClientToken@ is considered a
+-- new call to @CreateModel@. An idempotency token is active for 8 hours.
 --
 -- 'description', 'createModel_description' - A description for the version of the model.
+--
+-- 'kmsKeyId', 'createModel_kmsKeyId' - The identifier for your AWS KMS key. The key is used to encrypt training
+-- and test images copied into the service for model training. Your source
+-- images are unaffected. If this parameter is not specified, the copied
+-- images are encrypted by a key that AWS owns and manages.
 --
 -- 'tags', 'createModel_tags' - A set of tags (key-value pairs) that you want to attach to the model.
 --
@@ -137,35 +148,40 @@ newCreateModel ::
 newCreateModel pProjectName_ pOutputConfig_ =
   CreateModel'
     { clientToken = Prelude.Nothing,
-      kmsKeyId = Prelude.Nothing,
       description = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
       tags = Prelude.Nothing,
       projectName = pProjectName_,
       outputConfig = pOutputConfig_
     }
 
 -- | ClientToken is an idempotency token that ensures a call to @CreateModel@
--- completes only once. You choose the value to pass. For example, An
--- issue, such as an network outage, might prevent you from getting a
--- response from @CreateModel@. In this case, safely retry your call to
--- @CreateModel@ by using the same @ClientToken@ parameter value. An error
--- occurs if the other input parameters are not the same as in the first
--- request. Using a different value for @ClientToken@ is considered a new
--- call to @CreateModel@. An idempotency token is active for 8 hours.
+-- completes only once. You choose the value to pass. For example, An issue
+-- might prevent you from getting a response from @CreateModel@. In this
+-- case, safely retry your call to @CreateModel@ by using the same
+-- @ClientToken@ parameter value.
+--
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from starting multiple training jobs. You\'ll need to provide your
+-- own value for other use cases.
+--
+-- An error occurs if the other input parameters are not the same as in the
+-- first request. Using a different value for @ClientToken@ is considered a
+-- new call to @CreateModel@. An idempotency token is active for 8 hours.
 createModel_clientToken :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
 createModel_clientToken = Lens.lens (\CreateModel' {clientToken} -> clientToken) (\s@CreateModel' {} a -> s {clientToken = a} :: CreateModel)
-
--- | The identifier for your AWS Key Management Service (AWS KMS) customer
--- master key (CMK). The key is used to encrypt training and test images
--- copied into the service for model training. Your source images are
--- unaffected. If this parameter is not specified, the copied images are
--- encrypted by a key that AWS owns and manages.
-createModel_kmsKeyId :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
-createModel_kmsKeyId = Lens.lens (\CreateModel' {kmsKeyId} -> kmsKeyId) (\s@CreateModel' {} a -> s {kmsKeyId = a} :: CreateModel)
 
 -- | A description for the version of the model.
 createModel_description :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
 createModel_description = Lens.lens (\CreateModel' {description} -> description) (\s@CreateModel' {} a -> s {description = a} :: CreateModel)
+
+-- | The identifier for your AWS KMS key. The key is used to encrypt training
+-- and test images copied into the service for model training. Your source
+-- images are unaffected. If this parameter is not specified, the copied
+-- images are encrypted by a key that AWS owns and manages.
+createModel_kmsKeyId :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
+createModel_kmsKeyId = Lens.lens (\CreateModel' {kmsKeyId} -> kmsKeyId) (\s@CreateModel' {} a -> s {kmsKeyId = a} :: CreateModel)
 
 -- | A set of tags (key-value pairs) that you want to attach to the model.
 createModel_tags :: Lens.Lens' CreateModel (Prelude.Maybe [Tag])
@@ -181,20 +197,21 @@ createModel_outputConfig = Lens.lens (\CreateModel' {outputConfig} -> outputConf
 
 instance Core.AWSRequest CreateModel where
   type AWSResponse CreateModel = CreateModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelResponse'
-            Prelude.<$> (x Core..?> "ModelMetadata")
+            Prelude.<$> (x Data..?> "ModelMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateModel where
   hashWithSalt _salt CreateModel' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` projectName
       `Prelude.hashWithSalt` outputConfig
@@ -202,40 +219,40 @@ instance Prelude.Hashable CreateModel where
 instance Prelude.NFData CreateModel where
   rnf CreateModel' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf outputConfig
 
-instance Core.ToHeaders CreateModel where
+instance Data.ToHeaders CreateModel where
   toHeaders CreateModel' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# clientToken,
+      [ "X-Amzn-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateModel where
+instance Data.ToJSON CreateModel where
   toJSON CreateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("OutputConfig" Core..= outputConfig)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("OutputConfig" Data..= outputConfig)
           ]
       )
 
-instance Core.ToPath CreateModel where
+instance Data.ToPath CreateModel where
   toPath CreateModel' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/models"
       ]
 
-instance Core.ToQuery CreateModel where
+instance Data.ToQuery CreateModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelResponse' smart constructor.

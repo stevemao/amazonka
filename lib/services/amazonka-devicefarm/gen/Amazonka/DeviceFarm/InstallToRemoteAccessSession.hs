@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.InstallToRemoteAccessSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DeviceFarm.InstallToRemoteAccessSession
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,12 +104,13 @@ instance Core.AWSRequest InstallToRemoteAccessSession where
   type
     AWSResponse InstallToRemoteAccessSession =
       InstallToRemoteAccessSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InstallToRemoteAccessSessionResponse'
-            Prelude.<$> (x Core..?> "appUpload")
+            Prelude.<$> (x Data..?> "appUpload")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,37 +127,37 @@ instance Prelude.NFData InstallToRemoteAccessSession where
     Prelude.rnf remoteAccessSessionArn
       `Prelude.seq` Prelude.rnf appArn
 
-instance Core.ToHeaders InstallToRemoteAccessSession where
+instance Data.ToHeaders InstallToRemoteAccessSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.InstallToRemoteAccessSession" ::
+              Data.=# ( "DeviceFarm_20150623.InstallToRemoteAccessSession" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InstallToRemoteAccessSession where
+instance Data.ToJSON InstallToRemoteAccessSession where
   toJSON InstallToRemoteAccessSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "remoteAccessSessionArn"
-                  Core..= remoteAccessSessionArn
+                  Data..= remoteAccessSessionArn
               ),
-            Prelude.Just ("appArn" Core..= appArn)
+            Prelude.Just ("appArn" Data..= appArn)
           ]
       )
 
-instance Core.ToPath InstallToRemoteAccessSession where
+instance Data.ToPath InstallToRemoteAccessSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery InstallToRemoteAccessSession where
+instance Data.ToQuery InstallToRemoteAccessSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server after AWS Device Farm makes a

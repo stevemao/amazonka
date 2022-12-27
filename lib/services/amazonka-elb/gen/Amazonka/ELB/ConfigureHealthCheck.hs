@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.ConfigureHealthCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.ELB.ConfigureHealthCheck
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +102,14 @@ instance Core.AWSRequest ConfigureHealthCheck where
   type
     AWSResponse ConfigureHealthCheck =
       ConfigureHealthCheckResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ConfigureHealthCheckResult"
       ( \s h x ->
           ConfigureHealthCheckResponse'
-            Prelude.<$> (x Core..@? "HealthCheck")
+            Prelude.<$> (x Data..@? "HealthCheck")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,21 +123,21 @@ instance Prelude.NFData ConfigureHealthCheck where
     Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf healthCheck
 
-instance Core.ToHeaders ConfigureHealthCheck where
+instance Data.ToHeaders ConfigureHealthCheck where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ConfigureHealthCheck where
+instance Data.ToPath ConfigureHealthCheck where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConfigureHealthCheck where
+instance Data.ToQuery ConfigureHealthCheck where
   toQuery ConfigureHealthCheck' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ConfigureHealthCheck" :: Prelude.ByteString),
+          Data.=: ("ConfigureHealthCheck" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "HealthCheck" Core.=: healthCheck
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "HealthCheck" Data.=: healthCheck
       ]
 
 -- | Contains the output of ConfigureHealthCheck.

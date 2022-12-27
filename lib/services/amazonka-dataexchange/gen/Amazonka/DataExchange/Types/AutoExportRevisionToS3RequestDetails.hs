@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.AutoExportRevisionToS3RequestDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataExchange.Types.AutoExportRevisionToS3RequestDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types.AutoExportRevisionDestinationEntry
 import Amazonka.DataExchange.Types.ExportServerSideEncryption
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the operation to be performed by the job.
@@ -72,16 +73,16 @@ autoExportRevisionToS3RequestDetails_revisionDestination :: Lens.Lens' AutoExpor
 autoExportRevisionToS3RequestDetails_revisionDestination = Lens.lens (\AutoExportRevisionToS3RequestDetails' {revisionDestination} -> revisionDestination) (\s@AutoExportRevisionToS3RequestDetails' {} a -> s {revisionDestination = a} :: AutoExportRevisionToS3RequestDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AutoExportRevisionToS3RequestDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoExportRevisionToS3RequestDetails"
       ( \x ->
           AutoExportRevisionToS3RequestDetails'
-            Prelude.<$> (x Core..:? "Encryption")
-            Prelude.<*> (x Core..: "RevisionDestination")
+            Prelude.<$> (x Data..:? "Encryption")
+            Prelude.<*> (x Data..: "RevisionDestination")
       )
 
 instance
@@ -103,14 +104,14 @@ instance
       `Prelude.seq` Prelude.rnf revisionDestination
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AutoExportRevisionToS3RequestDetails
   where
   toJSON AutoExportRevisionToS3RequestDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Encryption" Core..=) Prelude.<$> encryption,
+          [ ("Encryption" Data..=) Prelude.<$> encryption,
             Prelude.Just
-              ("RevisionDestination" Core..= revisionDestination)
+              ("RevisionDestination" Data..= revisionDestination)
           ]
       )

@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeregisterMailDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes a domain from Amazon WorkMail, stops email routing to WorkMail,
--- and removes the authorization allowing WorkMail use. SES keeps the
--- domain because other applications may use it. You must first remove any
--- email address used by WorkMail entities before you remove the domain.
+-- Removes a domain from WorkMail, stops email routing to WorkMail, and
+-- removes the authorization allowing WorkMail use. SES keeps the domain
+-- because other applications may use it. You must first remove any email
+-- address used by WorkMail entities before you remove the domain.
 module Amazonka.WorkMail.DeregisterMailDomain
   ( -- * Creating a Request
     DeregisterMailDomain (..),
@@ -43,7 +43,8 @@ module Amazonka.WorkMail.DeregisterMailDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +52,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newDeregisterMailDomain' smart constructor.
 data DeregisterMailDomain = DeregisterMailDomain'
-  { -- | The Amazon WorkMail organization for which the domain will be
-    -- deregistered.
+  { -- | The WorkMail organization for which the domain will be deregistered.
     organizationId :: Prelude.Text,
     -- | The domain to deregister in WorkMail and SES.
     domainName :: Prelude.Text
@@ -67,8 +67,7 @@ data DeregisterMailDomain = DeregisterMailDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'deregisterMailDomain_organizationId' - The Amazon WorkMail organization for which the domain will be
--- deregistered.
+-- 'organizationId', 'deregisterMailDomain_organizationId' - The WorkMail organization for which the domain will be deregistered.
 --
 -- 'domainName', 'deregisterMailDomain_domainName' - The domain to deregister in WorkMail and SES.
 newDeregisterMailDomain ::
@@ -84,8 +83,7 @@ newDeregisterMailDomain pOrganizationId_ pDomainName_ =
       domainName = pDomainName_
     }
 
--- | The Amazon WorkMail organization for which the domain will be
--- deregistered.
+-- | The WorkMail organization for which the domain will be deregistered.
 deregisterMailDomain_organizationId :: Lens.Lens' DeregisterMailDomain Prelude.Text
 deregisterMailDomain_organizationId = Lens.lens (\DeregisterMailDomain' {organizationId} -> organizationId) (\s@DeregisterMailDomain' {} a -> s {organizationId = a} :: DeregisterMailDomain)
 
@@ -97,7 +95,8 @@ instance Core.AWSRequest DeregisterMailDomain where
   type
     AWSResponse DeregisterMailDomain =
       DeregisterMailDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,35 +114,35 @@ instance Prelude.NFData DeregisterMailDomain where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DeregisterMailDomain where
+instance Data.ToHeaders DeregisterMailDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DeregisterMailDomain" ::
+              Data.=# ( "WorkMailService.DeregisterMailDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterMailDomain where
+instance Data.ToJSON DeregisterMailDomain where
   toJSON DeregisterMailDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("DomainName" Core..= domainName)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath DeregisterMailDomain where
+instance Data.ToPath DeregisterMailDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterMailDomain where
+instance Data.ToQuery DeregisterMailDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterMailDomainResponse' smart constructor.

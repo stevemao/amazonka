@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.AMP
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,47 +27,56 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListWorkspaces $
---             newListWorkspaces
---
---         , requestCreateAlertManagerDefinition $
+--         [ requestCreateAlertManagerDefinition $
 --             newCreateAlertManagerDefinition
 --
---         , requestDeleteWorkspace $
---             newDeleteWorkspace
---
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestCreateLoggingConfiguration $
+--             newCreateLoggingConfiguration
 --
 --         , requestCreateRuleGroupsNamespace $
 --             newCreateRuleGroupsNamespace
 --
---         , requestDescribeAlertManagerDefinition $
---             newDescribeAlertManagerDefinition
---
---         , requestDescribeWorkspace $
---             newDescribeWorkspace
---
---         , requestPutAlertManagerDefinition $
---             newPutAlertManagerDefinition
+--         , requestCreateWorkspace $
+--             newCreateWorkspace
 --
 --         , requestDeleteAlertManagerDefinition $
 --             newDeleteAlertManagerDefinition
 --
---         , requestDescribeRuleGroupsNamespace $
---             newDescribeRuleGroupsNamespace
---
---         , requestUpdateWorkspaceAlias $
---             newUpdateWorkspaceAlias
+--         , requestDeleteLoggingConfiguration $
+--             newDeleteLoggingConfiguration
 --
 --         , requestDeleteRuleGroupsNamespace $
 --             newDeleteRuleGroupsNamespace
 --
---         , requestPutRuleGroupsNamespace $
---             newPutRuleGroupsNamespace
+--         , requestDeleteWorkspace $
+--             newDeleteWorkspace
+--
+--         , requestDescribeAlertManagerDefinition $
+--             newDescribeAlertManagerDefinition
+--
+--         , requestDescribeLoggingConfiguration $
+--             newDescribeLoggingConfiguration
+--
+--         , requestDescribeRuleGroupsNamespace $
+--             newDescribeRuleGroupsNamespace
+--
+--         , requestDescribeWorkspace $
+--             newDescribeWorkspace
 --
 --         , requestListRuleGroupsNamespaces $
 --             newListRuleGroupsNamespaces
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListWorkspaces $
+--             newListWorkspaces
+--
+--         , requestPutAlertManagerDefinition $
+--             newPutAlertManagerDefinition
+--
+--         , requestPutRuleGroupsNamespace $
+--             newPutRuleGroupsNamespace
 --
 --         , requestTagResource $
 --             newTagResource
@@ -75,53 +84,65 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestCreateWorkspace $
---             newCreateWorkspace
+--         , requestUpdateLoggingConfiguration $
+--             newUpdateLoggingConfiguration
+--
+--         , requestUpdateWorkspaceAlias $
+--             newUpdateWorkspaceAlias
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseListWorkspaces $
---             newListWorkspacesResponse
---
---         , responseCreateAlertManagerDefinition $
+--         [ responseCreateAlertManagerDefinition $
 --             newCreateAlertManagerDefinitionResponse
 --
---         , responseDeleteWorkspace $
---             newDeleteWorkspaceResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseCreateLoggingConfiguration $
+--             newCreateLoggingConfigurationResponse
 --
 --         , responseCreateRuleGroupsNamespace $
 --             newCreateRuleGroupsNamespaceResponse
 --
---         , responseDescribeAlertManagerDefinition $
---             newDescribeAlertManagerDefinitionResponse
---
---         , responseDescribeWorkspace $
---             newDescribeWorkspaceResponse
---
---         , responsePutAlertManagerDefinition $
---             newPutAlertManagerDefinitionResponse
+--         , responseCreateWorkspace $
+--             newCreateWorkspaceResponse
 --
 --         , responseDeleteAlertManagerDefinition $
 --             newDeleteAlertManagerDefinitionResponse
 --
---         , responseDescribeRuleGroupsNamespace $
---             newDescribeRuleGroupsNamespaceResponse
---
---         , responseUpdateWorkspaceAlias $
---             newUpdateWorkspaceAliasResponse
+--         , responseDeleteLoggingConfiguration $
+--             newDeleteLoggingConfigurationResponse
 --
 --         , responseDeleteRuleGroupsNamespace $
 --             newDeleteRuleGroupsNamespaceResponse
 --
---         , responsePutRuleGroupsNamespace $
---             newPutRuleGroupsNamespaceResponse
+--         , responseDeleteWorkspace $
+--             newDeleteWorkspaceResponse
+--
+--         , responseDescribeAlertManagerDefinition $
+--             newDescribeAlertManagerDefinitionResponse
+--
+--         , responseDescribeLoggingConfiguration $
+--             newDescribeLoggingConfigurationResponse
+--
+--         , responseDescribeRuleGroupsNamespace $
+--             newDescribeRuleGroupsNamespaceResponse
+--
+--         , responseDescribeWorkspace $
+--             newDescribeWorkspaceResponse
 --
 --         , responseListRuleGroupsNamespaces $
 --             newListRuleGroupsNamespacesResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListWorkspaces $
+--             newListWorkspacesResponse
+--
+--         , responsePutAlertManagerDefinition $
+--             newPutAlertManagerDefinitionResponse
+--
+--         , responsePutRuleGroupsNamespace $
+--             newPutRuleGroupsNamespaceResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -129,19 +150,16 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseCreateWorkspace $
---             newCreateWorkspaceResponse
+--         , responseUpdateLoggingConfiguration $
+--             newUpdateLoggingConfigurationResponse
+--
+--         , responseUpdateWorkspaceAlias $
+--             newUpdateWorkspaceAliasResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestListWorkspaces :: ListWorkspaces -> TestTree
-requestListWorkspaces =
-  req
-    "ListWorkspaces"
-    "fixture/ListWorkspaces.yaml"
 
 requestCreateAlertManagerDefinition :: CreateAlertManagerDefinition -> TestTree
 requestCreateAlertManagerDefinition =
@@ -149,17 +167,11 @@ requestCreateAlertManagerDefinition =
     "CreateAlertManagerDefinition"
     "fixture/CreateAlertManagerDefinition.yaml"
 
-requestDeleteWorkspace :: DeleteWorkspace -> TestTree
-requestDeleteWorkspace =
+requestCreateLoggingConfiguration :: CreateLoggingConfiguration -> TestTree
+requestCreateLoggingConfiguration =
   req
-    "DeleteWorkspace"
-    "fixture/DeleteWorkspace.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "CreateLoggingConfiguration"
+    "fixture/CreateLoggingConfiguration.yaml"
 
 requestCreateRuleGroupsNamespace :: CreateRuleGroupsNamespace -> TestTree
 requestCreateRuleGroupsNamespace =
@@ -167,23 +179,11 @@ requestCreateRuleGroupsNamespace =
     "CreateRuleGroupsNamespace"
     "fixture/CreateRuleGroupsNamespace.yaml"
 
-requestDescribeAlertManagerDefinition :: DescribeAlertManagerDefinition -> TestTree
-requestDescribeAlertManagerDefinition =
+requestCreateWorkspace :: CreateWorkspace -> TestTree
+requestCreateWorkspace =
   req
-    "DescribeAlertManagerDefinition"
-    "fixture/DescribeAlertManagerDefinition.yaml"
-
-requestDescribeWorkspace :: DescribeWorkspace -> TestTree
-requestDescribeWorkspace =
-  req
-    "DescribeWorkspace"
-    "fixture/DescribeWorkspace.yaml"
-
-requestPutAlertManagerDefinition :: PutAlertManagerDefinition -> TestTree
-requestPutAlertManagerDefinition =
-  req
-    "PutAlertManagerDefinition"
-    "fixture/PutAlertManagerDefinition.yaml"
+    "CreateWorkspace"
+    "fixture/CreateWorkspace.yaml"
 
 requestDeleteAlertManagerDefinition :: DeleteAlertManagerDefinition -> TestTree
 requestDeleteAlertManagerDefinition =
@@ -191,17 +191,11 @@ requestDeleteAlertManagerDefinition =
     "DeleteAlertManagerDefinition"
     "fixture/DeleteAlertManagerDefinition.yaml"
 
-requestDescribeRuleGroupsNamespace :: DescribeRuleGroupsNamespace -> TestTree
-requestDescribeRuleGroupsNamespace =
+requestDeleteLoggingConfiguration :: DeleteLoggingConfiguration -> TestTree
+requestDeleteLoggingConfiguration =
   req
-    "DescribeRuleGroupsNamespace"
-    "fixture/DescribeRuleGroupsNamespace.yaml"
-
-requestUpdateWorkspaceAlias :: UpdateWorkspaceAlias -> TestTree
-requestUpdateWorkspaceAlias =
-  req
-    "UpdateWorkspaceAlias"
-    "fixture/UpdateWorkspaceAlias.yaml"
+    "DeleteLoggingConfiguration"
+    "fixture/DeleteLoggingConfiguration.yaml"
 
 requestDeleteRuleGroupsNamespace :: DeleteRuleGroupsNamespace -> TestTree
 requestDeleteRuleGroupsNamespace =
@@ -209,17 +203,65 @@ requestDeleteRuleGroupsNamespace =
     "DeleteRuleGroupsNamespace"
     "fixture/DeleteRuleGroupsNamespace.yaml"
 
-requestPutRuleGroupsNamespace :: PutRuleGroupsNamespace -> TestTree
-requestPutRuleGroupsNamespace =
+requestDeleteWorkspace :: DeleteWorkspace -> TestTree
+requestDeleteWorkspace =
   req
-    "PutRuleGroupsNamespace"
-    "fixture/PutRuleGroupsNamespace.yaml"
+    "DeleteWorkspace"
+    "fixture/DeleteWorkspace.yaml"
+
+requestDescribeAlertManagerDefinition :: DescribeAlertManagerDefinition -> TestTree
+requestDescribeAlertManagerDefinition =
+  req
+    "DescribeAlertManagerDefinition"
+    "fixture/DescribeAlertManagerDefinition.yaml"
+
+requestDescribeLoggingConfiguration :: DescribeLoggingConfiguration -> TestTree
+requestDescribeLoggingConfiguration =
+  req
+    "DescribeLoggingConfiguration"
+    "fixture/DescribeLoggingConfiguration.yaml"
+
+requestDescribeRuleGroupsNamespace :: DescribeRuleGroupsNamespace -> TestTree
+requestDescribeRuleGroupsNamespace =
+  req
+    "DescribeRuleGroupsNamespace"
+    "fixture/DescribeRuleGroupsNamespace.yaml"
+
+requestDescribeWorkspace :: DescribeWorkspace -> TestTree
+requestDescribeWorkspace =
+  req
+    "DescribeWorkspace"
+    "fixture/DescribeWorkspace.yaml"
 
 requestListRuleGroupsNamespaces :: ListRuleGroupsNamespaces -> TestTree
 requestListRuleGroupsNamespaces =
   req
     "ListRuleGroupsNamespaces"
     "fixture/ListRuleGroupsNamespaces.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListWorkspaces :: ListWorkspaces -> TestTree
+requestListWorkspaces =
+  req
+    "ListWorkspaces"
+    "fixture/ListWorkspaces.yaml"
+
+requestPutAlertManagerDefinition :: PutAlertManagerDefinition -> TestTree
+requestPutAlertManagerDefinition =
+  req
+    "PutAlertManagerDefinition"
+    "fixture/PutAlertManagerDefinition.yaml"
+
+requestPutRuleGroupsNamespace :: PutRuleGroupsNamespace -> TestTree
+requestPutRuleGroupsNamespace =
+  req
+    "PutRuleGroupsNamespace"
+    "fixture/PutRuleGroupsNamespace.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -233,21 +275,19 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestCreateWorkspace :: CreateWorkspace -> TestTree
-requestCreateWorkspace =
+requestUpdateLoggingConfiguration :: UpdateLoggingConfiguration -> TestTree
+requestUpdateLoggingConfiguration =
   req
-    "CreateWorkspace"
-    "fixture/CreateWorkspace.yaml"
+    "UpdateLoggingConfiguration"
+    "fixture/UpdateLoggingConfiguration.yaml"
+
+requestUpdateWorkspaceAlias :: UpdateWorkspaceAlias -> TestTree
+requestUpdateWorkspaceAlias =
+  req
+    "UpdateWorkspaceAlias"
+    "fixture/UpdateWorkspaceAlias.yaml"
 
 -- Responses
-
-responseListWorkspaces :: ListWorkspacesResponse -> TestTree
-responseListWorkspaces =
-  res
-    "ListWorkspacesResponse"
-    "fixture/ListWorkspacesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListWorkspaces)
 
 responseCreateAlertManagerDefinition :: CreateAlertManagerDefinitionResponse -> TestTree
 responseCreateAlertManagerDefinition =
@@ -257,21 +297,13 @@ responseCreateAlertManagerDefinition =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateAlertManagerDefinition)
 
-responseDeleteWorkspace :: DeleteWorkspaceResponse -> TestTree
-responseDeleteWorkspace =
+responseCreateLoggingConfiguration :: CreateLoggingConfigurationResponse -> TestTree
+responseCreateLoggingConfiguration =
   res
-    "DeleteWorkspaceResponse"
-    "fixture/DeleteWorkspaceResponse.proto"
+    "CreateLoggingConfigurationResponse"
+    "fixture/CreateLoggingConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteWorkspace)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateLoggingConfiguration)
 
 responseCreateRuleGroupsNamespace :: CreateRuleGroupsNamespaceResponse -> TestTree
 responseCreateRuleGroupsNamespace =
@@ -281,29 +313,13 @@ responseCreateRuleGroupsNamespace =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateRuleGroupsNamespace)
 
-responseDescribeAlertManagerDefinition :: DescribeAlertManagerDefinitionResponse -> TestTree
-responseDescribeAlertManagerDefinition =
+responseCreateWorkspace :: CreateWorkspaceResponse -> TestTree
+responseCreateWorkspace =
   res
-    "DescribeAlertManagerDefinitionResponse"
-    "fixture/DescribeAlertManagerDefinitionResponse.proto"
+    "CreateWorkspaceResponse"
+    "fixture/CreateWorkspaceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeAlertManagerDefinition)
-
-responseDescribeWorkspace :: DescribeWorkspaceResponse -> TestTree
-responseDescribeWorkspace =
-  res
-    "DescribeWorkspaceResponse"
-    "fixture/DescribeWorkspaceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeWorkspace)
-
-responsePutAlertManagerDefinition :: PutAlertManagerDefinitionResponse -> TestTree
-responsePutAlertManagerDefinition =
-  res
-    "PutAlertManagerDefinitionResponse"
-    "fixture/PutAlertManagerDefinitionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutAlertManagerDefinition)
+    (Proxy.Proxy :: Proxy.Proxy CreateWorkspace)
 
 responseDeleteAlertManagerDefinition :: DeleteAlertManagerDefinitionResponse -> TestTree
 responseDeleteAlertManagerDefinition =
@@ -313,21 +329,13 @@ responseDeleteAlertManagerDefinition =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteAlertManagerDefinition)
 
-responseDescribeRuleGroupsNamespace :: DescribeRuleGroupsNamespaceResponse -> TestTree
-responseDescribeRuleGroupsNamespace =
+responseDeleteLoggingConfiguration :: DeleteLoggingConfigurationResponse -> TestTree
+responseDeleteLoggingConfiguration =
   res
-    "DescribeRuleGroupsNamespaceResponse"
-    "fixture/DescribeRuleGroupsNamespaceResponse.proto"
+    "DeleteLoggingConfigurationResponse"
+    "fixture/DeleteLoggingConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeRuleGroupsNamespace)
-
-responseUpdateWorkspaceAlias :: UpdateWorkspaceAliasResponse -> TestTree
-responseUpdateWorkspaceAlias =
-  res
-    "UpdateWorkspaceAliasResponse"
-    "fixture/UpdateWorkspaceAliasResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateWorkspaceAlias)
+    (Proxy.Proxy :: Proxy.Proxy DeleteLoggingConfiguration)
 
 responseDeleteRuleGroupsNamespace :: DeleteRuleGroupsNamespaceResponse -> TestTree
 responseDeleteRuleGroupsNamespace =
@@ -337,13 +345,45 @@ responseDeleteRuleGroupsNamespace =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteRuleGroupsNamespace)
 
-responsePutRuleGroupsNamespace :: PutRuleGroupsNamespaceResponse -> TestTree
-responsePutRuleGroupsNamespace =
+responseDeleteWorkspace :: DeleteWorkspaceResponse -> TestTree
+responseDeleteWorkspace =
   res
-    "PutRuleGroupsNamespaceResponse"
-    "fixture/PutRuleGroupsNamespaceResponse.proto"
+    "DeleteWorkspaceResponse"
+    "fixture/DeleteWorkspaceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutRuleGroupsNamespace)
+    (Proxy.Proxy :: Proxy.Proxy DeleteWorkspace)
+
+responseDescribeAlertManagerDefinition :: DescribeAlertManagerDefinitionResponse -> TestTree
+responseDescribeAlertManagerDefinition =
+  res
+    "DescribeAlertManagerDefinitionResponse"
+    "fixture/DescribeAlertManagerDefinitionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeAlertManagerDefinition)
+
+responseDescribeLoggingConfiguration :: DescribeLoggingConfigurationResponse -> TestTree
+responseDescribeLoggingConfiguration =
+  res
+    "DescribeLoggingConfigurationResponse"
+    "fixture/DescribeLoggingConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeLoggingConfiguration)
+
+responseDescribeRuleGroupsNamespace :: DescribeRuleGroupsNamespaceResponse -> TestTree
+responseDescribeRuleGroupsNamespace =
+  res
+    "DescribeRuleGroupsNamespaceResponse"
+    "fixture/DescribeRuleGroupsNamespaceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeRuleGroupsNamespace)
+
+responseDescribeWorkspace :: DescribeWorkspaceResponse -> TestTree
+responseDescribeWorkspace =
+  res
+    "DescribeWorkspaceResponse"
+    "fixture/DescribeWorkspaceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeWorkspace)
 
 responseListRuleGroupsNamespaces :: ListRuleGroupsNamespacesResponse -> TestTree
 responseListRuleGroupsNamespaces =
@@ -352,6 +392,38 @@ responseListRuleGroupsNamespaces =
     "fixture/ListRuleGroupsNamespacesResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListRuleGroupsNamespaces)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListWorkspaces :: ListWorkspacesResponse -> TestTree
+responseListWorkspaces =
+  res
+    "ListWorkspacesResponse"
+    "fixture/ListWorkspacesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorkspaces)
+
+responsePutAlertManagerDefinition :: PutAlertManagerDefinitionResponse -> TestTree
+responsePutAlertManagerDefinition =
+  res
+    "PutAlertManagerDefinitionResponse"
+    "fixture/PutAlertManagerDefinitionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutAlertManagerDefinition)
+
+responsePutRuleGroupsNamespace :: PutRuleGroupsNamespaceResponse -> TestTree
+responsePutRuleGroupsNamespace =
+  res
+    "PutRuleGroupsNamespaceResponse"
+    "fixture/PutRuleGroupsNamespaceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutRuleGroupsNamespace)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -369,10 +441,18 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseCreateWorkspace :: CreateWorkspaceResponse -> TestTree
-responseCreateWorkspace =
+responseUpdateLoggingConfiguration :: UpdateLoggingConfigurationResponse -> TestTree
+responseUpdateLoggingConfiguration =
   res
-    "CreateWorkspaceResponse"
-    "fixture/CreateWorkspaceResponse.proto"
+    "UpdateLoggingConfigurationResponse"
+    "fixture/UpdateLoggingConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateWorkspace)
+    (Proxy.Proxy :: Proxy.Proxy UpdateLoggingConfiguration)
+
+responseUpdateWorkspaceAlias :: UpdateWorkspaceAliasResponse -> TestTree
+responseUpdateWorkspaceAlias =
+  res
+    "UpdateWorkspaceAliasResponse"
+    "fixture/UpdateWorkspaceAliasResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateWorkspaceAlias)

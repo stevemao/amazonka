@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.WriteSegmentRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.WriteSegmentRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.SegmentDimensions
 import Amazonka.Pinpoint.Types.SegmentGroupList
 import qualified Amazonka.Prelude as Prelude
@@ -31,15 +32,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWriteSegmentRequest' smart constructor.
 data WriteSegmentRequest = WriteSegmentRequest'
-  { -- | The segment group to use and the dimensions to apply to the group\'s
+  { -- | The criteria that define the dimensions for the segment.
+    dimensions :: Prelude.Maybe SegmentDimensions,
+    -- | The name of the segment.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The segment group to use and the dimensions to apply to the group\'s
     -- base segments in order to build the segment. A segment group can consist
     -- of zero or more base segments. Your request can include only one segment
     -- group.
     segmentGroups :: Prelude.Maybe SegmentGroupList,
-    -- | The name of the segment.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The criteria that define the dimensions for the segment.
-    dimensions :: Prelude.Maybe SegmentDimensions,
     -- | A string-to-string map of key-value pairs that defines the tags to
     -- associate with the segment. Each tag consists of a required tag key and
     -- an associated tag value.
@@ -55,14 +56,14 @@ data WriteSegmentRequest = WriteSegmentRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dimensions', 'writeSegmentRequest_dimensions' - The criteria that define the dimensions for the segment.
+--
+-- 'name', 'writeSegmentRequest_name' - The name of the segment.
+--
 -- 'segmentGroups', 'writeSegmentRequest_segmentGroups' - The segment group to use and the dimensions to apply to the group\'s
 -- base segments in order to build the segment. A segment group can consist
 -- of zero or more base segments. Your request can include only one segment
 -- group.
---
--- 'name', 'writeSegmentRequest_name' - The name of the segment.
---
--- 'dimensions', 'writeSegmentRequest_dimensions' - The criteria that define the dimensions for the segment.
 --
 -- 'tags', 'writeSegmentRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
 -- associate with the segment. Each tag consists of a required tag key and
@@ -71,12 +72,19 @@ newWriteSegmentRequest ::
   WriteSegmentRequest
 newWriteSegmentRequest =
   WriteSegmentRequest'
-    { segmentGroups =
-        Prelude.Nothing,
+    { dimensions = Prelude.Nothing,
       name = Prelude.Nothing,
-      dimensions = Prelude.Nothing,
+      segmentGroups = Prelude.Nothing,
       tags = Prelude.Nothing
     }
+
+-- | The criteria that define the dimensions for the segment.
+writeSegmentRequest_dimensions :: Lens.Lens' WriteSegmentRequest (Prelude.Maybe SegmentDimensions)
+writeSegmentRequest_dimensions = Lens.lens (\WriteSegmentRequest' {dimensions} -> dimensions) (\s@WriteSegmentRequest' {} a -> s {dimensions = a} :: WriteSegmentRequest)
+
+-- | The name of the segment.
+writeSegmentRequest_name :: Lens.Lens' WriteSegmentRequest (Prelude.Maybe Prelude.Text)
+writeSegmentRequest_name = Lens.lens (\WriteSegmentRequest' {name} -> name) (\s@WriteSegmentRequest' {} a -> s {name = a} :: WriteSegmentRequest)
 
 -- | The segment group to use and the dimensions to apply to the group\'s
 -- base segments in order to build the segment. A segment group can consist
@@ -84,14 +92,6 @@ newWriteSegmentRequest =
 -- group.
 writeSegmentRequest_segmentGroups :: Lens.Lens' WriteSegmentRequest (Prelude.Maybe SegmentGroupList)
 writeSegmentRequest_segmentGroups = Lens.lens (\WriteSegmentRequest' {segmentGroups} -> segmentGroups) (\s@WriteSegmentRequest' {} a -> s {segmentGroups = a} :: WriteSegmentRequest)
-
--- | The name of the segment.
-writeSegmentRequest_name :: Lens.Lens' WriteSegmentRequest (Prelude.Maybe Prelude.Text)
-writeSegmentRequest_name = Lens.lens (\WriteSegmentRequest' {name} -> name) (\s@WriteSegmentRequest' {} a -> s {name = a} :: WriteSegmentRequest)
-
--- | The criteria that define the dimensions for the segment.
-writeSegmentRequest_dimensions :: Lens.Lens' WriteSegmentRequest (Prelude.Maybe SegmentDimensions)
-writeSegmentRequest_dimensions = Lens.lens (\WriteSegmentRequest' {dimensions} -> dimensions) (\s@WriteSegmentRequest' {} a -> s {dimensions = a} :: WriteSegmentRequest)
 
 -- | A string-to-string map of key-value pairs that defines the tags to
 -- associate with the segment. Each tag consists of a required tag key and
@@ -101,25 +101,25 @@ writeSegmentRequest_tags = Lens.lens (\WriteSegmentRequest' {tags} -> tags) (\s@
 
 instance Prelude.Hashable WriteSegmentRequest where
   hashWithSalt _salt WriteSegmentRequest' {..} =
-    _salt `Prelude.hashWithSalt` segmentGroups
+    _salt `Prelude.hashWithSalt` dimensions
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` dimensions
+      `Prelude.hashWithSalt` segmentGroups
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData WriteSegmentRequest where
   rnf WriteSegmentRequest' {..} =
-    Prelude.rnf segmentGroups
+    Prelude.rnf dimensions
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf dimensions
+      `Prelude.seq` Prelude.rnf segmentGroups
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToJSON WriteSegmentRequest where
+instance Data.ToJSON WriteSegmentRequest where
   toJSON WriteSegmentRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SegmentGroups" Core..=) Prelude.<$> segmentGroups,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Dimensions" Core..=) Prelude.<$> dimensions,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("Dimensions" Data..=) Prelude.<$> dimensions,
+            ("Name" Data..=) Prelude.<$> name,
+            ("SegmentGroups" Data..=) Prelude.<$> segmentGroups,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )

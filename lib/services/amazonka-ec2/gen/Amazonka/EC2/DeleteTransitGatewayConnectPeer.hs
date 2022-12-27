@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTransitGatewayConnectPeer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteTransitGatewayConnectPeer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance
   type
     AWSResponse DeleteTransitGatewayConnectPeer =
       DeleteTransitGatewayConnectPeerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayConnectPeerResponse'
-            Prelude.<$> (x Core..@? "transitGatewayConnectPeer")
+            Prelude.<$> (x Data..@? "transitGatewayConnectPeer")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,26 +134,26 @@ instance
       `Prelude.seq` Prelude.rnf transitGatewayConnectPeerId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteTransitGatewayConnectPeer
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTransitGatewayConnectPeer where
+instance Data.ToPath DeleteTransitGatewayConnectPeer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTransitGatewayConnectPeer where
+instance Data.ToQuery DeleteTransitGatewayConnectPeer where
   toQuery DeleteTransitGatewayConnectPeer' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteTransitGatewayConnectPeer" ::
+          Data.=: ( "DeleteTransitGatewayConnectPeer" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "TransitGatewayConnectPeerId"
-          Core.=: transitGatewayConnectPeerId
+          Data.=: transitGatewayConnectPeerId
       ]
 
 -- | /See:/ 'newDeleteTransitGatewayConnectPeerResponse' smart constructor.

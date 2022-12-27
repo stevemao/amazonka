@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.GetMapping
     newGetMapping,
 
     -- * Request Lenses
-    getMapping_sinks,
     getMapping_location,
+    getMapping_sinks,
     getMapping_source,
 
     -- * Destructuring the Response
@@ -42,18 +42,19 @@ module Amazonka.Glue.GetMapping
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetMapping' smart constructor.
 data GetMapping = GetMapping'
-  { -- | A list of target tables.
-    sinks :: Prelude.Maybe [CatalogEntry],
-    -- | Parameters for the mapping.
+  { -- | Parameters for the mapping.
     location :: Prelude.Maybe Location,
+    -- | A list of target tables.
+    sinks :: Prelude.Maybe [CatalogEntry],
     -- | Specifies the source table.
     source :: CatalogEntry
   }
@@ -67,9 +68,9 @@ data GetMapping = GetMapping'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sinks', 'getMapping_sinks' - A list of target tables.
---
 -- 'location', 'getMapping_location' - Parameters for the mapping.
+--
+-- 'sinks', 'getMapping_sinks' - A list of target tables.
 --
 -- 'source', 'getMapping_source' - Specifies the source table.
 newGetMapping ::
@@ -78,18 +79,18 @@ newGetMapping ::
   GetMapping
 newGetMapping pSource_ =
   GetMapping'
-    { sinks = Prelude.Nothing,
-      location = Prelude.Nothing,
+    { location = Prelude.Nothing,
+      sinks = Prelude.Nothing,
       source = pSource_
     }
-
--- | A list of target tables.
-getMapping_sinks :: Lens.Lens' GetMapping (Prelude.Maybe [CatalogEntry])
-getMapping_sinks = Lens.lens (\GetMapping' {sinks} -> sinks) (\s@GetMapping' {} a -> s {sinks = a} :: GetMapping) Prelude.. Lens.mapping Lens.coerced
 
 -- | Parameters for the mapping.
 getMapping_location :: Lens.Lens' GetMapping (Prelude.Maybe Location)
 getMapping_location = Lens.lens (\GetMapping' {location} -> location) (\s@GetMapping' {} a -> s {location = a} :: GetMapping)
+
+-- | A list of target tables.
+getMapping_sinks :: Lens.Lens' GetMapping (Prelude.Maybe [CatalogEntry])
+getMapping_sinks = Lens.lens (\GetMapping' {sinks} -> sinks) (\s@GetMapping' {} a -> s {sinks = a} :: GetMapping) Prelude.. Lens.mapping Lens.coerced
 
 -- | Specifies the source table.
 getMapping_source :: Lens.Lens' GetMapping CatalogEntry
@@ -97,54 +98,55 @@ getMapping_source = Lens.lens (\GetMapping' {source} -> source) (\s@GetMapping' 
 
 instance Core.AWSRequest GetMapping where
   type AWSResponse GetMapping = GetMappingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMappingResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Mapping" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Mapping" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetMapping where
   hashWithSalt _salt GetMapping' {..} =
-    _salt `Prelude.hashWithSalt` sinks
-      `Prelude.hashWithSalt` location
+    _salt `Prelude.hashWithSalt` location
+      `Prelude.hashWithSalt` sinks
       `Prelude.hashWithSalt` source
 
 instance Prelude.NFData GetMapping where
   rnf GetMapping' {..} =
-    Prelude.rnf sinks
-      `Prelude.seq` Prelude.rnf location
+    Prelude.rnf location
+      `Prelude.seq` Prelude.rnf sinks
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToHeaders GetMapping where
+instance Data.ToHeaders GetMapping where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetMapping" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetMapping" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMapping where
+instance Data.ToJSON GetMapping where
   toJSON GetMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Sinks" Core..=) Prelude.<$> sinks,
-            ("Location" Core..=) Prelude.<$> location,
-            Prelude.Just ("Source" Core..= source)
+          [ ("Location" Data..=) Prelude.<$> location,
+            ("Sinks" Data..=) Prelude.<$> sinks,
+            Prelude.Just ("Source" Data..= source)
           ]
       )
 
-instance Core.ToPath GetMapping where
+instance Data.ToPath GetMapping where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetMapping where
+instance Data.ToQuery GetMapping where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMappingResponse' smart constructor.

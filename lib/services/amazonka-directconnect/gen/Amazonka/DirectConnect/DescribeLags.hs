@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeLags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DirectConnect.DescribeLags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,12 +74,13 @@ describeLags_lagId = Lens.lens (\DescribeLags' {lagId} -> lagId) (\s@DescribeLag
 
 instance Core.AWSRequest DescribeLags where
   type AWSResponse DescribeLags = DescribeLagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLagsResponse'
-            Prelude.<$> (x Core..?> "lags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "lags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -89,32 +91,32 @@ instance Prelude.Hashable DescribeLags where
 instance Prelude.NFData DescribeLags where
   rnf DescribeLags' {..} = Prelude.rnf lagId
 
-instance Core.ToHeaders DescribeLags where
+instance Data.ToHeaders DescribeLags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeLags" ::
+              Data.=# ( "OvertureService.DescribeLags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLags where
+instance Data.ToJSON DescribeLags where
   toJSON DescribeLags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("lagId" Core..=) Prelude.<$> lagId]
+          [("lagId" Data..=) Prelude.<$> lagId]
       )
 
-instance Core.ToPath DescribeLags where
+instance Data.ToPath DescribeLags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLags where
+instance Data.ToQuery DescribeLags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLagsResponse' smart constructor.

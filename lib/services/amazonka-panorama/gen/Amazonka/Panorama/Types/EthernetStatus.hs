@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.EthernetStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.EthernetStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types.NetworkConnectionStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEthernetStatus' smart constructor.
 data EthernetStatus = EthernetStatus'
-  { -- | The device\'s IP address.
-    ipAddress :: Prelude.Maybe Prelude.Text,
-    -- | The device\'s connection status.
+  { -- | The device\'s connection status.
     connectionStatus :: Prelude.Maybe NetworkConnectionStatus,
     -- | The device\'s physical address.
-    hwAddress :: Prelude.Maybe Prelude.Text
+    hwAddress :: Prelude.Maybe Prelude.Text,
+    -- | The device\'s IP address.
+    ipAddress :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data EthernetStatus = EthernetStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ipAddress', 'ethernetStatus_ipAddress' - The device\'s IP address.
---
 -- 'connectionStatus', 'ethernetStatus_connectionStatus' - The device\'s connection status.
 --
 -- 'hwAddress', 'ethernetStatus_hwAddress' - The device\'s physical address.
+--
+-- 'ipAddress', 'ethernetStatus_ipAddress' - The device\'s IP address.
 newEthernetStatus ::
   EthernetStatus
 newEthernetStatus =
   EthernetStatus'
-    { ipAddress = Prelude.Nothing,
-      connectionStatus = Prelude.Nothing,
-      hwAddress = Prelude.Nothing
+    { connectionStatus = Prelude.Nothing,
+      hwAddress = Prelude.Nothing,
+      ipAddress = Prelude.Nothing
     }
-
--- | The device\'s IP address.
-ethernetStatus_ipAddress :: Lens.Lens' EthernetStatus (Prelude.Maybe Prelude.Text)
-ethernetStatus_ipAddress = Lens.lens (\EthernetStatus' {ipAddress} -> ipAddress) (\s@EthernetStatus' {} a -> s {ipAddress = a} :: EthernetStatus)
 
 -- | The device\'s connection status.
 ethernetStatus_connectionStatus :: Lens.Lens' EthernetStatus (Prelude.Maybe NetworkConnectionStatus)
@@ -71,25 +68,29 @@ ethernetStatus_connectionStatus = Lens.lens (\EthernetStatus' {connectionStatus}
 ethernetStatus_hwAddress :: Lens.Lens' EthernetStatus (Prelude.Maybe Prelude.Text)
 ethernetStatus_hwAddress = Lens.lens (\EthernetStatus' {hwAddress} -> hwAddress) (\s@EthernetStatus' {} a -> s {hwAddress = a} :: EthernetStatus)
 
-instance Core.FromJSON EthernetStatus where
+-- | The device\'s IP address.
+ethernetStatus_ipAddress :: Lens.Lens' EthernetStatus (Prelude.Maybe Prelude.Text)
+ethernetStatus_ipAddress = Lens.lens (\EthernetStatus' {ipAddress} -> ipAddress) (\s@EthernetStatus' {} a -> s {ipAddress = a} :: EthernetStatus)
+
+instance Data.FromJSON EthernetStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EthernetStatus"
       ( \x ->
           EthernetStatus'
-            Prelude.<$> (x Core..:? "IpAddress")
-            Prelude.<*> (x Core..:? "ConnectionStatus")
-            Prelude.<*> (x Core..:? "HwAddress")
+            Prelude.<$> (x Data..:? "ConnectionStatus")
+            Prelude.<*> (x Data..:? "HwAddress")
+            Prelude.<*> (x Data..:? "IpAddress")
       )
 
 instance Prelude.Hashable EthernetStatus where
   hashWithSalt _salt EthernetStatus' {..} =
-    _salt `Prelude.hashWithSalt` ipAddress
-      `Prelude.hashWithSalt` connectionStatus
+    _salt `Prelude.hashWithSalt` connectionStatus
       `Prelude.hashWithSalt` hwAddress
+      `Prelude.hashWithSalt` ipAddress
 
 instance Prelude.NFData EthernetStatus where
   rnf EthernetStatus' {..} =
-    Prelude.rnf ipAddress
-      `Prelude.seq` Prelude.rnf connectionStatus
+    Prelude.rnf connectionStatus
       `Prelude.seq` Prelude.rnf hwAddress
+      `Prelude.seq` Prelude.rnf ipAddress

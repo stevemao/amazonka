@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,29 +17,29 @@ module Amazonka.KafkaConnect
     -- * Errors
     -- $errors
 
+    -- ** BadRequestException
+    _BadRequestException,
+
     -- ** ConflictException
     _ConflictException,
 
     -- ** ForbiddenException
     _ForbiddenException,
 
-    -- ** NotFoundException
-    _NotFoundException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
-
     -- ** InternalServerErrorException
     _InternalServerErrorException,
+
+    -- ** NotFoundException
+    _NotFoundException,
 
     -- ** ServiceUnavailableException
     _ServiceUnavailableException,
 
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
     -- ** UnauthorizedException
     _UnauthorizedException,
-
-    -- ** BadRequestException
-    _BadRequestException,
 
     -- * Waiters
     -- $waiters
@@ -47,17 +47,23 @@ module Amazonka.KafkaConnect
     -- * Operations
     -- $operations
 
-    -- ** ListWorkerConfigurations (Paginated)
-    ListWorkerConfigurations (ListWorkerConfigurations'),
-    newListWorkerConfigurations,
-    ListWorkerConfigurationsResponse (ListWorkerConfigurationsResponse'),
-    newListWorkerConfigurationsResponse,
+    -- ** CreateConnector
+    CreateConnector (CreateConnector'),
+    newCreateConnector,
+    CreateConnectorResponse (CreateConnectorResponse'),
+    newCreateConnectorResponse,
 
-    -- ** DescribeCustomPlugin
-    DescribeCustomPlugin (DescribeCustomPlugin'),
-    newDescribeCustomPlugin,
-    DescribeCustomPluginResponse (DescribeCustomPluginResponse'),
-    newDescribeCustomPluginResponse,
+    -- ** CreateCustomPlugin
+    CreateCustomPlugin (CreateCustomPlugin'),
+    newCreateCustomPlugin,
+    CreateCustomPluginResponse (CreateCustomPluginResponse'),
+    newCreateCustomPluginResponse,
+
+    -- ** CreateWorkerConfiguration
+    CreateWorkerConfiguration (CreateWorkerConfiguration'),
+    newCreateWorkerConfiguration,
+    CreateWorkerConfigurationResponse (CreateWorkerConfigurationResponse'),
+    newCreateWorkerConfigurationResponse,
 
     -- ** DeleteConnector
     DeleteConnector (DeleteConnector'),
@@ -65,17 +71,29 @@ module Amazonka.KafkaConnect
     DeleteConnectorResponse (DeleteConnectorResponse'),
     newDeleteConnectorResponse,
 
-    -- ** UpdateConnector
-    UpdateConnector (UpdateConnector'),
-    newUpdateConnector,
-    UpdateConnectorResponse (UpdateConnectorResponse'),
-    newUpdateConnectorResponse,
+    -- ** DeleteCustomPlugin
+    DeleteCustomPlugin (DeleteCustomPlugin'),
+    newDeleteCustomPlugin,
+    DeleteCustomPluginResponse (DeleteCustomPluginResponse'),
+    newDeleteCustomPluginResponse,
 
-    -- ** CreateWorkerConfiguration
-    CreateWorkerConfiguration (CreateWorkerConfiguration'),
-    newCreateWorkerConfiguration,
-    CreateWorkerConfigurationResponse (CreateWorkerConfigurationResponse'),
-    newCreateWorkerConfigurationResponse,
+    -- ** DescribeConnector
+    DescribeConnector (DescribeConnector'),
+    newDescribeConnector,
+    DescribeConnectorResponse (DescribeConnectorResponse'),
+    newDescribeConnectorResponse,
+
+    -- ** DescribeCustomPlugin
+    DescribeCustomPlugin (DescribeCustomPlugin'),
+    newDescribeCustomPlugin,
+    DescribeCustomPluginResponse (DescribeCustomPluginResponse'),
+    newDescribeCustomPluginResponse,
+
+    -- ** DescribeWorkerConfiguration
+    DescribeWorkerConfiguration (DescribeWorkerConfiguration'),
+    newDescribeWorkerConfiguration,
+    DescribeWorkerConfigurationResponse (DescribeWorkerConfigurationResponse'),
+    newDescribeWorkerConfigurationResponse,
 
     -- ** ListConnectors (Paginated)
     ListConnectors (ListConnectors'),
@@ -89,29 +107,17 @@ module Amazonka.KafkaConnect
     ListCustomPluginsResponse (ListCustomPluginsResponse'),
     newListCustomPluginsResponse,
 
-    -- ** CreateConnector
-    CreateConnector (CreateConnector'),
-    newCreateConnector,
-    CreateConnectorResponse (CreateConnectorResponse'),
-    newCreateConnectorResponse,
+    -- ** ListWorkerConfigurations (Paginated)
+    ListWorkerConfigurations (ListWorkerConfigurations'),
+    newListWorkerConfigurations,
+    ListWorkerConfigurationsResponse (ListWorkerConfigurationsResponse'),
+    newListWorkerConfigurationsResponse,
 
-    -- ** DescribeWorkerConfiguration
-    DescribeWorkerConfiguration (DescribeWorkerConfiguration'),
-    newDescribeWorkerConfiguration,
-    DescribeWorkerConfigurationResponse (DescribeWorkerConfigurationResponse'),
-    newDescribeWorkerConfigurationResponse,
-
-    -- ** DescribeConnector
-    DescribeConnector (DescribeConnector'),
-    newDescribeConnector,
-    DescribeConnectorResponse (DescribeConnectorResponse'),
-    newDescribeConnectorResponse,
-
-    -- ** CreateCustomPlugin
-    CreateCustomPlugin (CreateCustomPlugin'),
-    newCreateCustomPlugin,
-    CreateCustomPluginResponse (CreateCustomPluginResponse'),
-    newCreateCustomPluginResponse,
+    -- ** UpdateConnector
+    UpdateConnector (UpdateConnector'),
+    newUpdateConnector,
+    UpdateConnectorResponse (UpdateConnectorResponse'),
+    newUpdateConnectorResponse,
 
     -- * Types
 
@@ -302,6 +308,10 @@ module Amazonka.KafkaConnect
     ScaleOutPolicyUpdate (ScaleOutPolicyUpdate'),
     newScaleOutPolicyUpdate,
 
+    -- ** StateDescription
+    StateDescription (StateDescription'),
+    newStateDescription,
+
     -- ** Vpc
     Vpc (Vpc'),
     newVpc,
@@ -344,6 +354,7 @@ import Amazonka.KafkaConnect.CreateConnector
 import Amazonka.KafkaConnect.CreateCustomPlugin
 import Amazonka.KafkaConnect.CreateWorkerConfiguration
 import Amazonka.KafkaConnect.DeleteConnector
+import Amazonka.KafkaConnect.DeleteCustomPlugin
 import Amazonka.KafkaConnect.DescribeConnector
 import Amazonka.KafkaConnect.DescribeCustomPlugin
 import Amazonka.KafkaConnect.DescribeWorkerConfiguration

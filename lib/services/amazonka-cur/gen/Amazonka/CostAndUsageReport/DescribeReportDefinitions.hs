@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostAndUsageReport.DescribeReportDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CostAndUsageReport.DescribeReportDefinitions
     newDescribeReportDefinitions,
 
     -- * Request Lenses
-    describeReportDefinitions_nextToken,
     describeReportDefinitions_maxResults,
+    describeReportDefinitions_nextToken,
 
     -- * Destructuring the Response
     DescribeReportDefinitionsResponse (..),
@@ -44,8 +44,9 @@ module Amazonka.CostAndUsageReport.DescribeReportDefinitions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostAndUsageReport.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeReportDefinitions' smart constructor.
 data DescribeReportDefinitions = DescribeReportDefinitions'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,25 +68,25 @@ data DescribeReportDefinitions = DescribeReportDefinitions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeReportDefinitions_nextToken' - Undocumented member.
---
 -- 'maxResults', 'describeReportDefinitions_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'describeReportDefinitions_nextToken' - Undocumented member.
 newDescribeReportDefinitions ::
   DescribeReportDefinitions
 newDescribeReportDefinitions =
   DescribeReportDefinitions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Undocumented member.
-describeReportDefinitions_nextToken :: Lens.Lens' DescribeReportDefinitions (Prelude.Maybe Prelude.Text)
-describeReportDefinitions_nextToken = Lens.lens (\DescribeReportDefinitions' {nextToken} -> nextToken) (\s@DescribeReportDefinitions' {} a -> s {nextToken = a} :: DescribeReportDefinitions)
 
 -- | Undocumented member.
 describeReportDefinitions_maxResults :: Lens.Lens' DescribeReportDefinitions (Prelude.Maybe Prelude.Natural)
 describeReportDefinitions_maxResults = Lens.lens (\DescribeReportDefinitions' {maxResults} -> maxResults) (\s@DescribeReportDefinitions' {} a -> s {maxResults = a} :: DescribeReportDefinitions)
+
+-- | Undocumented member.
+describeReportDefinitions_nextToken :: Lens.Lens' DescribeReportDefinitions (Prelude.Maybe Prelude.Text)
+describeReportDefinitions_nextToken = Lens.lens (\DescribeReportDefinitions' {nextToken} -> nextToken) (\s@DescribeReportDefinitions' {} a -> s {nextToken = a} :: DescribeReportDefinitions)
 
 instance Core.AWSPager DescribeReportDefinitions where
   page rq rs
@@ -113,13 +114,14 @@ instance Core.AWSRequest DescribeReportDefinitions where
   type
     AWSResponse DescribeReportDefinitions =
       DescribeReportDefinitionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeReportDefinitionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ReportDefinitions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ReportDefinitions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -127,42 +129,42 @@ instance Core.AWSRequest DescribeReportDefinitions where
 
 instance Prelude.Hashable DescribeReportDefinitions where
   hashWithSalt _salt DescribeReportDefinitions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeReportDefinitions where
   rnf DescribeReportDefinitions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeReportDefinitions where
+instance Data.ToHeaders DescribeReportDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrigamiServiceGatewayService.DescribeReportDefinitions" ::
+              Data.=# ( "AWSOrigamiServiceGatewayService.DescribeReportDefinitions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeReportDefinitions where
+instance Data.ToJSON DescribeReportDefinitions where
   toJSON DescribeReportDefinitions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeReportDefinitions where
+instance Data.ToPath DescribeReportDefinitions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReportDefinitions where
+instance Data.ToQuery DescribeReportDefinitions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | If the action is successful, the service sends back an HTTP 200

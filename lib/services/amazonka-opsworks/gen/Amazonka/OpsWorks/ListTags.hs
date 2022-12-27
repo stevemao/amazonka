@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.OpsWorks.ListTags
     newListTags,
 
     -- * Request Lenses
-    listTags_nextToken,
     listTags_maxResults,
+    listTags_nextToken,
     listTags_resourceArn,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.OpsWorks.ListTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,12 +52,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
-  { -- | Do not use. A validation exception occurs if you add a @NextToken@
-    -- parameter to a @ListTagsRequest@ call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Do not use. A validation exception occurs if you add a @MaxResults@
+  { -- | Do not use. A validation exception occurs if you add a @MaxResults@
     -- parameter to a @ListTagsRequest@ call.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Do not use. A validation exception occurs if you add a @NextToken@
+    -- parameter to a @ListTagsRequest@ call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The stack or layer\'s Amazon Resource Number (ARN).
     resourceArn :: Prelude.Text
   }
@@ -70,10 +71,10 @@ data ListTags = ListTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTags_nextToken' - Do not use. A validation exception occurs if you add a @NextToken@
+-- 'maxResults', 'listTags_maxResults' - Do not use. A validation exception occurs if you add a @MaxResults@
 -- parameter to a @ListTagsRequest@ call.
 --
--- 'maxResults', 'listTags_maxResults' - Do not use. A validation exception occurs if you add a @MaxResults@
+-- 'nextToken', 'listTags_nextToken' - Do not use. A validation exception occurs if you add a @NextToken@
 -- parameter to a @ListTagsRequest@ call.
 --
 -- 'resourceArn', 'listTags_resourceArn' - The stack or layer\'s Amazon Resource Number (ARN).
@@ -83,20 +84,20 @@ newListTags ::
   ListTags
 newListTags pResourceArn_ =
   ListTags'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
-
--- | Do not use. A validation exception occurs if you add a @NextToken@
--- parameter to a @ListTagsRequest@ call.
-listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
-listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
 -- | Do not use. A validation exception occurs if you add a @MaxResults@
 -- parameter to a @ListTagsRequest@ call.
 listTags_maxResults :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Int)
 listTags_maxResults = Lens.lens (\ListTags' {maxResults} -> maxResults) (\s@ListTags' {} a -> s {maxResults = a} :: ListTags)
+
+-- | Do not use. A validation exception occurs if you add a @NextToken@
+-- parameter to a @ListTagsRequest@ call.
+listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
+listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
 -- | The stack or layer\'s Amazon Resource Number (ARN).
 listTags_resourceArn :: Lens.Lens' ListTags Prelude.Text
@@ -104,55 +105,56 @@ listTags_resourceArn = Lens.lens (\ListTags' {resourceArn} -> resourceArn) (\s@L
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTags where
   hashWithSalt _salt ListTags' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData ListTags where
   rnf ListTags' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("OpsWorks_20130218.ListTags" :: Prelude.ByteString),
+              Data.=# ("OpsWorks_20130218.ListTags" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTags where
+instance Data.ToJSON ListTags where
   toJSON ListTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @ListTags@ request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.PolicyTypeSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Organizations.Types.PolicyTypeSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types.PolicyType
 import Amazonka.Organizations.Types.PolicyTypeStatus
 import qualified Amazonka.Prelude as Prelude
@@ -73,14 +74,14 @@ policyTypeSummary_status = Lens.lens (\PolicyTypeSummary' {status} -> status) (\
 policyTypeSummary_type :: Lens.Lens' PolicyTypeSummary (Prelude.Maybe PolicyType)
 policyTypeSummary_type = Lens.lens (\PolicyTypeSummary' {type'} -> type') (\s@PolicyTypeSummary' {} a -> s {type' = a} :: PolicyTypeSummary)
 
-instance Core.FromJSON PolicyTypeSummary where
+instance Data.FromJSON PolicyTypeSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyTypeSummary"
       ( \x ->
           PolicyTypeSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable PolicyTypeSummary where

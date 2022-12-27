@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.UpdateDomainNameservers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.Route53Domains.UpdateDomainNameservers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,13 +70,13 @@ import Amazonka.Route53Domains.Types
 -- /See:/ 'newUpdateDomainNameservers' smart constructor.
 data UpdateDomainNameservers = UpdateDomainNameservers'
   { -- | The authorization key for .fi domains
-    fIAuthKey :: Prelude.Maybe Prelude.Text,
+    fIAuthKey :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The name of the domain that you want to change name servers for.
     domainName :: Prelude.Text,
     -- | A list of new name servers for the domain.
     nameservers :: [Nameserver]
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateDomainNameservers' with all optional fields omitted.
@@ -104,7 +105,7 @@ newUpdateDomainNameservers pDomainName_ =
 
 -- | The authorization key for .fi domains
 updateDomainNameservers_fIAuthKey :: Lens.Lens' UpdateDomainNameservers (Prelude.Maybe Prelude.Text)
-updateDomainNameservers_fIAuthKey = Lens.lens (\UpdateDomainNameservers' {fIAuthKey} -> fIAuthKey) (\s@UpdateDomainNameservers' {} a -> s {fIAuthKey = a} :: UpdateDomainNameservers)
+updateDomainNameservers_fIAuthKey = Lens.lens (\UpdateDomainNameservers' {fIAuthKey} -> fIAuthKey) (\s@UpdateDomainNameservers' {} a -> s {fIAuthKey = a} :: UpdateDomainNameservers) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name of the domain that you want to change name servers for.
 updateDomainNameservers_domainName :: Lens.Lens' UpdateDomainNameservers Prelude.Text
@@ -118,13 +119,14 @@ instance Core.AWSRequest UpdateDomainNameservers where
   type
     AWSResponse UpdateDomainNameservers =
       UpdateDomainNameserversResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainNameserversResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable UpdateDomainNameservers where
@@ -139,35 +141,35 @@ instance Prelude.NFData UpdateDomainNameservers where
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf nameservers
 
-instance Core.ToHeaders UpdateDomainNameservers where
+instance Data.ToHeaders UpdateDomainNameservers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.UpdateDomainNameservers" ::
+              Data.=# ( "Route53Domains_v20140515.UpdateDomainNameservers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomainNameservers where
+instance Data.ToJSON UpdateDomainNameservers where
   toJSON UpdateDomainNameservers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FIAuthKey" Core..=) Prelude.<$> fIAuthKey,
-            Prelude.Just ("DomainName" Core..= domainName),
-            Prelude.Just ("Nameservers" Core..= nameservers)
+          [ ("FIAuthKey" Data..=) Prelude.<$> fIAuthKey,
+            Prelude.Just ("DomainName" Data..= domainName),
+            Prelude.Just ("Nameservers" Data..= nameservers)
           ]
       )
 
-instance Core.ToPath UpdateDomainNameservers where
+instance Data.ToPath UpdateDomainNameservers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDomainNameservers where
+instance Data.ToQuery UpdateDomainNameservers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The UpdateDomainNameservers response includes the following element.

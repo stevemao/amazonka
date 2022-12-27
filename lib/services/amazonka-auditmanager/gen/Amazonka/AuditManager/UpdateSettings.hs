@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.UpdateSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,11 @@ module Amazonka.AuditManager.UpdateSettings
     newUpdateSettings,
 
     -- * Request Lenses
-    updateSettings_kmsKey,
     updateSettings_defaultAssessmentReportsDestination,
-    updateSettings_snsTopic,
     updateSettings_defaultProcessOwners,
+    updateSettings_evidenceFinderEnabled,
+    updateSettings_kmsKey,
+    updateSettings_snsTopic,
 
     -- * Destructuring the Response
     UpdateSettingsResponse (..),
@@ -44,22 +45,40 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateSettings' smart constructor.
 data UpdateSettings = UpdateSettings'
-  { -- | The KMS key details.
-    kmsKey :: Prelude.Maybe Prelude.Text,
-    -- | The default storage destination for assessment reports.
+  { -- | The default storage destination for assessment reports.
     defaultAssessmentReportsDestination :: Prelude.Maybe AssessmentReportsDestination,
-    -- | The Amazon Simple Notification Service (Amazon SNS) topic to which Audit
-    -- Manager sends notifications.
-    snsTopic :: Prelude.Maybe Prelude.Text,
     -- | A list of the default audit owners.
-    defaultProcessOwners :: Prelude.Maybe [Role]
+    defaultProcessOwners :: Prelude.Maybe [Role],
+    -- | Specifies whether the evidence finder feature is enabled. Change this
+    -- attribute to enable or disable evidence finder.
+    --
+    -- When you use this attribute to disable evidence finder, Audit Manager
+    -- deletes the event data store that’s used to query your evidence data. As
+    -- a result, you can’t re-enable evidence finder and use the feature again.
+    -- Your only alternative is to
+    -- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeregisterAccount.html deregister>
+    -- and then
+    -- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_RegisterAccount.html re-register>
+    -- Audit Manager.
+    --
+    -- Disabling evidence finder is permanent, so consider this decision
+    -- carefully before you proceed. If you’re using Audit Manager as a
+    -- delegated administrator, keep in mind that this action applies to all
+    -- member accounts in your organization.
+    evidenceFinderEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The KMS key details.
+    kmsKey :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Simple Notification Service (Amazon SNS) topic that Audit
+    -- Manager sends notifications to.
+    snsTopic :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,97 +90,140 @@ data UpdateSettings = UpdateSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKey', 'updateSettings_kmsKey' - The KMS key details.
---
 -- 'defaultAssessmentReportsDestination', 'updateSettings_defaultAssessmentReportsDestination' - The default storage destination for assessment reports.
 --
--- 'snsTopic', 'updateSettings_snsTopic' - The Amazon Simple Notification Service (Amazon SNS) topic to which Audit
--- Manager sends notifications.
---
 -- 'defaultProcessOwners', 'updateSettings_defaultProcessOwners' - A list of the default audit owners.
+--
+-- 'evidenceFinderEnabled', 'updateSettings_evidenceFinderEnabled' - Specifies whether the evidence finder feature is enabled. Change this
+-- attribute to enable or disable evidence finder.
+--
+-- When you use this attribute to disable evidence finder, Audit Manager
+-- deletes the event data store that’s used to query your evidence data. As
+-- a result, you can’t re-enable evidence finder and use the feature again.
+-- Your only alternative is to
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeregisterAccount.html deregister>
+-- and then
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_RegisterAccount.html re-register>
+-- Audit Manager.
+--
+-- Disabling evidence finder is permanent, so consider this decision
+-- carefully before you proceed. If you’re using Audit Manager as a
+-- delegated administrator, keep in mind that this action applies to all
+-- member accounts in your organization.
+--
+-- 'kmsKey', 'updateSettings_kmsKey' - The KMS key details.
+--
+-- 'snsTopic', 'updateSettings_snsTopic' - The Amazon Simple Notification Service (Amazon SNS) topic that Audit
+-- Manager sends notifications to.
 newUpdateSettings ::
   UpdateSettings
 newUpdateSettings =
   UpdateSettings'
-    { kmsKey = Prelude.Nothing,
-      defaultAssessmentReportsDestination =
+    { defaultAssessmentReportsDestination =
         Prelude.Nothing,
-      snsTopic = Prelude.Nothing,
-      defaultProcessOwners = Prelude.Nothing
+      defaultProcessOwners = Prelude.Nothing,
+      evidenceFinderEnabled = Prelude.Nothing,
+      kmsKey = Prelude.Nothing,
+      snsTopic = Prelude.Nothing
     }
-
--- | The KMS key details.
-updateSettings_kmsKey :: Lens.Lens' UpdateSettings (Prelude.Maybe Prelude.Text)
-updateSettings_kmsKey = Lens.lens (\UpdateSettings' {kmsKey} -> kmsKey) (\s@UpdateSettings' {} a -> s {kmsKey = a} :: UpdateSettings)
 
 -- | The default storage destination for assessment reports.
 updateSettings_defaultAssessmentReportsDestination :: Lens.Lens' UpdateSettings (Prelude.Maybe AssessmentReportsDestination)
 updateSettings_defaultAssessmentReportsDestination = Lens.lens (\UpdateSettings' {defaultAssessmentReportsDestination} -> defaultAssessmentReportsDestination) (\s@UpdateSettings' {} a -> s {defaultAssessmentReportsDestination = a} :: UpdateSettings)
 
--- | The Amazon Simple Notification Service (Amazon SNS) topic to which Audit
--- Manager sends notifications.
-updateSettings_snsTopic :: Lens.Lens' UpdateSettings (Prelude.Maybe Prelude.Text)
-updateSettings_snsTopic = Lens.lens (\UpdateSettings' {snsTopic} -> snsTopic) (\s@UpdateSettings' {} a -> s {snsTopic = a} :: UpdateSettings)
-
 -- | A list of the default audit owners.
 updateSettings_defaultProcessOwners :: Lens.Lens' UpdateSettings (Prelude.Maybe [Role])
 updateSettings_defaultProcessOwners = Lens.lens (\UpdateSettings' {defaultProcessOwners} -> defaultProcessOwners) (\s@UpdateSettings' {} a -> s {defaultProcessOwners = a} :: UpdateSettings) Prelude.. Lens.mapping Lens.coerced
+
+-- | Specifies whether the evidence finder feature is enabled. Change this
+-- attribute to enable or disable evidence finder.
+--
+-- When you use this attribute to disable evidence finder, Audit Manager
+-- deletes the event data store that’s used to query your evidence data. As
+-- a result, you can’t re-enable evidence finder and use the feature again.
+-- Your only alternative is to
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeregisterAccount.html deregister>
+-- and then
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_RegisterAccount.html re-register>
+-- Audit Manager.
+--
+-- Disabling evidence finder is permanent, so consider this decision
+-- carefully before you proceed. If you’re using Audit Manager as a
+-- delegated administrator, keep in mind that this action applies to all
+-- member accounts in your organization.
+updateSettings_evidenceFinderEnabled :: Lens.Lens' UpdateSettings (Prelude.Maybe Prelude.Bool)
+updateSettings_evidenceFinderEnabled = Lens.lens (\UpdateSettings' {evidenceFinderEnabled} -> evidenceFinderEnabled) (\s@UpdateSettings' {} a -> s {evidenceFinderEnabled = a} :: UpdateSettings)
+
+-- | The KMS key details.
+updateSettings_kmsKey :: Lens.Lens' UpdateSettings (Prelude.Maybe Prelude.Text)
+updateSettings_kmsKey = Lens.lens (\UpdateSettings' {kmsKey} -> kmsKey) (\s@UpdateSettings' {} a -> s {kmsKey = a} :: UpdateSettings)
+
+-- | The Amazon Simple Notification Service (Amazon SNS) topic that Audit
+-- Manager sends notifications to.
+updateSettings_snsTopic :: Lens.Lens' UpdateSettings (Prelude.Maybe Prelude.Text)
+updateSettings_snsTopic = Lens.lens (\UpdateSettings' {snsTopic} -> snsTopic) (\s@UpdateSettings' {} a -> s {snsTopic = a} :: UpdateSettings)
 
 instance Core.AWSRequest UpdateSettings where
   type
     AWSResponse UpdateSettings =
       UpdateSettingsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSettingsResponse'
-            Prelude.<$> (x Core..?> "settings")
+            Prelude.<$> (x Data..?> "settings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateSettings where
   hashWithSalt _salt UpdateSettings' {..} =
-    _salt `Prelude.hashWithSalt` kmsKey
+    _salt
       `Prelude.hashWithSalt` defaultAssessmentReportsDestination
-      `Prelude.hashWithSalt` snsTopic
       `Prelude.hashWithSalt` defaultProcessOwners
+      `Prelude.hashWithSalt` evidenceFinderEnabled
+      `Prelude.hashWithSalt` kmsKey
+      `Prelude.hashWithSalt` snsTopic
 
 instance Prelude.NFData UpdateSettings where
   rnf UpdateSettings' {..} =
-    Prelude.rnf kmsKey
-      `Prelude.seq` Prelude.rnf defaultAssessmentReportsDestination
-      `Prelude.seq` Prelude.rnf snsTopic
+    Prelude.rnf defaultAssessmentReportsDestination
       `Prelude.seq` Prelude.rnf defaultProcessOwners
+      `Prelude.seq` Prelude.rnf evidenceFinderEnabled
+      `Prelude.seq` Prelude.rnf kmsKey
+      `Prelude.seq` Prelude.rnf snsTopic
 
-instance Core.ToHeaders UpdateSettings where
+instance Data.ToHeaders UpdateSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSettings where
+instance Data.ToJSON UpdateSettings where
   toJSON UpdateSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("kmsKey" Core..=) Prelude.<$> kmsKey,
-            ("defaultAssessmentReportsDestination" Core..=)
+          [ ("defaultAssessmentReportsDestination" Data..=)
               Prelude.<$> defaultAssessmentReportsDestination,
-            ("snsTopic" Core..=) Prelude.<$> snsTopic,
-            ("defaultProcessOwners" Core..=)
-              Prelude.<$> defaultProcessOwners
+            ("defaultProcessOwners" Data..=)
+              Prelude.<$> defaultProcessOwners,
+            ("evidenceFinderEnabled" Data..=)
+              Prelude.<$> evidenceFinderEnabled,
+            ("kmsKey" Data..=) Prelude.<$> kmsKey,
+            ("snsTopic" Data..=) Prelude.<$> snsTopic
           ]
       )
 
-instance Core.ToPath UpdateSettings where
+instance Data.ToPath UpdateSettings where
   toPath = Prelude.const "/settings"
 
-instance Core.ToQuery UpdateSettings where
+instance Data.ToQuery UpdateSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSettingsResponse' smart constructor.

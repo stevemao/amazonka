@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.PermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +20,30 @@
 module Amazonka.SSOAdmin.Types.PermissionSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An entity that contains IAM policies.
 --
 -- /See:/ 'newPermissionSet' smart constructor.
 data PermissionSet = PermissionSet'
-  { -- | Used to redirect users within the application during the federation
+  { -- | The date that the permission set was created.
+    createdDate :: Prelude.Maybe Data.POSIX,
+    -- | The description of the PermissionSet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the permission set.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the permission set. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
+    permissionSetArn :: Prelude.Maybe Prelude.Text,
+    -- | Used to redirect users within the application during the federation
     -- authentication process.
     relayState :: Prelude.Maybe Prelude.Text,
     -- | The length of time that the application user sessions are valid for in
     -- the ISO-8601 standard.
-    sessionDuration :: Prelude.Maybe Prelude.Text,
-    -- | The date that the permission set was created.
-    createdDate :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the permission set. For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
-    permissionSetArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the permission set.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the PermissionSet.
-    description :: Prelude.Maybe Prelude.Text
+    sessionDuration :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,32 +55,50 @@ data PermissionSet = PermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'createdDate', 'permissionSet_createdDate' - The date that the permission set was created.
+--
+-- 'description', 'permissionSet_description' - The description of the PermissionSet.
+--
+-- 'name', 'permissionSet_name' - The name of the permission set.
+--
+-- 'permissionSetArn', 'permissionSet_permissionSetArn' - The ARN of the permission set. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
+--
 -- 'relayState', 'permissionSet_relayState' - Used to redirect users within the application during the federation
 -- authentication process.
 --
 -- 'sessionDuration', 'permissionSet_sessionDuration' - The length of time that the application user sessions are valid for in
 -- the ISO-8601 standard.
---
--- 'createdDate', 'permissionSet_createdDate' - The date that the permission set was created.
---
--- 'permissionSetArn', 'permissionSet_permissionSetArn' - The ARN of the permission set. For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
---
--- 'name', 'permissionSet_name' - The name of the permission set.
---
--- 'description', 'permissionSet_description' - The description of the PermissionSet.
 newPermissionSet ::
   PermissionSet
 newPermissionSet =
   PermissionSet'
-    { relayState = Prelude.Nothing,
-      sessionDuration = Prelude.Nothing,
-      createdDate = Prelude.Nothing,
-      permissionSetArn = Prelude.Nothing,
+    { createdDate = Prelude.Nothing,
+      description = Prelude.Nothing,
       name = Prelude.Nothing,
-      description = Prelude.Nothing
+      permissionSetArn = Prelude.Nothing,
+      relayState = Prelude.Nothing,
+      sessionDuration = Prelude.Nothing
     }
+
+-- | The date that the permission set was created.
+permissionSet_createdDate :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.UTCTime)
+permissionSet_createdDate = Lens.lens (\PermissionSet' {createdDate} -> createdDate) (\s@PermissionSet' {} a -> s {createdDate = a} :: PermissionSet) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the PermissionSet.
+permissionSet_description :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
+permissionSet_description = Lens.lens (\PermissionSet' {description} -> description) (\s@PermissionSet' {} a -> s {description = a} :: PermissionSet)
+
+-- | The name of the permission set.
+permissionSet_name :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
+permissionSet_name = Lens.lens (\PermissionSet' {name} -> name) (\s@PermissionSet' {} a -> s {name = a} :: PermissionSet)
+
+-- | The ARN of the permission set. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
+permissionSet_permissionSetArn :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
+permissionSet_permissionSetArn = Lens.lens (\PermissionSet' {permissionSetArn} -> permissionSetArn) (\s@PermissionSet' {} a -> s {permissionSetArn = a} :: PermissionSet)
 
 -- | Used to redirect users within the application during the federation
 -- authentication process.
@@ -91,52 +110,34 @@ permissionSet_relayState = Lens.lens (\PermissionSet' {relayState} -> relayState
 permissionSet_sessionDuration :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
 permissionSet_sessionDuration = Lens.lens (\PermissionSet' {sessionDuration} -> sessionDuration) (\s@PermissionSet' {} a -> s {sessionDuration = a} :: PermissionSet)
 
--- | The date that the permission set was created.
-permissionSet_createdDate :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.UTCTime)
-permissionSet_createdDate = Lens.lens (\PermissionSet' {createdDate} -> createdDate) (\s@PermissionSet' {} a -> s {createdDate = a} :: PermissionSet) Prelude.. Lens.mapping Core._Time
-
--- | The ARN of the permission set. For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
-permissionSet_permissionSetArn :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
-permissionSet_permissionSetArn = Lens.lens (\PermissionSet' {permissionSetArn} -> permissionSetArn) (\s@PermissionSet' {} a -> s {permissionSetArn = a} :: PermissionSet)
-
--- | The name of the permission set.
-permissionSet_name :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
-permissionSet_name = Lens.lens (\PermissionSet' {name} -> name) (\s@PermissionSet' {} a -> s {name = a} :: PermissionSet)
-
--- | The description of the PermissionSet.
-permissionSet_description :: Lens.Lens' PermissionSet (Prelude.Maybe Prelude.Text)
-permissionSet_description = Lens.lens (\PermissionSet' {description} -> description) (\s@PermissionSet' {} a -> s {description = a} :: PermissionSet)
-
-instance Core.FromJSON PermissionSet where
+instance Data.FromJSON PermissionSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PermissionSet"
       ( \x ->
           PermissionSet'
-            Prelude.<$> (x Core..:? "RelayState")
-            Prelude.<*> (x Core..:? "SessionDuration")
-            Prelude.<*> (x Core..:? "CreatedDate")
-            Prelude.<*> (x Core..:? "PermissionSetArn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "CreatedDate")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "PermissionSetArn")
+            Prelude.<*> (x Data..:? "RelayState")
+            Prelude.<*> (x Data..:? "SessionDuration")
       )
 
 instance Prelude.Hashable PermissionSet where
   hashWithSalt _salt PermissionSet' {..} =
-    _salt `Prelude.hashWithSalt` relayState
-      `Prelude.hashWithSalt` sessionDuration
-      `Prelude.hashWithSalt` createdDate
-      `Prelude.hashWithSalt` permissionSetArn
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` createdDate
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` permissionSetArn
+      `Prelude.hashWithSalt` relayState
+      `Prelude.hashWithSalt` sessionDuration
 
 instance Prelude.NFData PermissionSet where
   rnf PermissionSet' {..} =
-    Prelude.rnf relayState
-      `Prelude.seq` Prelude.rnf sessionDuration
-      `Prelude.seq` Prelude.rnf createdDate
-      `Prelude.seq` Prelude.rnf permissionSetArn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf createdDate
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf permissionSetArn
+      `Prelude.seq` Prelude.rnf relayState
+      `Prelude.seq` Prelude.rnf sessionDuration

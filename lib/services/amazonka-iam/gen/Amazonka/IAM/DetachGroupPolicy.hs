@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DetachGroupPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IAM.DetachGroupPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,7 +124,8 @@ instance Core.AWSRequest DetachGroupPolicy where
   type
     AWSResponse DetachGroupPolicy =
       DetachGroupPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DetachGroupPolicyResponse'
 
@@ -137,21 +139,21 @@ instance Prelude.NFData DetachGroupPolicy where
     Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf policyArn
 
-instance Core.ToHeaders DetachGroupPolicy where
+instance Data.ToHeaders DetachGroupPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachGroupPolicy where
+instance Data.ToPath DetachGroupPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachGroupPolicy where
+instance Data.ToQuery DetachGroupPolicy where
   toQuery DetachGroupPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetachGroupPolicy" :: Prelude.ByteString),
+          Data.=: ("DetachGroupPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "GroupName" Core.=: groupName,
-        "PolicyArn" Core.=: policyArn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Data.=: groupName,
+        "PolicyArn" Data.=: policyArn
       ]
 
 -- | /See:/ 'newDetachGroupPolicyResponse' smart constructor.

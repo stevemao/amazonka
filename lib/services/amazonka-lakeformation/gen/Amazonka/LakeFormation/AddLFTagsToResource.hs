@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.AddLFTagsToResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches one or more tags to an existing resource.
+-- Attaches one or more LF-tags to an existing resource.
 module Amazonka.LakeFormation.AddLFTagsToResource
   ( -- * Creating a Request
     AddLFTagsToResource (..),
@@ -42,8 +42,9 @@ module Amazonka.LakeFormation.AddLFTagsToResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ data AddLFTagsToResource = AddLFTagsToResource'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The resource to which to attach a tag.
+    -- | The database, table, or column resource to which to attach an LF-tag.
     resource :: Resource,
-    -- | The tags to attach to the resource.
+    -- | The LF-tags to attach to the resource.
     lFTags :: Prelude.NonEmpty LFTagPair
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,11 +74,11 @@ data AddLFTagsToResource = AddLFTagsToResource'
 -- 'catalogId', 'addLFTagsToResource_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'resource', 'addLFTagsToResource_resource' - The resource to which to attach a tag.
+-- 'resource', 'addLFTagsToResource_resource' - The database, table, or column resource to which to attach an LF-tag.
 --
--- 'lFTags', 'addLFTagsToResource_lFTags' - The tags to attach to the resource.
+-- 'lFTags', 'addLFTagsToResource_lFTags' - The LF-tags to attach to the resource.
 newAddLFTagsToResource ::
   -- | 'resource'
   Resource ->
@@ -94,15 +95,15 @@ newAddLFTagsToResource pResource_ pLFTags_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 addLFTagsToResource_catalogId :: Lens.Lens' AddLFTagsToResource (Prelude.Maybe Prelude.Text)
 addLFTagsToResource_catalogId = Lens.lens (\AddLFTagsToResource' {catalogId} -> catalogId) (\s@AddLFTagsToResource' {} a -> s {catalogId = a} :: AddLFTagsToResource)
 
--- | The resource to which to attach a tag.
+-- | The database, table, or column resource to which to attach an LF-tag.
 addLFTagsToResource_resource :: Lens.Lens' AddLFTagsToResource Resource
 addLFTagsToResource_resource = Lens.lens (\AddLFTagsToResource' {resource} -> resource) (\s@AddLFTagsToResource' {} a -> s {resource = a} :: AddLFTagsToResource)
 
--- | The tags to attach to the resource.
+-- | The LF-tags to attach to the resource.
 addLFTagsToResource_lFTags :: Lens.Lens' AddLFTagsToResource (Prelude.NonEmpty LFTagPair)
 addLFTagsToResource_lFTags = Lens.lens (\AddLFTagsToResource' {lFTags} -> lFTags) (\s@AddLFTagsToResource' {} a -> s {lFTags = a} :: AddLFTagsToResource) Prelude.. Lens.coerced
 
@@ -110,12 +111,13 @@ instance Core.AWSRequest AddLFTagsToResource where
   type
     AWSResponse AddLFTagsToResource =
       AddLFTagsToResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddLFTagsToResourceResponse'
-            Prelude.<$> (x Core..?> "Failures" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Failures" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,35 +133,31 @@ instance Prelude.NFData AddLFTagsToResource where
       `Prelude.seq` Prelude.rnf resource
       `Prelude.seq` Prelude.rnf lFTags
 
-instance Core.ToHeaders AddLFTagsToResource where
+instance Data.ToHeaders AddLFTagsToResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.AddLFTagsToResource" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddLFTagsToResource where
+instance Data.ToJSON AddLFTagsToResource where
   toJSON AddLFTagsToResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("Resource" Core..= resource),
-            Prelude.Just ("LFTags" Core..= lFTags)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("Resource" Data..= resource),
+            Prelude.Just ("LFTags" Data..= lFTags)
           ]
       )
 
-instance Core.ToPath AddLFTagsToResource where
-  toPath = Prelude.const "/"
+instance Data.ToPath AddLFTagsToResource where
+  toPath = Prelude.const "/AddLFTagsToResource"
 
-instance Core.ToQuery AddLFTagsToResource where
+instance Data.ToQuery AddLFTagsToResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddLFTagsToResourceResponse' smart constructor.

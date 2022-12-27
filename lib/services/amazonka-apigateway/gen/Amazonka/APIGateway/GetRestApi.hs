@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetRestApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,25 +34,26 @@ module Amazonka.APIGateway.GetRestApi
     newRestApi,
 
     -- * Response Lenses
-    restApi_minimumCompressionSize,
-    restApi_disableExecuteApiEndpoint,
-    restApi_binaryMediaTypes,
-    restApi_warnings,
-    restApi_createdDate,
-    restApi_name,
-    restApi_version,
     restApi_apiKeySource,
-    restApi_id,
-    restApi_policy,
-    restApi_endpointConfiguration,
+    restApi_binaryMediaTypes,
+    restApi_createdDate,
     restApi_description,
+    restApi_disableExecuteApiEndpoint,
+    restApi_endpointConfiguration,
+    restApi_id,
+    restApi_minimumCompressionSize,
+    restApi_name,
+    restApi_policy,
     restApi_tags,
+    restApi_version,
+    restApi_warnings,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +62,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetRestApi' smart constructor.
 data GetRestApi = GetRestApi'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,7 +75,7 @@ data GetRestApi = GetRestApi'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getRestApi_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getRestApi_restApiId' - The string identifier of the associated RestApi.
 newGetRestApi ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -82,16 +83,17 @@ newGetRestApi ::
 newGetRestApi pRestApiId_ =
   GetRestApi' {restApiId = pRestApiId_}
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getRestApi_restApiId :: Lens.Lens' GetRestApi Prelude.Text
 getRestApi_restApiId = Lens.lens (\GetRestApi' {restApiId} -> restApiId) (\s@GetRestApi' {} a -> s {restApiId = a} :: GetRestApi)
 
 instance Core.AWSRequest GetRestApi where
   type AWSResponse GetRestApi = RestApi
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetRestApi where
   hashWithSalt _salt GetRestApi' {..} =
@@ -100,18 +102,18 @@ instance Prelude.Hashable GetRestApi where
 instance Prelude.NFData GetRestApi where
   rnf GetRestApi' {..} = Prelude.rnf restApiId
 
-instance Core.ToHeaders GetRestApi where
+instance Data.ToHeaders GetRestApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetRestApi where
+instance Data.ToPath GetRestApi where
   toPath GetRestApi' {..} =
-    Prelude.mconcat ["/restapis/", Core.toBS restApiId]
+    Prelude.mconcat ["/restapis/", Data.toBS restApiId]
 
-instance Core.ToQuery GetRestApi where
+instance Data.ToQuery GetRestApi where
   toQuery = Prelude.const Prelude.mempty

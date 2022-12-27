@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-emr/amazonka-emr.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-emr/amazonka-emr.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-emr",
     srcs = [
@@ -135,6 +135,7 @@ haskell_library(
         "gen/Amazonka/EMR/Types/NotebookExecution.hs",
         "gen/Amazonka/EMR/Types/NotebookExecutionStatus.hs",
         "gen/Amazonka/EMR/Types/NotebookExecutionSummary.hs",
+        "gen/Amazonka/EMR/Types/OSRelease.hs",
         "gen/Amazonka/EMR/Types/OnDemandCapacityReservationOptions.hs",
         "gen/Amazonka/EMR/Types/OnDemandCapacityReservationPreference.hs",
         "gen/Amazonka/EMR/Types/OnDemandCapacityReservationUsageStrategy.hs",
@@ -144,6 +145,7 @@ haskell_library(
         "gen/Amazonka/EMR/Types/PlacementGroupStrategy.hs",
         "gen/Amazonka/EMR/Types/PlacementType.hs",
         "gen/Amazonka/EMR/Types/PortRange.hs",
+        "gen/Amazonka/EMR/Types/ReconfigurationType.hs",
         "gen/Amazonka/EMR/Types/ReleaseLabelFilter.hs",
         "gen/Amazonka/EMR/Types/RepoUpgradeOnBoot.hs",
         "gen/Amazonka/EMR/Types/ScaleDownBehavior.hs",
@@ -181,14 +183,13 @@ haskell_library(
         "gen/Amazonka/EMR/UpdateStudioSessionMapping.hs",
         "gen/Amazonka/EMR/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_emr=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_emr=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -197,7 +198,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-emr/amazonka-emr.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-emr/amazonka-emr.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-emr-test",
     srcs = [
@@ -206,11 +207,12 @@ haskell_test(
         "test/Test/Amazonka/EMR/Internal.hs",
         "test/Test/Amazonka/Gen/EMR.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_emr=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_emr=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

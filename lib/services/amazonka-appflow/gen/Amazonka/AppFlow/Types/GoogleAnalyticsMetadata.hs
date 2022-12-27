@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.GoogleAnalyticsMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.GoogleAnalyticsMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector metadata specific to Google Analytics.
@@ -53,13 +54,13 @@ newGoogleAnalyticsMetadata =
 googleAnalyticsMetadata_oAuthScopes :: Lens.Lens' GoogleAnalyticsMetadata (Prelude.Maybe [Prelude.Text])
 googleAnalyticsMetadata_oAuthScopes = Lens.lens (\GoogleAnalyticsMetadata' {oAuthScopes} -> oAuthScopes) (\s@GoogleAnalyticsMetadata' {} a -> s {oAuthScopes = a} :: GoogleAnalyticsMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON GoogleAnalyticsMetadata where
+instance Data.FromJSON GoogleAnalyticsMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GoogleAnalyticsMetadata"
       ( \x ->
           GoogleAnalyticsMetadata'
-            Prelude.<$> (x Core..:? "oAuthScopes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "oAuthScopes" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable GoogleAnalyticsMetadata where

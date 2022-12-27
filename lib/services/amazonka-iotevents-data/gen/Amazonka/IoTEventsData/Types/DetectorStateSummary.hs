@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.DetectorStateSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.DetectorStateSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the detector state.
@@ -50,13 +51,13 @@ newDetectorStateSummary =
 detectorStateSummary_stateName :: Lens.Lens' DetectorStateSummary (Prelude.Maybe Prelude.Text)
 detectorStateSummary_stateName = Lens.lens (\DetectorStateSummary' {stateName} -> stateName) (\s@DetectorStateSummary' {} a -> s {stateName = a} :: DetectorStateSummary)
 
-instance Core.FromJSON DetectorStateSummary where
+instance Data.FromJSON DetectorStateSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetectorStateSummary"
       ( \x ->
           DetectorStateSummary'
-            Prelude.<$> (x Core..:? "stateName")
+            Prelude.<$> (x Data..:? "stateName")
       )
 
 instance Prelude.Hashable DetectorStateSummary where

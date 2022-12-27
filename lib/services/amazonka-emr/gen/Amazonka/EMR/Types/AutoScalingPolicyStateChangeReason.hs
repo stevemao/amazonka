@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.AutoScalingPolicyStateChangeReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.AutoScalingPolicyStateChangeReason where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.AutoScalingPolicyStateChangeReasonCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The reason for an AutoScalingPolicyStatus change.
@@ -76,16 +77,16 @@ autoScalingPolicyStateChangeReason_message :: Lens.Lens' AutoScalingPolicyStateC
 autoScalingPolicyStateChangeReason_message = Lens.lens (\AutoScalingPolicyStateChangeReason' {message} -> message) (\s@AutoScalingPolicyStateChangeReason' {} a -> s {message = a} :: AutoScalingPolicyStateChangeReason)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AutoScalingPolicyStateChangeReason
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoScalingPolicyStateChangeReason"
       ( \x ->
           AutoScalingPolicyStateChangeReason'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance

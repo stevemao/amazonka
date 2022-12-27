@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.TrendmicroMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.TrendmicroMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector metadata specific to Trend Micro.
@@ -39,9 +40,9 @@ newTrendmicroMetadata ::
   TrendmicroMetadata
 newTrendmicroMetadata = TrendmicroMetadata'
 
-instance Core.FromJSON TrendmicroMetadata where
+instance Data.FromJSON TrendmicroMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrendmicroMetadata"
       (\x -> Prelude.pure TrendmicroMetadata')
 

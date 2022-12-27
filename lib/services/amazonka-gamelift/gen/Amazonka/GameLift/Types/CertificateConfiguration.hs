@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.CertificateConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GameLift.Types.CertificateConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types.CertificateType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Determines whether a TLS\/SSL certificate is generated for a fleet. This
@@ -30,8 +31,6 @@ import qualified Amazonka.Prelude as Prelude
 -- calling the
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk.html GameLift Server SDK>
 -- operation @GetInstanceCertificate@.
---
--- A fleet\'s certificate configuration is part of FleetAttributes.
 --
 -- /See:/ 'newCertificateConfiguration' smart constructor.
 data CertificateConfiguration = CertificateConfiguration'
@@ -84,13 +83,13 @@ newCertificateConfiguration pCertificateType_ =
 certificateConfiguration_certificateType :: Lens.Lens' CertificateConfiguration CertificateType
 certificateConfiguration_certificateType = Lens.lens (\CertificateConfiguration' {certificateType} -> certificateType) (\s@CertificateConfiguration' {} a -> s {certificateType = a} :: CertificateConfiguration)
 
-instance Core.FromJSON CertificateConfiguration where
+instance Data.FromJSON CertificateConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CertificateConfiguration"
       ( \x ->
           CertificateConfiguration'
-            Prelude.<$> (x Core..: "CertificateType")
+            Prelude.<$> (x Data..: "CertificateType")
       )
 
 instance Prelude.Hashable CertificateConfiguration where
@@ -101,11 +100,11 @@ instance Prelude.NFData CertificateConfiguration where
   rnf CertificateConfiguration' {..} =
     Prelude.rnf certificateType
 
-instance Core.ToJSON CertificateConfiguration where
+instance Data.ToJSON CertificateConfiguration where
   toJSON CertificateConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateType" Core..= certificateType)
+              ("CertificateType" Data..= certificateType)
           ]
       )

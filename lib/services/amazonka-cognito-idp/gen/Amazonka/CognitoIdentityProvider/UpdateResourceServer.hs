@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.UpdateResourceServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,8 @@
 -- Updates the name and scopes of resource server. All other fields are
 -- read-only.
 --
--- If you don\'t provide a value for an attribute, it will be set to the
--- default value.
+-- If you don\'t provide a value for an attribute, it is set to the default
+-- value.
 module Amazonka.CognitoIdentityProvider.UpdateResourceServer
   ( -- * Creating a Request
     UpdateResourceServer (..),
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,13 +121,14 @@ instance Core.AWSRequest UpdateResourceServer where
   type
     AWSResponse UpdateResourceServer =
       UpdateResourceServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateResourceServerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ResourceServer")
+            Prelude.<*> (x Data..:> "ResourceServer")
       )
 
 instance Prelude.Hashable UpdateResourceServer where
@@ -143,36 +145,36 @@ instance Prelude.NFData UpdateResourceServer where
       `Prelude.seq` Prelude.rnf identifier
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateResourceServer where
+instance Data.ToHeaders UpdateResourceServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.UpdateResourceServer" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.UpdateResourceServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateResourceServer where
+instance Data.ToJSON UpdateResourceServer where
   toJSON UpdateResourceServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Scopes" Core..=) Prelude.<$> scopes,
-            Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Identifier" Core..= identifier),
-            Prelude.Just ("Name" Core..= name)
+          [ ("Scopes" Data..=) Prelude.<$> scopes,
+            Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Identifier" Data..= identifier),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath UpdateResourceServer where
+instance Data.ToPath UpdateResourceServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateResourceServer where
+instance Data.ToQuery UpdateResourceServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateResourceServerResponse' smart constructor.

@@ -1,3 +1,5 @@
+{-# LANGUAGE ApplicativeDo #-}
+
 module Gen.AST.Data
   ( serviceData,
     operationData,
@@ -10,7 +12,7 @@ import qualified Control.Lens as Lens
 import qualified Control.Monad.Trans.State as State
 import qualified Data.ByteString.Char8 as ByteString.Char8
 import qualified Data.Char as Char
-import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Map.Strict as Map
 import qualified Data.List as List
 import qualified Data.Set as Set
 import qualified Data.Text as Text
@@ -44,8 +46,8 @@ operationData cfg m o = do
 
   yis' <- renderInsts p yn (responseInsts ys)
   xis' <-
-    maybe id (HashMap.insert "AWSPager") mpage
-      . HashMap.insert "AWSRequest" cls
+    maybe id (Map.insert "AWSPager") mpage
+      . Map.insert "AWSRequest" cls
       <$> renderInsts p xn xis
 
   pure
@@ -124,9 +126,9 @@ sumData ::
   Protocol ->
   Solved ->
   Info ->
-  HashMap Id Text ->
+  Map Id Text ->
   Either String SData
-sumData p s i vs = Sum s <$> mk <*> fmap HashMap.keys insts
+sumData p s i vs = Sum s <$> mk <*> fmap Map.keys insts
   where
     mk =
       Sum' (typeId n) (i ^. infoDocumentation)
@@ -147,7 +149,7 @@ sumData p s i vs = Sum s <$> mk <*> fmap HashMap.keys insts
       Exts.RecDecl
         ()
         (ident ctor)
-        [ Exts.FieldDecl () [ident ("from" <> typeId n)] (tycon "Core.Text")
+        [ Exts.FieldDecl () [ident ("from" <> typeId n)] (tycon "Data.Text")
         ]
 
     -- Sometimes the values share a name with a type, so we prime the
@@ -168,12 +170,17 @@ prodData ::
   Either String (Prod, [Field])
 prodData m s st = (,fields) <$> mk
   where
-    mk =
-      Prod' (typeId n) (st ^. infoDocumentation)
-        <$> declaration
-        <*> mkCtor
-        <*> traverse mkLens fields
-        <*> pure dependencies
+    mk = do
+      _prodDecl <- declaration
+      _prodBootDecl <- bootDeclaration
+      _prodCtor <- mkCtor
+      _prodLenses <- traverse mkLens fields
+
+      pure $ Prod' {..}
+      where
+        _prodName = typeId n
+        _prodDoc = st ^. infoDocumentation
+        _prodDeps = dependencies
 
     declaration = do
       decl <- datatype
@@ -181,13 +188,48 @@ prodData m s st = (,fields) <$> mk
       derv <- derivings
 
       pure $
-        Text.Lazy.intercalate
-          "\n"
+        Text.Lazy.unlines
           [ decl,
             "    {",
-            Text.Lazy.intercalate "\n" sels,
+            Text.Lazy.unlines sels,
             "    } " <> derv
           ]
+
+    bootDeclaration = do
+      decl <-
+        pp None $
+          Exts.DataDecl
+            ()
+            (Exts.DataType ())
+            Nothing
+            (Exts.DHead () (ident (typeId n)))
+            []
+            []
+      -- Instance declarations for instances we derive in the real .hs file.
+      let derives = derivingOf s
+      derivedInsts <- for (mapMaybe deriveInstHead derives) $ \h ->
+        pp None $
+          Exts.InstDecl
+            ()
+            Nothing
+            ( Exts.IRule () Nothing Nothing $
+                Exts.IHApp () h (Exts.TyCon () . unqual $ typeId n)
+            )
+            Nothing
+
+      -- Instance declarations which are generated from the Inst data type
+      let insts =
+            concat
+              [ shapeInsts (m ^. protocol) (s ^. relMode) [],
+                -- Handle the two oddballs that switch from Derive to
+                -- Inst halfway through generation.
+                [IsNFData [] | DNFData <- derives],
+                [IsHashable [] | DHashable <- derives]
+              ]
+      instInsts <- for insts $ \inst ->
+        pp None $ instD (instToQualifiedText inst) n Nothing
+
+      pure . Text.Lazy.unlines $ [decl] ++ derivedInsts ++ instInsts
 
     datatype =
       pp None $
@@ -215,12 +257,13 @@ prodData m s st = (,fields) <$> mk
     derivings =
       pp None $
         Exts.Deriving () Nothing $
-          flip map (mapMaybe derivingName (derivingOf s)) $
-            Exts.IRule () Nothing Nothing
-              . Exts.IHCon ()
-              . unqual
-              . mappend "Prelude."
-              . Text.pack
+          map (Exts.IRule () Nothing Nothing) $
+            mapMaybe deriveInstHead $ derivingOf s
+
+    deriveInstHead :: Derive -> Maybe (Exts.InstHead ())
+    deriveInstHead d = do
+      name <- derivingName d
+      pure $ Exts.IHCon () $ unqual $ ("Prelude." <>) $ Text.pack name
 
     fields :: [Field]
     fields = mkFields m s st
@@ -284,8 +327,8 @@ prodData m s st = (,fields) <$> mk
 
     n = s ^. annId
 
-renderInsts :: Protocol -> Id -> [Inst] -> Either String (HashMap Text Text.Lazy.Text)
-renderInsts p n = fmap HashMap.fromList . traverse go
+renderInsts :: Protocol -> Id -> [Inst] -> Either String (Map Text Text.Lazy.Text)
+renderInsts p n = fmap Map.fromList . traverse go
   where
     go i = (instToText i,) <$> pp Print (instanceD p n i)
 
@@ -311,12 +354,12 @@ serviceData m r =
 waiterData ::
   HasMetadata a Identity =>
   a ->
-  HashMap Id (Operation Identity Ref b) ->
+  Map Id (Operation Identity Ref b) ->
   Id ->
   Waiter Id ->
   Either String WData
 waiterData m os n w = do
-  o <- note (missingErr key (HashMap.map _opName os)) $ HashMap.lookup key os
+  o <- note (missingErr key (_opName <$> os)) $ Map.lookup key os
   wf <- waiterFields m o w
   c <-
     Fun' (smartCtorId n) help
@@ -415,7 +458,7 @@ notation m = go
     field' :: Id -> Shape Solved -> Either String Field
     field' n = \case
       a :< Struct st ->
-        note (missingErr n (identifier a) (HashMap.keys (st ^. members)))
+        note (missingErr n (identifier a) (Map.keys (st ^. members)))
           . List.find ((n ==) . _fieldId)
           $ mkFields m a st
       _ -> Left (descendErr n)

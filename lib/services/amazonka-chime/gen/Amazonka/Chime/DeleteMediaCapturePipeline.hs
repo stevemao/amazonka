@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteMediaCapturePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteMediaCapturePipeline where
   type
     AWSResponse DeleteMediaCapturePipeline =
       DeleteMediaCapturePipelineResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteMediaCapturePipelineResponse'
@@ -89,17 +91,17 @@ instance Prelude.NFData DeleteMediaCapturePipeline where
   rnf DeleteMediaCapturePipeline' {..} =
     Prelude.rnf mediaPipelineId
 
-instance Core.ToHeaders DeleteMediaCapturePipeline where
+instance Data.ToHeaders DeleteMediaCapturePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteMediaCapturePipeline where
+instance Data.ToPath DeleteMediaCapturePipeline where
   toPath DeleteMediaCapturePipeline' {..} =
     Prelude.mconcat
       [ "/media-capture-pipelines/",
-        Core.toBS mediaPipelineId
+        Data.toBS mediaPipelineId
       ]
 
-instance Core.ToQuery DeleteMediaCapturePipeline where
+instance Data.ToQuery DeleteMediaCapturePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMediaCapturePipelineResponse' smart constructor.

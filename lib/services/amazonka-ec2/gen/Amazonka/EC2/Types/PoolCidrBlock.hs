@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PoolCidrBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.PoolCidrBlock where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a CIDR block for an address pool.
@@ -51,10 +52,10 @@ newPoolCidrBlock =
 poolCidrBlock_cidr :: Lens.Lens' PoolCidrBlock (Prelude.Maybe Prelude.Text)
 poolCidrBlock_cidr = Lens.lens (\PoolCidrBlock' {cidr} -> cidr) (\s@PoolCidrBlock' {} a -> s {cidr = a} :: PoolCidrBlock)
 
-instance Core.FromXML PoolCidrBlock where
+instance Data.FromXML PoolCidrBlock where
   parseXML x =
     PoolCidrBlock'
-      Prelude.<$> (x Core..@? "poolCidrBlock")
+      Prelude.<$> (x Data..@? "poolCidrBlock")
 
 instance Prelude.Hashable PoolCidrBlock where
   hashWithSalt _salt PoolCidrBlock' {..} =

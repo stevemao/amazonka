@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.GetRegistryPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,15 +31,16 @@ module Amazonka.ECR.GetRegistryPolicy
     newGetRegistryPolicyResponse,
 
     -- * Response Lenses
-    getRegistryPolicyResponse_registryId,
     getRegistryPolicyResponse_policyText,
+    getRegistryPolicyResponse_registryId,
     getRegistryPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,14 @@ instance Core.AWSRequest GetRegistryPolicy where
   type
     AWSResponse GetRegistryPolicy =
       GetRegistryPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRegistryPolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "policyText")
+            Prelude.<$> (x Data..?> "policyText")
+            Prelude.<*> (x Data..?> "registryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -79,36 +81,36 @@ instance Prelude.Hashable GetRegistryPolicy where
 instance Prelude.NFData GetRegistryPolicy where
   rnf _ = ()
 
-instance Core.ToHeaders GetRegistryPolicy where
+instance Data.ToHeaders GetRegistryPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.GetRegistryPolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.GetRegistryPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRegistryPolicy where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetRegistryPolicy where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetRegistryPolicy where
+instance Data.ToPath GetRegistryPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRegistryPolicy where
+instance Data.ToQuery GetRegistryPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRegistryPolicyResponse' smart constructor.
 data GetRegistryPolicyResponse = GetRegistryPolicyResponse'
-  { -- | The ID of the registry.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The JSON text of the permissions policy for a registry.
+  { -- | The JSON text of the permissions policy for a registry.
     policyText :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the registry.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -122,9 +124,9 @@ data GetRegistryPolicyResponse = GetRegistryPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'getRegistryPolicyResponse_registryId' - The ID of the registry.
---
 -- 'policyText', 'getRegistryPolicyResponse_policyText' - The JSON text of the permissions policy for a registry.
+--
+-- 'registryId', 'getRegistryPolicyResponse_registryId' - The ID of the registry.
 --
 -- 'httpStatus', 'getRegistryPolicyResponse_httpStatus' - The response's http status code.
 newGetRegistryPolicyResponse ::
@@ -133,19 +135,19 @@ newGetRegistryPolicyResponse ::
   GetRegistryPolicyResponse
 newGetRegistryPolicyResponse pHttpStatus_ =
   GetRegistryPolicyResponse'
-    { registryId =
+    { policyText =
         Prelude.Nothing,
-      policyText = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID of the registry.
-getRegistryPolicyResponse_registryId :: Lens.Lens' GetRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
-getRegistryPolicyResponse_registryId = Lens.lens (\GetRegistryPolicyResponse' {registryId} -> registryId) (\s@GetRegistryPolicyResponse' {} a -> s {registryId = a} :: GetRegistryPolicyResponse)
 
 -- | The JSON text of the permissions policy for a registry.
 getRegistryPolicyResponse_policyText :: Lens.Lens' GetRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
 getRegistryPolicyResponse_policyText = Lens.lens (\GetRegistryPolicyResponse' {policyText} -> policyText) (\s@GetRegistryPolicyResponse' {} a -> s {policyText = a} :: GetRegistryPolicyResponse)
+
+-- | The ID of the registry.
+getRegistryPolicyResponse_registryId :: Lens.Lens' GetRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
+getRegistryPolicyResponse_registryId = Lens.lens (\GetRegistryPolicyResponse' {registryId} -> registryId) (\s@GetRegistryPolicyResponse' {} a -> s {registryId = a} :: GetRegistryPolicyResponse)
 
 -- | The response's http status code.
 getRegistryPolicyResponse_httpStatus :: Lens.Lens' GetRegistryPolicyResponse Prelude.Int
@@ -153,6 +155,6 @@ getRegistryPolicyResponse_httpStatus = Lens.lens (\GetRegistryPolicyResponse' {h
 
 instance Prelude.NFData GetRegistryPolicyResponse where
   rnf GetRegistryPolicyResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf policyText
+    Prelude.rnf policyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf httpStatus

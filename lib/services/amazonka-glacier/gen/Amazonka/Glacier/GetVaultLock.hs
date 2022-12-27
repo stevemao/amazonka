@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.GetVaultLock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,17 +58,18 @@ module Amazonka.Glacier.GetVaultLock
     newGetVaultLockResponse,
 
     -- * Response Lenses
-    getVaultLockResponse_state,
-    getVaultLockResponse_expirationDate,
     getVaultLockResponse_creationDate,
+    getVaultLockResponse_expirationDate,
     getVaultLockResponse_policy,
+    getVaultLockResponse_state,
     getVaultLockResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,17 +130,17 @@ getVaultLock_vaultName = Lens.lens (\GetVaultLock' {vaultName} -> vaultName) (\s
 
 instance Core.AWSRequest GetVaultLock where
   type AWSResponse GetVaultLock = GetVaultLockResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVaultLockResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "ExpirationDate")
-            Prelude.<*> (x Core..?> "CreationDate")
-            Prelude.<*> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "CreationDate")
+            Prelude.<*> (x Data..?> "ExpirationDate")
+            Prelude.<*> (x Data..?> "Policy")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,37 +154,37 @@ instance Prelude.NFData GetVaultLock where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders GetVaultLock where
+instance Data.ToHeaders GetVaultLock where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetVaultLock where
+instance Data.ToPath GetVaultLock where
   toPath GetVaultLock' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/lock-policy"
       ]
 
-instance Core.ToQuery GetVaultLock where
+instance Data.ToQuery GetVaultLock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the Amazon S3 Glacier response to your request.
 --
 -- /See:/ 'newGetVaultLockResponse' smart constructor.
 data GetVaultLockResponse = GetVaultLockResponse'
-  { -- | The state of the vault lock. @InProgress@ or @Locked@.
-    state :: Prelude.Maybe Prelude.Text,
+  { -- | The UTC date and time at which the vault lock was put into the
+    -- @InProgress@ state.
+    creationDate :: Prelude.Maybe Prelude.Text,
     -- | The UTC date and time at which the lock ID expires. This value can be
     -- @null@ if the vault lock is in a @Locked@ state.
     expirationDate :: Prelude.Maybe Prelude.Text,
-    -- | The UTC date and time at which the vault lock was put into the
-    -- @InProgress@ state.
-    creationDate :: Prelude.Maybe Prelude.Text,
     -- | The vault lock policy as a JSON string, which uses \"\\\" as an escape
     -- character.
     policy :: Prelude.Maybe Prelude.Text,
+    -- | The state of the vault lock. @InProgress@ or @Locked@.
+    state :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -197,16 +198,16 @@ data GetVaultLockResponse = GetVaultLockResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'getVaultLockResponse_state' - The state of the vault lock. @InProgress@ or @Locked@.
+-- 'creationDate', 'getVaultLockResponse_creationDate' - The UTC date and time at which the vault lock was put into the
+-- @InProgress@ state.
 --
 -- 'expirationDate', 'getVaultLockResponse_expirationDate' - The UTC date and time at which the lock ID expires. This value can be
 -- @null@ if the vault lock is in a @Locked@ state.
 --
--- 'creationDate', 'getVaultLockResponse_creationDate' - The UTC date and time at which the vault lock was put into the
--- @InProgress@ state.
---
 -- 'policy', 'getVaultLockResponse_policy' - The vault lock policy as a JSON string, which uses \"\\\" as an escape
 -- character.
+--
+-- 'state', 'getVaultLockResponse_state' - The state of the vault lock. @InProgress@ or @Locked@.
 --
 -- 'httpStatus', 'getVaultLockResponse_httpStatus' - The response's http status code.
 newGetVaultLockResponse ::
@@ -215,31 +216,32 @@ newGetVaultLockResponse ::
   GetVaultLockResponse
 newGetVaultLockResponse pHttpStatus_ =
   GetVaultLockResponse'
-    { state = Prelude.Nothing,
+    { creationDate =
+        Prelude.Nothing,
       expirationDate = Prelude.Nothing,
-      creationDate = Prelude.Nothing,
       policy = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The state of the vault lock. @InProgress@ or @Locked@.
-getVaultLockResponse_state :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
-getVaultLockResponse_state = Lens.lens (\GetVaultLockResponse' {state} -> state) (\s@GetVaultLockResponse' {} a -> s {state = a} :: GetVaultLockResponse)
-
--- | The UTC date and time at which the lock ID expires. This value can be
--- @null@ if the vault lock is in a @Locked@ state.
-getVaultLockResponse_expirationDate :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
-getVaultLockResponse_expirationDate = Lens.lens (\GetVaultLockResponse' {expirationDate} -> expirationDate) (\s@GetVaultLockResponse' {} a -> s {expirationDate = a} :: GetVaultLockResponse)
 
 -- | The UTC date and time at which the vault lock was put into the
 -- @InProgress@ state.
 getVaultLockResponse_creationDate :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
 getVaultLockResponse_creationDate = Lens.lens (\GetVaultLockResponse' {creationDate} -> creationDate) (\s@GetVaultLockResponse' {} a -> s {creationDate = a} :: GetVaultLockResponse)
 
+-- | The UTC date and time at which the lock ID expires. This value can be
+-- @null@ if the vault lock is in a @Locked@ state.
+getVaultLockResponse_expirationDate :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
+getVaultLockResponse_expirationDate = Lens.lens (\GetVaultLockResponse' {expirationDate} -> expirationDate) (\s@GetVaultLockResponse' {} a -> s {expirationDate = a} :: GetVaultLockResponse)
+
 -- | The vault lock policy as a JSON string, which uses \"\\\" as an escape
 -- character.
 getVaultLockResponse_policy :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
 getVaultLockResponse_policy = Lens.lens (\GetVaultLockResponse' {policy} -> policy) (\s@GetVaultLockResponse' {} a -> s {policy = a} :: GetVaultLockResponse)
+
+-- | The state of the vault lock. @InProgress@ or @Locked@.
+getVaultLockResponse_state :: Lens.Lens' GetVaultLockResponse (Prelude.Maybe Prelude.Text)
+getVaultLockResponse_state = Lens.lens (\GetVaultLockResponse' {state} -> state) (\s@GetVaultLockResponse' {} a -> s {state = a} :: GetVaultLockResponse)
 
 -- | The response's http status code.
 getVaultLockResponse_httpStatus :: Lens.Lens' GetVaultLockResponse Prelude.Int
@@ -247,8 +249,8 @@ getVaultLockResponse_httpStatus = Lens.lens (\GetVaultLockResponse' {httpStatus}
 
 instance Prelude.NFData GetVaultLockResponse where
   rnf GetVaultLockResponse' {..} =
-    Prelude.rnf state
+    Prelude.rnf creationDate
       `Prelude.seq` Prelude.rnf expirationDate
-      `Prelude.seq` Prelude.rnf creationDate
       `Prelude.seq` Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

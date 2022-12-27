@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.ErrorDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,16 @@
 module Amazonka.EKS.Types.ErrorDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.EKSErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing an error when an asynchronous operation fails.
 --
 -- /See:/ 'newErrorDetail' smart constructor.
 data ErrorDetail = ErrorDetail'
-  { -- | An optional field that contains the resource IDs associated with the
-    -- error.
-    resourceIds :: Prelude.Maybe [Prelude.Text],
-    -- | A brief description of the error.
+  { -- | A brief description of the error.
     --
     -- -   __SubnetNotFound__: We couldn\'t find one of the subnets associated
     --     with the cluster.
@@ -56,7 +54,10 @@ data ErrorDetail = ErrorDetail'
     --     cluster.
     errorCode :: Prelude.Maybe EKSErrorCode,
     -- | A more complete description of the error.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | An optional field that contains the resource IDs associated with the
+    -- error.
+    resourceIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,9 +68,6 @@ data ErrorDetail = ErrorDetail'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'resourceIds', 'errorDetail_resourceIds' - An optional field that contains the resource IDs associated with the
--- error.
 --
 -- 'errorCode', 'errorDetail_errorCode' - A brief description of the error.
 --
@@ -96,19 +94,17 @@ data ErrorDetail = ErrorDetail'
 --     cluster.
 --
 -- 'errorMessage', 'errorDetail_errorMessage' - A more complete description of the error.
+--
+-- 'resourceIds', 'errorDetail_resourceIds' - An optional field that contains the resource IDs associated with the
+-- error.
 newErrorDetail ::
   ErrorDetail
 newErrorDetail =
   ErrorDetail'
-    { resourceIds = Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+    { errorCode = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      resourceIds = Prelude.Nothing
     }
-
--- | An optional field that contains the resource IDs associated with the
--- error.
-errorDetail_resourceIds :: Lens.Lens' ErrorDetail (Prelude.Maybe [Prelude.Text])
-errorDetail_resourceIds = Lens.lens (\ErrorDetail' {resourceIds} -> resourceIds) (\s@ErrorDetail' {} a -> s {resourceIds = a} :: ErrorDetail) Prelude.. Lens.mapping Lens.coerced
 
 -- | A brief description of the error.
 --
@@ -140,25 +136,30 @@ errorDetail_errorCode = Lens.lens (\ErrorDetail' {errorCode} -> errorCode) (\s@E
 errorDetail_errorMessage :: Lens.Lens' ErrorDetail (Prelude.Maybe Prelude.Text)
 errorDetail_errorMessage = Lens.lens (\ErrorDetail' {errorMessage} -> errorMessage) (\s@ErrorDetail' {} a -> s {errorMessage = a} :: ErrorDetail)
 
-instance Core.FromJSON ErrorDetail where
+-- | An optional field that contains the resource IDs associated with the
+-- error.
+errorDetail_resourceIds :: Lens.Lens' ErrorDetail (Prelude.Maybe [Prelude.Text])
+errorDetail_resourceIds = Lens.lens (\ErrorDetail' {resourceIds} -> resourceIds) (\s@ErrorDetail' {} a -> s {resourceIds = a} :: ErrorDetail) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ErrorDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorDetail"
       ( \x ->
           ErrorDetail'
-            Prelude.<$> (x Core..:? "resourceIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "resourceIds" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ErrorDetail where
   hashWithSalt _salt ErrorDetail' {..} =
-    _salt `Prelude.hashWithSalt` resourceIds
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` resourceIds
 
 instance Prelude.NFData ErrorDetail where
   rnf ErrorDetail' {..} =
-    Prelude.rnf resourceIds
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf resourceIds

@@ -14,15 +14,14 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.DescribeInstanceTypeLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describe the limits for a given instance type and OpenSearch or
--- Elasticsearch version. When modifying an existing domain, specify the
--- @ DomainName @ to see which limits you can modify.
+-- Describes the instance count, storage, and master node limits for a
+-- given OpenSearch or Elasticsearch version and instance type.
 module Amazonka.OpenSearch.DescribeInstanceTypeLimits
   ( -- * Creating a Request
     DescribeInstanceTypeLimits (..),
@@ -44,24 +43,26 @@ module Amazonka.OpenSearch.DescribeInstanceTypeLimits
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the parameters to the @ DescribeInstanceTypeLimits @
+-- | Container for the parameters to the @DescribeInstanceTypeLimits@
 -- operation.
 --
 -- /See:/ 'newDescribeInstanceTypeLimits' smart constructor.
 data DescribeInstanceTypeLimits = DescribeInstanceTypeLimits'
-  { -- | The name of the domain you want to modify. Only include this value if
-    -- you\'re querying OpenSearch @ Limits @ for an existing domain.
+  { -- | The name of the domain. Only specify if you need the limits for an
+    -- existing domain.
     domainName :: Prelude.Maybe Prelude.Text,
-    -- | The instance type for an OpenSearch cluster for which OpenSearch
-    -- @ Limits @ are needed.
+    -- | The OpenSearch Service instance type for which you need limit
+    -- information.
     instanceType :: OpenSearchPartitionInstanceType,
-    -- | Version of OpenSearch for which @ Limits @ are needed.
+    -- | Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+    -- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
     engineVersion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,13 +75,14 @@ data DescribeInstanceTypeLimits = DescribeInstanceTypeLimits'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'describeInstanceTypeLimits_domainName' - The name of the domain you want to modify. Only include this value if
--- you\'re querying OpenSearch @ Limits @ for an existing domain.
+-- 'domainName', 'describeInstanceTypeLimits_domainName' - The name of the domain. Only specify if you need the limits for an
+-- existing domain.
 --
--- 'instanceType', 'describeInstanceTypeLimits_instanceType' - The instance type for an OpenSearch cluster for which OpenSearch
--- @ Limits @ are needed.
+-- 'instanceType', 'describeInstanceTypeLimits_instanceType' - The OpenSearch Service instance type for which you need limit
+-- information.
 --
--- 'engineVersion', 'describeInstanceTypeLimits_engineVersion' - Version of OpenSearch for which @ Limits @ are needed.
+-- 'engineVersion', 'describeInstanceTypeLimits_engineVersion' - Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+-- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
 newDescribeInstanceTypeLimits ::
   -- | 'instanceType'
   OpenSearchPartitionInstanceType ->
@@ -97,17 +99,18 @@ newDescribeInstanceTypeLimits
         engineVersion = pEngineVersion_
       }
 
--- | The name of the domain you want to modify. Only include this value if
--- you\'re querying OpenSearch @ Limits @ for an existing domain.
+-- | The name of the domain. Only specify if you need the limits for an
+-- existing domain.
 describeInstanceTypeLimits_domainName :: Lens.Lens' DescribeInstanceTypeLimits (Prelude.Maybe Prelude.Text)
 describeInstanceTypeLimits_domainName = Lens.lens (\DescribeInstanceTypeLimits' {domainName} -> domainName) (\s@DescribeInstanceTypeLimits' {} a -> s {domainName = a} :: DescribeInstanceTypeLimits)
 
--- | The instance type for an OpenSearch cluster for which OpenSearch
--- @ Limits @ are needed.
+-- | The OpenSearch Service instance type for which you need limit
+-- information.
 describeInstanceTypeLimits_instanceType :: Lens.Lens' DescribeInstanceTypeLimits OpenSearchPartitionInstanceType
 describeInstanceTypeLimits_instanceType = Lens.lens (\DescribeInstanceTypeLimits' {instanceType} -> instanceType) (\s@DescribeInstanceTypeLimits' {} a -> s {instanceType = a} :: DescribeInstanceTypeLimits)
 
--- | Version of OpenSearch for which @ Limits @ are needed.
+-- | Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+-- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
 describeInstanceTypeLimits_engineVersion :: Lens.Lens' DescribeInstanceTypeLimits Prelude.Text
 describeInstanceTypeLimits_engineVersion = Lens.lens (\DescribeInstanceTypeLimits' {engineVersion} -> engineVersion) (\s@DescribeInstanceTypeLimits' {} a -> s {engineVersion = a} :: DescribeInstanceTypeLimits)
 
@@ -115,12 +118,13 @@ instance Core.AWSRequest DescribeInstanceTypeLimits where
   type
     AWSResponse DescribeInstanceTypeLimits =
       DescribeInstanceTypeLimitsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInstanceTypeLimitsResponse'
-            Prelude.<$> (x Core..?> "LimitsByRole" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "LimitsByRole" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,28 +140,30 @@ instance Prelude.NFData DescribeInstanceTypeLimits where
       `Prelude.seq` Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf engineVersion
 
-instance Core.ToHeaders DescribeInstanceTypeLimits where
+instance Data.ToHeaders DescribeInstanceTypeLimits where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInstanceTypeLimits where
+instance Data.ToPath DescribeInstanceTypeLimits where
   toPath DescribeInstanceTypeLimits' {..} =
     Prelude.mconcat
       [ "/2021-01-01/opensearch/instanceTypeLimits/",
-        Core.toBS engineVersion,
+        Data.toBS engineVersion,
         "/",
-        Core.toBS instanceType
+        Data.toBS instanceType
       ]
 
-instance Core.ToQuery DescribeInstanceTypeLimits where
+instance Data.ToQuery DescribeInstanceTypeLimits where
   toQuery DescribeInstanceTypeLimits' {..} =
-    Prelude.mconcat ["domainName" Core.=: domainName]
+    Prelude.mconcat ["domainName" Data.=: domainName]
 
 -- | Container for the parameters received from the
--- @ DescribeInstanceTypeLimits @ operation.
+-- @DescribeInstanceTypeLimits@ operation.
 --
 -- /See:/ 'newDescribeInstanceTypeLimitsResponse' smart constructor.
 data DescribeInstanceTypeLimitsResponse = DescribeInstanceTypeLimitsResponse'
-  { limitsByRole :: Prelude.Maybe (Prelude.HashMap Prelude.Text Limits),
+  { -- | Map that contains all applicable instance type limits.@data@ refers to
+    -- data nodes.@master@ refers to dedicated master nodes.
+    limitsByRole :: Prelude.Maybe (Prelude.HashMap Prelude.Text Limits),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -171,7 +177,8 @@ data DescribeInstanceTypeLimitsResponse = DescribeInstanceTypeLimitsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'limitsByRole', 'describeInstanceTypeLimitsResponse_limitsByRole' - Undocumented member.
+-- 'limitsByRole', 'describeInstanceTypeLimitsResponse_limitsByRole' - Map that contains all applicable instance type limits.@data@ refers to
+-- data nodes.@master@ refers to dedicated master nodes.
 --
 -- 'httpStatus', 'describeInstanceTypeLimitsResponse_httpStatus' - The response's http status code.
 newDescribeInstanceTypeLimitsResponse ::
@@ -185,7 +192,8 @@ newDescribeInstanceTypeLimitsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Map that contains all applicable instance type limits.@data@ refers to
+-- data nodes.@master@ refers to dedicated master nodes.
 describeInstanceTypeLimitsResponse_limitsByRole :: Lens.Lens' DescribeInstanceTypeLimitsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Limits))
 describeInstanceTypeLimitsResponse_limitsByRole = Lens.lens (\DescribeInstanceTypeLimitsResponse' {limitsByRole} -> limitsByRole) (\s@DescribeInstanceTypeLimitsResponse' {} a -> s {limitsByRole = a} :: DescribeInstanceTypeLimitsResponse) Prelude.. Lens.mapping Lens.coerced
 

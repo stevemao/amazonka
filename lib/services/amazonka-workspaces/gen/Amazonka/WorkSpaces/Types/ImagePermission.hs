@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.Types.ImagePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkSpaces.Types.ImagePermission where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Amazon Web Services accounts that have been granted
@@ -56,13 +57,13 @@ newImagePermission =
 imagePermission_sharedAccountId :: Lens.Lens' ImagePermission (Prelude.Maybe Prelude.Text)
 imagePermission_sharedAccountId = Lens.lens (\ImagePermission' {sharedAccountId} -> sharedAccountId) (\s@ImagePermission' {} a -> s {sharedAccountId = a} :: ImagePermission)
 
-instance Core.FromJSON ImagePermission where
+instance Data.FromJSON ImagePermission where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImagePermission"
       ( \x ->
           ImagePermission'
-            Prelude.<$> (x Core..:? "SharedAccountId")
+            Prelude.<$> (x Data..:? "SharedAccountId")
       )
 
 instance Prelude.Hashable ImagePermission where

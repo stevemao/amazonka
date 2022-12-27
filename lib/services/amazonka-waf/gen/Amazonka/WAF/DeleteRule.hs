@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeleteRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,7 +65,8 @@ module Amazonka.WAF.DeleteRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,12 +117,13 @@ deleteRule_changeToken = Lens.lens (\DeleteRule' {changeToken} -> changeToken) (
 
 instance Core.AWSRequest DeleteRule where
   type AWSResponse DeleteRule = DeleteRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRuleResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,32 +137,32 @@ instance Prelude.NFData DeleteRule where
     Prelude.rnf ruleId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteRule where
+instance Data.ToHeaders DeleteRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSWAF_20150824.DeleteRule" :: Prelude.ByteString),
+              Data.=# ("AWSWAF_20150824.DeleteRule" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRule where
+instance Data.ToJSON DeleteRule where
   toJSON DeleteRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RuleId" Core..= ruleId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("RuleId" Data..= ruleId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteRule where
+instance Data.ToPath DeleteRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRule where
+instance Data.ToQuery DeleteRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRuleResponse' smart constructor.

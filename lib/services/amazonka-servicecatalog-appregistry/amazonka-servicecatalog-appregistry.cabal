@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -55,34 +55,41 @@ library
     Amazonka.ServiceCatalogAppRegistry.GetApplication
     Amazonka.ServiceCatalogAppRegistry.GetAssociatedResource
     Amazonka.ServiceCatalogAppRegistry.GetAttributeGroup
+    Amazonka.ServiceCatalogAppRegistry.GetConfiguration
     Amazonka.ServiceCatalogAppRegistry.Lens
     Amazonka.ServiceCatalogAppRegistry.ListApplications
     Amazonka.ServiceCatalogAppRegistry.ListAssociatedAttributeGroups
     Amazonka.ServiceCatalogAppRegistry.ListAssociatedResources
     Amazonka.ServiceCatalogAppRegistry.ListAttributeGroups
+    Amazonka.ServiceCatalogAppRegistry.ListAttributeGroupsForApplication
     Amazonka.ServiceCatalogAppRegistry.ListTagsForResource
+    Amazonka.ServiceCatalogAppRegistry.PutConfiguration
     Amazonka.ServiceCatalogAppRegistry.SyncResource
     Amazonka.ServiceCatalogAppRegistry.TagResource
     Amazonka.ServiceCatalogAppRegistry.Types
     Amazonka.ServiceCatalogAppRegistry.Types.Application
     Amazonka.ServiceCatalogAppRegistry.Types.ApplicationSummary
+    Amazonka.ServiceCatalogAppRegistry.Types.AppRegistryConfiguration
     Amazonka.ServiceCatalogAppRegistry.Types.AttributeGroup
+    Amazonka.ServiceCatalogAppRegistry.Types.AttributeGroupDetails
     Amazonka.ServiceCatalogAppRegistry.Types.AttributeGroupSummary
     Amazonka.ServiceCatalogAppRegistry.Types.Integrations
     Amazonka.ServiceCatalogAppRegistry.Types.Resource
+    Amazonka.ServiceCatalogAppRegistry.Types.ResourceDetails
     Amazonka.ServiceCatalogAppRegistry.Types.ResourceGroup
     Amazonka.ServiceCatalogAppRegistry.Types.ResourceGroupState
     Amazonka.ServiceCatalogAppRegistry.Types.ResourceInfo
     Amazonka.ServiceCatalogAppRegistry.Types.ResourceIntegrations
     Amazonka.ServiceCatalogAppRegistry.Types.ResourceType
     Amazonka.ServiceCatalogAppRegistry.Types.SyncAction
+    Amazonka.ServiceCatalogAppRegistry.Types.TagQueryConfiguration
     Amazonka.ServiceCatalogAppRegistry.UntagResource
     Amazonka.ServiceCatalogAppRegistry.UpdateApplication
     Amazonka.ServiceCatalogAppRegistry.UpdateAttributeGroup
     Amazonka.ServiceCatalogAppRegistry.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-servicecatalog-appregistry-test
@@ -101,9 +108,9 @@ test-suite amazonka-servicecatalog-appregistry-test
     Test.Amazonka.ServiceCatalogAppRegistry.Internal
 
   build-depends:
-    , amazonka-core                        ^>=2.0
+    , amazonka-core                        >=2.0 && <2.1
     , amazonka-servicecatalog-appregistry
-    , amazonka-test                        ^>=2.0
+    , amazonka-test                        >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

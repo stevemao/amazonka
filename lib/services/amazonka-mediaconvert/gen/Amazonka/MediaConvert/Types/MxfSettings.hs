@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.MxfSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.MxfSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.MxfAfdSignaling
 import Amazonka.MediaConvert.Types.MxfProfile
 import Amazonka.MediaConvert.Types.MxfXavcProfileSettings
@@ -30,10 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMxfSettings' smart constructor.
 data MxfSettings = MxfSettings'
-  { -- | Specify the XAVC profile settings for MXF outputs when you set your MXF
-    -- profile to XAVC.
-    xavcProfileSettings :: Prelude.Maybe MxfXavcProfileSettings,
-    -- | Optional. When you have AFD signaling set up in your output video
+  { -- | Optional. When you have AFD signaling set up in your output video
     -- stream, use this setting to choose whether to also include it in the MXF
     -- wrapper. Choose Don\'t copy (NO_COPY) to exclude AFD signaling from the
     -- MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the
@@ -49,7 +47,10 @@ data MxfSettings = MxfSettings'
     -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
     -- For more information about the automatic selection behavior, see
     -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
-    profile :: Prelude.Maybe MxfProfile
+    profile :: Prelude.Maybe MxfProfile,
+    -- | Specify the XAVC profile settings for MXF outputs when you set your MXF
+    -- profile to XAVC.
+    xavcProfileSettings :: Prelude.Maybe MxfXavcProfileSettings
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,9 +61,6 @@ data MxfSettings = MxfSettings'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'xavcProfileSettings', 'mxfSettings_xavcProfileSettings' - Specify the XAVC profile settings for MXF outputs when you set your MXF
--- profile to XAVC.
 --
 -- 'afdSignaling', 'mxfSettings_afdSignaling' - Optional. When you have AFD signaling set up in your output video
 -- stream, use this setting to choose whether to also include it in the MXF
@@ -80,19 +78,17 @@ data MxfSettings = MxfSettings'
 -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
 -- For more information about the automatic selection behavior, see
 -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
+--
+-- 'xavcProfileSettings', 'mxfSettings_xavcProfileSettings' - Specify the XAVC profile settings for MXF outputs when you set your MXF
+-- profile to XAVC.
 newMxfSettings ::
   MxfSettings
 newMxfSettings =
   MxfSettings'
-    { xavcProfileSettings = Prelude.Nothing,
-      afdSignaling = Prelude.Nothing,
-      profile = Prelude.Nothing
+    { afdSignaling = Prelude.Nothing,
+      profile = Prelude.Nothing,
+      xavcProfileSettings = Prelude.Nothing
     }
-
--- | Specify the XAVC profile settings for MXF outputs when you set your MXF
--- profile to XAVC.
-mxfSettings_xavcProfileSettings :: Lens.Lens' MxfSettings (Prelude.Maybe MxfXavcProfileSettings)
-mxfSettings_xavcProfileSettings = Lens.lens (\MxfSettings' {xavcProfileSettings} -> xavcProfileSettings) (\s@MxfSettings' {} a -> s {xavcProfileSettings = a} :: MxfSettings)
 
 -- | Optional. When you have AFD signaling set up in your output video
 -- stream, use this setting to choose whether to also include it in the MXF
@@ -115,36 +111,41 @@ mxfSettings_afdSignaling = Lens.lens (\MxfSettings' {afdSignaling} -> afdSignali
 mxfSettings_profile :: Lens.Lens' MxfSettings (Prelude.Maybe MxfProfile)
 mxfSettings_profile = Lens.lens (\MxfSettings' {profile} -> profile) (\s@MxfSettings' {} a -> s {profile = a} :: MxfSettings)
 
-instance Core.FromJSON MxfSettings where
+-- | Specify the XAVC profile settings for MXF outputs when you set your MXF
+-- profile to XAVC.
+mxfSettings_xavcProfileSettings :: Lens.Lens' MxfSettings (Prelude.Maybe MxfXavcProfileSettings)
+mxfSettings_xavcProfileSettings = Lens.lens (\MxfSettings' {xavcProfileSettings} -> xavcProfileSettings) (\s@MxfSettings' {} a -> s {xavcProfileSettings = a} :: MxfSettings)
+
+instance Data.FromJSON MxfSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MxfSettings"
       ( \x ->
           MxfSettings'
-            Prelude.<$> (x Core..:? "xavcProfileSettings")
-            Prelude.<*> (x Core..:? "afdSignaling")
-            Prelude.<*> (x Core..:? "profile")
+            Prelude.<$> (x Data..:? "afdSignaling")
+            Prelude.<*> (x Data..:? "profile")
+            Prelude.<*> (x Data..:? "xavcProfileSettings")
       )
 
 instance Prelude.Hashable MxfSettings where
   hashWithSalt _salt MxfSettings' {..} =
-    _salt `Prelude.hashWithSalt` xavcProfileSettings
-      `Prelude.hashWithSalt` afdSignaling
+    _salt `Prelude.hashWithSalt` afdSignaling
       `Prelude.hashWithSalt` profile
+      `Prelude.hashWithSalt` xavcProfileSettings
 
 instance Prelude.NFData MxfSettings where
   rnf MxfSettings' {..} =
-    Prelude.rnf xavcProfileSettings
-      `Prelude.seq` Prelude.rnf afdSignaling
+    Prelude.rnf afdSignaling
       `Prelude.seq` Prelude.rnf profile
+      `Prelude.seq` Prelude.rnf xavcProfileSettings
 
-instance Core.ToJSON MxfSettings where
+instance Data.ToJSON MxfSettings where
   toJSON MxfSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("xavcProfileSettings" Core..=)
-              Prelude.<$> xavcProfileSettings,
-            ("afdSignaling" Core..=) Prelude.<$> afdSignaling,
-            ("profile" Core..=) Prelude.<$> profile
+          [ ("afdSignaling" Data..=) Prelude.<$> afdSignaling,
+            ("profile" Data..=) Prelude.<$> profile,
+            ("xavcProfileSettings" Data..=)
+              Prelude.<$> xavcProfileSettings
           ]
       )

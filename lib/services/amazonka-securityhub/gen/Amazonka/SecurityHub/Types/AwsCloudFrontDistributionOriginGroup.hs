@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroupFailover
 
--- | Information about an origin group for the distribution.
+-- | Information about an origin group for the CloudFront distribution.
 --
 -- /See:/ 'newAwsCloudFrontDistributionOriginGroup' smart constructor.
 data AwsCloudFrontDistributionOriginGroup = AwsCloudFrontDistributionOriginGroup'
@@ -55,15 +56,15 @@ awsCloudFrontDistributionOriginGroup_failoverCriteria :: Lens.Lens' AwsCloudFron
 awsCloudFrontDistributionOriginGroup_failoverCriteria = Lens.lens (\AwsCloudFrontDistributionOriginGroup' {failoverCriteria} -> failoverCriteria) (\s@AwsCloudFrontDistributionOriginGroup' {} a -> s {failoverCriteria = a} :: AwsCloudFrontDistributionOriginGroup)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCloudFrontDistributionOriginGroup
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCloudFrontDistributionOriginGroup"
       ( \x ->
           AwsCloudFrontDistributionOriginGroup'
-            Prelude.<$> (x Core..:? "FailoverCriteria")
+            Prelude.<$> (x Data..:? "FailoverCriteria")
       )
 
 instance
@@ -83,13 +84,13 @@ instance
     Prelude.rnf failoverCriteria
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCloudFrontDistributionOriginGroup
   where
   toJSON AwsCloudFrontDistributionOriginGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FailoverCriteria" Core..=)
+          [ ("FailoverCriteria" Data..=)
               Prelude.<$> failoverCriteria
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServerlessApplicationRepository.UnshareApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.ServerlessApplicationRepository.UnshareApplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest UnshareApplication where
   type
     AWSResponse UnshareApplication =
       UnshareApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UnshareApplicationResponse'
 
@@ -107,35 +109,35 @@ instance Prelude.NFData UnshareApplication where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf organizationId
 
-instance Core.ToHeaders UnshareApplication where
+instance Data.ToHeaders UnshareApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UnshareApplication where
+instance Data.ToJSON UnshareApplication where
   toJSON UnshareApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("organizationId" Core..= organizationId)
+              ("organizationId" Data..= organizationId)
           ]
       )
 
-instance Core.ToPath UnshareApplication where
+instance Data.ToPath UnshareApplication where
   toPath UnshareApplication' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/unshare"
       ]
 
-instance Core.ToQuery UnshareApplication where
+instance Data.ToQuery UnshareApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUnshareApplicationResponse' smart constructor.

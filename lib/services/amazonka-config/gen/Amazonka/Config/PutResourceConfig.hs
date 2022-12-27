@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,6 +67,11 @@ data PutResourceConfig = PutResourceConfig'
   { -- | Name of the resource.
     resourceName :: Prelude.Maybe Prelude.Text,
     -- | Tags associated with the resource.
+    --
+    -- This field is not to be confused with the Amazon Web Services-wide tag
+    -- feature for Amazon Web Services resources. Tags for @PutResourceConfig@
+    -- are tags that you supply for the configuration items of your custom
+    -- resources.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The type of the resource. The custom resource type must be registered
     -- with CloudFormation.
@@ -97,6 +103,11 @@ data PutResourceConfig = PutResourceConfig'
 -- 'resourceName', 'putResourceConfig_resourceName' - Name of the resource.
 --
 -- 'tags', 'putResourceConfig_tags' - Tags associated with the resource.
+--
+-- This field is not to be confused with the Amazon Web Services-wide tag
+-- feature for Amazon Web Services resources. Tags for @PutResourceConfig@
+-- are tags that you supply for the configuration items of your custom
+-- resources.
 --
 -- 'resourceType', 'putResourceConfig_resourceType' - The type of the resource. The custom resource type must be registered
 -- with CloudFormation.
@@ -142,6 +153,11 @@ putResourceConfig_resourceName :: Lens.Lens' PutResourceConfig (Prelude.Maybe Pr
 putResourceConfig_resourceName = Lens.lens (\PutResourceConfig' {resourceName} -> resourceName) (\s@PutResourceConfig' {} a -> s {resourceName = a} :: PutResourceConfig)
 
 -- | Tags associated with the resource.
+--
+-- This field is not to be confused with the Amazon Web Services-wide tag
+-- feature for Amazon Web Services resources. Tags for @PutResourceConfig@
+-- are tags that you supply for the configuration items of your custom
+-- resources.
 putResourceConfig_tags :: Lens.Lens' PutResourceConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 putResourceConfig_tags = Lens.lens (\PutResourceConfig' {tags} -> tags) (\s@PutResourceConfig' {} a -> s {tags = a} :: PutResourceConfig) Prelude.. Lens.mapping Lens.coerced
 
@@ -173,7 +189,8 @@ instance Core.AWSRequest PutResourceConfig where
   type
     AWSResponse PutResourceConfig =
       PutResourceConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutResourceConfigResponse'
 
@@ -195,40 +212,40 @@ instance Prelude.NFData PutResourceConfig where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf configuration
 
-instance Core.ToHeaders PutResourceConfig where
+instance Data.ToHeaders PutResourceConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutResourceConfig" ::
+              Data.=# ( "StarlingDoveService.PutResourceConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutResourceConfig where
+instance Data.ToJSON PutResourceConfig where
   toJSON PutResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceName" Core..=) Prelude.<$> resourceName,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ResourceType" Core..= resourceType),
+          [ ("ResourceName" Data..=) Prelude.<$> resourceName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ResourceType" Data..= resourceType),
             Prelude.Just
-              ("SchemaVersionId" Core..= schemaVersionId),
-            Prelude.Just ("ResourceId" Core..= resourceId),
+              ("SchemaVersionId" Data..= schemaVersionId),
+            Prelude.Just ("ResourceId" Data..= resourceId),
             Prelude.Just
-              ("Configuration" Core..= configuration)
+              ("Configuration" Data..= configuration)
           ]
       )
 
-instance Core.ToPath PutResourceConfig where
+instance Data.ToPath PutResourceConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutResourceConfig where
+instance Data.ToQuery PutResourceConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutResourceConfigResponse' smart constructor.

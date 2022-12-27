@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ResourceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,10 @@ module Amazonka.SageMaker.Types.ResourceType
         ResourceType_ExperimentTrial,
         ResourceType_ExperimentTrialComponent,
         ResourceType_FeatureGroup,
+        ResourceType_FeatureMetadata,
+        ResourceType_HyperParameterTuningJob,
+        ResourceType_Model,
+        ResourceType_ModelCard,
         ResourceType_ModelPackage,
         ResourceType_ModelPackageGroup,
         ResourceType_Pipeline,
@@ -36,11 +40,12 @@ module Amazonka.SageMaker.Types.ResourceType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ResourceType = ResourceType'
   { fromResourceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -52,18 +57,18 @@ newtype ResourceType = ResourceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ResourceType_Endpoint :: ResourceType
@@ -80,6 +85,18 @@ pattern ResourceType_ExperimentTrialComponent = ResourceType' "ExperimentTrialCo
 
 pattern ResourceType_FeatureGroup :: ResourceType
 pattern ResourceType_FeatureGroup = ResourceType' "FeatureGroup"
+
+pattern ResourceType_FeatureMetadata :: ResourceType
+pattern ResourceType_FeatureMetadata = ResourceType' "FeatureMetadata"
+
+pattern ResourceType_HyperParameterTuningJob :: ResourceType
+pattern ResourceType_HyperParameterTuningJob = ResourceType' "HyperParameterTuningJob"
+
+pattern ResourceType_Model :: ResourceType
+pattern ResourceType_Model = ResourceType' "Model"
+
+pattern ResourceType_ModelCard :: ResourceType
+pattern ResourceType_ModelCard = ResourceType' "ModelCard"
 
 pattern ResourceType_ModelPackage :: ResourceType
 pattern ResourceType_ModelPackage = ResourceType' "ModelPackage"
@@ -105,6 +122,10 @@ pattern ResourceType_TrainingJob = ResourceType' "TrainingJob"
   ResourceType_ExperimentTrial,
   ResourceType_ExperimentTrialComponent,
   ResourceType_FeatureGroup,
+  ResourceType_FeatureMetadata,
+  ResourceType_HyperParameterTuningJob,
+  ResourceType_Model,
+  ResourceType_ModelCard,
   ResourceType_ModelPackage,
   ResourceType_ModelPackageGroup,
   ResourceType_Pipeline,

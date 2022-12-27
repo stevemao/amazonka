@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.AssociateServiceRoleToAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Greengrass.AssociateServiceRoleToAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance
   type
     AWSResponse AssociateServiceRoleToAccount =
       AssociateServiceRoleToAccountResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateServiceRoleToAccountResponse'
-            Prelude.<$> (x Core..?> "AssociatedAt")
+            Prelude.<$> (x Data..?> "AssociatedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,28 +106,28 @@ instance Prelude.NFData AssociateServiceRoleToAccount where
   rnf AssociateServiceRoleToAccount' {..} =
     Prelude.rnf roleArn
 
-instance Core.ToHeaders AssociateServiceRoleToAccount where
+instance Data.ToHeaders AssociateServiceRoleToAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateServiceRoleToAccount where
+instance Data.ToJSON AssociateServiceRoleToAccount where
   toJSON AssociateServiceRoleToAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RoleArn" Core..= roleArn)]
+          [Prelude.Just ("RoleArn" Data..= roleArn)]
       )
 
-instance Core.ToPath AssociateServiceRoleToAccount where
+instance Data.ToPath AssociateServiceRoleToAccount where
   toPath = Prelude.const "/greengrass/servicerole"
 
-instance Core.ToQuery AssociateServiceRoleToAccount where
+instance Data.ToQuery AssociateServiceRoleToAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateServiceRoleToAccountResponse' smart constructor.

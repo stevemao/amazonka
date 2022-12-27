@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LabelingJobStoppingConditions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.LabelingJobStoppingConditions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of conditions for stopping a labeling job. If any of the
@@ -68,14 +69,14 @@ labelingJobStoppingConditions_maxHumanLabeledObjectCount = Lens.lens (\LabelingJ
 labelingJobStoppingConditions_maxPercentageOfInputDatasetLabeled :: Lens.Lens' LabelingJobStoppingConditions (Prelude.Maybe Prelude.Natural)
 labelingJobStoppingConditions_maxPercentageOfInputDatasetLabeled = Lens.lens (\LabelingJobStoppingConditions' {maxPercentageOfInputDatasetLabeled} -> maxPercentageOfInputDatasetLabeled) (\s@LabelingJobStoppingConditions' {} a -> s {maxPercentageOfInputDatasetLabeled = a} :: LabelingJobStoppingConditions)
 
-instance Core.FromJSON LabelingJobStoppingConditions where
+instance Data.FromJSON LabelingJobStoppingConditions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingJobStoppingConditions"
       ( \x ->
           LabelingJobStoppingConditions'
-            Prelude.<$> (x Core..:? "MaxHumanLabeledObjectCount")
-            Prelude.<*> (x Core..:? "MaxPercentageOfInputDatasetLabeled")
+            Prelude.<$> (x Data..:? "MaxHumanLabeledObjectCount")
+            Prelude.<*> (x Data..:? "MaxPercentageOfInputDatasetLabeled")
       )
 
 instance
@@ -92,13 +93,13 @@ instance Prelude.NFData LabelingJobStoppingConditions where
     Prelude.rnf maxHumanLabeledObjectCount
       `Prelude.seq` Prelude.rnf maxPercentageOfInputDatasetLabeled
 
-instance Core.ToJSON LabelingJobStoppingConditions where
+instance Data.ToJSON LabelingJobStoppingConditions where
   toJSON LabelingJobStoppingConditions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxHumanLabeledObjectCount" Core..=)
+          [ ("MaxHumanLabeledObjectCount" Data..=)
               Prelude.<$> maxHumanLabeledObjectCount,
-            ("MaxPercentageOfInputDatasetLabeled" Core..=)
+            ("MaxPercentageOfInputDatasetLabeled" Data..=)
               Prelude.<$> maxPercentageOfInputDatasetLabeled
           ]
       )

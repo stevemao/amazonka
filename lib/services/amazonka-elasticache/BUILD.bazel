@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-elasticache/amazonka-elasticache.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-elasticache/amazonka-elasticache.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-elasticache",
     srcs = [
@@ -76,6 +76,7 @@ haskell_library(
         "gen/Amazonka/ElastiCache/Types/AuthTokenUpdateStatus.hs",
         "gen/Amazonka/ElastiCache/Types/AuthTokenUpdateStrategyType.hs",
         "gen/Amazonka/ElastiCache/Types/Authentication.hs",
+        "gen/Amazonka/ElastiCache/Types/AuthenticationMode.hs",
         "gen/Amazonka/ElastiCache/Types/AuthenticationType.hs",
         "gen/Amazonka/ElastiCache/Types/AutomaticFailoverStatus.hs",
         "gen/Amazonka/ElastiCache/Types/AvailabilityZone.hs",
@@ -95,6 +96,7 @@ haskell_library(
         "gen/Amazonka/ElastiCache/Types/CloudWatchLogsDestinationDetails.hs",
         "gen/Amazonka/ElastiCache/Types/ConfigureShard.hs",
         "gen/Amazonka/ElastiCache/Types/CustomerNodeEndpoint.hs",
+        "gen/Amazonka/ElastiCache/Types/DataTieringStatus.hs",
         "gen/Amazonka/ElastiCache/Types/DestinationDetails.hs",
         "gen/Amazonka/ElastiCache/Types/DestinationType.hs",
         "gen/Amazonka/ElastiCache/Types/EC2SecurityGroup.hs",
@@ -106,6 +108,8 @@ haskell_library(
         "gen/Amazonka/ElastiCache/Types/GlobalReplicationGroup.hs",
         "gen/Amazonka/ElastiCache/Types/GlobalReplicationGroupInfo.hs",
         "gen/Amazonka/ElastiCache/Types/GlobalReplicationGroupMember.hs",
+        "gen/Amazonka/ElastiCache/Types/InputAuthenticationType.hs",
+        "gen/Amazonka/ElastiCache/Types/IpDiscovery.hs",
         "gen/Amazonka/ElastiCache/Types/KinesisFirehoseDestinationDetails.hs",
         "gen/Amazonka/ElastiCache/Types/LogDeliveryConfiguration.hs",
         "gen/Amazonka/ElastiCache/Types/LogDeliveryConfigurationRequest.hs",
@@ -113,6 +117,7 @@ haskell_library(
         "gen/Amazonka/ElastiCache/Types/LogFormat.hs",
         "gen/Amazonka/ElastiCache/Types/LogType.hs",
         "gen/Amazonka/ElastiCache/Types/MultiAZStatus.hs",
+        "gen/Amazonka/ElastiCache/Types/NetworkType.hs",
         "gen/Amazonka/ElastiCache/Types/NodeGroup.hs",
         "gen/Amazonka/ElastiCache/Types/NodeGroupConfiguration.hs",
         "gen/Amazonka/ElastiCache/Types/NodeGroupMember.hs",
@@ -161,14 +166,13 @@ haskell_library(
         "gen/Amazonka/ElastiCache/Types/UserGroupsUpdateStatus.hs",
         "gen/Amazonka/ElastiCache/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_elasticache=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_elasticache=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -177,7 +181,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-elasticache/amazonka-elasticache.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-elasticache/amazonka-elasticache.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-elasticache-test",
     srcs = [
@@ -186,11 +190,12 @@ haskell_test(
         "test/Test/Amazonka/ElastiCache/Internal.hs",
         "test/Test/Amazonka/Gen/ElastiCache.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_elasticache=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_elasticache=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

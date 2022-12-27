@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.StopWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WorkSpaces.StopWorkspaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest StopWorkspaces where
   type
     AWSResponse StopWorkspaces =
       StopWorkspacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopWorkspacesResponse'
-            Prelude.<$> (x Core..?> "FailedRequests" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedRequests" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,36 +102,36 @@ instance Prelude.NFData StopWorkspaces where
   rnf StopWorkspaces' {..} =
     Prelude.rnf stopWorkspaceRequests
 
-instance Core.ToHeaders StopWorkspaces where
+instance Data.ToHeaders StopWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.StopWorkspaces" ::
+              Data.=# ( "WorkspacesService.StopWorkspaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopWorkspaces where
+instance Data.ToJSON StopWorkspaces where
   toJSON StopWorkspaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "StopWorkspaceRequests"
-                  Core..= stopWorkspaceRequests
+                  Data..= stopWorkspaceRequests
               )
           ]
       )
 
-instance Core.ToPath StopWorkspaces where
+instance Data.ToPath StopWorkspaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopWorkspaces where
+instance Data.ToQuery StopWorkspaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopWorkspacesResponse' smart constructor.

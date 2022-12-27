@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.DescribeUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Transfer.DescribeUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,8 +59,8 @@ data DescribeUser = DescribeUser'
     -- assigned.
     serverId :: Prelude.Text,
     -- | The name of the user assigned to one or more servers. User names are
-    -- part of the sign-in credentials to use the Amazon Web Services Transfer
-    -- Family service and perform file transfer tasks.
+    -- part of the sign-in credentials to use the Transfer Family service and
+    -- perform file transfer tasks.
     userName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,8 +77,8 @@ data DescribeUser = DescribeUser'
 -- assigned.
 --
 -- 'userName', 'describeUser_userName' - The name of the user assigned to one or more servers. User names are
--- part of the sign-in credentials to use the Amazon Web Services Transfer
--- Family service and perform file transfer tasks.
+-- part of the sign-in credentials to use the Transfer Family service and
+-- perform file transfer tasks.
 newDescribeUser ::
   -- | 'serverId'
   Prelude.Text ->
@@ -96,21 +97,22 @@ describeUser_serverId :: Lens.Lens' DescribeUser Prelude.Text
 describeUser_serverId = Lens.lens (\DescribeUser' {serverId} -> serverId) (\s@DescribeUser' {} a -> s {serverId = a} :: DescribeUser)
 
 -- | The name of the user assigned to one or more servers. User names are
--- part of the sign-in credentials to use the Amazon Web Services Transfer
--- Family service and perform file transfer tasks.
+-- part of the sign-in credentials to use the Transfer Family service and
+-- perform file transfer tasks.
 describeUser_userName :: Lens.Lens' DescribeUser Prelude.Text
 describeUser_userName = Lens.lens (\DescribeUser' {userName} -> userName) (\s@DescribeUser' {} a -> s {userName = a} :: DescribeUser)
 
 instance Core.AWSRequest DescribeUser where
   type AWSResponse DescribeUser = DescribeUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ServerId")
-            Prelude.<*> (x Core..:> "User")
+            Prelude.<*> (x Data..:> "ServerId")
+            Prelude.<*> (x Data..:> "User")
       )
 
 instance Prelude.Hashable DescribeUser where
@@ -123,34 +125,34 @@ instance Prelude.NFData DescribeUser where
     Prelude.rnf serverId
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders DescribeUser where
+instance Data.ToHeaders DescribeUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.DescribeUser" ::
+              Data.=# ( "TransferService.DescribeUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUser where
+instance Data.ToJSON DescribeUser where
   toJSON DescribeUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServerId" Core..= serverId),
-            Prelude.Just ("UserName" Core..= userName)
+          [ Prelude.Just ("ServerId" Data..= serverId),
+            Prelude.Just ("UserName" Data..= userName)
           ]
       )
 
-instance Core.ToPath DescribeUser where
+instance Data.ToPath DescribeUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUser where
+instance Data.ToQuery DescribeUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUserResponse' smart constructor.

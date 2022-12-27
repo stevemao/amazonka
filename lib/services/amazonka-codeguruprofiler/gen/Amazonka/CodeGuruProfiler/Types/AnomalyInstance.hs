@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.Types.AnomalyInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeGuruProfiler.Types.AnomalyInstance where
 
 import Amazonka.CodeGuruProfiler.Types.UserFeedback
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The specific duration in which the metric is flagged as anomalous.
@@ -32,7 +33,7 @@ data AnomalyInstance = AnomalyInstance'
     -- anomalous. This is specified using the ISO 8601 format. For example,
     -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
     -- 1:15:02 PM UTC.
-    endTime :: Prelude.Maybe Core.POSIX,
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | Feedback type on a specific instance of anomaly submitted by the user.
     userFeedback :: Prelude.Maybe UserFeedback,
     -- | The universally unique identifier (UUID) of an instance of an anomaly in
@@ -42,7 +43,7 @@ data AnomalyInstance = AnomalyInstance'
     -- anomalous. This is specified using the ISO 8601 format. For example,
     -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
     -- 1:15:02 PM UTC.
-    startTime :: Core.POSIX
+    startTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,7 +80,7 @@ newAnomalyInstance pId_ pStartTime_ =
     { endTime = Prelude.Nothing,
       userFeedback = Prelude.Nothing,
       id = pId_,
-      startTime = Core._Time Lens.# pStartTime_
+      startTime = Data._Time Lens.# pStartTime_
     }
 
 -- | The end time of the period during which the metric is flagged as
@@ -87,7 +88,7 @@ newAnomalyInstance pId_ pStartTime_ =
 -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
 -- 1:15:02 PM UTC.
 anomalyInstance_endTime :: Lens.Lens' AnomalyInstance (Prelude.Maybe Prelude.UTCTime)
-anomalyInstance_endTime = Lens.lens (\AnomalyInstance' {endTime} -> endTime) (\s@AnomalyInstance' {} a -> s {endTime = a} :: AnomalyInstance) Prelude.. Lens.mapping Core._Time
+anomalyInstance_endTime = Lens.lens (\AnomalyInstance' {endTime} -> endTime) (\s@AnomalyInstance' {} a -> s {endTime = a} :: AnomalyInstance) Prelude.. Lens.mapping Data._Time
 
 -- | Feedback type on a specific instance of anomaly submitted by the user.
 anomalyInstance_userFeedback :: Lens.Lens' AnomalyInstance (Prelude.Maybe UserFeedback)
@@ -103,18 +104,18 @@ anomalyInstance_id = Lens.lens (\AnomalyInstance' {id} -> id) (\s@AnomalyInstanc
 -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
 -- 1:15:02 PM UTC.
 anomalyInstance_startTime :: Lens.Lens' AnomalyInstance Prelude.UTCTime
-anomalyInstance_startTime = Lens.lens (\AnomalyInstance' {startTime} -> startTime) (\s@AnomalyInstance' {} a -> s {startTime = a} :: AnomalyInstance) Prelude.. Core._Time
+anomalyInstance_startTime = Lens.lens (\AnomalyInstance' {startTime} -> startTime) (\s@AnomalyInstance' {} a -> s {startTime = a} :: AnomalyInstance) Prelude.. Data._Time
 
-instance Core.FromJSON AnomalyInstance where
+instance Data.FromJSON AnomalyInstance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AnomalyInstance"
       ( \x ->
           AnomalyInstance'
-            Prelude.<$> (x Core..:? "endTime")
-            Prelude.<*> (x Core..:? "userFeedback")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "startTime")
+            Prelude.<$> (x Data..:? "endTime")
+            Prelude.<*> (x Data..:? "userFeedback")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "startTime")
       )
 
 instance Prelude.Hashable AnomalyInstance where

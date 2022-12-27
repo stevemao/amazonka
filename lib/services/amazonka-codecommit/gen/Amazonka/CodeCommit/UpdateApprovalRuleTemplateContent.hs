@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.UpdateApprovalRuleTemplateContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,13 +120,14 @@ instance
   type
     AWSResponse UpdateApprovalRuleTemplateContent =
       UpdateApprovalRuleTemplateContentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateApprovalRuleTemplateContentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "approvalRuleTemplate")
+              Prelude.<*> (x Data..:> "approvalRuleTemplate")
       )
 
 instance
@@ -150,49 +152,49 @@ instance
       `Prelude.seq` Prelude.rnf newRuleContent'
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateApprovalRuleTemplateContent
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateContent" ::
+              Data.=# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateContent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateApprovalRuleTemplateContent
   where
   toJSON UpdateApprovalRuleTemplateContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("existingRuleContentSha256" Core..=)
+          [ ("existingRuleContentSha256" Data..=)
               Prelude.<$> existingRuleContentSha256,
             Prelude.Just
               ( "approvalRuleTemplateName"
-                  Core..= approvalRuleTemplateName
+                  Data..= approvalRuleTemplateName
               ),
             Prelude.Just
-              ("newRuleContent" Core..= newRuleContent')
+              ("newRuleContent" Data..= newRuleContent')
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateApprovalRuleTemplateContent
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateApprovalRuleTemplateContent
   where
   toQuery = Prelude.const Prelude.mempty

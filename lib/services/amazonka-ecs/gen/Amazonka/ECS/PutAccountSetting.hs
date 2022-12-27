@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.PutAccountSetting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,8 @@
 -- basis.
 --
 -- If you change the account setting for the root user, the default
--- settings for all of the IAM users and roles for which no individual
--- account setting has been specified are reset. For more information, see
+-- settings for all of the IAM users and roles that no individual account
+-- setting was specified are reset for. For more information, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html Account Settings>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
@@ -34,9 +34,9 @@
 -- (ARN) and resource ID format of the resource type for a specified IAM
 -- user, IAM role, or the root user for an account is affected. The opt-in
 -- and opt-out account setting must be set for each Amazon ECS resource
--- separately. The ARN and resource ID format of a resource will be defined
--- by the opt-in status of the IAM user or role that created the resource.
--- You must enable this setting to use Amazon ECS features such as resource
+-- separately. The ARN and resource ID format of a resource is defined by
+-- the opt-in status of the IAM user or role that created the resource. You
+-- must turn on this setting to use Amazon ECS features such as resource
 -- tagging.
 --
 -- When @awsvpcTrunking@ is specified, the elastic network interface (ENI)
@@ -75,8 +75,9 @@ module Amazonka.ECS.PutAccountSetting
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -185,12 +186,13 @@ instance Core.AWSRequest PutAccountSetting where
   type
     AWSResponse PutAccountSetting =
       PutAccountSettingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutAccountSettingResponse'
-            Prelude.<$> (x Core..?> "setting")
+            Prelude.<$> (x Data..?> "setting")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -206,35 +208,35 @@ instance Prelude.NFData PutAccountSetting where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToHeaders PutAccountSetting where
+instance Data.ToHeaders PutAccountSetting where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.PutAccountSetting" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.PutAccountSetting" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAccountSetting where
+instance Data.ToJSON PutAccountSetting where
   toJSON PutAccountSetting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("principalArn" Core..=) Prelude.<$> principalArn,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("value" Core..= value)
+          [ ("principalArn" Data..=) Prelude.<$> principalArn,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("value" Data..= value)
           ]
       )
 
-instance Core.ToPath PutAccountSetting where
+instance Data.ToPath PutAccountSetting where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutAccountSetting where
+instance Data.ToQuery PutAccountSetting where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAccountSettingResponse' smart constructor.

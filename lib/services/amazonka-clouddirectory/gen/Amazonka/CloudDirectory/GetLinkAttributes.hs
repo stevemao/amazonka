@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.GetLinkAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,12 +124,13 @@ instance Core.AWSRequest GetLinkAttributes where
   type
     AWSResponse GetLinkAttributes =
       GetLinkAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLinkAttributesResponse'
-            Prelude.<$> (x Core..?> "Attributes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Attributes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,30 +148,30 @@ instance Prelude.NFData GetLinkAttributes where
       `Prelude.seq` Prelude.rnf typedLinkSpecifier
       `Prelude.seq` Prelude.rnf attributeNames
 
-instance Core.ToHeaders GetLinkAttributes where
+instance Data.ToHeaders GetLinkAttributes where
   toHeaders GetLinkAttributes' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON GetLinkAttributes where
+instance Data.ToJSON GetLinkAttributes where
   toJSON GetLinkAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConsistencyLevel" Core..=)
+          [ ("ConsistencyLevel" Data..=)
               Prelude.<$> consistencyLevel,
             Prelude.Just
-              ("TypedLinkSpecifier" Core..= typedLinkSpecifier),
+              ("TypedLinkSpecifier" Data..= typedLinkSpecifier),
             Prelude.Just
-              ("AttributeNames" Core..= attributeNames)
+              ("AttributeNames" Data..= attributeNames)
           ]
       )
 
-instance Core.ToPath GetLinkAttributes where
+instance Data.ToPath GetLinkAttributes where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/attributes/get"
 
-instance Core.ToQuery GetLinkAttributes where
+instance Data.ToQuery GetLinkAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLinkAttributesResponse' smart constructor.

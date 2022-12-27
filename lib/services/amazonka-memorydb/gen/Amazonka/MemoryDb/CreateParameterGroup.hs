@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.CreateParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MemoryDb.CreateParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -121,12 +122,13 @@ instance Core.AWSRequest CreateParameterGroup where
   type
     AWSResponse CreateParameterGroup =
       CreateParameterGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateParameterGroupResponse'
-            Prelude.<$> (x Core..?> "ParameterGroup")
+            Prelude.<$> (x Data..?> "ParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,37 +146,37 @@ instance Prelude.NFData CreateParameterGroup where
       `Prelude.seq` Prelude.rnf parameterGroupName
       `Prelude.seq` Prelude.rnf family
 
-instance Core.ToHeaders CreateParameterGroup where
+instance Data.ToHeaders CreateParameterGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.CreateParameterGroup" ::
+              Data.=# ( "AmazonMemoryDB.CreateParameterGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateParameterGroup where
+instance Data.ToJSON CreateParameterGroup where
   toJSON CreateParameterGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ParameterGroupName" Core..= parameterGroupName),
-            Prelude.Just ("Family" Core..= family)
+              ("ParameterGroupName" Data..= parameterGroupName),
+            Prelude.Just ("Family" Data..= family)
           ]
       )
 
-instance Core.ToPath CreateParameterGroup where
+instance Data.ToPath CreateParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateParameterGroup where
+instance Data.ToQuery CreateParameterGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateParameterGroupResponse' smart constructor.

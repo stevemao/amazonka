@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Pricing.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,31 +14,31 @@
 module Amazonka.Pricing.Lens
   ( -- * Operations
 
+    -- ** DescribeServices
+    describeServices_formatVersion,
+    describeServices_maxResults,
+    describeServices_nextToken,
+    describeServices_serviceCode,
+    describeServicesResponse_formatVersion,
+    describeServicesResponse_nextToken,
+    describeServicesResponse_services,
+    describeServicesResponse_httpStatus,
+
     -- ** GetAttributeValues
-    getAttributeValues_nextToken,
     getAttributeValues_maxResults,
+    getAttributeValues_nextToken,
     getAttributeValues_serviceCode,
     getAttributeValues_attributeName,
     getAttributeValuesResponse_attributeValues,
     getAttributeValuesResponse_nextToken,
     getAttributeValuesResponse_httpStatus,
 
-    -- ** DescribeServices
-    describeServices_formatVersion,
-    describeServices_nextToken,
-    describeServices_serviceCode,
-    describeServices_maxResults,
-    describeServicesResponse_formatVersion,
-    describeServicesResponse_nextToken,
-    describeServicesResponse_services,
-    describeServicesResponse_httpStatus,
-
     -- ** GetProducts
     getProducts_filters,
     getProducts_formatVersion,
+    getProducts_maxResults,
     getProducts_nextToken,
     getProducts_serviceCode,
-    getProducts_maxResults,
     getProductsResponse_formatVersion,
     getProductsResponse_nextToken,
     getProductsResponse_priceList,

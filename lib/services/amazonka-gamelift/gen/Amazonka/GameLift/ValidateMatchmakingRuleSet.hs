@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.ValidateMatchmakingRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,14 +28,6 @@
 -- __Learn more__
 --
 -- -   <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html Build a rule set>
---
--- __Related actions__
---
--- CreateMatchmakingConfiguration | DescribeMatchmakingConfigurations |
--- UpdateMatchmakingConfiguration | DeleteMatchmakingConfiguration |
--- CreateMatchmakingRuleSet | DescribeMatchmakingRuleSets |
--- ValidateMatchmakingRuleSet | DeleteMatchmakingRuleSet |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.ValidateMatchmakingRuleSet
   ( -- * Creating a Request
     ValidateMatchmakingRuleSet (..),
@@ -55,15 +47,14 @@ module Amazonka.GameLift.ValidateMatchmakingRuleSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newValidateMatchmakingRuleSet' smart constructor.
+-- | /See:/ 'newValidateMatchmakingRuleSet' smart constructor.
 data ValidateMatchmakingRuleSet = ValidateMatchmakingRuleSet'
   { -- | A collection of matchmaking rules to validate, formatted as a JSON
     -- string.
@@ -100,12 +91,13 @@ instance Core.AWSRequest ValidateMatchmakingRuleSet where
   type
     AWSResponse ValidateMatchmakingRuleSet =
       ValidateMatchmakingRuleSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ValidateMatchmakingRuleSetResponse'
-            Prelude.<$> (x Core..?> "Valid")
+            Prelude.<$> (x Data..?> "Valid")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,37 +109,35 @@ instance Prelude.NFData ValidateMatchmakingRuleSet where
   rnf ValidateMatchmakingRuleSet' {..} =
     Prelude.rnf ruleSetBody
 
-instance Core.ToHeaders ValidateMatchmakingRuleSet where
+instance Data.ToHeaders ValidateMatchmakingRuleSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.ValidateMatchmakingRuleSet" ::
+              Data.=# ( "GameLift.ValidateMatchmakingRuleSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ValidateMatchmakingRuleSet where
+instance Data.ToJSON ValidateMatchmakingRuleSet where
   toJSON ValidateMatchmakingRuleSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RuleSetBody" Core..= ruleSetBody)]
+          [Prelude.Just ("RuleSetBody" Data..= ruleSetBody)]
       )
 
-instance Core.ToPath ValidateMatchmakingRuleSet where
+instance Data.ToPath ValidateMatchmakingRuleSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ValidateMatchmakingRuleSet where
+instance Data.ToQuery ValidateMatchmakingRuleSet where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newValidateMatchmakingRuleSetResponse' smart constructor.
+-- | /See:/ 'newValidateMatchmakingRuleSetResponse' smart constructor.
 data ValidateMatchmakingRuleSetResponse = ValidateMatchmakingRuleSetResponse'
   { -- | A response indicating whether the rule set is valid.
     valid :: Prelude.Maybe Prelude.Bool,

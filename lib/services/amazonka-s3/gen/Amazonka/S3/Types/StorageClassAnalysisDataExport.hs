@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.StorageClassAnalysisDataExport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.StorageClassAnalysisDataExport where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.AnalyticsExportDestination
@@ -75,11 +76,11 @@ storageClassAnalysisDataExport_outputSchemaVersion = Lens.lens (\StorageClassAna
 storageClassAnalysisDataExport_destination :: Lens.Lens' StorageClassAnalysisDataExport AnalyticsExportDestination
 storageClassAnalysisDataExport_destination = Lens.lens (\StorageClassAnalysisDataExport' {destination} -> destination) (\s@StorageClassAnalysisDataExport' {} a -> s {destination = a} :: StorageClassAnalysisDataExport)
 
-instance Core.FromXML StorageClassAnalysisDataExport where
+instance Data.FromXML StorageClassAnalysisDataExport where
   parseXML x =
     StorageClassAnalysisDataExport'
-      Prelude.<$> (x Core..@ "OutputSchemaVersion")
-      Prelude.<*> (x Core..@ "Destination")
+      Prelude.<$> (x Data..@ "OutputSchemaVersion")
+      Prelude.<*> (x Data..@ "Destination")
 
 instance
   Prelude.Hashable
@@ -99,9 +100,9 @@ instance
     Prelude.rnf outputSchemaVersion
       `Prelude.seq` Prelude.rnf destination
 
-instance Core.ToXML StorageClassAnalysisDataExport where
+instance Data.ToXML StorageClassAnalysisDataExport where
   toXML StorageClassAnalysisDataExport' {..} =
     Prelude.mconcat
-      [ "OutputSchemaVersion" Core.@= outputSchemaVersion,
-        "Destination" Core.@= destination
+      [ "OutputSchemaVersion" Data.@= outputSchemaVersion,
+        "Destination" Data.@= destination
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListTypeVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,13 +27,13 @@ module Amazonka.CloudFormation.ListTypeVersions
     newListTypeVersions,
 
     -- * Request Lenses
-    listTypeVersions_typeName,
     listTypeVersions_arn,
-    listTypeVersions_nextToken,
     listTypeVersions_deprecatedStatus,
-    listTypeVersions_type,
-    listTypeVersions_publisherId,
     listTypeVersions_maxResults,
+    listTypeVersions_nextToken,
+    listTypeVersions_publisherId,
+    listTypeVersions_type,
+    listTypeVersions_typeName,
 
     -- * Destructuring the Response
     ListTypeVersionsResponse (..),
@@ -48,30 +48,19 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTypeVersions' smart constructor.
 data ListTypeVersions = ListTypeVersions'
-  { -- | The name of the extension for which you want version summary
-    -- information.
-    --
-    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
-    typeName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the extension for which you want
+  { -- | The Amazon Resource Name (ARN) of the extension for which you want
     -- version summary information.
     --
     -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | If the previous paginated request didn\'t return all of the remaining
-    -- results, the response object\'s @NextToken@ parameter value is set to a
-    -- token. To retrieve the next set of results, call this action again and
-    -- assign that token to the request object\'s @NextToken@ parameter. If
-    -- there are no remaining results, the previous response object\'s
-    -- @NextToken@ parameter is set to @null@.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The deprecation status of the extension versions that you want to get
     -- summary information about.
     --
@@ -86,19 +75,31 @@ data ListTypeVersions = ListTypeVersions'
     --
     -- The default is @LIVE@.
     deprecatedStatus :: Prelude.Maybe DeprecatedStatus,
-    -- | The kind of the extension.
-    --
-    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
-    type' :: Prelude.Maybe RegistryType,
-    -- | The publisher ID of the extension publisher.
-    --
-    -- Extensions published by Amazon are not assigned a publisher ID.
-    publisherId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to be returned with a single call. If the
     -- number of available results exceeds this maximum, the response includes
     -- a @NextToken@ value that you can assign to the @NextToken@ request
     -- parameter to get the next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the previous paginated request didn\'t return all of the remaining
+    -- results, the response object\'s @NextToken@ parameter value is set to a
+    -- token. To retrieve the next set of results, call this action again and
+    -- assign that token to the request object\'s @NextToken@ parameter. If
+    -- there are no remaining results, the previous response object\'s
+    -- @NextToken@ parameter is set to @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The publisher ID of the extension publisher.
+    --
+    -- Extensions published by Amazon aren\'t assigned a publisher ID.
+    publisherId :: Prelude.Maybe Prelude.Text,
+    -- | The kind of the extension.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    type' :: Prelude.Maybe RegistryType,
+    -- | The name of the extension for which you want version summary
+    -- information.
+    --
+    -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+    typeName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,22 +111,10 @@ data ListTypeVersions = ListTypeVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'typeName', 'listTypeVersions_typeName' - The name of the extension for which you want version summary
--- information.
---
--- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
---
 -- 'arn', 'listTypeVersions_arn' - The Amazon Resource Name (ARN) of the extension for which you want
 -- version summary information.
 --
 -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
---
--- 'nextToken', 'listTypeVersions_nextToken' - If the previous paginated request didn\'t return all of the remaining
--- results, the response object\'s @NextToken@ parameter value is set to a
--- token. To retrieve the next set of results, call this action again and
--- assign that token to the request object\'s @NextToken@ parameter. If
--- there are no remaining results, the previous response object\'s
--- @NextToken@ parameter is set to @null@.
 --
 -- 'deprecatedStatus', 'listTypeVersions_deprecatedStatus' - The deprecation status of the extension versions that you want to get
 -- summary information about.
@@ -141,37 +130,42 @@ data ListTypeVersions = ListTypeVersions'
 --
 -- The default is @LIVE@.
 --
--- 'type'', 'listTypeVersions_type' - The kind of the extension.
---
--- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
---
--- 'publisherId', 'listTypeVersions_publisherId' - The publisher ID of the extension publisher.
---
--- Extensions published by Amazon are not assigned a publisher ID.
---
 -- 'maxResults', 'listTypeVersions_maxResults' - The maximum number of results to be returned with a single call. If the
 -- number of available results exceeds this maximum, the response includes
 -- a @NextToken@ value that you can assign to the @NextToken@ request
 -- parameter to get the next set of results.
+--
+-- 'nextToken', 'listTypeVersions_nextToken' - If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
+--
+-- 'publisherId', 'listTypeVersions_publisherId' - The publisher ID of the extension publisher.
+--
+-- Extensions published by Amazon aren\'t assigned a publisher ID.
+--
+-- 'type'', 'listTypeVersions_type' - The kind of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+--
+-- 'typeName', 'listTypeVersions_typeName' - The name of the extension for which you want version summary
+-- information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
 newListTypeVersions ::
   ListTypeVersions
 newListTypeVersions =
   ListTypeVersions'
-    { typeName = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       deprecatedStatus = Prelude.Nothing,
-      type' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       publisherId = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      type' = Prelude.Nothing,
+      typeName = Prelude.Nothing
     }
-
--- | The name of the extension for which you want version summary
--- information.
---
--- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
-listTypeVersions_typeName :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
-listTypeVersions_typeName = Lens.lens (\ListTypeVersions' {typeName} -> typeName) (\s@ListTypeVersions' {} a -> s {typeName = a} :: ListTypeVersions)
 
 -- | The Amazon Resource Name (ARN) of the extension for which you want
 -- version summary information.
@@ -179,15 +173,6 @@ listTypeVersions_typeName = Lens.lens (\ListTypeVersions' {typeName} -> typeName
 -- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
 listTypeVersions_arn :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
 listTypeVersions_arn = Lens.lens (\ListTypeVersions' {arn} -> arn) (\s@ListTypeVersions' {} a -> s {arn = a} :: ListTypeVersions)
-
--- | If the previous paginated request didn\'t return all of the remaining
--- results, the response object\'s @NextToken@ parameter value is set to a
--- token. To retrieve the next set of results, call this action again and
--- assign that token to the request object\'s @NextToken@ parameter. If
--- there are no remaining results, the previous response object\'s
--- @NextToken@ parameter is set to @null@.
-listTypeVersions_nextToken :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
-listTypeVersions_nextToken = Lens.lens (\ListTypeVersions' {nextToken} -> nextToken) (\s@ListTypeVersions' {} a -> s {nextToken = a} :: ListTypeVersions)
 
 -- | The deprecation status of the extension versions that you want to get
 -- summary information about.
@@ -205,18 +190,6 @@ listTypeVersions_nextToken = Lens.lens (\ListTypeVersions' {nextToken} -> nextTo
 listTypeVersions_deprecatedStatus :: Lens.Lens' ListTypeVersions (Prelude.Maybe DeprecatedStatus)
 listTypeVersions_deprecatedStatus = Lens.lens (\ListTypeVersions' {deprecatedStatus} -> deprecatedStatus) (\s@ListTypeVersions' {} a -> s {deprecatedStatus = a} :: ListTypeVersions)
 
--- | The kind of the extension.
---
--- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
-listTypeVersions_type :: Lens.Lens' ListTypeVersions (Prelude.Maybe RegistryType)
-listTypeVersions_type = Lens.lens (\ListTypeVersions' {type'} -> type') (\s@ListTypeVersions' {} a -> s {type' = a} :: ListTypeVersions)
-
--- | The publisher ID of the extension publisher.
---
--- Extensions published by Amazon are not assigned a publisher ID.
-listTypeVersions_publisherId :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
-listTypeVersions_publisherId = Lens.lens (\ListTypeVersions' {publisherId} -> publisherId) (\s@ListTypeVersions' {} a -> s {publisherId = a} :: ListTypeVersions)
-
 -- | The maximum number of results to be returned with a single call. If the
 -- number of available results exceeds this maximum, the response includes
 -- a @NextToken@ value that you can assign to the @NextToken@ request
@@ -224,64 +197,93 @@ listTypeVersions_publisherId = Lens.lens (\ListTypeVersions' {publisherId} -> pu
 listTypeVersions_maxResults :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Natural)
 listTypeVersions_maxResults = Lens.lens (\ListTypeVersions' {maxResults} -> maxResults) (\s@ListTypeVersions' {} a -> s {maxResults = a} :: ListTypeVersions)
 
+-- | If the previous paginated request didn\'t return all of the remaining
+-- results, the response object\'s @NextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call this action again and
+-- assign that token to the request object\'s @NextToken@ parameter. If
+-- there are no remaining results, the previous response object\'s
+-- @NextToken@ parameter is set to @null@.
+listTypeVersions_nextToken :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_nextToken = Lens.lens (\ListTypeVersions' {nextToken} -> nextToken) (\s@ListTypeVersions' {} a -> s {nextToken = a} :: ListTypeVersions)
+
+-- | The publisher ID of the extension publisher.
+--
+-- Extensions published by Amazon aren\'t assigned a publisher ID.
+listTypeVersions_publisherId :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_publisherId = Lens.lens (\ListTypeVersions' {publisherId} -> publisherId) (\s@ListTypeVersions' {} a -> s {publisherId = a} :: ListTypeVersions)
+
+-- | The kind of the extension.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+listTypeVersions_type :: Lens.Lens' ListTypeVersions (Prelude.Maybe RegistryType)
+listTypeVersions_type = Lens.lens (\ListTypeVersions' {type'} -> type') (\s@ListTypeVersions' {} a -> s {type' = a} :: ListTypeVersions)
+
+-- | The name of the extension for which you want version summary
+-- information.
+--
+-- Conditional: You must specify either @TypeName@ and @Type@, or @Arn@.
+listTypeVersions_typeName :: Lens.Lens' ListTypeVersions (Prelude.Maybe Prelude.Text)
+listTypeVersions_typeName = Lens.lens (\ListTypeVersions' {typeName} -> typeName) (\s@ListTypeVersions' {} a -> s {typeName = a} :: ListTypeVersions)
+
 instance Core.AWSRequest ListTypeVersions where
   type
     AWSResponse ListTypeVersions =
       ListTypeVersionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListTypeVersionsResult"
       ( \s h x ->
           ListTypeVersionsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "TypeVersionSummaries"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "TypeVersionSummaries"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTypeVersions where
   hashWithSalt _salt ListTypeVersions' {..} =
-    _salt `Prelude.hashWithSalt` typeName
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` deprecatedStatus
-      `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` publisherId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` publisherId
+      `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` typeName
 
 instance Prelude.NFData ListTypeVersions where
   rnf ListTypeVersions' {..} =
-    Prelude.rnf typeName
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf deprecatedStatus
-      `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf publisherId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf publisherId
+      `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf typeName
 
-instance Core.ToHeaders ListTypeVersions where
+instance Data.ToHeaders ListTypeVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTypeVersions where
+instance Data.ToPath ListTypeVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTypeVersions where
+instance Data.ToQuery ListTypeVersions where
   toQuery ListTypeVersions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListTypeVersions" :: Prelude.ByteString),
+          Data.=: ("ListTypeVersions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "TypeName" Core.=: typeName,
-        "Arn" Core.=: arn,
-        "NextToken" Core.=: nextToken,
-        "DeprecatedStatus" Core.=: deprecatedStatus,
-        "Type" Core.=: type',
-        "PublisherId" Core.=: publisherId,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "Arn" Data.=: arn,
+        "DeprecatedStatus" Data.=: deprecatedStatus,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "PublisherId" Data.=: publisherId,
+        "Type" Data.=: type',
+        "TypeName" Data.=: typeName
       ]
 
 -- | /See:/ 'newListTypeVersionsResponse' smart constructor.

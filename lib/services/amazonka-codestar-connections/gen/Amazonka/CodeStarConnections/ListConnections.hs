@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.ListConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.CodeStarConnections.ListConnections
 
     -- * Request Lenses
     listConnections_hostArnFilter,
-    listConnections_nextToken,
     listConnections_maxResults,
+    listConnections_nextToken,
     listConnections_providerTypeFilter,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ data ListConnections = ListConnections'
   { -- | Filters the list of connections to those associated with a specified
     -- host.
     hostArnFilter :: Prelude.Maybe Prelude.Text,
-    -- | The token that was returned from the previous @ListConnections@ call,
-    -- which can be used to return the next set of connections in the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that was returned from the previous @ListConnections@ call,
+    -- which can be used to return the next set of connections in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Filters the list of connections to those associated with a specified
     -- provider, such as Bitbucket.
     providerTypeFilter :: Prelude.Maybe ProviderType
@@ -79,12 +80,12 @@ data ListConnections = ListConnections'
 -- 'hostArnFilter', 'listConnections_hostArnFilter' - Filters the list of connections to those associated with a specified
 -- host.
 --
--- 'nextToken', 'listConnections_nextToken' - The token that was returned from the previous @ListConnections@ call,
--- which can be used to return the next set of connections in the list.
---
 -- 'maxResults', 'listConnections_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listConnections_nextToken' - The token that was returned from the previous @ListConnections@ call,
+-- which can be used to return the next set of connections in the list.
 --
 -- 'providerTypeFilter', 'listConnections_providerTypeFilter' - Filters the list of connections to those associated with a specified
 -- provider, such as Bitbucket.
@@ -93,8 +94,8 @@ newListConnections ::
 newListConnections =
   ListConnections'
     { hostArnFilter = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       providerTypeFilter = Prelude.Nothing
     }
 
@@ -103,16 +104,16 @@ newListConnections =
 listConnections_hostArnFilter :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
 listConnections_hostArnFilter = Lens.lens (\ListConnections' {hostArnFilter} -> hostArnFilter) (\s@ListConnections' {} a -> s {hostArnFilter = a} :: ListConnections)
 
--- | The token that was returned from the previous @ListConnections@ call,
--- which can be used to return the next set of connections in the list.
-listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
-listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
-
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 listConnections_maxResults :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
 listConnections_maxResults = Lens.lens (\ListConnections' {maxResults} -> maxResults) (\s@ListConnections' {} a -> s {maxResults = a} :: ListConnections)
+
+-- | The token that was returned from the previous @ListConnections@ call,
+-- which can be used to return the next set of connections in the list.
+listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
+listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
 
 -- | Filters the list of connections to those associated with a specified
 -- provider, such as Bitbucket.
@@ -123,61 +124,62 @@ instance Core.AWSRequest ListConnections where
   type
     AWSResponse ListConnections =
       ListConnectionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectionsResponse'
-            Prelude.<$> (x Core..?> "Connections" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Connections" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConnections where
   hashWithSalt _salt ListConnections' {..} =
     _salt `Prelude.hashWithSalt` hostArnFilter
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` providerTypeFilter
 
 instance Prelude.NFData ListConnections where
   rnf ListConnections' {..} =
     Prelude.rnf hostArnFilter
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf providerTypeFilter
 
-instance Core.ToHeaders ListConnections where
+instance Data.ToHeaders ListConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.ListConnections" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.ListConnections" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListConnections where
+instance Data.ToJSON ListConnections where
   toJSON ListConnections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HostArnFilter" Core..=) Prelude.<$> hostArnFilter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("ProviderTypeFilter" Core..=)
+          [ ("HostArnFilter" Data..=) Prelude.<$> hostArnFilter,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ProviderTypeFilter" Data..=)
               Prelude.<$> providerTypeFilter
           ]
       )
 
-instance Core.ToPath ListConnections where
+instance Data.ToPath ListConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListConnections where
+instance Data.ToQuery ListConnections where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListConnectionsResponse' smart constructor.

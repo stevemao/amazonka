@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CidrAuthorizationContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,17 @@
 module Amazonka.GlobalAccelerator.Types.CidrAuthorizationContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides authorization for Amazon to bring a specific IP address range
--- to a specific AWS account using bring your own IP addresses (BYOIP).
+-- to a specific Amazon Web Services account using bring your own IP
+-- addresses (BYOIP).
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 --
 -- /See:/ 'newCidrAuthorizationContext' smart constructor.
 data CidrAuthorizationContext = CidrAuthorizationContext'
@@ -80,11 +82,11 @@ instance Prelude.NFData CidrAuthorizationContext where
     Prelude.rnf message
       `Prelude.seq` Prelude.rnf signature
 
-instance Core.ToJSON CidrAuthorizationContext where
+instance Data.ToJSON CidrAuthorizationContext where
   toJSON CidrAuthorizationContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Message" Core..= message),
-            Prelude.Just ("Signature" Core..= signature)
+          [ Prelude.Just ("Message" Data..= message),
+            Prelude.Just ("Signature" Data..= signature)
           ]
       )

@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.ListInsights
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of insights in your AWS account. You can specify which
--- insights are returned by their start time and status (@ONGOING@,
--- @CLOSED@, or @ANY@).
+-- Returns a list of insights in your Amazon Web Services account. You can
+-- specify which insights are returned by their start time and status
+-- (@ONGOING@, @CLOSED@, or @ANY@).
 --
 -- This operation returns paginated results.
 module Amazonka.DevOpsGuru.ListInsights
@@ -31,8 +31,8 @@ module Amazonka.DevOpsGuru.ListInsights
     newListInsights,
 
     -- * Request Lenses
-    listInsights_nextToken,
     listInsights_maxResults,
+    listInsights_nextToken,
     listInsights_statusFilter,
 
     -- * Destructuring the Response
@@ -40,29 +40,30 @@ module Amazonka.DevOpsGuru.ListInsights
     newListInsightsResponse,
 
     -- * Response Lenses
-    listInsightsResponse_reactiveInsights,
     listInsightsResponse_nextToken,
     listInsightsResponse_proactiveInsights,
+    listInsightsResponse_reactiveInsights,
     listInsightsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInsights' smart constructor.
 data ListInsights = ListInsights'
-  { -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
+  { -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | A filter used to filter the returned insights by their status. You can
     -- specify one status filter.
     statusFilter :: ListInsightsStatusFilter
@@ -77,12 +78,12 @@ data ListInsights = ListInsights'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInsights_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
---
 -- 'maxResults', 'listInsights_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listInsights_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
 --
 -- 'statusFilter', 'listInsights_statusFilter' - A filter used to filter the returned insights by their status. You can
 -- specify one status filter.
@@ -92,21 +93,21 @@ newListInsights ::
   ListInsights
 newListInsights pStatusFilter_ =
   ListInsights'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       statusFilter = pStatusFilter_
     }
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-listInsights_nextToken :: Lens.Lens' ListInsights (Prelude.Maybe Prelude.Text)
-listInsights_nextToken = Lens.lens (\ListInsights' {nextToken} -> nextToken) (\s@ListInsights' {} a -> s {nextToken = a} :: ListInsights)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 listInsights_maxResults :: Lens.Lens' ListInsights (Prelude.Maybe Prelude.Natural)
 listInsights_maxResults = Lens.lens (\ListInsights' {maxResults} -> maxResults) (\s@ListInsights' {} a -> s {maxResults = a} :: ListInsights)
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+listInsights_nextToken :: Lens.Lens' ListInsights (Prelude.Maybe Prelude.Text)
+listInsights_nextToken = Lens.lens (\ListInsights' {nextToken} -> nextToken) (\s@ListInsights' {} a -> s {nextToken = a} :: ListInsights)
 
 -- | A filter used to filter the returned insights by their status. You can
 -- specify one status filter.
@@ -141,16 +142,17 @@ instance Core.AWSPager ListInsights where
 
 instance Core.AWSRequest ListInsights where
   type AWSResponse ListInsights = ListInsightsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInsightsResponse'
-            Prelude.<$> ( x Core..?> "ReactiveInsights"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ProactiveInsights"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ProactiveInsights"
+            Prelude.<*> ( x Data..?> "ReactiveInsights"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -158,52 +160,52 @@ instance Core.AWSRequest ListInsights where
 
 instance Prelude.Hashable ListInsights where
   hashWithSalt _salt ListInsights' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` statusFilter
 
 instance Prelude.NFData ListInsights where
   rnf ListInsights' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf statusFilter
 
-instance Core.ToHeaders ListInsights where
+instance Data.ToHeaders ListInsights where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListInsights where
+instance Data.ToJSON ListInsights where
   toJSON ListInsights' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("StatusFilter" Core..= statusFilter)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("StatusFilter" Data..= statusFilter)
           ]
       )
 
-instance Core.ToPath ListInsights where
+instance Data.ToPath ListInsights where
   toPath = Prelude.const "/insights"
 
-instance Core.ToQuery ListInsights where
+instance Data.ToQuery ListInsights where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListInsightsResponse' smart constructor.
 data ListInsightsResponse = ListInsightsResponse'
-  { -- | The returned list of reactive insights.
-    reactiveInsights :: Prelude.Maybe [ReactiveInsightSummary],
-    -- | The pagination token to use to retrieve the next page of results for
+  { -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If there are no more pages, this value is null.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The returned list of proactive insights.
     proactiveInsights :: Prelude.Maybe [ProactiveInsightSummary],
+    -- | The returned list of reactive insights.
+    reactiveInsights :: Prelude.Maybe [ReactiveInsightSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -217,12 +219,12 @@ data ListInsightsResponse = ListInsightsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reactiveInsights', 'listInsightsResponse_reactiveInsights' - The returned list of reactive insights.
---
 -- 'nextToken', 'listInsightsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
 --
 -- 'proactiveInsights', 'listInsightsResponse_proactiveInsights' - The returned list of proactive insights.
+--
+-- 'reactiveInsights', 'listInsightsResponse_reactiveInsights' - The returned list of reactive insights.
 --
 -- 'httpStatus', 'listInsightsResponse_httpStatus' - The response's http status code.
 newListInsightsResponse ::
@@ -231,16 +233,11 @@ newListInsightsResponse ::
   ListInsightsResponse
 newListInsightsResponse pHttpStatus_ =
   ListInsightsResponse'
-    { reactiveInsights =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
       proactiveInsights = Prelude.Nothing,
+      reactiveInsights = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The returned list of reactive insights.
-listInsightsResponse_reactiveInsights :: Lens.Lens' ListInsightsResponse (Prelude.Maybe [ReactiveInsightSummary])
-listInsightsResponse_reactiveInsights = Lens.lens (\ListInsightsResponse' {reactiveInsights} -> reactiveInsights) (\s@ListInsightsResponse' {} a -> s {reactiveInsights = a} :: ListInsightsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
@@ -251,13 +248,17 @@ listInsightsResponse_nextToken = Lens.lens (\ListInsightsResponse' {nextToken} -
 listInsightsResponse_proactiveInsights :: Lens.Lens' ListInsightsResponse (Prelude.Maybe [ProactiveInsightSummary])
 listInsightsResponse_proactiveInsights = Lens.lens (\ListInsightsResponse' {proactiveInsights} -> proactiveInsights) (\s@ListInsightsResponse' {} a -> s {proactiveInsights = a} :: ListInsightsResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The returned list of reactive insights.
+listInsightsResponse_reactiveInsights :: Lens.Lens' ListInsightsResponse (Prelude.Maybe [ReactiveInsightSummary])
+listInsightsResponse_reactiveInsights = Lens.lens (\ListInsightsResponse' {reactiveInsights} -> reactiveInsights) (\s@ListInsightsResponse' {} a -> s {reactiveInsights = a} :: ListInsightsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listInsightsResponse_httpStatus :: Lens.Lens' ListInsightsResponse Prelude.Int
 listInsightsResponse_httpStatus = Lens.lens (\ListInsightsResponse' {httpStatus} -> httpStatus) (\s@ListInsightsResponse' {} a -> s {httpStatus = a} :: ListInsightsResponse)
 
 instance Prelude.NFData ListInsightsResponse where
   rnf ListInsightsResponse' {..} =
-    Prelude.rnf reactiveInsights
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf proactiveInsights
+      `Prelude.seq` Prelude.rnf reactiveInsights
       `Prelude.seq` Prelude.rnf httpStatus

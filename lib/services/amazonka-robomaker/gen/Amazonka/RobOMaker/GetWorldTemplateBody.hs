@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.GetWorldTemplateBody
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.RobOMaker.GetWorldTemplateBody
     newGetWorldTemplateBody,
 
     -- * Request Lenses
-    getWorldTemplateBody_template,
     getWorldTemplateBody_generationJob,
+    getWorldTemplateBody_template,
 
     -- * Destructuring the Response
     GetWorldTemplateBodyResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.RobOMaker.GetWorldTemplateBody
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,10 +50,10 @@ import Amazonka.RobOMaker.Types
 
 -- | /See:/ 'newGetWorldTemplateBody' smart constructor.
 data GetWorldTemplateBody = GetWorldTemplateBody'
-  { -- | The Amazon Resource Name (arn) of the world template.
-    template :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (arn) of the world generator job.
-    generationJob :: Prelude.Maybe Prelude.Text
+  { -- | The Amazon Resource Name (arn) of the world generator job.
+    generationJob :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (arn) of the world template.
+    template :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,72 +65,74 @@ data GetWorldTemplateBody = GetWorldTemplateBody'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'template', 'getWorldTemplateBody_template' - The Amazon Resource Name (arn) of the world template.
---
 -- 'generationJob', 'getWorldTemplateBody_generationJob' - The Amazon Resource Name (arn) of the world generator job.
+--
+-- 'template', 'getWorldTemplateBody_template' - The Amazon Resource Name (arn) of the world template.
 newGetWorldTemplateBody ::
   GetWorldTemplateBody
 newGetWorldTemplateBody =
   GetWorldTemplateBody'
-    { template = Prelude.Nothing,
-      generationJob = Prelude.Nothing
+    { generationJob =
+        Prelude.Nothing,
+      template = Prelude.Nothing
     }
-
--- | The Amazon Resource Name (arn) of the world template.
-getWorldTemplateBody_template :: Lens.Lens' GetWorldTemplateBody (Prelude.Maybe Prelude.Text)
-getWorldTemplateBody_template = Lens.lens (\GetWorldTemplateBody' {template} -> template) (\s@GetWorldTemplateBody' {} a -> s {template = a} :: GetWorldTemplateBody)
 
 -- | The Amazon Resource Name (arn) of the world generator job.
 getWorldTemplateBody_generationJob :: Lens.Lens' GetWorldTemplateBody (Prelude.Maybe Prelude.Text)
 getWorldTemplateBody_generationJob = Lens.lens (\GetWorldTemplateBody' {generationJob} -> generationJob) (\s@GetWorldTemplateBody' {} a -> s {generationJob = a} :: GetWorldTemplateBody)
 
+-- | The Amazon Resource Name (arn) of the world template.
+getWorldTemplateBody_template :: Lens.Lens' GetWorldTemplateBody (Prelude.Maybe Prelude.Text)
+getWorldTemplateBody_template = Lens.lens (\GetWorldTemplateBody' {template} -> template) (\s@GetWorldTemplateBody' {} a -> s {template = a} :: GetWorldTemplateBody)
+
 instance Core.AWSRequest GetWorldTemplateBody where
   type
     AWSResponse GetWorldTemplateBody =
       GetWorldTemplateBodyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWorldTemplateBodyResponse'
-            Prelude.<$> (x Core..?> "templateBody")
+            Prelude.<$> (x Data..?> "templateBody")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetWorldTemplateBody where
   hashWithSalt _salt GetWorldTemplateBody' {..} =
-    _salt `Prelude.hashWithSalt` template
-      `Prelude.hashWithSalt` generationJob
+    _salt `Prelude.hashWithSalt` generationJob
+      `Prelude.hashWithSalt` template
 
 instance Prelude.NFData GetWorldTemplateBody where
   rnf GetWorldTemplateBody' {..} =
-    Prelude.rnf template
-      `Prelude.seq` Prelude.rnf generationJob
+    Prelude.rnf generationJob
+      `Prelude.seq` Prelude.rnf template
 
-instance Core.ToHeaders GetWorldTemplateBody where
+instance Data.ToHeaders GetWorldTemplateBody where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetWorldTemplateBody where
+instance Data.ToJSON GetWorldTemplateBody where
   toJSON GetWorldTemplateBody' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("template" Core..=) Prelude.<$> template,
-            ("generationJob" Core..=) Prelude.<$> generationJob
+          [ ("generationJob" Data..=) Prelude.<$> generationJob,
+            ("template" Data..=) Prelude.<$> template
           ]
       )
 
-instance Core.ToPath GetWorldTemplateBody where
+instance Data.ToPath GetWorldTemplateBody where
   toPath = Prelude.const "/getWorldTemplateBody"
 
-instance Core.ToQuery GetWorldTemplateBody where
+instance Data.ToQuery GetWorldTemplateBody where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetWorldTemplateBodyResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.ActionDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.ActionDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.PublishMetricAction
 import qualified Amazonka.Prelude as Prelude
 
@@ -79,13 +80,13 @@ newActionDefinition =
 actionDefinition_publishMetricAction :: Lens.Lens' ActionDefinition (Prelude.Maybe PublishMetricAction)
 actionDefinition_publishMetricAction = Lens.lens (\ActionDefinition' {publishMetricAction} -> publishMetricAction) (\s@ActionDefinition' {} a -> s {publishMetricAction = a} :: ActionDefinition)
 
-instance Core.FromJSON ActionDefinition where
+instance Data.FromJSON ActionDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionDefinition"
       ( \x ->
           ActionDefinition'
-            Prelude.<$> (x Core..:? "PublishMetricAction")
+            Prelude.<$> (x Data..:? "PublishMetricAction")
       )
 
 instance Prelude.Hashable ActionDefinition where
@@ -96,11 +97,11 @@ instance Prelude.NFData ActionDefinition where
   rnf ActionDefinition' {..} =
     Prelude.rnf publishMetricAction
 
-instance Core.ToJSON ActionDefinition where
+instance Data.ToJSON ActionDefinition where
   toJSON ActionDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PublishMetricAction" Core..=)
+          [ ("PublishMetricAction" Data..=)
               Prelude.<$> publishMetricAction
           ]
       )

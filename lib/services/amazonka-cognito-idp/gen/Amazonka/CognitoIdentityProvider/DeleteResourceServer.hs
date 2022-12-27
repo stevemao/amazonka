@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteResourceServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteResourceServer where
   type
     AWSResponse DeleteResourceServer =
       DeleteResourceServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteResourceServerResponse'
 
@@ -101,34 +103,34 @@ instance Prelude.NFData DeleteResourceServer where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf identifier
 
-instance Core.ToHeaders DeleteResourceServer where
+instance Data.ToHeaders DeleteResourceServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteResourceServer" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteResourceServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResourceServer where
+instance Data.ToJSON DeleteResourceServer where
   toJSON DeleteResourceServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Identifier" Core..= identifier)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Identifier" Data..= identifier)
           ]
       )
 
-instance Core.ToPath DeleteResourceServer where
+instance Data.ToPath DeleteResourceServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResourceServer where
+instance Data.ToQuery DeleteResourceServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceServerResponse' smart constructor.

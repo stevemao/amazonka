@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDocumentationVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Gets documentation versions.
 --
 -- This operation returns paginated results.
 module Amazonka.APIGateway.GetDocumentationVersions
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ data GetDocumentationVersions = GetDocumentationVersions'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +79,7 @@ data GetDocumentationVersions = GetDocumentationVersions'
 --
 -- 'position', 'getDocumentationVersions_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getDocumentationVersions_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getDocumentationVersions_restApiId' - The string identifier of the associated RestApi.
 newGetDocumentationVersions ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,7 +100,7 @@ getDocumentationVersions_limit = Lens.lens (\GetDocumentationVersions' {limit} -
 getDocumentationVersions_position :: Lens.Lens' GetDocumentationVersions (Prelude.Maybe Prelude.Text)
 getDocumentationVersions_position = Lens.lens (\GetDocumentationVersions' {position} -> position) (\s@GetDocumentationVersions' {} a -> s {position = a} :: GetDocumentationVersions)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDocumentationVersions_restApiId :: Lens.Lens' GetDocumentationVersions Prelude.Text
 getDocumentationVersions_restApiId = Lens.lens (\GetDocumentationVersions' {restApiId} -> restApiId) (\s@GetDocumentationVersions' {} a -> s {restApiId = a} :: GetDocumentationVersions)
 
@@ -129,13 +130,14 @@ instance Core.AWSRequest GetDocumentationVersions where
   type
     AWSResponse GetDocumentationVersions =
       GetDocumentationVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDocumentationVersionsResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,35 +153,29 @@ instance Prelude.NFData GetDocumentationVersions where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetDocumentationVersions where
+instance Data.ToHeaders GetDocumentationVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDocumentationVersions where
+instance Data.ToPath GetDocumentationVersions where
   toPath GetDocumentationVersions' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/versions"
       ]
 
-instance Core.ToQuery GetDocumentationVersions where
+instance Data.ToQuery GetDocumentationVersions where
   toQuery GetDocumentationVersions' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | The collection of documentation snapshots of an API.
---
--- Use the DocumentationVersions to manage documentation snapshots
--- associated with various API stages.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html Documenting an API>,
--- DocumentationPart, DocumentationVersion
 --
 -- /See:/ 'newGetDocumentationVersionsResponse' smart constructor.
 data GetDocumentationVersionsResponse = GetDocumentationVersionsResponse'

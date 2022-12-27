@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointSMSVoice.Types.CloudWatchLogsDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointSMSVoice.Types.CloudWatchLogsDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains information about an event destination that
@@ -72,14 +73,14 @@ cloudWatchLogsDestination_iamRoleArn = Lens.lens (\CloudWatchLogsDestination' {i
 cloudWatchLogsDestination_logGroupArn :: Lens.Lens' CloudWatchLogsDestination (Prelude.Maybe Prelude.Text)
 cloudWatchLogsDestination_logGroupArn = Lens.lens (\CloudWatchLogsDestination' {logGroupArn} -> logGroupArn) (\s@CloudWatchLogsDestination' {} a -> s {logGroupArn = a} :: CloudWatchLogsDestination)
 
-instance Core.FromJSON CloudWatchLogsDestination where
+instance Data.FromJSON CloudWatchLogsDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLogsDestination"
       ( \x ->
           CloudWatchLogsDestination'
-            Prelude.<$> (x Core..:? "IamRoleArn")
-            Prelude.<*> (x Core..:? "LogGroupArn")
+            Prelude.<$> (x Data..:? "IamRoleArn")
+            Prelude.<*> (x Data..:? "LogGroupArn")
       )
 
 instance Prelude.Hashable CloudWatchLogsDestination where
@@ -92,11 +93,11 @@ instance Prelude.NFData CloudWatchLogsDestination where
     Prelude.rnf iamRoleArn
       `Prelude.seq` Prelude.rnf logGroupArn
 
-instance Core.ToJSON CloudWatchLogsDestination where
+instance Data.ToJSON CloudWatchLogsDestination where
   toJSON CloudWatchLogsDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IamRoleArn" Core..=) Prelude.<$> iamRoleArn,
-            ("LogGroupArn" Core..=) Prelude.<$> logGroupArn
+          [ ("IamRoleArn" Data..=) Prelude.<$> iamRoleArn,
+            ("LogGroupArn" Data..=) Prelude.<$> logGroupArn
           ]
       )

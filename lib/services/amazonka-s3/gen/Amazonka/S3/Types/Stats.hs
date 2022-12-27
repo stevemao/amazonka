@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.Stats
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.Stats where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -28,12 +29,12 @@ import Amazonka.S3.Internal
 --
 -- /See:/ 'newStats' smart constructor.
 data Stats = Stats'
-  { -- | The total number of bytes of records payload data returned.
+  { -- | The total number of uncompressed object bytes processed.
+    bytesProcessed :: Prelude.Maybe Prelude.Integer,
+    -- | The total number of bytes of records payload data returned.
     bytesReturned :: Prelude.Maybe Prelude.Integer,
     -- | The total number of object bytes scanned.
-    bytesScanned :: Prelude.Maybe Prelude.Integer,
-    -- | The total number of uncompressed object bytes processed.
-    bytesProcessed :: Prelude.Maybe Prelude.Integer
+    bytesScanned :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,19 +46,23 @@ data Stats = Stats'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'bytesProcessed', 'stats_bytesProcessed' - The total number of uncompressed object bytes processed.
+--
 -- 'bytesReturned', 'stats_bytesReturned' - The total number of bytes of records payload data returned.
 --
 -- 'bytesScanned', 'stats_bytesScanned' - The total number of object bytes scanned.
---
--- 'bytesProcessed', 'stats_bytesProcessed' - The total number of uncompressed object bytes processed.
 newStats ::
   Stats
 newStats =
   Stats'
-    { bytesReturned = Prelude.Nothing,
-      bytesScanned = Prelude.Nothing,
-      bytesProcessed = Prelude.Nothing
+    { bytesProcessed = Prelude.Nothing,
+      bytesReturned = Prelude.Nothing,
+      bytesScanned = Prelude.Nothing
     }
+
+-- | The total number of uncompressed object bytes processed.
+stats_bytesProcessed :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
+stats_bytesProcessed = Lens.lens (\Stats' {bytesProcessed} -> bytesProcessed) (\s@Stats' {} a -> s {bytesProcessed = a} :: Stats)
 
 -- | The total number of bytes of records payload data returned.
 stats_bytesReturned :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
@@ -67,25 +72,21 @@ stats_bytesReturned = Lens.lens (\Stats' {bytesReturned} -> bytesReturned) (\s@S
 stats_bytesScanned :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
 stats_bytesScanned = Lens.lens (\Stats' {bytesScanned} -> bytesScanned) (\s@Stats' {} a -> s {bytesScanned = a} :: Stats)
 
--- | The total number of uncompressed object bytes processed.
-stats_bytesProcessed :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
-stats_bytesProcessed = Lens.lens (\Stats' {bytesProcessed} -> bytesProcessed) (\s@Stats' {} a -> s {bytesProcessed = a} :: Stats)
-
-instance Core.FromXML Stats where
+instance Data.FromXML Stats where
   parseXML x =
     Stats'
-      Prelude.<$> (x Core..@? "BytesReturned")
-      Prelude.<*> (x Core..@? "BytesScanned")
-      Prelude.<*> (x Core..@? "BytesProcessed")
+      Prelude.<$> (x Data..@? "BytesProcessed")
+      Prelude.<*> (x Data..@? "BytesReturned")
+      Prelude.<*> (x Data..@? "BytesScanned")
 
 instance Prelude.Hashable Stats where
   hashWithSalt _salt Stats' {..} =
-    _salt `Prelude.hashWithSalt` bytesReturned
+    _salt `Prelude.hashWithSalt` bytesProcessed
+      `Prelude.hashWithSalt` bytesReturned
       `Prelude.hashWithSalt` bytesScanned
-      `Prelude.hashWithSalt` bytesProcessed
 
 instance Prelude.NFData Stats where
   rnf Stats' {..} =
-    Prelude.rnf bytesReturned
+    Prelude.rnf bytesProcessed
+      `Prelude.seq` Prelude.rnf bytesReturned
       `Prelude.seq` Prelude.rnf bytesScanned
-      `Prelude.seq` Prelude.rnf bytesProcessed

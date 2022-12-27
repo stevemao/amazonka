@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.SessionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Wisdom.Types.SessionSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about the session.
 --
 -- /See:/ 'newSessionSummary' smart constructor.
 data SessionSummary = SessionSummary'
-  { -- | The Amazon Resource Name (ARN) of the Wisdom assistant
+  { -- | The Amazon Resource Name (ARN) of the Wisdom assistant.
     assistantArn :: Prelude.Text,
     -- | The identifier of the Wisdom assistant.
     assistantId :: Prelude.Text,
@@ -46,7 +47,7 @@ data SessionSummary = SessionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assistantArn', 'sessionSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant
+-- 'assistantArn', 'sessionSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant.
 --
 -- 'assistantId', 'sessionSummary_assistantId' - The identifier of the Wisdom assistant.
 --
@@ -75,7 +76,7 @@ newSessionSummary
         sessionId = pSessionId_
       }
 
--- | The Amazon Resource Name (ARN) of the Wisdom assistant
+-- | The Amazon Resource Name (ARN) of the Wisdom assistant.
 sessionSummary_assistantArn :: Lens.Lens' SessionSummary Prelude.Text
 sessionSummary_assistantArn = Lens.lens (\SessionSummary' {assistantArn} -> assistantArn) (\s@SessionSummary' {} a -> s {assistantArn = a} :: SessionSummary)
 
@@ -91,16 +92,16 @@ sessionSummary_sessionArn = Lens.lens (\SessionSummary' {sessionArn} -> sessionA
 sessionSummary_sessionId :: Lens.Lens' SessionSummary Prelude.Text
 sessionSummary_sessionId = Lens.lens (\SessionSummary' {sessionId} -> sessionId) (\s@SessionSummary' {} a -> s {sessionId = a} :: SessionSummary)
 
-instance Core.FromJSON SessionSummary where
+instance Data.FromJSON SessionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SessionSummary"
       ( \x ->
           SessionSummary'
-            Prelude.<$> (x Core..: "assistantArn")
-            Prelude.<*> (x Core..: "assistantId")
-            Prelude.<*> (x Core..: "sessionArn")
-            Prelude.<*> (x Core..: "sessionId")
+            Prelude.<$> (x Data..: "assistantArn")
+            Prelude.<*> (x Data..: "assistantId")
+            Prelude.<*> (x Data..: "sessionArn")
+            Prelude.<*> (x Data..: "sessionId")
       )
 
 instance Prelude.Hashable SessionSummary where

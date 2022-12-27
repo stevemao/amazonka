@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.LambdaOutputDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.LambdaOutputDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For an application output, describes the AWS Lambda function configured
@@ -66,14 +67,14 @@ lambdaOutputDescription_resourceARN = Lens.lens (\LambdaOutputDescription' {reso
 lambdaOutputDescription_roleARN :: Lens.Lens' LambdaOutputDescription (Prelude.Maybe Prelude.Text)
 lambdaOutputDescription_roleARN = Lens.lens (\LambdaOutputDescription' {roleARN} -> roleARN) (\s@LambdaOutputDescription' {} a -> s {roleARN = a} :: LambdaOutputDescription)
 
-instance Core.FromJSON LambdaOutputDescription where
+instance Data.FromJSON LambdaOutputDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaOutputDescription"
       ( \x ->
           LambdaOutputDescription'
-            Prelude.<$> (x Core..:? "ResourceARN")
-            Prelude.<*> (x Core..:? "RoleARN")
+            Prelude.<$> (x Data..:? "ResourceARN")
+            Prelude.<*> (x Data..:? "RoleARN")
       )
 
 instance Prelude.Hashable LambdaOutputDescription where

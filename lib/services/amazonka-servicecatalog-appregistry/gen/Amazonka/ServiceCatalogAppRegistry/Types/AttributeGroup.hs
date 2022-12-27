@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.Types.AttributeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalogAppRegistry.Types.AttributeGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a Amazon Web Services Service Catalog AppRegistry attribute
@@ -29,22 +30,22 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAttributeGroup' smart constructor.
 data AttributeGroup = AttributeGroup'
-  { -- | The ISO-8601 formatted timestamp of the moment the attribute group was
-    -- created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon resource name (ARN) that specifies the attribute group across
+  { -- | The Amazon resource name (ARN) that specifies the attribute group across
     -- services.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the attribute group.
-    name :: Prelude.Maybe Prelude.Text,
+    -- | The ISO-8601 formatted timestamp of the moment the attribute group was
+    -- created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The description of the attribute group that the user provides.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The globally unique attribute group identifier of the attribute group.
     id :: Prelude.Maybe Prelude.Text,
     -- | The ISO-8601 formatted timestamp of the moment the attribute group was
     -- last updated. This time is the same as the creationTime for a newly
     -- created attribute group.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | The description of the attribute group that the user provides.
-    description :: Prelude.Maybe Prelude.Text,
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the attribute group.
+    name :: Prelude.Maybe Prelude.Text,
     -- | Key-value pairs you can use to associate with the attribute group.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
@@ -58,13 +59,13 @@ data AttributeGroup = AttributeGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'attributeGroup_creationTime' - The ISO-8601 formatted timestamp of the moment the attribute group was
--- created.
---
 -- 'arn', 'attributeGroup_arn' - The Amazon resource name (ARN) that specifies the attribute group across
 -- services.
 --
--- 'name', 'attributeGroup_name' - The name of the attribute group.
+-- 'creationTime', 'attributeGroup_creationTime' - The ISO-8601 formatted timestamp of the moment the attribute group was
+-- created.
+--
+-- 'description', 'attributeGroup_description' - The description of the attribute group that the user provides.
 --
 -- 'id', 'attributeGroup_id' - The globally unique attribute group identifier of the attribute group.
 --
@@ -72,35 +73,35 @@ data AttributeGroup = AttributeGroup'
 -- last updated. This time is the same as the creationTime for a newly
 -- created attribute group.
 --
--- 'description', 'attributeGroup_description' - The description of the attribute group that the user provides.
+-- 'name', 'attributeGroup_name' - The name of the attribute group.
 --
 -- 'tags', 'attributeGroup_tags' - Key-value pairs you can use to associate with the attribute group.
 newAttributeGroup ::
   AttributeGroup
 newAttributeGroup =
   AttributeGroup'
-    { creationTime = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      description = Prelude.Nothing,
       id = Prelude.Nothing,
       lastUpdateTime = Prelude.Nothing,
-      description = Prelude.Nothing,
+      name = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | The ISO-8601 formatted timestamp of the moment the attribute group was
--- created.
-attributeGroup_creationTime :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.UTCTime)
-attributeGroup_creationTime = Lens.lens (\AttributeGroup' {creationTime} -> creationTime) (\s@AttributeGroup' {} a -> s {creationTime = a} :: AttributeGroup) Prelude.. Lens.mapping Core._Time
 
 -- | The Amazon resource name (ARN) that specifies the attribute group across
 -- services.
 attributeGroup_arn :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
 attributeGroup_arn = Lens.lens (\AttributeGroup' {arn} -> arn) (\s@AttributeGroup' {} a -> s {arn = a} :: AttributeGroup)
 
--- | The name of the attribute group.
-attributeGroup_name :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
-attributeGroup_name = Lens.lens (\AttributeGroup' {name} -> name) (\s@AttributeGroup' {} a -> s {name = a} :: AttributeGroup)
+-- | The ISO-8601 formatted timestamp of the moment the attribute group was
+-- created.
+attributeGroup_creationTime :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.UTCTime)
+attributeGroup_creationTime = Lens.lens (\AttributeGroup' {creationTime} -> creationTime) (\s@AttributeGroup' {} a -> s {creationTime = a} :: AttributeGroup) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the attribute group that the user provides.
+attributeGroup_description :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
+attributeGroup_description = Lens.lens (\AttributeGroup' {description} -> description) (\s@AttributeGroup' {} a -> s {description = a} :: AttributeGroup)
 
 -- | The globally unique attribute group identifier of the attribute group.
 attributeGroup_id :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
@@ -110,47 +111,47 @@ attributeGroup_id = Lens.lens (\AttributeGroup' {id} -> id) (\s@AttributeGroup' 
 -- last updated. This time is the same as the creationTime for a newly
 -- created attribute group.
 attributeGroup_lastUpdateTime :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.UTCTime)
-attributeGroup_lastUpdateTime = Lens.lens (\AttributeGroup' {lastUpdateTime} -> lastUpdateTime) (\s@AttributeGroup' {} a -> s {lastUpdateTime = a} :: AttributeGroup) Prelude.. Lens.mapping Core._Time
+attributeGroup_lastUpdateTime = Lens.lens (\AttributeGroup' {lastUpdateTime} -> lastUpdateTime) (\s@AttributeGroup' {} a -> s {lastUpdateTime = a} :: AttributeGroup) Prelude.. Lens.mapping Data._Time
 
--- | The description of the attribute group that the user provides.
-attributeGroup_description :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
-attributeGroup_description = Lens.lens (\AttributeGroup' {description} -> description) (\s@AttributeGroup' {} a -> s {description = a} :: AttributeGroup)
+-- | The name of the attribute group.
+attributeGroup_name :: Lens.Lens' AttributeGroup (Prelude.Maybe Prelude.Text)
+attributeGroup_name = Lens.lens (\AttributeGroup' {name} -> name) (\s@AttributeGroup' {} a -> s {name = a} :: AttributeGroup)
 
 -- | Key-value pairs you can use to associate with the attribute group.
 attributeGroup_tags :: Lens.Lens' AttributeGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 attributeGroup_tags = Lens.lens (\AttributeGroup' {tags} -> tags) (\s@AttributeGroup' {} a -> s {tags = a} :: AttributeGroup) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON AttributeGroup where
+instance Data.FromJSON AttributeGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttributeGroup"
       ( \x ->
           AttributeGroup'
-            Prelude.<$> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "lastUpdateTime")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "lastUpdateTime")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable AttributeGroup where
   hashWithSalt _salt AttributeGroup' {..} =
-    _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` creationTime
+      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` lastUpdateTime
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData AttributeGroup where
   rnf AttributeGroup' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf lastUpdateTime
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags

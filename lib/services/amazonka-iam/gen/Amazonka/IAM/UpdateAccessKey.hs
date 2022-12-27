@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateAccessKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,9 @@
 --
 -- If the @UserName@ is not specified, the user name is determined
 -- implicitly based on the Amazon Web Services access key ID used to sign
--- the request. This operation works for access keys under the Amazon Web
+-- the request. If a temporary access key is used, then @UserName@ is
+-- required. If a long-term key is assigned to the user, then @UserName@ is
+-- not required. This operation works for access keys under the Amazon Web
 -- Services account. Consequently, you can use this operation to manage
 -- Amazon Web Services account root user credentials even if the Amazon Web
 -- Services account has no associated users.
@@ -51,8 +53,9 @@ module Amazonka.IAM.UpdateAccessKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -143,7 +146,8 @@ instance Core.AWSRequest UpdateAccessKey where
   type
     AWSResponse UpdateAccessKey =
       UpdateAccessKeyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull UpdateAccessKeyResponse'
 
@@ -159,22 +163,22 @@ instance Prelude.NFData UpdateAccessKey where
       `Prelude.seq` Prelude.rnf accessKeyId
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateAccessKey where
+instance Data.ToHeaders UpdateAccessKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateAccessKey where
+instance Data.ToPath UpdateAccessKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAccessKey where
+instance Data.ToQuery UpdateAccessKey where
   toQuery UpdateAccessKey' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateAccessKey" :: Prelude.ByteString),
+          Data.=: ("UpdateAccessKey" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "AccessKeyId" Core.=: accessKeyId,
-        "Status" Core.=: status
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "AccessKeyId" Data.=: accessKeyId,
+        "Status" Data.=: status
       ]
 
 -- | /See:/ 'newUpdateAccessKeyResponse' smart constructor.

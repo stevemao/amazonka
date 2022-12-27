@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types.LabelsInputConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutEquipment.Types.LabelsInputConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types.LabelsS3InputConfiguration
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,9 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLabelsInputConfiguration' smart constructor.
 data LabelsInputConfiguration = LabelsInputConfiguration'
-  { -- | Contains location information for the S3 location being used for label
+  { -- | The name of the label group to be used for label data.
+    labelGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Contains location information for the S3 location being used for label
     -- data.
-    s3InputConfiguration :: LabelsS3InputConfiguration
+    s3InputConfiguration :: Prelude.Maybe LabelsS3InputConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,47 +46,55 @@ data LabelsInputConfiguration = LabelsInputConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'labelGroupName', 'labelsInputConfiguration_labelGroupName' - The name of the label group to be used for label data.
+--
 -- 's3InputConfiguration', 'labelsInputConfiguration_s3InputConfiguration' - Contains location information for the S3 location being used for label
 -- data.
 newLabelsInputConfiguration ::
-  -- | 's3InputConfiguration'
-  LabelsS3InputConfiguration ->
   LabelsInputConfiguration
-newLabelsInputConfiguration pS3InputConfiguration_ =
+newLabelsInputConfiguration =
   LabelsInputConfiguration'
-    { s3InputConfiguration =
-        pS3InputConfiguration_
+    { labelGroupName =
+        Prelude.Nothing,
+      s3InputConfiguration = Prelude.Nothing
     }
+
+-- | The name of the label group to be used for label data.
+labelsInputConfiguration_labelGroupName :: Lens.Lens' LabelsInputConfiguration (Prelude.Maybe Prelude.Text)
+labelsInputConfiguration_labelGroupName = Lens.lens (\LabelsInputConfiguration' {labelGroupName} -> labelGroupName) (\s@LabelsInputConfiguration' {} a -> s {labelGroupName = a} :: LabelsInputConfiguration)
 
 -- | Contains location information for the S3 location being used for label
 -- data.
-labelsInputConfiguration_s3InputConfiguration :: Lens.Lens' LabelsInputConfiguration LabelsS3InputConfiguration
+labelsInputConfiguration_s3InputConfiguration :: Lens.Lens' LabelsInputConfiguration (Prelude.Maybe LabelsS3InputConfiguration)
 labelsInputConfiguration_s3InputConfiguration = Lens.lens (\LabelsInputConfiguration' {s3InputConfiguration} -> s3InputConfiguration) (\s@LabelsInputConfiguration' {} a -> s {s3InputConfiguration = a} :: LabelsInputConfiguration)
 
-instance Core.FromJSON LabelsInputConfiguration where
+instance Data.FromJSON LabelsInputConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelsInputConfiguration"
       ( \x ->
           LabelsInputConfiguration'
-            Prelude.<$> (x Core..: "S3InputConfiguration")
+            Prelude.<$> (x Data..:? "LabelGroupName")
+            Prelude.<*> (x Data..:? "S3InputConfiguration")
       )
 
 instance Prelude.Hashable LabelsInputConfiguration where
   hashWithSalt _salt LabelsInputConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` s3InputConfiguration
+    _salt `Prelude.hashWithSalt` labelGroupName
+      `Prelude.hashWithSalt` s3InputConfiguration
 
 instance Prelude.NFData LabelsInputConfiguration where
   rnf LabelsInputConfiguration' {..} =
-    Prelude.rnf s3InputConfiguration
+    Prelude.rnf labelGroupName
+      `Prelude.seq` Prelude.rnf s3InputConfiguration
 
-instance Core.ToJSON LabelsInputConfiguration where
+instance Data.ToJSON LabelsInputConfiguration where
   toJSON LabelsInputConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "S3InputConfiguration"
-                  Core..= s3InputConfiguration
-              )
+          [ ("LabelGroupName" Data..=)
+              Prelude.<$> labelGroupName,
+            ("S3InputConfiguration" Data..=)
+              Prelude.<$> s3InputConfiguration
           ]
       )

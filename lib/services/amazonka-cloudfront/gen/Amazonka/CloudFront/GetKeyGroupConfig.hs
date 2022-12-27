@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetKeyGroupConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance Core.AWSRequest GetKeyGroupConfig where
   type
     AWSResponse GetKeyGroupConfig =
       GetKeyGroupConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetKeyGroupConfigResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,15 +107,15 @@ instance Prelude.Hashable GetKeyGroupConfig where
 instance Prelude.NFData GetKeyGroupConfig where
   rnf GetKeyGroupConfig' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetKeyGroupConfig where
+instance Data.ToHeaders GetKeyGroupConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetKeyGroupConfig where
+instance Data.ToPath GetKeyGroupConfig where
   toPath GetKeyGroupConfig' {..} =
     Prelude.mconcat
-      ["/2020-05-31/key-group/", Core.toBS id, "/config"]
+      ["/2020-05-31/key-group/", Data.toBS id, "/config"]
 
-instance Core.ToQuery GetKeyGroupConfig where
+instance Data.ToQuery GetKeyGroupConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetKeyGroupConfigResponse' smart constructor.

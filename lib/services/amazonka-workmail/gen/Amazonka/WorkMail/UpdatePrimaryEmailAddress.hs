@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.UpdatePrimaryEmailAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.WorkMail.UpdatePrimaryEmailAddress
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +110,8 @@ instance Core.AWSRequest UpdatePrimaryEmailAddress where
   type
     AWSResponse UpdatePrimaryEmailAddress =
       UpdatePrimaryEmailAddressResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,36 +131,36 @@ instance Prelude.NFData UpdatePrimaryEmailAddress where
       `Prelude.seq` Prelude.rnf entityId
       `Prelude.seq` Prelude.rnf email
 
-instance Core.ToHeaders UpdatePrimaryEmailAddress where
+instance Data.ToHeaders UpdatePrimaryEmailAddress where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.UpdatePrimaryEmailAddress" ::
+              Data.=# ( "WorkMailService.UpdatePrimaryEmailAddress" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePrimaryEmailAddress where
+instance Data.ToJSON UpdatePrimaryEmailAddress where
   toJSON UpdatePrimaryEmailAddress' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("EntityId" Core..= entityId),
-            Prelude.Just ("Email" Core..= email)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("EntityId" Data..= entityId),
+            Prelude.Just ("Email" Data..= email)
           ]
       )
 
-instance Core.ToPath UpdatePrimaryEmailAddress where
+instance Data.ToPath UpdatePrimaryEmailAddress where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePrimaryEmailAddress where
+instance Data.ToQuery UpdatePrimaryEmailAddress where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePrimaryEmailAddressResponse' smart constructor.

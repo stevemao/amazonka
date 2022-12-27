@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.SyncState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.SyncState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.Attachment
 import Amazonka.NetworkFirewall.Types.PerObjectStatus
 import qualified Amazonka.Prelude as Prelude
@@ -28,8 +29,8 @@ import qualified Amazonka.Prelude as Prelude
 -- | The status of the firewall endpoint and firewall policy configuration
 -- for a single VPC subnet.
 --
--- For each VPC subnet that you associate with a firewall, AWS Network
--- Firewall does the following:
+-- For each VPC subnet that you associate with a firewall, Network Firewall
+-- does the following:
 --
 -- -   Instantiates a firewall endpoint in the subnet, ready to take
 --     traffic.
@@ -43,18 +44,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSyncState' smart constructor.
 data SyncState = SyncState'
-  { -- | The configuration status of the firewall endpoint in a single VPC
+  { -- | The attachment status of the firewall\'s association with a single VPC
+    -- subnet. For each configured subnet, Network Firewall creates the
+    -- attachment by instantiating the firewall endpoint in the subnet so that
+    -- it\'s ready to take traffic. This is part of the FirewallStatus.
+    attachment :: Prelude.Maybe Attachment,
+    -- | The configuration status of the firewall endpoint in a single VPC
     -- subnet. Network Firewall provides each endpoint with the rules that are
     -- configured in the firewall policy. Each time you add a subnet or modify
     -- the associated firewall policy, Network Firewall synchronizes the rules
     -- in the endpoint, so it can properly filter network traffic. This is part
     -- of the FirewallStatus.
-    config :: Prelude.Maybe (Prelude.HashMap Prelude.Text PerObjectStatus),
-    -- | The attachment status of the firewall\'s association with a single VPC
-    -- subnet. For each configured subnet, Network Firewall creates the
-    -- attachment by instantiating the firewall endpoint in the subnet so that
-    -- it\'s ready to take traffic. This is part of the FirewallStatus.
-    attachment :: Prelude.Maybe Attachment
+    config :: Prelude.Maybe (Prelude.HashMap Prelude.Text PerObjectStatus)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,24 +67,31 @@ data SyncState = SyncState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'attachment', 'syncState_attachment' - The attachment status of the firewall\'s association with a single VPC
+-- subnet. For each configured subnet, Network Firewall creates the
+-- attachment by instantiating the firewall endpoint in the subnet so that
+-- it\'s ready to take traffic. This is part of the FirewallStatus.
+--
 -- 'config', 'syncState_config' - The configuration status of the firewall endpoint in a single VPC
 -- subnet. Network Firewall provides each endpoint with the rules that are
 -- configured in the firewall policy. Each time you add a subnet or modify
 -- the associated firewall policy, Network Firewall synchronizes the rules
 -- in the endpoint, so it can properly filter network traffic. This is part
 -- of the FirewallStatus.
---
--- 'attachment', 'syncState_attachment' - The attachment status of the firewall\'s association with a single VPC
--- subnet. For each configured subnet, Network Firewall creates the
--- attachment by instantiating the firewall endpoint in the subnet so that
--- it\'s ready to take traffic. This is part of the FirewallStatus.
 newSyncState ::
   SyncState
 newSyncState =
   SyncState'
-    { config = Prelude.Nothing,
-      attachment = Prelude.Nothing
+    { attachment = Prelude.Nothing,
+      config = Prelude.Nothing
     }
+
+-- | The attachment status of the firewall\'s association with a single VPC
+-- subnet. For each configured subnet, Network Firewall creates the
+-- attachment by instantiating the firewall endpoint in the subnet so that
+-- it\'s ready to take traffic. This is part of the FirewallStatus.
+syncState_attachment :: Lens.Lens' SyncState (Prelude.Maybe Attachment)
+syncState_attachment = Lens.lens (\SyncState' {attachment} -> attachment) (\s@SyncState' {} a -> s {attachment = a} :: SyncState)
 
 -- | The configuration status of the firewall endpoint in a single VPC
 -- subnet. Network Firewall provides each endpoint with the rules that are
@@ -94,29 +102,22 @@ newSyncState =
 syncState_config :: Lens.Lens' SyncState (Prelude.Maybe (Prelude.HashMap Prelude.Text PerObjectStatus))
 syncState_config = Lens.lens (\SyncState' {config} -> config) (\s@SyncState' {} a -> s {config = a} :: SyncState) Prelude.. Lens.mapping Lens.coerced
 
--- | The attachment status of the firewall\'s association with a single VPC
--- subnet. For each configured subnet, Network Firewall creates the
--- attachment by instantiating the firewall endpoint in the subnet so that
--- it\'s ready to take traffic. This is part of the FirewallStatus.
-syncState_attachment :: Lens.Lens' SyncState (Prelude.Maybe Attachment)
-syncState_attachment = Lens.lens (\SyncState' {attachment} -> attachment) (\s@SyncState' {} a -> s {attachment = a} :: SyncState)
-
-instance Core.FromJSON SyncState where
+instance Data.FromJSON SyncState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SyncState"
       ( \x ->
           SyncState'
-            Prelude.<$> (x Core..:? "Config" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Attachment")
+            Prelude.<$> (x Data..:? "Attachment")
+            Prelude.<*> (x Data..:? "Config" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable SyncState where
   hashWithSalt _salt SyncState' {..} =
-    _salt `Prelude.hashWithSalt` config
-      `Prelude.hashWithSalt` attachment
+    _salt `Prelude.hashWithSalt` attachment
+      `Prelude.hashWithSalt` config
 
 instance Prelude.NFData SyncState where
   rnf SyncState' {..} =
-    Prelude.rnf config
-      `Prelude.seq` Prelude.rnf attachment
+    Prelude.rnf attachment
+      `Prelude.seq` Prelude.rnf config
